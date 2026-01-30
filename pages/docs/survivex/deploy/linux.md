@@ -63,11 +63,11 @@ docker -v
 ## 3. Create JDK Image
 Click **Create JDK 21** at the position shown in the image below.
 
-![Node-Image Management](https://survivex.cn-nb1.rains3.com/basic/v1/x2.png)
+![Node-Image Management](/images/survivex/basic/x2.png)
 
-![Add Image](https://survivex.cn-nb1.rains3.com/basic/v1/x3.png)
+![Add Image](/images/survivex/basic/x3.png)
 
-![Use DockerFile Custom Creation](https://survivex.cn-nb1.rains3.com/basic/v1/x6.png)
+![Use DockerFile Custom Creation](/images/survivex/basic/x6.png)
 
 **Enter the following content**
 
@@ -81,7 +81,7 @@ ENV TZ=Asia/Shanghai
 WORKDIR /workspace
 ```
 
-![Fill Content](https://survivex.cn-nb1.rains3.com/basic/v1/x5.png)
+![Fill Content](/images/survivex/basic/x5.png)
 Click create image.
 
 # Server Deployment Process
@@ -89,7 +89,7 @@ Click create image.
 ## 4. Create Server Application
 Click **Create Server Application** at the position shown in the image below.
 
-![Create Application](https://survivex.cn-nb1.rains3.com/basic/v1/x7.png)
+![Create Application](/images/survivex/basic/x7.png)
 
 **Click in sequence**: Minecraft Java Edition Game Server -> localhost:24444 (not necessarily) -> Upload server file compressed package
 
@@ -108,7 +108,7 @@ Specific configuration parameter description:
 ## 5. Container Virtualization Configuration
 Click **Set Server Virtualization** at the position shown in the image below.
 
-![Create Application](https://survivex.cn-nb1.rains3.com/basic/v1/x8.png)
+![Create Application](/images/survivex/basic/x8.png)
 
 Container virtualization configuration requirements:
 
@@ -122,4 +122,4 @@ Container virtualization configuration requirements:
 **Docker Image**: [Select your created JDK 21 image]
 ```
 
-![Configuration Content](https://survivex.cn-nb1.rains3.com/basic/v1/x9.png)
+![Configuration Content](/images/survivex/basic/x9.png)

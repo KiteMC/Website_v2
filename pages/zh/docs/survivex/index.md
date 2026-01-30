@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "SurviveX"
   text: "高性能 Minecraft 服务端软件"
-  image: https://kite.cn-nb1.rains3.com/logo.svg
+  image: /images/logo/kitemc.svg
   tagline: 基于 Leaves 1.21.4 核心版本，功能丰富
   actions:
     - theme: brand

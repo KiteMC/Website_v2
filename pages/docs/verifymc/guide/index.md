@@ -34,13 +34,13 @@
 ## 🖼️ Screenshots (GlassX Theme)
 
 ### Home Page
-![Home GlassX](https://verifymc.cn-nb1.rains3.com/docs/screenshot-home-glassx.png)
+![Home GlassX](/images/verifymc/docs/screenshot-home-glassx.png)
 
 ### Registration Page
-![Registration GlassX](https://verifymc.cn-nb1.rains3.com/docs/screenshot-register-glassx.png)
+![Registration GlassX](/images/verifymc/docs/screenshot-register-glassx.png)
 
 ### Admin Panel
-![Admin GlassX](https://verifymc.cn-nb1.rains3.com/docs/screenshot-admin-glassx.png)
+![Admin GlassX](/images/verifymc/docs/screenshot-admin-glassx.png)
 
 ---
 

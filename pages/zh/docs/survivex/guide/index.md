@@ -56,25 +56,25 @@
 ## 📸 截图展示
 
 ### 🏠 主界面
-![主界面](https://survivex.cn-nb1.rains3.com/guide/v1/x2.png)
+![主界面](/images/survivex/guide/x2.png)
 
 ### 🚀 传送菜单
-![传送菜单](https://survivex.cn-nb1.rains3.com/guide/v1/x4.png)
+![传送菜单](/images/survivex/guide/x4.png)
 
 ### ⚡ 更多附魔
-![更多附魔](https://survivex.cn-nb1.rains3.com/guide/v1/x3.png)
+![更多附魔](/images/survivex/guide/x3.png)
 
 ### 💼 职业系统
-![职业](https://survivex.cn-nb1.rains3.com/guide/v1/x5.png)
+![职业](/images/survivex/guide/x5.png)
 
 ### 🎭 皮肤菜单
-![皮肤菜单](https://survivex.cn-nb1.rains3.com/guide/v1/x6.png)
+![皮肤菜单](/images/survivex/guide/x6.png)
 
 ### 🏡 家管理
-![家管理](https://survivex.cn-nb1.rains3.com/guide/v1/x7.png)
+![家管理](/images/survivex/guide/x7.png)
 
 ### 😴 自动调整睡觉所需时间
-![自动调整睡觉所需时间](https://survivex.cn-nb1.rains3.com/guide/v1/x8.png)
+![自动调整睡觉所需时间](/images/survivex/guide/x8.png)
 
 
 ### 📚 详细文档

@@ -77,11 +77,11 @@ systemctl restart docker.service
 ## 4. 创建JDK镜像
 点击下图所示位置**创建JDK 21**.
 
-![节点-镜像管理](https://survivex.cn-nb1.rains3.com/basic/v1/x2.png)
+![节点-镜像管理](/images/survivex/basic/x2.png)
 
-![新增镜像](https://survivex.cn-nb1.rains3.com/basic/v1/x3.png)
+![新增镜像](/images/survivex/basic/x3.png)
 
-![使用 DockerFile 自定义创建](https://survivex.cn-nb1.rains3.com/basic/v1/x6.png)
+![使用 DockerFile 自定义创建](/images/survivex/basic/x6.png)
 
 **填入以下内容**
 
@@ -95,7 +95,7 @@ ENV TZ=Asia/Shanghai
 WORKDIR /workspace
 ```
 
-![填写内容](https://survivex.cn-nb1.rains3.com/basic/v1/x5.png)
+![填写内容](/images/survivex/basic/x5.png)
 点击创建镜像即可.
 
 # 服务端部署流程
@@ -103,7 +103,7 @@ WORKDIR /workspace
 ## 5. 创建服务端应用
 点击下图所示位置**创建服务器应用**.
 
-![创建应用](https://survivex.cn-nb1.rains3.com/basic/v1/x7.png)
+![创建应用](/images/survivex/basic/x7.png)
 
 **依次点击** : Minecraft Java版游戏服务器 -> localhost:24444 (不一定) -> 上传服务端文件压缩包
 
@@ -122,7 +122,7 @@ WORKDIR /workspace
 ## 6. 容器虚拟化配置
 点击下图所示位置**设置服务器虚拟化**.
 
-![创建应用](https://survivex.cn-nb1.rains3.com/basic/v1/x8.png)
+![创建应用](/images/survivex/basic/x8.png)
 
 
 容器虚拟化配置要求：
@@ -137,5 +137,5 @@ WORKDIR /workspace
 **Docker 镜像** : [选择您创建的JDK 21镜像]
 ```
 
-![配置内容](https://survivex.cn-nb1.rains3.com/basic/v1/x9.png)
+![配置内容](/images/survivex/basic/x9.png)
 

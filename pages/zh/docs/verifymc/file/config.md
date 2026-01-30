@@ -1,0 +1,376 @@
+# 配置文件
+
+本文档详细说明 `config.yml` 中所有配置选项的用途和用法。
+
+## 全局设置
+
+```yaml
+# 全局语言设置，影响插件消息和网页界面。(例如 'zh', 'en')
+language: zh
+
+# 开启后，控制台会输出详细的日志，用于故障排查。
+debug: false
+```
+
+## 网页服务器
+
+```yaml
+# 网页服务使用的端口。
+web_port: 8080
+
+# 显示在网页界面上的服务器名称。
+web_server_prefix: '[ 服务器名称 ]'
+```
+
+## 验证与白名单
+
+```yaml
+# 支持的验证方式。可选: 'email'（邮箱验证码）, 'captcha'（图形验证码）。
+# 可以同时使用多种方式，例如: [email, captcha]
+# 
+# 【重要】仅配置下方的 captcha: 部分不会启用图形验证码！
+# 要启用图形验证码，必须在此列表中添加 'captcha'：
+#   仅使用图形验证码: auth_methods: [captcha]
+#   同时使用邮箱和图形验证码: auth_methods: [email, captcha]
+auth_methods:
+  - email
+
+# 单个邮箱最多可以绑定的游戏账号数量。
+max_accounts_per_email: 2
+
+# 白名单模式: 'bukkit' (与服务器的 whitelist.json 同步) 或 'plugin' (使用插件内部数据库)。
+whitelist_mode: plugin
+
+# 在 'plugin' 模式下，向未在白名单中的玩家显示的注册URL。
+web_register_url: https://domain.com/
+```
+
+## 注册
+
+```yaml
+# 如果为 true，新用户注册将自动通过。
+# 如果为 false，则需要管理员手动审核。
+register:
+  auto_approve: false
+```
+
+## 用户与安全
+
+```yaml
+# 用于验证玩家名的正则表达式。
+username_regex: "^[a-zA-Z0-9_-]{3,16}$"
+
+# 如果为 false，则仅大小写不同的用户名（例如 "Player" 和 "player"）将被视为相同。
+username_case_sensitive: false
+
+# 允许免白名单登录服务器的IP地址列表。
+whitelist_bypass_ips:
+  - 127.0.0.1
+
+# 访问网页管理面板的密码。
+admin:
+  password: your_custom_password
+```
+
+## 用户通知
+
+```yaml
+# 当管理员审核用户申请后，向用户发送邮件通知。
+user_notification:
+  # 是否启用用户通知功能
+  enabled: true
+  # 审核通过时是否发送通知邮件
+  on_approve: true
+  # 审核拒绝时是否发送通知邮件
+  on_reject: true
+```
+
+## 前端 (UI)
+
+```yaml
+frontend:
+  # 网页界面的视觉主题。可选: 'glassx'。
+  theme: glassx
+  
+  # Logo 的 URL。可以是网页链接或本地文件路径 (例如 '/logo.png')。
+  logo_url: /logo.png
+  
+  # 显示在主页上的公告信息。
+  announcement: 欢迎来到我们的服务器!
+```
+
+## 邮箱 (SMTP)
+
+```yaml
+smtp:
+  host: smtp.qq.com
+  port: 587
+  username: your_email@qq.com
+  password: your_email_password
+  from: your_email@qq.com
+  enable_ssl: true
+
+# 验证码邮件的主题（标题）
+email_subject: VerifyMC 验证码
+```
+
+### 常见 SMTP 配置
+
+| 服务商 | Host | Port | SSL |
+|--------|------|------|-----|
+| Gmail | smtp.gmail.com | 587 | true |
+| QQ 邮箱 | smtp.qq.com | 587 | true |
+| Outlook | smtp.office365.com | 587 | true |
+| 163 邮箱 | smtp.163.com | 465 | true |
+
+## 同步设置 (用于 Bukkit 模式)
+
+```yaml
+# 如果为 true，会自动将 whitelist.json 的变更同步到插件数据库。
+whitelist_json_sync: true
+
+# 如果为 true，会自动将已批准的玩家添加到 whitelist.json，并移除被封禁/删除的玩家。
+auto_sync_whitelist: true
+
+# 如果关闭了 'bukkit' 模式，此项若为 true，则会从 whitelist.json 清理本插件添加过的玩家。
+auto_cleanup_whitelist: true
+```
+
+## 自动更新与备份
+
+```yaml
+# 如果为 true，插件更新时会自动向 config.yml 中添加新增的配置项。
+auto_update_config: true
+
+# 如果为 true，将自动更新语言文件。
+auto_update_i18n: true
+
+# 如果为 true，将自动更新邮件模板。
+auto_update_email: true
+
+# 如果为 true，将自动更新主题文件。
+auto_update_static: true
+
+# 如果为 true，将在自动更新前完整备份插件数据文件夹。
+backup_on_update: true
+```
+
+## 邮箱注册限制
+
+```yaml
+# 是否启用邮箱域名白名单
+enable_email_domain_whitelist: true
+
+# 是否限制邮箱别名（如禁止 user+xxx@gmail.com）
+enable_email_alias_limit: false
+
+# 邮箱域名白名单，留空则使用默认主流邮箱域
+email_domain_whitelist:
+  - gmail.com
+  - 163.com
+  - 126.com
+  - qq.com
+  - outlook.com
+  - hotmail.com
+  - icloud.com
+  - yahoo.com
+  - foxmail.com
+```
+
+## 存储与数据迁移
+
+```yaml
+storage:
+  # 存储类型，可选: data（本地文件）, mysql（外部数据库）
+  type: data
+  
+  # 是否在 storage.type 切换时自动将原存储的数据迁移到新存储
+  auto_migrate_on_switch: false
+  
+  mysql:
+    host: localhost
+    port: 3306
+    database: verifymc
+    user: root
+    password: yourpassword
+```
+
+## AuthMe 集成配置
+
+```yaml
+authme:
+  # 是否启用 AuthMe 集成功能
+  enabled: true
+  
+  # 是否强制在 Web 注册时要求输入密码
+  require_password: true
+  
+  # 是否在通过审核时自动注册至 AuthMe
+  auto_register: false
+  
+  # 是否在删除用户时自动从 AuthMe 注销
+  auto_unregister: false
+  
+  # 密码正则表达式
+  password_regex: "^[a-zA-Z0-9_]{3,16}$"
+```
+
+## 图形验证码配置
+
+```yaml
+# 图形验证码可作为邮箱验证的替代或补充方案
+# 在 auth_methods 中添加 'captcha' 来启用: auth_methods: [captcha]
+captcha:
+  # 验证码类型: math（数学表达式）或 text（随机字符）
+  type: math
+  
+  # 文本验证码长度（math 类型时忽略此项）
+  length: 4
+  
+  # 验证码过期时间（秒）
+  expire_seconds: 300
+```
+
+## 基岩版玩家支持
+
+```yaml
+# 适用于 Geyser/Floodgate 的基岩版玩家
+bedrock:
+  # 是否启用基岩版玩家支持
+  enabled: false
+  
+  # 基岩版玩家用户名前缀（Floodgate 常用 "."）
+  prefix: "."
+  
+  # 基岩版用户名正则表达式
+  username_regex: "^\\.[a-zA-Z0-9_\\s]{3,16}$"
+```
+
+## 问卷调查配置
+
+```yaml
+# 详细问题配置请参见 questionnaire.yml
+questionnaire:
+  # 是否启用问卷功能
+  enabled: false
+  
+  # 通过所需的最低分数
+  pass_score: 60
+  
+  # 问卷通过后是否自动批准用户
+  auto_approve_on_pass: false
+```
+
+## Discord 集成（OAuth2）
+
+```yaml
+# 需要在 https://discord.com/developers/applications 创建 Discord 应用
+discord:
+  # 是否启用 Discord 集成
+  enabled: false
+  
+  # Discord 应用的客户端ID
+  client_id: ""
+  
+  # Discord 应用的客户端密钥
+  client_secret: ""
+  
+  # OAuth2 回调地址
+  redirect_uri: "https://yourdomain.com/api/discord/callback"
+  
+  # 可选：要求用户加入特定服务器的ID
+  guild_id: ""
+  
+  # 是否强制要求绑定 Discord 才能注册
+  required: false
+```
+
+---
+
+## 完整配置示例
+
+```yaml
+language: zh
+debug: false
+web_port: 8080
+web_server_prefix: '[ 服务器名称 ]'
+
+auth_methods:
+  - email
+
+max_accounts_per_email: 2
+whitelist_mode: plugin
+web_register_url: https://domain.com/
+
+register:
+  auto_approve: false
+
+username_regex: "^[a-zA-Z0-9_-]{3,16}$"
+username_case_sensitive: false
+
+whitelist_bypass_ips:
+  - 127.0.0.1
+
+admin:
+  password: your_custom_password
+
+user_notification:
+  enabled: true
+  on_approve: true
+  on_reject: true
+
+frontend:
+  theme: glassx
+  logo_url: /logo.png
+  announcement: 欢迎!
+
+smtp:
+  host: smtp.qq.com
+  port: 587
+  username: your_email@qq.com
+  password: your_password
+  from: your_email@qq.com
+  enable_ssl: true
+
+email_subject: VerifyMC 验证码
+
+storage:
+  type: data
+  auto_migrate_on_switch: false
+  mysql:
+    host: localhost
+    port: 3306
+    database: verifymc
+    user: root
+    password: yourpassword
+
+authme:
+  enabled: true
+  require_password: true
+  auto_register: false
+  auto_unregister: false
+  password_regex: "^[a-zA-Z0-9_]{3,16}$"
+
+captcha:
+  type: math
+  length: 4
+  expire_seconds: 300
+
+bedrock:
+  enabled: false
+  prefix: "."
+  username_regex: "^\\.[a-zA-Z0-9_\\s]{3,16}$"
+
+questionnaire:
+  enabled: false
+  pass_score: 60
+  auto_approve_on_pass: false
+
+discord:
+  enabled: false
+  client_id: ""
+  client_secret: ""
+  redirect_uri: "https://yourdomain.com/api/discord/callback"
+  guild_id: ""
+  required: false
+```

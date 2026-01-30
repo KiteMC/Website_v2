@@ -1,0 +1,51 @@
+# Mac filesystem dust
+.DS_Store/
+.DS_Store
+
+# Linux temp files
+*~
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IntelliJ / WebStorm
+*.iml
+.idea
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Node.JS
+node_modules
+package-lock.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Vitepress
+pages/.vitepress/cache
+pages/.vitepress/dist
+
+# Build outputs
+dist
+*.local
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# qoder 
+.qoder
+
+# Logs
+logs
+*.log

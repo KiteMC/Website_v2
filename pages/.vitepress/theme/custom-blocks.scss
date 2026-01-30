@@ -1,0 +1,115 @@
+/**
+ * Custom Blocks Styling
+ * Enhanced container styling for tip, warning, danger, info blocks
+ */
+
+/* Custom container base styles */
+.custom-block {
+  margin: 1rem 0;
+  padding: 1rem 1.5rem;
+  border-radius: var(--vp-border-radius, 8px);
+  border-left: 4px solid;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateX(2px);
+  }
+
+  .custom-block-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  p {
+    margin: 0.5rem 0;
+    line-height: 1.7;
+  }
+}
+
+/* Tip block */
+.custom-block.tip {
+  border-color: var(--vp-c-tip-1);
+  background-color: var(--vp-c-tip-soft);
+
+  .custom-block-title {
+    color: var(--vp-c-tip-1);
+
+    &::before {
+      content: '💡';
+    }
+  }
+}
+
+/* Warning block */
+.custom-block.warning {
+  border-color: var(--vp-c-warning-1);
+  background-color: var(--vp-c-warning-soft);
+
+  .custom-block-title {
+    color: var(--vp-c-warning-1);
+
+    &::before {
+      content: '⚠️';
+    }
+  }
+}
+
+/* Danger block */
+.custom-block.danger {
+  border-color: var(--vp-c-danger-1);
+  background-color: var(--vp-c-danger-soft);
+
+  .custom-block-title {
+    color: var(--vp-c-danger-1);
+
+    &::before {
+      content: '🚨';
+    }
+  }
+}
+
+/* Info block */
+.custom-block.info {
+  border-color: var(--vp-c-brand-1);
+  background-color: var(--vp-c-brand-soft);
+
+  .custom-block-title {
+    color: var(--vp-c-brand-1);
+
+    &::before {
+      content: 'ℹ️';
+    }
+  }
+}
+
+/* Details block (collapsible) */
+.custom-block.details {
+  border-color: var(--vp-c-divider);
+  background-color: var(--vp-c-bg-soft);
+
+  summary {
+    cursor: pointer;
+    font-weight: 600;
+    padding: 0.5rem 0;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--vp-c-brand-1);
+    }
+
+    &::marker {
+      color: var(--vp-c-brand-1);
+    }
+  }
+
+  &[open] {
+    summary {
+      margin-bottom: 0.5rem;
+      border-bottom: 1px solid var(--vp-c-divider);
+      padding-bottom: 0.5rem;
+    }
+  }
+}

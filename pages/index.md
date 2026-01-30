@@ -7,7 +7,7 @@ hero:
   text: 'Documentation'
   tagline: 'Documentation for all KiteMC team projects'
   image:
-    src: https://kite.cn-nb1.rains3.com/logo.svg
+    src: /images/logo/kitemc.svg
     alt: SurviveX
   actions:
     - theme: brand

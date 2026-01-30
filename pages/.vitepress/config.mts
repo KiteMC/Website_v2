@@ -6,12 +6,12 @@ export default defineConfig({
   title: "KiteMC",
   description: "Documentation for all KiteMC team projects",
   head: [
-    ["link", { rel: "icon", href: "https://kite.cn-nb1.rains3.com/logo.svg" }],
+    ["link", { rel: "icon", href: "/images/logo/kitemc.svg" }],
     ["meta", { name: "keywords", content: "KiteMC, SurviveX, VerifyMC, Minecraft, Server, Documentation" }],
     ["meta", { property: "og:type", content: "website" }],
     ["meta", { property: "og:title", content: "KiteMC Documentation" }],
     ["meta", { property: "og:description", content: "Documentation for all KiteMC team projects" }],
-    ["meta", { property: "og:image", content: "https://kite.cn-nb1.rains3.com/logo.svg" }],
+    ["meta", { property: "og:image", content: "/images/logo/kitemc.svg" }],
     ["meta", { name: "twitter:card", content: "summary" }],
   ],
 
@@ -57,7 +57,7 @@ export default defineConfig({
   },
 
   themeConfig: {
-    logo: "https://kite.cn-nb1.rains3.com/logo.svg",
+    logo: "/images/logo/kitemc.svg",
 
     nav: [
       { text: "Home", link: "/" },

@@ -7,7 +7,7 @@ hero:
   text: '文档'
   tagline: 'KiteMC 团队的所有项目文档'
   image:
-    src: https://kite.cn-nb1.rains3.com/logo.svg
+    src: /images/logo/kitemc.svg
     alt: SurviveX
   actions:
     - theme: brand

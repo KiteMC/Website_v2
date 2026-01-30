@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "VerifyMC"
   text: "Modern Minecraft Whitelist & Registration Plugin"
-  image: https://verifymc.cn-nb1.rains3.com/logo.svg
+  image: /images/logo/verifymc.svg
   tagline: Powerful, secure, and extensible whitelist management for Minecraft servers
   actions:
     - theme: brand

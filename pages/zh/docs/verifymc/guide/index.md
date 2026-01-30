@@ -34,13 +34,13 @@
 ## 🖼️ 截图预览（GlassX 主题）
 
 ### 首页
-![首页 GlassX](https://verifymc.cn-nb1.rains3.com/docs/zh/screenshot-home-glassx.png)
+![首页 GlassX](/images/verifymc/docs/zh/screenshot-home-glassx.png)
 
 ### 注册页
-![注册页 GlassX](https://verifymc.cn-nb1.rains3.com/docs/zh/screenshot-register-glassx.png)
+![注册页 GlassX](/images/verifymc/docs/zh/screenshot-register-glassx.png)
 
 ### 管理后台
-![后台 GlassX](https://verifymc.cn-nb1.rains3.com/docs/zh/screenshot-admin-glassx.png)
+![后台 GlassX](/images/verifymc/docs/zh/screenshot-admin-glassx.png)
 ---
 
 ## 🛠️ 技术栈

@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "VerifyMC"
   text: "现代化 Minecraft 白名单与注册插件"
-  image: https://verifymc.cn-nb1.rains3.com/logo.svg
+  image: /images/logo/verifymc.svg
   tagline: 强大、安全、可扩展的 Minecraft 服务器白名单管理
   actions:
     - theme: brand

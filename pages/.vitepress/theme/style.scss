@@ -411,6 +411,20 @@ html.dark {
 }
 
 /**
+ * Mobile Navigation Screen Fix
+ * backdrop-filter on VPNav creates a containing block that breaks
+ * VPNavScreen's fixed positioning. We need to recalculate the height
+ * to be relative to the viewport instead of the parent.
+ * -------------------------------------------------------------------------- */
+.VPNavScreen {
+  /* Override the default positioning that breaks due to backdrop-filter containing block */
+  height: calc(100vh - var(--vp-nav-height)) !important;
+  height: calc(100dvh - var(--vp-nav-height)) !important; /* Use dvh for mobile browsers */
+  top: var(--vp-nav-height) !important;
+  bottom: auto !important;
+}
+
+/**
  * Page transition effects - Blur fade in
  * -------------------------------------------------------------------------- */
 .VPContent {

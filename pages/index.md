@@ -1,5 +1,16 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
+title: KiteMC - Minecraft Server Tools & Plugins
+description: Official documentation for KiteMC team projects including SurviveX server software, VerifyMC whitelist plugin, and ArcPass battle pass system.
+head:
+  - - meta
+    - name: keywords
+      content: KiteMC, Minecraft, server, plugin, SurviveX, VerifyMC, ArcPass, documentation
+  - - meta
+    - property: og:title
+      content: KiteMC - Minecraft Server Tools & Plugins
+  - - meta
+    - property: og:description
+      content: Official documentation for KiteMC team projects including SurviveX, VerifyMC, and ArcPass.
 layout: home
 
 hero:
@@ -8,26 +19,46 @@ hero:
   tagline: 'Documentation for all KiteMC team projects'
   image:
     src: /images/logo/kitemc.svg
-    alt: SurviveX
+    alt: KiteMC
   actions:
     - theme: brand
       text: GitHub
       link: https://github.com/KiteMC/
-
-features:
-  - icon: S
-    title: SurviveX
-    details: SurviveX | Next-generation survival and technical server
-    link: ./docs/survivex/
-    linkText: 'Start Reading'
-  - icon: V
-    title: VerifyMC
-    details: VerifyMC | Real-name Email Verification Plugin with Web-based Management
-    link: ./docs/verifymc/
-    linkText: 'Start Reading'
-  - icon: R
-    title: Rainyun
-    details: Rainyun | Next-generation cloud service provider
-    link: https://cloud.kitemc.com/
-    linkText: 'Visit Website'
 ---
+
+## Our Projects
+
+<ProductGrid :cols="3">
+  <ProductCard
+    title="SurviveX"
+    description="Next-generation survival and technical Minecraft server software with optimized performance"
+    icon="survivex"
+    href="./docs/survivex/"
+    link-text="Start Reading"
+  />
+  <ProductCard
+    title="VerifyMC"
+    description="Real-name email verification plugin with web-based management dashboard"
+    image="/images/logo/verifymc.svg"
+    href="./docs/verifymc/"
+    link-text="Start Reading"
+  />
+  <ProductCard
+    title="ArcPass"
+    description="Powerful battle pass system for Minecraft servers with multi-tier rewards and seasons"
+    icon="arcpass"
+    href="./docs/arcpass/"
+    link-text="Start Reading"
+  />
+</ProductGrid>
+
+## Friend Links
+
+<FriendLinks :links="[
+  {
+    name: 'Rainyun',
+    description: 'Cloud service provider',
+    image: '/images/logo/rainyun.png',
+    href: 'https://cloud.kitemc.com/'
+  }
+]" />

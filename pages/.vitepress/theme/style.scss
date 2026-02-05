@@ -63,7 +63,7 @@ html.dark {
   /* Glow colors for effects */
   --glow-color: rgba(159, 122, 234, 0.5);
   --glow-color-strong: rgba(159, 122, 234, 0.8);
-  
+
   /* Navbar glass background for dark mode */
   --navbar-glass-bg: rgba(22, 22, 26, 0.65);
   --navbar-glass-bg-hover: rgba(22, 22, 26, 0.75);
@@ -125,7 +125,7 @@ html.dark {
   /* Global settings */
   --vp-border-radius: 0.5rem;
   --vp-anim-dur: 150ms;
-  
+
   /* Navbar glass background for light mode */
   --navbar-glass-bg: rgba(255, 255, 255, 0.65);
   --navbar-glass-bg-hover: rgba(255, 255, 255, 0.8);
@@ -138,18 +138,14 @@ html.dark {
  * -------------------------------------------------------------------------- */
 :root {
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(
-    120deg,
-    #B794F4 0%,
-    #9F7AEA 40%,
-    #63B3ED 100%
-  );
+  --vp-home-hero-name-background: linear-gradient(120deg,
+      #B794F4 0%,
+      #9F7AEA 40%,
+      #63B3ED 100%);
 
-  --vp-home-hero-image-background-image: linear-gradient(
-    -45deg,
-    #805AD5 50%,
-    #4299E1 50%
-  );
+  --vp-home-hero-image-background-image: linear-gradient(-45deg,
+      #805AD5 50%,
+      #4299E1 50%);
   --vp-home-hero-image-filter: blur(44px);
 }
 
@@ -158,17 +154,17 @@ html.dark {
   .name {
     animation: heroNameGlow 3s ease-in-out infinite alternate;
   }
-  
+
   .tagline {
     opacity: 0;
     animation: fadeInUp 0.6s ease-out 0.3s forwards;
   }
-  
+
   .actions {
     opacity: 0;
     animation: fadeInUp 0.6s ease-out 0.5s forwards;
   }
-  
+
   .image-container {
     animation: floatAnimation 6s ease-in-out infinite;
   }
@@ -178,6 +174,7 @@ html.dark {
   0% {
     filter: drop-shadow(0 0 20px var(--glow-color));
   }
+
   100% {
     filter: drop-shadow(0 0 35px var(--glow-color-strong));
   }
@@ -188,6 +185,7 @@ html.dark {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -195,9 +193,12 @@ html.dark {
 }
 
 @keyframes floatAnimation {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -217,122 +218,65 @@ html.dark {
  * Feature cards enhancements
  * -------------------------------------------------------------------------- */
 .VPFeatures {
-  .emoji {
-    font-size: 20px;
-    padding: 4px;
-    border-radius: 5px;
-    margin-right: 5px;
-    background: var(--vp-c-default-soft);
-  }
-  
   .VPFeature {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: border-color 0.2s ease;
     border: 1px solid var(--vp-c-divider);
     background: var(--vp-c-bg-soft);
-    
+
     &:hover {
-      transform: translateY(-6px);
-      border-color: var(--vp-c-brand-2);
-      box-shadow: 
-        0 12px 24px -8px rgba(0, 0, 0, 0.3),
-        0 0 0 1px var(--vp-c-brand-soft),
-        0 0 30px -10px var(--glow-color);
-      background: linear-gradient(
-        135deg,
-        var(--vp-c-bg-soft) 0%,
-        rgba(159, 122, 234, 0.05) 100%
-      );
+      border-color: var(--vp-c-brand-soft);
     }
-    
+
     .title {
-      transition: color 0.3s ease;
+      transition: color 0.2s ease;
     }
-    
+
     &:hover .title {
       color: var(--vp-c-brand-1);
     }
-    
-    .icon {
-      transition: transform 0.3s ease;
-    }
-    
-    &:hover .icon {
-      transform: scale(1.1);
+
+    /* SVG icon styling */
+    .VPImage {
+      width: 48px;
+      height: 48px;
+      padding: 10px;
+      background: var(--vp-c-brand-soft);
+      border-radius: 10px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        filter: none;
+      }
     }
   }
 }
 
-/* Feature cards staggered animation on page load */
-.VPFeatures .VPFeature {
-  opacity: 0;
-  animation: featureCardFadeIn 0.5s ease-out forwards;
-  
-  &:nth-child(1) { animation-delay: 0.1s; }
-  &:nth-child(2) { animation-delay: 0.2s; }
-  &:nth-child(3) { animation-delay: 0.3s; }
-  &:nth-child(4) { animation-delay: 0.4s; }
-  &:nth-child(5) { animation-delay: 0.5s; }
-  &:nth-child(6) { animation-delay: 0.6s; }
+/* SVG icons color - using CSS filter to colorize */
+.VPFeatures .VPFeature .VPImage img,
+.VPFeatures .VPFeature .icon img {
+  filter: brightness(0) saturate(100%) invert(35%) sepia(50%) saturate(1000%) hue-rotate(230deg) brightness(95%) contrast(90%);
 }
 
-@keyframes featureCardFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+html.dark .VPFeatures .VPFeature .VPImage img,
+html.dark .VPFeatures .VPFeature .icon img {
+  filter: brightness(0) saturate(100%) invert(70%) sepia(30%) saturate(800%) hue-rotate(220deg) brightness(105%) contrast(95%);
 }
 
 /**
- * Button glow effects
+ * Button styles - Clean and minimal
  * -------------------------------------------------------------------------- */
 .VPButton {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease !important;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.5s ease, height 0.5s ease;
-  }
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 
-      0 0 20px var(--glow-color),
-      0 0 40px rgba(159, 122, 234, 0.2);
-    
-    &::before {
-      width: 300px;
-      height: 300px;
-    }
-  }
-  
-  &:active {
-    transform: translateY(0);
-  }
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
 .VPButton.brand {
-  background: linear-gradient(135deg, var(--vp-c-brand-2), var(--vp-c-brand-3));
+  background: var(--vp-c-brand-2);
   border: none;
-  
+
   &:hover {
-    box-shadow: 
-      0 0 25px var(--vp-c-brand-2),
-      0 0 50px var(--glow-color);
-    background: linear-gradient(135deg, var(--vp-c-brand-1), var(--vp-c-brand-2));
+    background: var(--vp-c-brand-1);
+    box-shadow: 0 2px 8px rgba(159, 122, 234, 0.3);
   }
 }
 
@@ -340,9 +284,6 @@ html.dark {
   &:hover {
     border-color: var(--vp-c-brand-2);
     color: var(--vp-c-brand-1);
-    box-shadow: 
-      0 0 15px var(--glow-color),
-      inset 0 0 20px rgba(159, 122, 234, 0.1);
   }
 }
 
@@ -362,21 +303,21 @@ html.dark {
 .VPNavBar {
   background: transparent !important;
   border-bottom: none !important;
-  
+
   /* Remove the default divider line */
   &.has-sidebar .divider,
   .divider {
     display: none !important;
   }
-  
+
   .VPNavBarTitle .title {
     transition: color 0.2s ease;
-    
+
     &:hover {
       color: var(--vp-c-brand-1);
     }
   }
-  
+
   /* Keep container transparent - glass is on VPNav */
   .container {
     background: transparent;
@@ -387,7 +328,7 @@ html.dark {
     max-width: none;
     box-shadow: none;
   }
-  
+
   /* Reset content-body styles */
   .content-body {
     background: transparent;
@@ -400,13 +341,12 @@ html.dark {
   }
 }
 
-/* Nav menu items glow on hover */
+/* Nav menu items styling */
 .VPNavBarMenuLink {
-  transition: all 0.2s ease;
-  
+  transition: color 0.2s ease;
+
   &:hover {
     color: var(--vp-c-brand-1);
-    text-shadow: 0 0 10px var(--glow-color);
   }
 }
 
@@ -419,7 +359,8 @@ html.dark {
 .VPNavScreen {
   /* Override the default positioning that breaks due to backdrop-filter containing block */
   height: calc(100vh - var(--vp-nav-height)) !important;
-  height: calc(100dvh - var(--vp-nav-height)) !important; /* Use dvh for mobile browsers */
+  height: calc(100dvh - var(--vp-nav-height)) !important;
+  /* Use dvh for mobile browsers */
   top: var(--vp-nav-height) !important;
   bottom: auto !important;
 }
@@ -437,7 +378,7 @@ html.page-transitioning {
     transform: translateY(8px);
     filter: blur(4px);
   }
-  
+
   .VPDoc,
   .VPHome {
     opacity: 0;
@@ -458,6 +399,7 @@ html.page-transitioning {
     filter: blur(8px);
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     filter: blur(0);
@@ -470,16 +412,16 @@ html.page-transitioning {
  * -------------------------------------------------------------------------- */
 .VPSidebar {
   transition: width 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
-  
+
   .VPSidebarItem {
     transition: all 0.2s ease;
-    
+
     .item {
       .link {
         padding: 6px 12px;
         border-radius: var(--vp-border-radius);
         transition: all 0.2s ease;
-        
+
         .text {
           font-size: 14px;
           line-height: 1.5;
@@ -488,21 +430,21 @@ html.page-transitioning {
         }
       }
     }
-    
-    &.is-active > .item .link,
-    &.is-link.is-active > .item .link {
+
+    &.is-active>.item .link,
+    &.is-link.is-active>.item .link {
       background: var(--vp-c-brand-soft);
       color: var(--vp-c-brand-1);
       box-shadow: 0 0 10px rgba(159, 122, 234, 0.15);
     }
-    
+
     &.is-active .text,
     .is-active .text {
       color: var(--vp-c-brand-1);
       font-weight: 500;
     }
   }
-  
+
   .VPSidebarItem .item .link:hover {
     background: var(--vp-c-bg-elv);
     color: var(--vp-c-brand-1);
@@ -515,7 +457,7 @@ html.page-transitioning {
  * -------------------------------------------------------------------------- */
 .VPDoc a:not(.header-anchor):not(.VPButton):not(.action-btn):not(.download-btn):not(.release-name):not(.expand-btn):not(.retry-btn) {
   transition: color 0.2s ease;
-  
+
   &:hover {
     color: var(--vp-c-brand-1);
   }
@@ -526,12 +468,190 @@ html.page-transitioning {
  * -------------------------------------------------------------------------- */
 .vp-doc [class*='language-'] {
   border: 1px solid var(--vp-c-divider);
-  transition: all 0.3s ease;
-  
+  transition: border-color 0.2s ease;
+
   &:hover {
     border-color: var(--vp-c-brand-soft);
-    box-shadow: 0 0 15px rgba(159, 122, 234, 0.1);
   }
+}
+
+/**
+ * Table enhancements - Elegant and modern design
+ * -------------------------------------------------------------------------- */
+.vp-doc table {
+  display: table;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1.5rem 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg-soft);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.vp-doc table thead {
+  background: linear-gradient(180deg, var(--vp-c-bg-alt) 0%, var(--vp-c-bg-soft) 100%);
+}
+
+.vp-doc table th {
+  padding: 0.875rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  color: var(--vp-c-text-2);
+  text-align: left;
+  border-bottom: 1px solid var(--vp-c-divider);
+  background: transparent;
+}
+
+.vp-doc table td {
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  color: var(--vp-c-text-1);
+  border-bottom: 1px solid var(--vp-c-divider);
+  background: transparent;
+  transition: background 0.15s ease;
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+.vp-doc table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.vp-doc table tbody tr:hover td {
+  background: var(--vp-c-bg-elv);
+}
+
+.vp-doc table code {
+  background: var(--vp-c-bg-mute);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--vp-c-brand-1);
+}
+
+/* Responsive table wrapper */
+.vp-doc .table-wrapper {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-radius: 10px;
+}
+
+/**
+ * Blockquote enhancements - Elegant callout style
+ * -------------------------------------------------------------------------- */
+.vp-doc blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--vp-c-brand-2);
+  background: var(--vp-c-bg-soft);
+  border-radius: 0 8px 8px 0;
+  color: var(--vp-c-text-2);
+  font-style: normal;
+
+  p {
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  p+p {
+    margin-top: 0.75rem;
+  }
+}
+
+/**
+ * List enhancements - Clean spacing
+ * -------------------------------------------------------------------------- */
+.vp-doc ul,
+.vp-doc ol {
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+
+  li {
+    margin: 0.375rem 0;
+    line-height: 1.7;
+
+    &::marker {
+      color: var(--vp-c-brand-2);
+    }
+  }
+
+  ul,
+  ol {
+    margin: 0.375rem 0;
+  }
+}
+
+/**
+ * Horizontal rule - Subtle divider
+ * -------------------------------------------------------------------------- */
+.vp-doc hr {
+  margin: 2.5rem 0;
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      var(--vp-c-divider) 15%,
+      var(--vp-c-divider) 85%,
+      transparent 100%);
+}
+
+/**
+ * Inline code - Refined styling
+ * -------------------------------------------------------------------------- */
+.vp-doc :not(pre)>code {
+  background: var(--vp-c-bg-mute);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.875em;
+  font-weight: 500;
+  color: var(--vp-c-brand-1);
+  border: 1px solid var(--vp-c-divider);
+}
+
+/**
+ * Headings - Elegant typography
+ * -------------------------------------------------------------------------- */
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3,
+.vp-doc h4,
+.vp-doc h5,
+.vp-doc h6 {
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.vp-doc h2 {
+  margin-top: 2.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc h3 {
+  margin-top: 2rem;
+}
+
+/**
+ * Paragraph spacing
+ * -------------------------------------------------------------------------- */
+.vp-doc p {
+  line-height: 1.75;
+  margin: 1rem 0;
+}
+
+/**
+ * Image styling
+ * -------------------------------------------------------------------------- */
+.vp-doc img {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 /**
@@ -551,7 +671,7 @@ html.page-transitioning {
   background: var(--vp-c-divider);
   border-radius: 4px;
   transition: background 0.2s ease;
-  
+
   &:hover {
     background: var(--vp-c-brand-soft);
   }
@@ -579,17 +699,50 @@ html.page-transitioning {
  * -------------------------------------------------------------------------- */
 
 /**
- * Table of contents enhancements
+ * Table of contents (On this page) - Sticky positioning
+ * VitePress places aside in .VPDoc > .container > .aside
+ * The .aside-container inside needs to be sticky
  * -------------------------------------------------------------------------- */
+.VPDoc .aside {
+  position: relative;
+}
+
+.VPDoc .aside-container {
+  position: sticky !important;
+  top: calc(var(--vp-nav-height) + 32px) !important;
+  height: auto !important;
+}
+
+.VPDoc .aside-content {
+  position: relative !important;
+  top: 0 !important;
+  max-height: calc(100vh - var(--vp-nav-height) - 64px);
+  overflow-y: auto;
+  padding-bottom: 2rem;
+
+  /* Smooth scrollbar for the outline */
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--vp-c-divider);
+    border-radius: 2px;
+  }
+}
+
+.VPDocAsideOutline {
+  padding: 0;
+}
+
 .VPDocOutlineItem a {
-  transition: color 0.2s ease, padding-left 0.2s ease, text-shadow 0.2s ease;
-  
+  transition: color 0.15s ease;
+  font-size: 0.8125rem;
+
   &:hover {
     color: var(--vp-c-brand-1);
-    padding-left: 4px;
-    text-shadow: 0 0 8px var(--glow-color);
   }
-  
+
   &.active {
     color: var(--vp-c-brand-1);
     font-weight: 500;
@@ -600,24 +753,17 @@ html.page-transitioning {
  * Badge/tag styling
  * -------------------------------------------------------------------------- */
 .VPBadge {
-  transition: all 0.2s ease;
-  
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 10px var(--glow-color);
-  }
+  transition: background 0.2s ease;
 }
 
 /**
- * Social links glow effect
+ * Social links styling
  * -------------------------------------------------------------------------- */
 .VPSocialLink {
-  transition: all 0.2s ease;
-  
+  transition: color 0.2s ease;
+
   &:hover {
     color: var(--vp-c-brand-1);
-    filter: drop-shadow(0 0 8px var(--glow-color));
-    transform: translateY(-2px);
   }
 }
 
@@ -632,6 +778,7 @@ html.page-transitioning {
  * Reduce motion for users who prefer it
  * -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
+
   .VPContent,
   .VPDoc,
   .VPHome,
@@ -643,7 +790,7 @@ html.page-transitioning {
     transition: none !important;
     animation: none !important;
   }
-  
+
   html.page-transitioning .VPContent,
   html.page-transitioning .VPDoc,
   html.page-transitioning .VPHome {
@@ -656,7 +803,7 @@ html.page-transitioning {
 /**
  * Hide VPLocalNav on homepage to prevent overlap with VPHero
  * -------------------------------------------------------------------------- */
-.VPHome ~ .VPLocalNav,
+.VPHome~.VPLocalNav,
 .Layout:has(.VPHome) .VPLocalNav {
   display: none !important;
 }

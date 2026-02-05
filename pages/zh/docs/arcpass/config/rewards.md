@@ -1,0 +1,328 @@
+# 奖励配置
+
+奖励是玩家完成任务和达成等级后获得的回报，ArcPass 支持多种奖励类型。
+
+## 文件位置
+
+```
+plugins/ArcPass/rewards/
+├── default.yml     # 默认奖励定义
+├── items.yml       # 物品奖励
+├── economy.yml     # 经济奖励
+├── titles.yml      # 称号奖励
+└── ...
+```
+
+## 奖励类型
+
+| 类型 | 说明 | 依赖插件 |
+|------|------|----------|
+| `ITEM` | 物品奖励 | 无 |
+| `ECONOMY` | 金币/点券 | Vault / CMI |
+| `COMMAND` | 执行命令 | 无 |
+| `PERMISSION` | 权限节点 | LuckPerms |
+| `TITLE` | 称号/前缀 | DeluxeTags / TAB |
+| `COSMETIC` | 装饰品 | 自定义 |
+| `EXPERIENCE` | 原版经验 | 无 |
+
+## 基本结构
+
+```yaml
+# rewards/items.yml
+
+# 物品奖励示例
+item_diamond_10:
+  type: ITEM
+  display-name: "&b钻石 x10"
+  description: "获得 10 颗钻石"
+  icon: DIAMOND
+  value: "DIAMOND"
+  amount: 10
+
+# 经济奖励示例
+economy_1000:
+  type: ECONOMY
+  display-name: "&6金币 x1000"
+  description: "获得 1000 金币"
+  icon: GOLD_BLOCK
+  value: "1000"
+
+# 称号奖励示例
+title_champion:
+  type: TITLE
+  display-name: "&b冠军称号"
+  description: "解锁「冠军」称号前缀"
+  icon: NAME_TAG
+  value: "&b[冠军] "
+  data:
+    priority: 60
+```
+
+## 物品奖励
+
+### 原版物品
+
+```yaml
+reward_diamond_sword:
+  type: ITEM
+  display-name: "&b钻石剑"
+  icon: DIAMOND_SWORD
+  value: "DIAMOND_SWORD"
+  amount: 1
+```
+
+### Oraxen 物品
+
+```yaml
+reward_custom_sword:
+  type: ITEM
+  display-name: "&6传说之剑"
+  icon: DIAMOND_SWORD
+  value: "oraxen:legendary_sword"  # Oraxen 物品 ID
+  amount: 1
+```
+
+### ItemsAdder 物品
+
+```yaml
+reward_magic_gem:
+  type: ITEM
+  display-name: "&d魔法宝石"
+  icon: EMERALD
+  value: "itemsadder:myitems:magic_gem"  # ItemsAdder 物品 ID
+  amount: 5
+```
+
+### 自定义 NBT 物品
+
+```yaml
+reward_custom_item:
+  type: ITEM
+  display-name: "&6特制工具"
+  icon: DIAMOND_PICKAXE
+  # 使用 give 命令格式
+  value: "minecraft:diamond_pickaxe{Enchantments:[{id:efficiency,lvl:5}]}"
+  amount: 1
+```
+
+## 经济奖励
+
+```yaml
+# 给予游戏币
+reward_gold_1000:
+  type: ECONOMY
+  display-name: "&6金币 x1000"
+  description: "获得 1000 金币"
+  icon: GOLD_INGOT
+  value: "1000"
+
+# 给予点券（需要配置点券经济）
+reward_points_100:
+  type: ECONOMY
+  display-name: "&e点券 x100"
+  icon: SUNFLOWER
+  value: "100"
+  data:
+    currency: "points"  # 自定义货币名称
+```
+
+## 命令奖励
+
+```yaml
+reward_announce:
+  type: COMMAND
+  display-name: "&e全服公告"
+  icon: BOOK
+  # %player% 会被替换为玩家名
+  value: "broadcast &6恭喜 &e%player% &6达成成就！"
+
+# 多条命令
+reward_vip_package:
+  type: COMMAND
+  display-name: "&dVIP 礼包"
+  icon: CHEST
+  value: |
+    give %player% diamond 64
+    eco give %player% 10000
+    lp user %player% permission set vip.access true
+```
+
+## 权限奖励
+
+需要 LuckPerms 插件：
+
+```yaml
+# 永久权限
+reward_fly_permission:
+  type: PERMISSION
+  display-name: "&b飞行权限"
+  description: "解锁飞行能力"
+  icon: FEATHER
+  value: "essentials.fly"
+
+# 临时权限
+reward_temp_vip:
+  type: PERMISSION
+  display-name: "&eVIP 体验卡"
+  description: "7 天 VIP 体验"
+  icon: PAPER
+  value: "group.vip"
+  data:
+    duration: 604800  # 秒（7天）
+
+# 权限组
+reward_rank_up:
+  type: PERMISSION
+  display-name: "&6晋升精英"
+  icon: GOLDEN_HELMET
+  value: "group.elite"
+  data:
+    type: group
+```
+
+## 称号奖励
+
+### DeluxeTags 称号
+
+```yaml
+reward_title_champion:
+  type: TITLE
+  display-name: "&6冠军称号"
+  description: "解锁 [冠军] 称号"
+  icon: NAME_TAG
+  value: "&e[&6冠军&e] "
+  data:
+    tag-id: "champion"
+    description: "战斗通行证最终奖励"
+    priority: 100
+    auto-equip: true
+```
+
+### TAB 称号（Folia 兼容）
+
+```yaml
+reward_title_legend:
+  type: TITLE
+  display-name: "&d传奇称号"
+  icon: NAME_TAG
+  value: "&5[&d传奇&5] "
+  data:
+    position: prefix  # prefix 或 suffix
+    persistent: true
+```
+
+## 装饰品奖励
+
+```yaml
+reward_particle_flame:
+  type: COSMETIC
+  display-name: "&c火焰粒子"
+  description: "身边环绕火焰粒子效果"
+  icon: BLAZE_POWDER
+  value: "particle_flame"
+  data:
+    cosmetic-type: particle
+```
+
+## 经验奖励
+
+给予原版 Minecraft 经验：
+
+```yaml
+reward_mc_exp_100:
+  type: EXPERIENCE
+  display-name: "&a经验值 x100"
+  icon: EXPERIENCE_BOTTLE
+  value: "100"  # 经验点数
+  # 或使用等级
+  # data:
+  #   type: levels
+  #   value: 5
+```
+
+## 条件奖励
+
+设置奖励的领取条件：
+
+```yaml
+reward_special:
+  type: ITEM
+  display-name: "&6特殊奖励"
+  icon: NETHER_STAR
+  value: "NETHER_STAR"
+  amount: 1
+
+  # 领取条件
+  conditions:
+    # 需要某个权限
+    - type: permission
+      permission: arcpass.reward.special
+
+    # 背包有空位
+    - type: inventory_space
+      slots: 1
+```
+
+## 奖励组
+
+将多个奖励打包：
+
+```yaml
+reward_starter_pack:
+  type: GROUP
+  display-name: "&a新手礼包"
+  description:
+    - "&7包含以下物品:"
+    - "&7- 钻石剑 x1"
+    - "&7- 金币 x500"
+  icon: CHEST
+  rewards:
+    - reward_diamond_sword
+    - reward_gold_500
+```
+
+## 完整示例
+
+```yaml
+# rewards/items.yml
+
+# 新手物品
+reward_starter_sword:
+  type: ITEM
+  display-name: "&f新手之剑"
+  description: "踏上冒险之路的第一把武器"
+  icon: IRON_SWORD
+  value: "IRON_SWORD"
+  amount: 1
+
+# 中期奖励
+reward_diamond_set:
+  type: GROUP
+  display-name: "&b钻石套装"
+  description:
+    - "&7完整的钻石装备"
+  icon: DIAMOND_CHESTPLATE
+  rewards:
+    - reward_diamond_helmet
+    - reward_diamond_chestplate
+    - reward_diamond_leggings
+    - reward_diamond_boots
+
+# 最终奖励
+reward_legendary_weapon:
+  type: ITEM
+  display-name: "&6传说武器"
+  description:
+    - "&7赛季最终奖励"
+    - "&7独一无二的传说装备"
+  icon: NETHERITE_SWORD
+  value: "oraxen:legendary_blade"
+  amount: 1
+```
+
+## 下一步
+
+<LinkGrid :cols="2">
+  <LinkCard icon="ticket" title="配置通行证" description="设置等级和档位" href="./passes" />
+  <LinkCard icon="color-swatch" title="配置 GUI" description="设置界面布局" href="./gui" />
+</LinkGrid>

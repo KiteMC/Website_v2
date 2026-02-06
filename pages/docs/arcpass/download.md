@@ -31,9 +31,8 @@ ArcPass is a paid plugin requiring a valid license.
 
 | Plan | Price | Devices | Ports/Device |
 |------|-------|---------|--------------|
-| Personal | $7 | 3 | 2 |
-| Professional | $18 | 10 | 5 |
-| Unlimited | $42 | 50 | 50 |
+| Standard | $12.99 | 5 | 3 |
+| Professional | $29.99 | 25 | 15 |
 
 <ButtonGroup>
   <ActionButton

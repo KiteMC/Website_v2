@@ -35,7 +35,7 @@ Website_v2/
     │   ├── index.md
     │   └── docs/
     └── docs/               # English documentation
-        ├── survivex/
+        ├── arcpass/
         └── verifymc/
 ```
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
-import { 
-  getBuilds, 
+import {
+  getBuilds,
   getLatestRelease,
   formatFileSize,
   formatDate,
@@ -46,22 +46,22 @@ const paginatedReleases = computed(() => {
 // Get main downloadable asset (.jar or .zip)
 function getMainAsset(release: ApiBuild): ReleaseAsset | undefined {
   // Try .jar first (for plugins)
-  const jar = release.assets.find(a => 
+  const jar = release.assets.find(a =>
     a.name.endsWith('.jar') && !a.name.toLowerCase().includes('proxy')
   );
   if (jar) return jar;
-  
-  // Try .zip (for modpacks like SurviveX)
+
+  // Try .zip (for modpacks)
   const zip = release.assets.find(a => a.name.endsWith('.zip'));
   if (zip) return zip;
-  
+
   // Fallback to any .jar
   return release.assets.find(a => a.name.endsWith('.jar'));
 }
 
 // Get proxy asset for VerifyMC
 function getProxyAsset(release: ApiBuild): ReleaseAsset | undefined {
-  return release.assets.find(a => 
+  return release.assets.find(a =>
     a.name.toLowerCase().includes('proxy') && a.name.endsWith('.jar')
   );
 }
@@ -93,7 +93,7 @@ function toggleExpand(tag: string) {
 // Simple markdown to HTML conversion - compact style
 function renderMarkdown(text: string): string {
   if (!text) return '';
-  
+
   // Helper function to process inline formatting
   function processInline(str: string): string {
     return str
@@ -108,24 +108,24 @@ function renderMarkdown(text: string): string {
       // Links
       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
   }
-  
+
   // Split into lines for processing
   const lines = text.split('\n');
   const result: string[] = [];
   let inList = false;
-  
+
   // Emoji pattern for detecting emoji-prefixed headers
   const emojiPattern = /^([\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}])\s*(.+)$/u;
-  
+
   for (const line of lines) {
     const trimmedLine = line.trim();
-    
+
     // Skip horizontal rules (---, ***, ___)
     if (/^[-*_]{3,}$/.test(trimmedLine)) {
       if (inList) { result.push('</ul>'); inList = false; }
       continue;
     }
-    
+
     // Headers with # syntax (check raw line first)
     if (/^###\s+(.+)$/.test(trimmedLine)) {
       if (inList) { result.push('</ul>'); inList = false; }
@@ -161,9 +161,9 @@ function renderMarkdown(text: string): string {
       result.push('<div class="text-line">' + processInline(trimmedLine) + '</div>');
     }
   }
-  
+
   if (inList) result.push('</ul>');
-  
+
   return result.join('');
 }
 
@@ -171,13 +171,13 @@ function renderMarkdown(text: string): string {
 async function loadReleases() {
   isLoading.value = true;
   error.value = null;
-  
+
   try {
     const [latest, all] = await Promise.all([
       getLatestRelease(props.owner, props.repo),
       getBuilds(props.owner, props.repo),
     ]);
-    
+
     latestRelease.value = latest;
     allReleases.value = all;
   } catch (e) {
@@ -201,7 +201,7 @@ onMounted(() => {
       <div class="spinner"></div>
       <p>{{ t.loading }}</p>
     </div>
-    
+
     <!-- Error State -->
     <div v-else-if="error" class="error-state">
       <div class="error-icon">
@@ -214,7 +214,7 @@ onMounted(() => {
       <p>{{ error }}</p>
       <button class="retry-btn" @click="loadReleases">Retry</button>
     </div>
-    
+
     <!-- Content -->
     <template v-else>
       <!-- Hero Download Section - Latest Release -->
@@ -224,9 +224,9 @@ onMounted(() => {
             <span class="badge-label">{{ t.latestRelease }}</span>
             <span v-if="latestRelease.prerelease" class="prerelease-tag">{{ t.prerelease }}</span>
           </div>
-          
+
           <h1 class="version-name">{{ latestRelease.name || latestRelease.tag }}</h1>
-          
+
           <div class="version-meta">
             <span class="meta-item">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -245,11 +245,11 @@ onMounted(() => {
               {{ formatFileSize(latestMainAsset.size) }}
             </span>
           </div>
-          
+
           <div class="download-actions">
             <!-- Main Download Button -->
-            <a 
-              v-if="latestMainAsset" 
+            <a
+              v-if="latestMainAsset"
               :href="latestMainAsset.browser_download_url"
               class="download-btn primary"
             >
@@ -260,10 +260,10 @@ onMounted(() => {
               </svg>
               {{ t.downloadButton }}
             </a>
-            
+
             <!-- Proxy Download Button (for VerifyMC) -->
-            <a 
-              v-if="latestProxyAsset" 
+            <a
+              v-if="latestProxyAsset"
               :href="latestProxyAsset.browser_download_url"
               class="download-btn proxy"
             >
@@ -274,11 +274,11 @@ onMounted(() => {
               </svg>
               {{ t.proxyPlugin }}
             </a>
-            
+
             <!-- GitHub Link -->
-            <a 
-              :href="latestRelease.url" 
-              target="_blank" 
+            <a
+              :href="latestRelease.url"
+              target="_blank"
               rel="noopener"
               class="download-btn secondary"
             >
@@ -288,7 +288,7 @@ onMounted(() => {
               {{ t.viewOnGitHub }}
             </a>
           </div>
-          
+
           <!-- Changelog for latest release -->
           <div v-if="latestRelease.body" class="changelog-section">
             <div class="changelog-header">
@@ -301,26 +301,26 @@ onMounted(() => {
               </svg>
               {{ t.changelog }}
             </div>
-            <div 
+            <div
               class="changelog-content"
               :class="{ collapsed: isLongBody(latestRelease.body) && !expandedReleases.has(latestRelease.tag) }"
               v-html="renderMarkdown(latestRelease.body)"
             ></div>
-            <button 
+            <button
               v-if="isLongBody(latestRelease.body)"
               class="expand-btn"
               @click="toggleExpand(latestRelease.tag)"
             >
               {{ expandedReleases.has(latestRelease.tag) ? t.showLess : t.showMore }}
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="14" 
-                height="14" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                stroke-width="2" 
-                stroke-linecap="round" 
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
                 stroke-linejoin="round"
                 :class="{ rotated: expandedReleases.has(latestRelease.tag) }"
               >
@@ -329,12 +329,12 @@ onMounted(() => {
             </button>
           </div>
         </div>
-        
+
         <div class="hero-decoration">
           <div class="glow-orb"></div>
         </div>
       </section>
-      
+
       <!-- All Releases Section -->
       <section class="releases-section">
         <h2 class="section-title">
@@ -345,14 +345,14 @@ onMounted(() => {
           </svg>
           {{ t.allReleases }}
         </h2>
-        
+
         <div v-if="paginatedReleases.length === 0" class="empty-state">
           <p>{{ t.noReleases }}</p>
         </div>
-        
+
         <div v-else class="releases-list">
-          <div 
-            v-for="(release, index) in paginatedReleases" 
+          <div
+            v-for="(release, index) in paginatedReleases"
             :key="release.tag"
             class="release-card"
             :style="{ animationDelay: `${index * 0.05}s` }"
@@ -371,11 +371,11 @@ onMounted(() => {
                   <span v-if="release.assets.length > 0">{{ release.assets.length }} {{ t.assets }}</span>
                 </div>
               </div>
-              
+
               <div class="release-actions">
                 <!-- Main Download -->
-                <a 
-                  v-if="getMainAsset(release)" 
+                <a
+                  v-if="getMainAsset(release)"
                   :href="getMainAsset(release)?.browser_download_url"
                   class="action-btn download"
                   :title="t.downloadButton"
@@ -386,10 +386,10 @@ onMounted(() => {
                     <line x1="12" y1="15" x2="12" y2="3"/>
                   </svg>
                 </a>
-                
+
                 <!-- Proxy Download -->
-                <a 
-                  v-if="showProxy && getProxyAsset(release)" 
+                <a
+                  v-if="showProxy && getProxyAsset(release)"
                   :href="getProxyAsset(release)?.browser_download_url"
                   class="action-btn proxy"
                   :title="t.proxyPlugin"
@@ -401,11 +401,11 @@ onMounted(() => {
                     <line x1="6" y1="18" x2="6.01" y2="18"/>
                   </svg>
                 </a>
-                
+
                 <!-- GitHub -->
-                <a 
-                  :href="release.url" 
-                  target="_blank" 
+                <a
+                  :href="release.url"
+                  target="_blank"
                   rel="noopener"
                   class="action-btn github"
                   :title="t.viewOnGitHub"
@@ -416,29 +416,29 @@ onMounted(() => {
                 </a>
               </div>
             </div>
-            
+
             <!-- Changelog -->
             <div v-if="release.body" class="release-changelog">
-              <div 
+              <div
                 class="changelog-content small"
                 :class="{ collapsed: isLongBody(release.body) && !expandedReleases.has(release.tag) }"
                 v-html="renderMarkdown(release.body)"
               ></div>
-              <button 
+              <button
                 v-if="isLongBody(release.body)"
                 class="expand-btn small"
                 @click="toggleExpand(release.tag)"
               >
                 {{ expandedReleases.has(release.tag) ? t.showLess : t.showMore }}
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  width="12" 
-                  height="12" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  stroke-width="2" 
-                  stroke-linecap="round" 
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
                   stroke-linejoin="round"
                   :class="{ rotated: expandedReleases.has(release.tag) }"
                 >
@@ -448,8 +448,8 @@ onMounted(() => {
             </div>
           </div>
         </div>
-        
-        <Pagination 
+
+        <Pagination
           v-model:current-page="currentPage"
           :total-pages="totalPages"
         />
@@ -969,16 +969,16 @@ onMounted(() => {
   .download-page { padding: 1rem; }
   .hero-download { padding: 1.5rem; }
   .version-name { font-size: 1.4rem; }
-  
+
   .download-actions { flex-direction: column; }
   .download-btn { width: 100%; justify-content: center; }
-  
+
   .release-header-row {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.75rem;
   }
-  
+
   .release-actions { width: 100%; }
   .action-btn { flex: 1; }
 }

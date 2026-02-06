@@ -46,11 +46,11 @@ export async function getGitHubReleases(owner: string, repo: string): Promise<Re
         },
       }
     );
-    
+
     if (!response.ok) {
       throw new Error(`GitHub API error: ${response.status}`);
     }
-    
+
     return await response.json();
   } catch (error) {
     console.error('Failed to fetch GitHub releases:', error);
@@ -63,18 +63,15 @@ export async function getGitHubReleases(owner: string, repo: string): Promise<Re
  */
 export async function getVersions(owner: string, repo: string): Promise<string[]> {
   const releases = await getGitHubReleases(owner, repo);
-  
+
   if (releases.length === 0) {
     // Fallback versions
     if (repo === 'VerifyMC') {
       return ['v1.2.6', 'v1.2.5', 'v1.2.4'];
     }
-    if (repo === 'SurviveX') {
-      return ['ver/1.21.5', 'ver/1.21.4'];
-    }
     return [];
   }
-  
+
   return releases.map(r => r.tag_name);
 }
 
@@ -98,18 +95,18 @@ function releaseToApiBuild(release: Release): ApiBuild {
  * Get builds/releases for a specific version or all
  */
 export async function getBuilds(
-  owner: string, 
-  repo: string, 
+  owner: string,
+  repo: string,
   version?: string
 ): Promise<ApiBuild[]> {
   const releases = await getGitHubReleases(owner, repo);
-  
+
   let filteredReleases = releases.filter(r => !r.draft);
-  
+
   if (version) {
     filteredReleases = filteredReleases.filter(r => r.tag_name === version);
   }
-  
+
   return filteredReleases.map(releaseToApiBuild);
 }
 
@@ -119,12 +116,12 @@ export async function getBuilds(
 export async function getLatestRelease(owner: string, repo: string): Promise<ApiBuild | null> {
   const releases = await getGitHubReleases(owner, repo);
   const latest = releases.find(r => !r.draft && !r.prerelease);
-  
+
   if (!latest) {
     const anyRelease = releases.find(r => !r.draft);
     return anyRelease ? releaseToApiBuild(anyRelease) : null;
   }
-  
+
   return releaseToApiBuild(latest);
 }
 
@@ -132,9 +129,9 @@ export async function getLatestRelease(owner: string, repo: string): Promise<Api
  * Get download link for a specific asset
  */
 export function getDownloadLink(
-  owner: string, 
-  repo: string, 
-  tag: string, 
+  owner: string,
+  repo: string,
+  tag: string,
   fileName?: string
 ): string {
   if (fileName) {
@@ -147,7 +144,7 @@ export function getDownloadLink(
  * Filter releases that contain proxy plugin assets
  */
 export function filterProxyReleases(builds: ApiBuild[]): ApiBuild[] {
-  return builds.filter(build => 
+  return builds.filter(build =>
     build.assets.some(asset => asset.name.includes('verifymc-proxy'))
   );
 }
@@ -163,7 +160,7 @@ export function getProxyAsset(build: ApiBuild): ReleaseAsset | undefined {
  * Get main plugin asset from a release (non-proxy jar)
  */
 export function getMainAsset(build: ApiBuild): ReleaseAsset | undefined {
-  return build.assets.find(asset => 
+  return build.assets.find(asset =>
     asset.name.endsWith('.jar') && !asset.name.includes('proxy')
   );
 }

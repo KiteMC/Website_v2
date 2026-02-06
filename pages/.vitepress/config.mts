@@ -41,7 +41,7 @@ export default defineConfig({
     ["link", { rel: "apple-touch-icon", href: "/images/logo/kitemc.svg" }],
 
     // Basic SEO Meta
-    ["meta", { name: "keywords", content: "KiteMC, SurviveX, VerifyMC, ArcPass, Minecraft, Server, Plugin, Documentation" }],
+    ["meta", { name: "keywords", content: "KiteMC, VerifyMC, ArcPass, Minecraft, Server, Plugin, Documentation" }],
     ["meta", { name: "author", content: "KiteMC Team" }],
     ["meta", { name: "robots", content: "index, follow" }],
     ["meta", { name: "theme-color", content: "#5672cd" }],
@@ -123,9 +123,8 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: "Home", link: "/" },
-          { text: "SurviveX", link: "/docs/survivex/", activeMatch: "/docs/survivex/" },
-          { text: "VerifyMC", link: "/docs/verifymc/", activeMatch: "/docs/verifymc/" },
           { text: "ArcPass", link: "/docs/arcpass/", activeMatch: "/docs/arcpass/" },
+          { text: "VerifyMC", link: "/docs/verifymc/", activeMatch: "/docs/verifymc/" },
         ],
       },
     },
@@ -135,9 +134,8 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: "首页", link: "/zh/" },
-          { text: "SurviveX", link: "/zh/docs/survivex/", activeMatch: "/zh/docs/survivex/" },
-          { text: "VerifyMC", link: "/zh/docs/verifymc/", activeMatch: "/zh/docs/verifymc/" },
           { text: "ArcPass", link: "/zh/docs/arcpass/", activeMatch: "/zh/docs/arcpass/" },
+          { text: "VerifyMC", link: "/zh/docs/verifymc/", activeMatch: "/zh/docs/verifymc/" },
         ],
       },
     },
@@ -148,9 +146,8 @@ export default defineConfig({
 
     nav: [
       { text: "Home", link: "/" },
-      { text: "SurviveX", link: "/docs/survivex/", activeMatch: "/docs/survivex/" },
-      { text: "VerifyMC", link: "/docs/verifymc/", activeMatch: "/docs/verifymc/" },
       { text: "ArcPass", link: "/docs/arcpass/", activeMatch: "/docs/arcpass/" },
+      { text: "VerifyMC", link: "/docs/verifymc/", activeMatch: "/docs/verifymc/" },
     ],
 
     sidebar,

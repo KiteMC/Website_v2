@@ -1,16 +1,16 @@
 ---
 title: KiteMC - Minecraft Server Tools & Plugins
-description: Official documentation for KiteMC team projects including SurviveX server software, VerifyMC whitelist plugin, and ArcPass battle pass system.
+description: Official documentation for KiteMC team projects including VerifyMC whitelist plugin and ArcPass battle pass system.
 head:
   - - meta
     - name: keywords
-      content: KiteMC, Minecraft, server, plugin, SurviveX, VerifyMC, ArcPass, documentation
+      content: KiteMC, Minecraft, server, plugin, VerifyMC, ArcPass, documentation
   - - meta
     - property: og:title
       content: KiteMC - Minecraft Server Tools & Plugins
   - - meta
     - property: og:description
-      content: Official documentation for KiteMC team projects including SurviveX, VerifyMC, and ArcPass.
+      content: Official documentation for KiteMC team projects including VerifyMC and ArcPass.
 layout: home
 
 hero:
@@ -28,12 +28,12 @@ hero:
 
 ## Our Projects
 
-<ProductGrid :cols="3">
+<ProductGrid :cols="2">
   <ProductCard
-    title="SurviveX"
-    description="Next-generation survival and technical Minecraft server software with optimized performance"
-    icon="survivex"
-    href="./docs/survivex/"
+    title="ArcPass"
+    description="Powerful battle pass system for Minecraft servers with multi-tier rewards and seasons"
+    image="/images/logo/arcpass.svg"
+    href="./docs/arcpass/"
     link-text="Start Reading"
   />
   <ProductCard
@@ -43,18 +43,17 @@ hero:
     href="./docs/verifymc/"
     link-text="Start Reading"
   />
-  <ProductCard
-    title="ArcPass"
-    description="Powerful battle pass system for Minecraft servers with multi-tier rewards and seasons"
-    icon="arcpass"
-    href="./docs/arcpass/"
-    link-text="Start Reading"
-  />
 </ProductGrid>
 
 ## Friend Links
 
 <FriendLinks :links="[
+  {
+    name: 'KiteMC License Center',
+    description: 'License management platform',
+    image: '/images/logo/kitemc.svg',
+    href: 'https://license.kitemc.com/'
+  },
   {
     name: 'Rainyun',
     description: 'Cloud service provider',

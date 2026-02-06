@@ -22,10 +22,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MobExpAddon extends JavaPlugin implements Listener {
-    
+
     private ArcPassAPI arcPassAPI;
     private final Map<EntityType, Long> expValues = new HashMap<>();
-    
+
     @Override
     public void onEnable() {
         // 检查 ArcPass
@@ -34,20 +34,20 @@ public class MobExpAddon extends JavaPlugin implements Listener {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
-        
+
         // 延迟获取 API
         getServer().getScheduler().runTaskLater(this, () -> {
             arcPassAPI = ArcPassProvider.get();
             getLogger().info("ArcPass API 已连接");
         }, 1L);
-        
+
         // 配置经验值
         setupExpValues();
-        
+
         // 注册事件
         getServer().getPluginManager().registerEvents(this, this);
     }
-    
+
     private void setupExpValues() {
         expValues.put(EntityType.ZOMBIE, 5L);
         expValues.put(EntityType.SKELETON, 5L);
@@ -59,17 +59,17 @@ public class MobExpAddon extends JavaPlugin implements Listener {
         expValues.put(EntityType.ENDER_DRAGON, 500L);
         expValues.put(EntityType.WITHER, 300L);
     }
-    
+
     @EventHandler
     public void onMobKill(EntityDeathEvent event) {
         if (arcPassAPI == null) return;
-        
+
         Player killer = event.getEntity().getKiller();
         if (killer == null) return;
-        
+
         EntityType type = event.getEntityType();
         Long exp = expValues.get(type);
-        
+
         if (exp != null && exp > 0) {
             arcPassAPI.addExperience(killer.getUniqueId(), exp)
                 .thenAccept(total -> {
@@ -96,9 +96,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MiniGamePlugin extends JavaPlugin {
-    
+
     private ArcPassAPI arcPassAPI;
-    
+
     @Override
     public void onEnable() {
         // 初始化 ArcPass API
@@ -108,14 +108,14 @@ public class MiniGamePlugin extends JavaPlugin {
             }, 1L);
         }
     }
-    
+
     /**
      * 当玩家赢得游戏时调用
      */
     public void onPlayerWin(Player player, String gameType) {
         // 发放游戏奖励
         giveGameRewards(player);
-        
+
         // 触发 ArcPass 自定义任务
         if (arcPassAPI != null) {
             // 触发通用游戏胜利事件
@@ -124,7 +124,7 @@ public class MiniGamePlugin extends JavaPlugin {
                 "minigame_win",
                 gameType
             );
-            
+
             // 触发特定游戏胜利事件
             arcPassAPI.triggerCustomEvent(
                 player.getUniqueId(),
@@ -133,7 +133,7 @@ public class MiniGamePlugin extends JavaPlugin {
             );
         }
     }
-    
+
     /**
      * 当玩家完成游戏（无论输赢）时调用
      */
@@ -147,7 +147,7 @@ public class MiniGamePlugin extends JavaPlugin {
             );
         }
     }
-    
+
     private record GameData(String gameType, int score) {}
 }
 ```
@@ -201,16 +201,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MilestonePlugin extends JavaPlugin implements Listener {
-    
+
     // 里程碑等级及其奖励命令
     private final Map<Integer, String[]> milestones = new HashMap<>();
-    
+
     @Override
     public void onEnable() {
         setupMilestones();
         getServer().getPluginManager().registerEvents(this, this);
     }
-    
+
     private void setupMilestones() {
         milestones.put(10, new String[]{
             "give %player% diamond 5",
@@ -232,24 +232,24 @@ public class MilestonePlugin extends JavaPlugin implements Listener {
             "lp user %player% parent add elite"
         });
     }
-    
+
     @EventHandler
     public void onLevelUp(PlayerLevelUpEvent event) {
         int newLevel = event.getNewLevel();
-        
+
         // 检查是否达到里程碑
         String[] rewards = milestones.get(newLevel);
         if (rewards == null) return;
-        
+
         Player player = Bukkit.getPlayer(event.getPlayerId());
         if (player == null) return;
-        
+
         // 执行奖励命令
         for (String command : rewards) {
             String finalCommand = command.replace("%player%", player.getName());
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), finalCommand);
         }
-        
+
         // 特殊效果
         player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1.0f, 1.0f);
         Bukkit.broadcastMessage("");
@@ -276,15 +276,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DoubleExpPlugin extends JavaPlugin implements Listener {
-    
+
     private boolean doubleExpActive = false;
     private long doubleExpEndTime = 0;
-    
+
     @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(this, this);
     }
-    
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!command.getName().equalsIgnoreCase("doubleexp")) return false;
@@ -292,12 +292,12 @@ public class DoubleExpPlugin extends JavaPlugin implements Listener {
             sender.sendMessage("§c你没有权限执行此命令");
             return true;
         }
-        
+
         if (args.length == 0) {
             sender.sendMessage("§e用法: /doubleexp <start|stop|status> [分钟]");
             return true;
         }
-        
+
         switch (args[0].toLowerCase()) {
             case "start" -> {
                 int minutes = args.length > 1 ? Integer.parseInt(args[1]) : 60;
@@ -319,40 +319,40 @@ public class DoubleExpPlugin extends JavaPlugin implements Listener {
         }
         return true;
     }
-    
+
     private void startDoubleExp(int minutes) {
         doubleExpActive = true;
         doubleExpEndTime = System.currentTimeMillis() + (minutes * 60 * 1000L);
-        
+
         Bukkit.broadcastMessage("");
         Bukkit.broadcastMessage("§6§l★ 双倍通行证经验活动开始！ ★");
         Bukkit.broadcastMessage("§e持续时间: " + minutes + " 分钟");
         Bukkit.broadcastMessage("");
-        
+
         // 定时结束
         getServer().getScheduler().runTaskLater(this, this::stopDoubleExp, minutes * 60 * 20L);
     }
-    
+
     private void stopDoubleExp() {
         if (doubleExpActive) {
             doubleExpActive = false;
             Bukkit.broadcastMessage("§c§l★ 双倍通行证经验活动结束！ ★");
         }
     }
-    
+
     public boolean isDoubleExpActive() {
         if (doubleExpActive && System.currentTimeMillis() > doubleExpEndTime) {
             doubleExpActive = false;
         }
         return doubleExpActive;
     }
-    
+
     @EventHandler(priority = EventPriority.HIGH)
     public void onQuestComplete(QuestCompleteEvent event) {
         if (isDoubleExpActive()) {
             int originalExp = event.getExperienceReward();
             event.setExperienceReward(originalExp * 2);
-            
+
             // 通知玩家
             getServer().getScheduler().runTask(this, () -> {
                 var player = Bukkit.getPlayer(event.getPlayerId());
@@ -380,10 +380,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class LeaderboardDisplay extends JavaPlugin {
-    
+
     private ArcPassAPI arcPassAPI;
     private Location displayLocation;
-    
+
     @Override
     public void onEnable() {
         // 初始化
@@ -394,7 +394,7 @@ public class LeaderboardDisplay extends JavaPlugin {
             }
         }, 1L);
     }
-    
+
     private void startLeaderboardUpdate() {
         // 每 5 分钟更新排行榜显示
         new BukkitRunnable() {
@@ -404,7 +404,7 @@ public class LeaderboardDisplay extends JavaPlugin {
             }
         }.runTaskTimer(this, 0L, 6000L); // 5 分钟
     }
-    
+
     private void updateLeaderboardDisplay() {
         // 这里可以集成 HolographicDisplays 或 DecentHolograms
         // 获取排行榜数据并更新全息图

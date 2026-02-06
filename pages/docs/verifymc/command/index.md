@@ -21,27 +21,35 @@
 ## Command Details
 
 ### `/vmc help`
+
 - Shows all available subcommands and their descriptions.
 
 ### `/vmc reload`
+
 - Reloads the plugin config and resource files.
 - Requires `verifymc.admin` permission.
 
 ### `/vmc add <player> <email>`
+
 - Adds the specified player to the whitelist and binds the email.
 - Requires `verifymc.admin` permission.
 - Example: `/vmc add Steve steve@example.com`
 
 ### `/vmc remove <player>`
+
 - Removes the specified player from the whitelist.
 - Requires `verifymc.admin` permission.
 - Example: `/vmc remove Steve`
 
 ### `/vmc port`
+
 - Shows the current port of the Web admin panel.
 - Available to everyone.
 
 ## Permission Notes
 
-- `verifymc.use`: Allows use of VerifyMC plugin's basic features (default: everyone).
-- `verifymc.admin`: Allows use of admin-related commands (such as reload, add, remove), default: OP only.
+::: tip Default permissions
+
+- **verifymc.use**: Allows use of VerifyMC's basic features (default: everyone).
+- **verifymc.admin**: Required for admin commands (reload, add, remove). Default: OP only.
+:::

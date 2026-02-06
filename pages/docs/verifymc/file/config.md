@@ -2,6 +2,11 @@
 
 This document provides detailed explanations for all configuration options in `config.yml`.
 
+::: tip Apply changes
+After editing `config.yml`, run `/vmc reload` to apply changes without restarting the server.
+You can also find an English example `config.yml` in the VerifyMC GitHub repository ([KiteMC/VerifyMC](https://github.com/KiteMC/VerifyMC)).
+:::
+
 ## General Settings
 
 ```yaml
@@ -27,7 +32,7 @@ web_server_prefix: '[ Server Name ]'
 ```yaml
 # Supported authentication methods. Options: 'email' (email verification), 'captcha' (graphical captcha).
 # You can use multiple methods, e.g.: [email, captcha]
-# 
+#
 # [IMPORTANT] Configuring the captcha: section below does NOT enable captcha!
 # To enable captcha, you MUST add 'captcha' to this list:
 #   Captcha only: auth_methods: [captcha]
@@ -91,10 +96,10 @@ user_notification:
 frontend:
   # The visual theme for the web interface. Options: 'glassx'.
   theme: glassx
-  
+
   # URL for the logo. Can be a web link or a local file path (e.g., '/logo.png').
   logo_url: /logo.png
-  
+
   # A message to display on the homepage.
   announcement: Welcome to our server!
 ```
@@ -183,10 +188,10 @@ email_domain_whitelist:
 storage:
   # Storage type, options: data (local file), mysql (external database)
   type: data
-  
+
   # Whether to automatically migrate data when switching storage.type
   auto_migrate_on_switch: false
-  
+
   mysql:
     host: localhost
     port: 3306
@@ -201,16 +206,16 @@ storage:
 authme:
   # Whether to enable AuthMe integration functionality
   enabled: true
-  
+
   # Whether to require password input during web registration
   require_password: true
-  
+
   # Whether to automatically register to AuthMe when approval is granted
   auto_register: false
-  
+
   # Whether to automatically unregister from AuthMe when user is deleted
   auto_unregister: false
-  
+
   # Password regex pattern
   password_regex: "^[a-zA-Z0-9_]{3,16}$"
 ```
@@ -223,10 +228,10 @@ authme:
 captcha:
   # Captcha type: math (math expression) or text (random characters)
   type: math
-  
+
   # Length of text captcha (ignored for math type)
   length: 4
-  
+
   # Captcha expiration time in seconds
   expire_seconds: 300
 ```
@@ -238,10 +243,10 @@ captcha:
 bedrock:
   # Whether to enable bedrock player support
   enabled: false
-  
+
   # Prefix for bedrock players (commonly "." for Floodgate)
   prefix: "."
-  
+
   # Regex for bedrock usernames
   username_regex: "^\\.[a-zA-Z0-9_\\s]{3,16}$"
 ```
@@ -253,10 +258,10 @@ bedrock:
 questionnaire:
   # Whether to enable questionnaire feature
   enabled: false
-  
+
   # Minimum score to pass
   pass_score: 60
-  
+
   # Auto-approve users who pass the questionnaire
   auto_approve_on_pass: false
 ```
@@ -268,19 +273,19 @@ questionnaire:
 discord:
   # Whether to enable Discord integration
   enabled: false
-  
+
   # Discord application client ID
   client_id: ""
-  
+
   # Discord application client secret
   client_secret: ""
-  
+
   # OAuth2 redirect URI
   redirect_uri: "https://yourdomain.com/api/discord/callback"
-  
+
   # Optional: require users to be in specific guild/server
   guild_id: ""
-  
+
   # Whether Discord linking is required for registration
   required: false
 ```

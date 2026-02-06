@@ -105,16 +105,16 @@ captcha:
    ```yaml
    # 后端服务器地址（运行主插件的服务器）
    backend_url: "http://你的后端服务器IP:8080"
-   
+
    # 踢出消息中显示的注册地址
    register_url: "https://你的域名.com/"
-   
+
    # 未注册玩家的踢出消息
    kick_message: "&c[ VerifyMC ]\n&7请访问 &a{url} &7进行注册"
-   
+
    # 语言设置（zh 或 en）
    language: zh
-   
+
    # 缓存设置
    cache:
      enabled: true

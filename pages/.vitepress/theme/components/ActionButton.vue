@@ -9,8 +9,8 @@ defineProps<{
 </script>
 
 <template>
-  <a 
-    :href="href" 
+  <a
+    :href="href"
     class="action-button"
     :class="[theme || 'brand']"
     :target="external ? '_blank' : undefined"
@@ -71,12 +71,13 @@ defineProps<{
 
 .action-button.brand {
   background: var(--vp-c-brand-2);
-  color: white;
+  color: #ffffff !important;
   border: none;
 }
 
 .action-button.brand:hover {
   background: var(--vp-c-brand-1);
+  color: #ffffff !important;
 }
 
 .action-button.alt {
@@ -103,6 +104,18 @@ defineProps<{
 .action-button svg {
   flex-shrink: 0;
   opacity: 0.8;
+}
+
+/* Ensure brand buttons always keep white foreground (text + icon), even if global a:hover overrides */
+.action-button.brand span,
+.action-button.brand svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+.action-button.brand:hover span,
+.action-button.brand:hover svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
 }
 
 @media (max-width: 640px) {

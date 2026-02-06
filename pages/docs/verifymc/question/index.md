@@ -105,16 +105,16 @@ captcha:
    ```yaml
    # Backend server URL (where main VerifyMC plugin runs)
    backend_url: "http://your-backend-server-ip:8080"
-   
+
    # Registration URL shown in kick message
    register_url: "https://your-domain.com/"
-   
+
    # Kick message for unregistered players
    kick_message: "&c[ VerifyMC ]\n&7Please visit &a{url} &7to register"
-   
+
    # Language setting (zh or en)
    language: en
-   
+
    # Cache settings
    cache:
      enabled: true

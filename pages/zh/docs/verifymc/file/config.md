@@ -2,6 +2,10 @@
 
 本文档详细说明 `config.yml` 中所有配置选项的用途和用法。
 
+::: tip 英文示例配置
+除本页示例外，英文版示例 `config.yml` 也会在 VerifyMC 的 GitHub 仓库中发布：[KiteMC/VerifyMC](https://github.com/KiteMC/VerifyMC)。
+:::
+
 ## 全局设置
 
 ```yaml
@@ -27,7 +31,7 @@ web_server_prefix: '[ 服务器名称 ]'
 ```yaml
 # 支持的验证方式。可选: 'email'（邮箱验证码）, 'captcha'（图形验证码）。
 # 可以同时使用多种方式，例如: [email, captcha]
-# 
+#
 # 【重要】仅配置下方的 captcha: 部分不会启用图形验证码！
 # 要启用图形验证码，必须在此列表中添加 'captcha'：
 #   仅使用图形验证码: auth_methods: [captcha]
@@ -91,10 +95,10 @@ user_notification:
 frontend:
   # 网页界面的视觉主题。可选: 'glassx'。
   theme: glassx
-  
+
   # Logo 的 URL。可以是网页链接或本地文件路径 (例如 '/logo.png')。
   logo_url: /logo.png
-  
+
   # 显示在主页上的公告信息。
   announcement: 欢迎来到我们的服务器!
 ```
@@ -183,10 +187,10 @@ email_domain_whitelist:
 storage:
   # 存储类型，可选: data（本地文件）, mysql（外部数据库）
   type: data
-  
+
   # 是否在 storage.type 切换时自动将原存储的数据迁移到新存储
   auto_migrate_on_switch: false
-  
+
   mysql:
     host: localhost
     port: 3306
@@ -201,16 +205,16 @@ storage:
 authme:
   # 是否启用 AuthMe 集成功能
   enabled: true
-  
+
   # 是否强制在 Web 注册时要求输入密码
   require_password: true
-  
+
   # 是否在通过审核时自动注册至 AuthMe
   auto_register: false
-  
+
   # 是否在删除用户时自动从 AuthMe 注销
   auto_unregister: false
-  
+
   # 密码正则表达式
   password_regex: "^[a-zA-Z0-9_]{3,16}$"
 ```
@@ -223,10 +227,10 @@ authme:
 captcha:
   # 验证码类型: math（数学表达式）或 text（随机字符）
   type: math
-  
+
   # 文本验证码长度（math 类型时忽略此项）
   length: 4
-  
+
   # 验证码过期时间（秒）
   expire_seconds: 300
 ```
@@ -238,10 +242,10 @@ captcha:
 bedrock:
   # 是否启用基岩版玩家支持
   enabled: false
-  
+
   # 基岩版玩家用户名前缀（Floodgate 常用 "."）
   prefix: "."
-  
+
   # 基岩版用户名正则表达式
   username_regex: "^\\.[a-zA-Z0-9_\\s]{3,16}$"
 ```
@@ -253,10 +257,10 @@ bedrock:
 questionnaire:
   # 是否启用问卷功能
   enabled: false
-  
+
   # 通过所需的最低分数
   pass_score: 60
-  
+
   # 问卷通过后是否自动批准用户
   auto_approve_on_pass: false
 ```
@@ -268,19 +272,19 @@ questionnaire:
 discord:
   # 是否启用 Discord 集成
   enabled: false
-  
+
   # Discord 应用的客户端ID
   client_id: ""
-  
+
   # Discord 应用的客户端密钥
   client_secret: ""
-  
+
   # OAuth2 回调地址
   redirect_uri: "https://yourdomain.com/api/discord/callback"
-  
+
   # 可选：要求用户加入特定服务器的ID
   guild_id: ""
-  
+
   # 是否强制要求绑定 Discord 才能注册
   required: false
 ```

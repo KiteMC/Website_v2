@@ -8,10 +8,15 @@ ArcPass 支持与多种流行插件集成，扩展功能和玩法。
 |------|------|-----------|
 | Vault | 经济系统 | ✅ |
 | CMI | 经济系统（直接） | ✅ |
+| PlayerPoints | 点卷货币 | ✅ |
+| CoinsEngine | 点卷货币 | ✅ |
+| TokenManager | 点卷货币 | ✅ |
 | LuckPerms | 权限奖励 | ✅ |
 | PlaceholderAPI | 变量占位符 | ✅ |
 | DeluxeTags | 称号奖励 | ❌ |
 | TAB | 称号奖励 | ✅ |
+| PlayerTitle | 称号奖励 | ✅ |
+| NametagEdit | 称号奖励 | ❌ |
 | MythicMobs | 自定义怪物任务 | ✅ |
 | Jobs Reborn | 职业任务 | ✅ |
 | Oraxen | 自定义物品奖励 | ✅ |
@@ -52,6 +57,60 @@ CMI 是一款功能全面的服务器管理插件，ArcPass 支持直接使用 C
 - CMI 9.0+
 
 CMI 经济优先于 Vault，如果同时安装，将使用 CMI。
+
+## 点卷系统
+
+ArcPass 支持多款点卷插件作为替代货币，用于购买通行证档位。
+
+### PlayerPoints
+
+PlayerPoints 是最流行的点卷插件。
+
+**安装要求：**
+
+- PlayerPoints 2.0+
+
+**用途：**
+
+- 购买通行证档位（通过 `currency-type: points` 配置）
+
+### CoinsEngine
+
+CoinsEngine 是一款多币种经济插件。
+
+**安装要求：**
+
+- CoinsEngine 2.0+
+
+### TokenManager
+
+TokenManager 提供基于 Token 的货币系统。
+
+**安装要求：**
+
+- TokenManager 3.0+
+
+### 点卷优先级
+
+当同时安装多个点卷插件时，ArcPass 按以下顺序使用第一个可用的：
+
+1. **PlayerPoints**
+2. **CoinsEngine**
+3. **TokenManager**
+
+### 使用点卷购买档位
+
+在通行证配置中，将 `currency-type` 设置为 `points` 即可使用点卷替代 Vault/CMI 经济：
+
+```yaml
+tiers:
+  premium:
+    display-name: "&6高级版"
+    price: 980
+    currency-type: points  # 使用点卷插件替代 Vault/CMI
+```
+
+详见 <InlineLink href="../config/passes">通行证配置</InlineLink>。
 
 ## 权限系统
 
@@ -145,13 +204,35 @@ reward_title_legend:
     persistent: true
 ```
 
+### PlayerTitle
+
+PlayerTitle 是一款流行的称号管理插件（在国内 MC 社区中尤为常用）。
+
+**安装要求：**
+
+- PlayerTitle 2.0+
+
+当 DeluxeTags 和 TAB 不可用时，ArcPass 会自动通过 PlayerTitle API 或 `plt give` 命令发放称号。
+
+### NametagEdit
+
+NametagEdit 是一款名牌编辑插件。
+
+**安装要求：**
+
+- NametagEdit 4.0+
+
+NametagEdit 将称号设置为玩家名牌前缀。当其他称号插件不可用时作为回退方案。
+
 ### 称号优先级
 
 ArcPass 按以下顺序尝试发放称号奖励：
 
 1. **DeluxeTags** - 如果可用且非 Folia
-2. **TAB** - 如果可用
-3. **LuckPerms** - 作为前缀/后缀回退
+2. **TAB** - 如果可用（支持 Folia）
+3. **PlayerTitle** - 如果可用
+4. **NametagEdit** - 如果可用
+5. **LuckPerms** - 作为前缀/后缀回退
 
 ## 任务触发器
 
@@ -276,7 +357,9 @@ PlaceholderAPI 让您可以在其他插件中使用 ArcPass 的数据。
 
 ```
 [ArcPass] Vault economy hook enabled.
+[ArcPass] PlayerPoints hook enabled.
 [ArcPass] LuckPerms permission hook enabled.
+[ArcPass] PlayerTitle hook enabled.
 [ArcPass] PlaceholderAPI expansion registered.
 [ArcPass] TAB integration enabled!
 [ArcPass] MythicMobs integration enabled!
@@ -295,9 +378,9 @@ PlaceholderAPI 让您可以在其他插件中使用 ArcPass 的数据。
 
 ### 称号奖励不生效
 
-1. 确认 DeluxeTags 或 TAB 已安装
+1. 确认称号插件已安装（DeluxeTags、TAB、PlayerTitle 或 NametagEdit）
 2. 对于 Folia，必须使用 TAB
-3. 检查 LuckPerms 是否正确配置
+3. LuckPerms 可作为最终回退方案
 
 ### MythicMobs 任务不触发
 

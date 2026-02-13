@@ -54,6 +54,8 @@ tiers:
     display-name: "&6Premium"
     description: "&eUnlock more rewards and exclusive content"
     price: 980.0
+    # Currency type: vault (Vault/CMI economy) or points (PlayerPoints/CoinsEngine/TokenManager)
+    currency-type: vault
     free: false
     priority: 1
     icon: GOLD_INGOT
@@ -64,6 +66,7 @@ tiers:
     display-name: "&dDeluxe"
     description: "&5Enjoy all rewards and exclusive privileges"
     price: 1980.0
+    currency-type: vault
     free: false
     priority: 2
     icon: DIAMOND

@@ -54,6 +54,8 @@ tiers:
     display-name: "&6高级版"
     description: "&e解锁更多奖励和专属内容"
     price: 980.0
+    # 货币类型: vault (Vault/CMI 经济) 或 points (PlayerPoints/CoinsEngine/TokenManager 点卷)
+    currency-type: vault
     free: false
     priority: 1
     icon: GOLD_INGOT
@@ -64,6 +66,7 @@ tiers:
     display-name: "&d豪华版"
     description: "&5尊享全部奖励与独家特权"
     price: 1980.0
+    currency-type: vault
     free: false
     priority: 2
     icon: DIAMOND

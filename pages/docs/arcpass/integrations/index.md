@@ -8,10 +8,15 @@ ArcPass supports integration with many popular plugins to extend functionality.
 |--------|----------|---------------|
 | Vault | Economy system | ✅ |
 | CMI | Economy (direct) | ✅ |
+| PlayerPoints | Points currency | ✅ |
+| CoinsEngine | Points currency | ✅ |
+| TokenManager | Points currency | ✅ |
 | LuckPerms | Permission rewards | ✅ |
 | PlaceholderAPI | Placeholder variables | ✅ |
 | DeluxeTags | Title rewards | ❌ |
 | TAB | Title rewards | ✅ |
+| PlayerTitle | Title rewards | ✅ |
+| NametagEdit | Title rewards | ❌ |
 | MythicMobs | Custom mob quests | ✅ |
 | Jobs Reborn | Job quests | ✅ |
 | Oraxen | Custom item rewards | ✅ |
@@ -51,6 +56,60 @@ CMI is a comprehensive server management plugin. ArcPass supports CMI economy di
 - CMI 9.0+
 
 CMI economy takes priority over Vault when both are installed.
+
+## Points System
+
+ArcPass supports points/voucher plugins as an alternative currency for tier purchases.
+
+### PlayerPoints
+
+PlayerPoints is the most popular points plugin.
+
+**Requirements:**
+
+- PlayerPoints 2.0+
+
+**Uses:**
+
+- Tier purchases (via `currency-type: points`)
+
+### CoinsEngine
+
+CoinsEngine is a multi-currency economy plugin.
+
+**Requirements:**
+
+- CoinsEngine 2.0+
+
+### TokenManager
+
+TokenManager provides a token-based currency system.
+
+**Requirements:**
+
+- TokenManager 3.0+
+
+### Points Priority
+
+When multiple points plugins are installed, ArcPass uses the first available:
+
+1. **PlayerPoints**
+2. **CoinsEngine**
+3. **TokenManager**
+
+### Using Points for Tier Purchases
+
+To use points instead of Vault/CMI economy for a tier, set `currency-type: points` in the pass configuration:
+
+```yaml
+tiers:
+  premium:
+    display-name: "&6Premium"
+    price: 980
+    currency-type: points  # Use points plugin instead of Vault/CMI
+```
+
+See <InlineLink href="../config/passes">Pass Configuration</InlineLink> for details.
 
 ## Permission System
 
@@ -143,13 +202,35 @@ reward_title_legend:
     persistent: true
 ```
 
+### PlayerTitle
+
+PlayerTitle is a popular title management plugin (especially in Chinese MC communities).
+
+**Requirements:**
+
+- PlayerTitle 2.0+
+
+PlayerTitle is used automatically as a fallback when DeluxeTags and TAB are not available. Titles are given via the PlayerTitle API or the `plt give` command.
+
+### NametagEdit
+
+NametagEdit is a nametag editing plugin.
+
+**Requirements:**
+
+- NametagEdit 4.0+
+
+NametagEdit sets titles as player nametag prefixes. It is used as a fallback when other title plugins are not available.
+
 ### Title Priority
 
 ArcPass tries to grant titles in this order:
 
 1. **DeluxeTags** - If available and not Folia
-2. **TAB** - If available
-3. **LuckPerms** - As prefix/suffix fallback
+2. **TAB** - If available (Folia compatible)
+3. **PlayerTitle** - If available
+4. **NametagEdit** - If available
+5. **LuckPerms** - As prefix/suffix fallback
 
 ## Quest Triggers
 
@@ -259,7 +340,9 @@ On startup, console shows integration status:
 
 ```
 [ArcPass] Vault economy hook enabled.
+[ArcPass] PlayerPoints hook enabled.
 [ArcPass] LuckPerms permission hook enabled.
+[ArcPass] PlayerTitle hook enabled.
 [ArcPass] PlaceholderAPI expansion registered.
 [ArcPass] TAB integration enabled!
 [ArcPass] MythicMobs integration enabled!
@@ -278,9 +361,9 @@ On startup, console shows integration status:
 
 ### Title Rewards Not Working
 
-1. Confirm DeluxeTags or TAB is installed
+1. Confirm a title plugin is installed (DeluxeTags, TAB, PlayerTitle, or NametagEdit)
 2. Use TAB on Folia
-3. Check LuckPerms configuration
+3. Check LuckPerms configuration as fallback
 
 ### MythicMobs Quest Not Triggering
 

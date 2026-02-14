@@ -39,8 +39,9 @@ display-name: "&6Miner's Daily"
 # Quest description
 description: "&7Mine various ores and become a mining star!"
 
-# Quest icon
+# Quest icon (supports: vanilla material, "itemsadder:ns:id", "oraxen:id")
 icon: IRON_PICKAXE
+# custom-model-data: 0    # Optional CustomModelData (v1.1.5+)
 
 # Quest category
 category: mining

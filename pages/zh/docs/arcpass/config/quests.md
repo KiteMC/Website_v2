@@ -39,8 +39,9 @@ display-name: "&6矿工日常"
 # 任务描述
 description: "&7开采各类矿石，成为矿场之星！"
 
-# 任务图标
+# 任务图标 (支持: 原版材料名, "itemsadder:命名空间:ID", "oraxen:ID")
 icon: IRON_PICKAXE
+# custom-model-data: 0    # 可选 CustomModelData (v1.1.5+)
 
 # 任务分类
 category: mining

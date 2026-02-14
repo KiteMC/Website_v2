@@ -47,7 +47,8 @@ tiers:
     description: "&7免费玩家可领取的基础奖励"
     free: true
     priority: 0
-    icon: PAPER
+    icon: PAPER                # 支持: 原版材料名, "itemsadder:命名空间:ID", "oraxen:ID"
+    # custom-model-data: 0    # 可选 CustomModelData (v1.1.5+)
 
   # 高级档位 - 付费升级
   premium:

@@ -93,6 +93,48 @@ reward_magic_gem:
   amount: 5
 ```
 
+## Custom Icons <Badge type="tip" text="v1.1.5" />
+
+By default, the `icon` field accepts a vanilla material name (e.g., `DIAMOND`). Starting from v1.1.5, you can use **CustomModelData**, **ItemsAdder**, or **Oraxen** items as GUI icons.
+
+### CustomModelData
+
+```yaml
+reward_exchange_card:
+  type: ITEM
+  display-name: "&e Exchange Card"
+  icon: PAPER
+  custom-model-data: 10001    # CustomModelData value
+  value: "PAPER"
+  amount: 5
+```
+
+### ItemsAdder Icon
+
+```yaml
+reward_magic_wand:
+  type: ITEM
+  display-name: "&dMagic Wand"
+  icon: "itemsadder:namespace:item_id"   # Uses ItemsAdder item as icon
+  value: "itemsadder:namespace:item_id"
+  amount: 1
+```
+
+### Oraxen Icon
+
+```yaml
+reward_oraxen_gem:
+  type: ITEM
+  display-name: "&bCrystal Gem"
+  icon: "oraxen:crystal_gem"   # Uses Oraxen item as icon
+  value: "oraxen:crystal_gem"
+  amount: 1
+```
+
+::: tip
+The `icon` field controls what is displayed in the GUI. The `value` field controls what the player actually receives. They can be different.
+:::
+
 ## Economy Rewards
 
 ```yaml

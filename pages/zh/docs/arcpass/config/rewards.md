@@ -105,6 +105,48 @@ reward_custom_item:
   amount: 1
 ```
 
+## 自定义图标 <Badge type="tip" text="v1.1.5" />
+
+默认情况下，`icon` 字段接受原版材料名（如 `DIAMOND`）。从 v1.1.5 起，你可以使用 **CustomModelData**、**ItemsAdder** 或 **Oraxen** 物品作为 GUI 图标。
+
+### CustomModelData
+
+```yaml
+reward_exchange_card:
+  type: ITEM
+  display-name: "&e兑换卡"
+  icon: PAPER
+  custom-model-data: 10001    # CustomModelData 值
+  value: "PAPER"
+  amount: 5
+```
+
+### ItemsAdder 图标
+
+```yaml
+reward_magic_wand:
+  type: ITEM
+  display-name: "&d魔法杖"
+  icon: "itemsadder:命名空间:物品ID"   # 使用 ItemsAdder 物品作为图标
+  value: "itemsadder:命名空间:物品ID"
+  amount: 1
+```
+
+### Oraxen 图标
+
+```yaml
+reward_oraxen_gem:
+  type: ITEM
+  display-name: "&b水晶宝石"
+  icon: "oraxen:crystal_gem"   # 使用 Oraxen 物品作为图标
+  value: "oraxen:crystal_gem"
+  amount: 1
+```
+
+::: tip
+`icon` 字段控制 GUI 中的显示图标，`value` 字段控制玩家实际获得的内容，两者可以不同。
+:::
+
 ## 经济奖励
 
 ```yaml

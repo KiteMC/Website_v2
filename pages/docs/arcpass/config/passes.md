@@ -47,7 +47,8 @@ tiers:
     description: "&7Basic rewards for free players"
     free: true
     priority: 0
-    icon: PAPER
+    icon: PAPER                # Supports: vanilla material, "itemsadder:ns:id", "oraxen:id"
+    # custom-model-data: 0    # Optional CustomModelData (v1.1.5+)
 
   # Premium tier - paid upgrade
   premium:

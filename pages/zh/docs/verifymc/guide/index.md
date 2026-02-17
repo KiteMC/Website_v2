@@ -295,7 +295,7 @@ discord:
 ## 官方社区
 
 - **QQ 群**: 1041540576 ([点击加入](https://qm.qq.com/q/F7zuhZ7Mze))
-- **Discord**: [https://discord.gg/TCn9v88V](https://discord.gg/TCn9v88V)
+- **Discord**: [https://discord.gg/dcsBw5Z5ZT](https://discord.gg/dcsBw5Z5ZT)
 
 ---
 

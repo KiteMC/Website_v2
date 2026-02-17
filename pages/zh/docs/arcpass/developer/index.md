@@ -37,7 +37,7 @@ ArcPass API 模块 (`arcpass-api`) 采用 MIT 许可证开源，可自由使用�
 <dependency>
     <groupId>com.kitemc</groupId>
     <artifactId>arcpass-api</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -52,7 +52,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.kitemc:arcpass-api:1.2.1")
+    compileOnly("com.kitemc:arcpass-api:1.2.2")
 }
 ```
 

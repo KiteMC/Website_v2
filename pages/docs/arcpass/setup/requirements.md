@@ -19,7 +19,7 @@ This page lists all requirements and dependencies for running ArcPass.
 | Server | Version Range | Notes |
 |--------|---------------|-------|
 | Paper | 1.18 - 1.21+ | Recommended, best performance |
-| Folia | 1.19 - 1.21+ | Recommended for large servers |
+| Folia | 1.20 - 1.21+ | Recommended for large servers |
 | Purpur | 1.18 - 1.21+ | Paper-based |
 | Spigot | 1.18 - 1.21+ | Standard support |
 

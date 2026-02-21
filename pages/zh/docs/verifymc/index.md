@@ -53,4 +53,8 @@ features:
       src: /images/icons/clipboard.svg
     title: 注册问卷
     details: 可自定义问卷系统、多语言支持、灵活的问题类型
+  - icon:
+      src: /images/icons/shield.svg
+    title: LLM 问答评分
+    details: AI 驱动的文本问答自动评分，支持 DeepSeek/Google，内置熔断器与并发控制
 ---

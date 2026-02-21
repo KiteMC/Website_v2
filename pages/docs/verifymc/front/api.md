@@ -2,177 +2,184 @@
 
 ## API Reference Documentation
 
-## User Registration & Verification
+All API endpoints use JSON for request and response bodies. Admin endpoints require `Authorization: Bearer <token>` in the request header.
 
-### Send Email Verification Code
-- **Endpoint**: `POST /api/send_code`
-- **Purpose**: Send a registration verification code to the specified email to prevent abuse.
-- **Permission**: Public (no authentication required)
+## Configuration
+
+### Get Config
+- **Endpoint**: `GET /api/config`
+- **Purpose**: Get frontend theme, announcement, auth methods, and other public config info.
+- **Permission**: Public
+
+## Captcha
+
+### Generate Captcha
+- **Endpoint**: `GET /api/captcha/generate`
+- **Purpose**: Generate a new graphical captcha image.
+- **Permission**: Public
+
+## Email Verification
+
+### Send Verification Code
+- **Endpoint**: `POST /api/verify/send`
+- **Purpose**: Send a registration verification code to the specified email.
+- **Permission**: Public
 - **Request Header**: `Content-Type: application/json`
 - **Request Parameters**:
   | Field    | Type   | Required | Description         | Example             |
   |----------|--------|----------|---------------------|---------------------|
   | email    | string | Yes      | User email          | user@example.com    |
   | language | string | No       | Language (zh/en)    | en                  |
-- **Request Example**:
-  ```json
-  { "email": "user@example.com", "language": "en" }
-  ```
-- **Response**:
-  | Field   | Type    | Description      |
-  |---------|---------|------------------|
-  | success | boolean | Success or not   |
-  | msg     | string  | Message          |
-- **Success Example**:
-  ```json
-  { "success": true, "msg": "Verification code sent" }
-  ```
-- **Failure Example**:
-  ```json
-  { "success": false, "msg": "Invalid email format or already registered" }
-  ```
 - **Notes**:
   - Email sending is rate-limited per day/minute to prevent abuse.
   - Email format must comply with RFC standards.
 
+## Questionnaire
+
+### Get Questionnaire Config
+- **Endpoint**: `GET /api/questionnaire/config`
+- **Purpose**: Get questionnaire questions and configuration.
+- **Permission**: Public
+
+### Submit Questionnaire
+- **Endpoint**: `POST /api/questionnaire/submit`
+- **Purpose**: Submit questionnaire answers for scoring.
+- **Permission**: Public
+
+## Registration
+
 ### Register
 - **Endpoint**: `POST /api/register`
-- **Purpose**: User submits email verification code and info to register.
+- **Purpose**: User submits verification code and info to register.
 - **Permission**: Public
 - **Request Header**: `Content-Type: application/json`
 - **Request Parameters**:
   | Field    | Type   | Required | Description         |
   |----------|--------|----------|---------------------|
   | email    | string | Yes      | User email          |
-  | code     | string | Yes      | Email verification code |
-  | uuid     | string | Yes      | Player UUID         |
+  | code     | string | Yes      | Verification code   |
   | username | string | Yes      | Player name         |
   | language | string | No       | Language            |
-- **Request Example**:
-  ```json
-  { "email": "user@example.com", "code": "123456", "uuid": "player-uuid", "username": "playername", "language": "en" }
-  ```
-- **Response**:
-  | Field   | Type    | Description      |
-  |---------|---------|------------------|
-  | success | boolean | Success or not   |
-  | msg     | string  | Message          |
-- **Success Example**:
-  ```json
-  { "success": true, "msg": "Registration successful" }
-  ```
-- **Failure Example**:
-  ```json
-  { "success": false, "msg": "Verification code incorrect or expired" }
-  ```
 - **Notes**:
   - Verification code is usually valid for 5 minutes.
   - Username and email must be unique.
   - Registration may require admin approval.
 
-## Admin & Review
+### Check Review Status
+- **Endpoint**: `GET /api/review/status`
+- **Purpose**: Check the review status of a registration.
+- **Permission**: Public
+
+## User
+
+### Get User Status
+- **Endpoint**: `GET /api/user/status`
+- **Purpose**: Query the current status of a user.
+- **Permission**: Public
+
+## Authentication
+
+### User Login
+- **Endpoint**: `POST /api/login`
+- **Purpose**: User login (non-admin).
+- **Permission**: Public
 
 ### Admin Login
-- **Endpoint**: `POST /api/admin-login`
-- **Purpose**: Admin login to backend.
+- **Endpoint**: `POST /api/admin/login`
+- **Purpose**: Admin login to backend management panel.
 - **Permission**: Public
 - **Request Header**: `Content-Type: application/json`
 - **Request Parameters**:
-  | Field    | Type   | Required | Description         |
-  |----------|--------|----------|---------------------|
-  | password | string | Yes      | Admin password      |
-  | language | string | No       | Language            |
-- **Request Example**:
-  ```json
-  { "password": "your_admin_password", "language": "en" }
-  ```
-- **Response**:
-  | Field   | Type    | Description      |
-  |---------|---------|------------------|
-  | success | boolean | Success or not   |
-  | token   | string  | JWT token        |
-  | message | string  | Message          |
-- **Success Example**:
-  ```json
-  { "success": true, "token": "JWT_TOKEN", "message": "Login successful" }
-  ```
-- **Failure Example**:
-  ```json
-  { "success": false, "message": "Incorrect password" }
-  ```
+  | Field    | Type   | Required | Description            |
+  |----------|--------|----------|------------------------|
+  | username | string | Yes      | Player username        |
+  | password | string | Yes      | Player password        |
+  | language | string | No       | Language               |
 - **Notes**:
+  - Admin login verifies against registered player credentials. Only server OPs can access the admin panel.
   - All admin APIs require `Authorization: Bearer <token>` in the header after login.
 
-### Get Pending User List
-- **Endpoint**: `GET /api/pending-list?language=en`
-- **Purpose**: Get all users pending review.
-- **Permission**: Admin login required (token)
-- **Request Header**: `Authorization: Bearer <token>`
+## Admin Endpoints
 
-### Review User
-- **Endpoint**: `POST /api/review`
-- **Purpose**: Admin reviews user (approve/reject).
-- **Permission**: Admin login required
-- **Request Header**: `Authorization: Bearer <token>`, `Content-Type: application/json`
-- **Request Parameters**:
-  | Field    | Type   | Required | Description         |
-  |----------|--------|----------|---------------------|
-  | uuid     | string | Yes      | Player UUID         |
-  | action   | string | Yes      | Action (approve/reject) |
-  | reason   | string | No       | Reason (if rejected) |
-  | language | string | No       | Language            |
+### Verify Admin Token
+- **Endpoint**: `GET /api/admin/verify`
+- **Purpose**: Verify if the admin token is still valid.
+- **Permission**: Admin (token required)
 
-## Other APIs
+### Get User List
+- **Endpoint**: `GET /api/admin/users`
+- **Purpose**: Get users with pagination, search, and status filtering.
+- **Permission**: Admin (token required)
+- **Query Parameters**: `page`, `size`, `search`, `status`
 
-### Ping
-- **Endpoint**: `GET /api/ping`
-- **Purpose**: Health check endpoint to verify API availability.
-- **Permission**: Public
-- **Response**:
-  ```json
-  { "msg": "pong" }
-  ```
+### Approve User
+- **Endpoint**: `POST /api/admin/user/approve`
+- **Purpose**: Approve a pending user's registration.
+- **Permission**: Admin (token required)
 
-### Get Config
-- **Endpoint**: `GET /api/config`
-- **Purpose**: Get frontend, login, announcement and other config info.
-- **Permission**: Public
-
-### Reload Config
-- **Endpoint**: `POST /api/reload-config`
-- **Purpose**: Reload plugin configuration and switch theme if needed.
-- **Permission**: Admin login required (token)
-
-### Get All Users
-- **Endpoint**: `GET /api/all-users`
-- **Purpose**: Get all non-pending users (approved, rejected, banned).
-- **Permission**: Admin login required (token)
+### Reject User
+- **Endpoint**: `POST /api/admin/user/reject`
+- **Purpose**: Reject a pending user's registration.
+- **Permission**: Admin (token required)
 
 ### Delete User
-- **Endpoint**: `POST /api/delete-user`
+- **Endpoint**: `POST /api/admin/user/delete`
 - **Purpose**: Delete a user from the system.
-- **Permission**: Admin login required (token)
+- **Permission**: Admin (token required)
 
 ### Ban User
-- **Endpoint**: `POST /api/ban-user`
+- **Endpoint**: `POST /api/admin/user/ban`
 - **Purpose**: Ban a user (change status to banned).
-- **Permission**: Admin login required (token)
+- **Permission**: Admin (token required)
 
 ### Unban User
-- **Endpoint**: `POST /api/unban-user`
+- **Endpoint**: `POST /api/admin/user/unban`
 - **Purpose**: Unban a user (change status from banned to approved).
-- **Permission**: Admin login required (token)
+- **Permission**: Admin (token required)
 
-## Proxy Plugin API
+### Change User Password
+- **Endpoint**: `POST /api/admin/user/password`
+- **Purpose**: Change a user's password.
+- **Permission**: Admin (token required)
 
-### Check Whitelist Status
-- **Endpoint**: `GET /api/whitelist-check?username={username}`
-- **Purpose**: Check if a player is approved to join the server.
-- **Permission**: API key required (configured in proxy plugin)
-- **Response**:
-  ```json
-  { "success": true, "approved": true, "status": "approved" }
-  ```
+### Get Audit Logs
+- **Endpoint**: `GET /api/admin/audits`
+- **Purpose**: Get audit log records.
+- **Permission**: Admin (token required)
+
+### Sync AuthMe Data
+- **Endpoint**: `POST /api/admin/sync`
+- **Purpose**: Trigger AuthMe data synchronization.
+- **Permission**: Admin (token required)
+
+## Discord Integration
+
+### Discord Auth
+- **Endpoint**: `GET /api/discord/auth`
+- **Purpose**: Initiate Discord OAuth2 authorization flow.
+- **Permission**: Public
+
+### Discord Callback
+- **Endpoint**: `GET /api/discord/callback`
+- **Purpose**: Handle Discord OAuth2 callback.
+- **Permission**: Public
+
+### Discord Status
+- **Endpoint**: `GET /api/discord/status`
+- **Purpose**: Check Discord linking status for a user.
+- **Permission**: Public
+
+### Discord Unlink
+- **Endpoint**: `POST /api/discord/unlink`
+- **Purpose**: Unlink a user's Discord account.
+- **Permission**: Public
+
+## Version
+
+### Get Version
+- **Endpoint**: `GET /api/version`
+- **Purpose**: Get the plugin version and check for updates.
+- **Permission**: Public
 
 ---
 

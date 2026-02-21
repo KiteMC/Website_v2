@@ -132,7 +132,7 @@ captcha:
 ## 安装与兼容性
 
 ### 支持哪些 Minecraft 版本？
-VerifyMC 支持 Minecraft **1.8.x 至 1.21.x**。
+VerifyMC 支持 Minecraft **1.13.x 至 1.21.x+**。
 
 ### VerifyMC 支持 Geyser/Floodgate（基岩版）吗？
 支持！在 `config.yml` 中配置：
@@ -140,7 +140,7 @@ VerifyMC 支持 Minecraft **1.8.x 至 1.21.x**。
 bedrock:
   enabled: true
   prefix: "."
-  username_regex: "^\\.[a-zA-Z0-9_\\s]{3,16}$"
+  username_regex: "^[a-zA-Z0-9._-]{3,15}$"
 ```
 
 ---

@@ -22,6 +22,7 @@ The main command `/arcpass` supports these aliases:
 | `/arcpass buy <tier>` | Purchase pass tier | `arcpass.command.buy` |
 | `/arcpass leaderboard [type]` | View leaderboard | `arcpass.use` |
 | `/arcpass top [type]` | View leaderboard (alias) | `arcpass.use` |
+| `/arcpass rewards` | View available rewards | `arcpass.use` |
 
 ### Command Details
 
@@ -108,6 +109,8 @@ All admin commands require `arcpass.admin` permission.
 | `/arcpass admin debug [toggle]` | Toggle debug mode |
 | `/arcpass admin save` | Save all data |
 | `/arcpass admin broadcast <message>` | Server broadcast |
+| `/arcpass admin confirm` | Confirm pending dangerous action |
+| `/arcpass admin cancel` | Cancel pending dangerous action |
 
 ### Admin Command Details
 

@@ -53,4 +53,8 @@ features:
       src: /images/icons/clipboard.svg
     title: Registration Questionnaire
     details: Customizable questionnaire system, multi-language support, flexible question types
+  - icon:
+      src: /images/icons/shield.svg
+    title: LLM Essay Scoring
+    details: AI-powered auto-scoring for text questionnaire answers via DeepSeek/Google, with circuit breaker and concurrency control
 ---

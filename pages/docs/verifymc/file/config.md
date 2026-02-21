@@ -11,7 +11,7 @@ You can also find an English example `config.yml` in the VerifyMC GitHub reposit
 
 ```yaml
 # Global language setting. Affects plugin messages and web UI. (e.g., 'zh', 'en')
-language: zh
+language: en
 
 # Enable detailed console logs for troubleshooting.
 debug: false
@@ -68,11 +68,8 @@ username_regex: "^[a-zA-Z0-9_-]{3,16}$"
 # If false, usernames that only differ by case (e.g., "Player" and "player") are treated as the same.
 username_case_sensitive: false
 
-# A list of IP addresses that can join the server without being whitelisted.
-whitelist_bypass_ips:
-  - 127.0.0.1
-
 # The password for accessing the admin panel on the web interface.
+# Admin login verifies against registered player credentials; only server OPs can access the admin panel.
 admin:
   password: your_custom_password
 ```
@@ -128,36 +125,11 @@ email_subject: VerifyMC Verification Code
 | Outlook | smtp.office365.com | 587 | true |
 | 163 Mail | smtp.163.com | 465 | true |
 
-## Sync Settings (for Bukkit Mode)
+## Auto Update Resources
 
 ```yaml
-# If true, automatically syncs changes from whitelist.json to the plugin's database.
-whitelist_json_sync: true
-
-# If true, automatically adds approved users to whitelist.json and removes banned/deleted users.
-auto_sync_whitelist: true
-
-# If 'bukkit' mode is disabled, this setting (if true) cleans players from whitelist.json.
-auto_cleanup_whitelist: true
-```
-
-## Auto Update & Backup
-
-```yaml
-# If true, automatically adds new settings to your config.yml on plugin updates.
-auto_update_config: true
-
-# If true, automatically updates the language files.
-auto_update_i18n: true
-
-# If true, automatically updates the email templates.
-auto_update_email: true
-
-# If true, automatically updates theme files.
-auto_update_static: true
-
-# If true, creates a full backup of the plugin data folder before any auto-updates.
-backup_on_update: true
+# If true, automatically updates i18n, email templates, and theme files on plugin updates.
+auto_update_resources: true
 ```
 
 ## Email Registration Restrictions
@@ -182,17 +154,14 @@ email_domain_whitelist:
   - foxmail.com
 ```
 
-## Storage & Data Migration
+## Storage & MySQL
 
 ```yaml
-storage:
-  # Storage type, options: data (local file), mysql (external database)
-  type: data
+# Storage type: 'data' (local file) or 'mysql' (external database)
+storage: data
 
-  # Whether to automatically migrate data when switching storage.type
-  auto_migrate_on_switch: false
-
-  mysql:
+# MySQL connection settings (used when storage is 'mysql')
+mysql:
     host: localhost
     port: 3306
     database: verifymc
@@ -210,14 +179,36 @@ authme:
   # Whether to require password input during web registration
   require_password: true
 
-  # Whether to automatically register to AuthMe when approval is granted
-  auto_register: false
-
-  # Whether to automatically unregister from AuthMe when user is deleted
-  auto_unregister: false
-
   # Password regex pattern
-  password_regex: "^[a-zA-Z0-9_]{3,16}$"
+  password_regex: "^[a-zA-Z0-9_]{8,26}$"
+
+  # AuthMe database configuration for direct integration
+  database:
+    # Database type: 'sqlite' or 'mysql'
+    type: sqlite
+    # AuthMe table name
+    table: authme
+    # Sync interval in seconds (for periodic data synchronization)
+    sync_interval_seconds: 30
+
+    # MySQL settings (used when database.type is 'mysql')
+    mysql:
+      host: 127.0.0.1
+      port: 3306
+      database: authme
+      user: root
+      password: yourpassword
+
+    # SQLite settings (used when database.type is 'sqlite')
+    sqlite:
+      path: plugins/AuthMe/authme.db
+
+    # Column name mapping (match your AuthMe database schema)
+    columns:
+      mySQLColumnName: username
+      mySQLRealName: realname
+      mySQLColumnPassword: password
+      mySQLColumnEmail: email
 ```
 
 ## Captcha Configuration
@@ -248,7 +239,7 @@ bedrock:
   prefix: "."
 
   # Regex for bedrock usernames
-  username_regex: "^\\.[a-zA-Z0-9_\\s]{3,16}$"
+  username_regex: "^[a-zA-Z0-9._-]{3,15}$"
 ```
 
 ## Questionnaire Configuration
@@ -262,8 +253,77 @@ questionnaire:
   # Minimum score to pass
   pass_score: 60
 
-  # Auto-approve users who pass the questionnaire
-  auto_approve_on_pass: false
+  # Rate limiting for questionnaire submissions
+  rate_limit:
+    # Time window in milliseconds
+    window_ms: 300000
+    ip:
+      max: 20
+    uuid:
+      max: 8
+    email:
+      max: 6
+```
+
+## LLM Essay Scoring
+
+```yaml
+# AI-powered auto-scoring for text questionnaire answers
+llm:
+  # Whether to enable LLM scoring
+  enabled: true
+
+  # LLM provider: 'deepseek' or 'google'
+  provider: deepseek
+
+  # API base URL
+  api_base: https://api.deepseek.com/v1
+
+  # API key (keep this secret!)
+  api_key: ""
+
+  # Model name
+  model: deepseek-chat
+
+  # Request timeout in milliseconds
+  timeout: 10000
+
+  # Number of retries on failure
+  retry: 1
+
+  # Maximum concurrent scoring requests
+  max_concurrency: 4
+
+  # Timeout for acquiring a concurrency slot (ms)
+  acquire_timeout: 1500
+
+  # Retry backoff settings (ms)
+  retry_backoff_base: 300
+  retry_backoff_max: 5000
+
+  # Maximum input text length
+  input_max_length: 2000
+
+  # Circuit breaker settings
+  circuit_breaker:
+    failure_threshold: 5
+    open_ms: 30000
+
+  # System prompt for the LLM
+  system_prompt: |
+    You are a fair Minecraft whitelist questionnaire grader.
+    Score strictly based on the question, candidate answer, and scoring rule.
+    Return JSON only.
+
+  # Scoring rule for evaluation
+  scoring_rule: |
+    Evaluate primarily:
+    1) Relevance to the question
+    2) Completeness and level of detail
+    3) Understanding of server rules and community norms
+
+  # Expected JSON response format
+  score_format: '{"score": number, "reason": string, "confidence": number}'
 ```
 
 ## Discord Integration (OAuth2)
@@ -295,40 +355,29 @@ discord:
 ## Full Configuration Example
 
 ```yaml
-language: zh
+language: en
 debug: false
 web_port: 8080
 web_server_prefix: '[ Server Name ]'
-
 auth_methods:
   - email
-
 max_accounts_per_email: 2
 whitelist_mode: plugin
 web_register_url: https://domain.com/
-
 register:
   auto_approve: false
-
 username_regex: "^[a-zA-Z0-9_-]{3,16}$"
 username_case_sensitive: false
-
-whitelist_bypass_ips:
-  - 127.0.0.1
-
 admin:
   password: your_custom_password
-
 user_notification:
   enabled: true
   on_approve: true
   on_reject: true
-
 frontend:
   theme: glassx
   logo_url: /logo.png
   announcement: Welcome!
-
 smtp:
   host: smtp.qq.com
   port: 587
@@ -336,41 +385,93 @@ smtp:
   password: your_password
   from: your_email@qq.com
   enable_ssl: true
-
 email_subject: VerifyMC Verification Code
-
-storage:
-  type: data
-  auto_migrate_on_switch: false
-  mysql:
+auto_update_resources: true
+enable_email_domain_whitelist: true
+enable_email_alias_limit: false
+email_domain_whitelist:
+  - gmail.com
+  - 163.com
+  - 126.com
+  - qq.com
+  - outlook.com
+  - hotmail.com
+  - icloud.com
+  - yahoo.com
+  - foxmail.com
+storage: data
+mysql:
     host: localhost
     port: 3306
     database: verifymc
     user: root
     password: yourpassword
-
 authme:
   enabled: true
   require_password: true
-  auto_register: false
-  auto_unregister: false
-  password_regex: "^[a-zA-Z0-9_]{3,16}$"
-
+  password_regex: "^[a-zA-Z0-9_]{8,26}$"
+  database:
+    type: sqlite
+    table: authme
+    sync_interval_seconds: 30
+    mysql:
+      host: 127.0.0.1
+      port: 3306
+      database: authme
+      user: root
+      password: yourpassword
+    sqlite:
+      path: plugins/AuthMe/authme.db
+    columns:
+      mySQLColumnName: username
+      mySQLRealName: realname
+      mySQLColumnPassword: password
+      mySQLColumnEmail: email
 captcha:
   type: math
   length: 4
   expire_seconds: 300
-
 bedrock:
   enabled: false
   prefix: "."
-  username_regex: "^\\.[a-zA-Z0-9_\\s]{3,16}$"
-
+  username_regex: "^[a-zA-Z0-9._-]{3,15}$"
 questionnaire:
   enabled: false
   pass_score: 60
-  auto_approve_on_pass: false
-
+  rate_limit:
+    window_ms: 300000
+    ip:
+      max: 20
+    uuid:
+      max: 8
+    email:
+      max: 6
+llm:
+  enabled: true
+  provider: deepseek
+  api_base: https://api.deepseek.com/v1
+  api_key: ""
+  model: deepseek-chat
+  timeout: 10000
+  retry: 1
+  max_concurrency: 4
+  acquire_timeout: 1500
+  retry_backoff_base: 300
+  retry_backoff_max: 5000
+  input_max_length: 2000
+  circuit_breaker:
+    failure_threshold: 5
+    open_ms: 30000
+  system_prompt: |
+    You are a fair Minecraft whitelist questionnaire grader.
+    Score strictly based on the question, candidate answer, and scoring rule.
+    Return JSON only.
+  scoring_rule: |
+    Evaluate primarily:
+    1) Relevance to the question
+    2) Completeness and level of detail
+    3) Understanding of server rules and community norms
+  score_format: '{"score": number, "reason": string, "confidence": number}'
 discord:
   enabled: false
   client_id: ""

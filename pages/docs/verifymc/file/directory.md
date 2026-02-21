@@ -9,7 +9,6 @@ This page provides a detailed overview of the VerifyMC plugin's directory struct
 ```
 /plugins/VerifyMC/
 ├── config.yml                 # Main configuration file
-├── config.yml.backup          # Automatic config backup
 ├── config_help_en.yml         # English configuration help
 ├── config_help_zh.yml         # Chinese configuration help
 ├── questionnaire.yml          # Questionnaire config (optional)
@@ -60,7 +59,6 @@ This page provides a detailed overview of the VerifyMC plugin's directory struct
 | File | Description |
 |------|-------------|
 | `config.yml` | Main plugin configuration file with all configurable options |
-| `config.yml.backup` | Automatic backup of config file, generated on config updates |
 | `config_help_en.yml` | English configuration help document with detailed explanations |
 | `config_help_zh.yml` | Chinese configuration help document with detailed explanations |
 | `questionnaire.yml` | Questionnaire configuration for custom registration questions |

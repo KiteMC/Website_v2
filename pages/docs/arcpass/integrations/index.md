@@ -15,7 +15,6 @@ ArcPass supports integration with many popular plugins to extend functionality.
 | PlaceholderAPI | Placeholder variables | ✅ |
 | DeluxeTags | Title rewards | ❌ |
 | TAB | Title rewards | ✅ |
-| PlayerTitle | Title rewards | ✅ |
 | NametagEdit | Title rewards | ❌ |
 | MythicMobs | Custom mob quests | ✅ |
 | Jobs Reborn | Job quests | ✅ |
@@ -202,16 +201,6 @@ reward_title_legend:
     persistent: true
 ```
 
-### PlayerTitle
-
-PlayerTitle is a popular title management plugin (especially in Chinese MC communities).
-
-**Requirements:**
-
-- PlayerTitle 2.0+
-
-PlayerTitle is used automatically as a fallback when DeluxeTags and TAB are not available. Titles are given via the PlayerTitle API or the `plt give` command.
-
 ### NametagEdit
 
 NametagEdit is a nametag editing plugin.
@@ -228,9 +217,8 @@ ArcPass tries to grant titles in this order:
 
 1. **DeluxeTags** - If available and not Folia
 2. **TAB** - If available (Folia compatible)
-3. **PlayerTitle** - If available
-4. **NametagEdit** - If available
-5. **LuckPerms** - As prefix/suffix fallback
+3. **NametagEdit** - If available
+4. **LuckPerms** - As prefix/suffix fallback
 
 ## Quest Triggers
 
@@ -342,7 +330,6 @@ On startup, console shows integration status:
 [ArcPass] Vault economy hook enabled.
 [ArcPass] PlayerPoints hook enabled.
 [ArcPass] LuckPerms permission hook enabled.
-[ArcPass] PlayerTitle hook enabled.
 [ArcPass] PlaceholderAPI expansion registered.
 [ArcPass] TAB integration enabled!
 [ArcPass] MythicMobs integration enabled!
@@ -361,7 +348,7 @@ On startup, console shows integration status:
 
 ### Title Rewards Not Working
 
-1. Confirm a title plugin is installed (DeluxeTags, TAB, PlayerTitle, or NametagEdit)
+1. Confirm a title plugin is installed (DeluxeTags, TAB, or NametagEdit)
 2. Use TAB on Folia
 3. Check LuckPerms configuration as fallback
 

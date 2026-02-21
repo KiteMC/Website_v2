@@ -156,7 +156,7 @@ ArcPass 是一款专为 Minecraft 服务器设计的专业级通行证（Battle 
     :external="true"
   />
   <ActionButton
-    href="https://discord.com/invite/TCn9v88V"
+    href="https://discord.gg/dcsBw5Z5ZT"
     text="加入社区"
     theme="alt"
     icon="external"

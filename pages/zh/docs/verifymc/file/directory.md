@@ -9,7 +9,6 @@
 ```
 /plugins/VerifyMC/
 ├── config.yml                 # 主配置文件
-├── config.yml.backup          # 配置文件自动备份
 ├── config_help_en.yml         # 英文配置帮助文档
 ├── config_help_zh.yml         # 中文配置帮助文档
 ├── questionnaire.yml          # 问卷调查配置（可选）
@@ -60,7 +59,6 @@
 | 文件 | 说明 |
 |------|------|
 | `config.yml` | 插件的主配置文件，包含所有可配置选项 |
-| `config.yml.backup` | 配置文件的自动备份，在配置更新时生成 |
 | `config_help_en.yml` | 英文版配置帮助文档，包含每个配置项的详细说明 |
 | `config_help_zh.yml` | 中文版配置帮助文档，包含每个配置项的详细说明 |
 | `questionnaire.yml` | 问卷调查配置文件，用于自定义注册时的额外问题 |

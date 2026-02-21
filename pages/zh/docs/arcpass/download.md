@@ -188,7 +188,7 @@ compileOnly 'com.kitemc:arcpass-api:1.2.2'
   <LinkGrid :cols="2">
     <LinkCard icon="bug" title="Bug 反馈" description="在 GitHub 提交问题" href="https://github.com/KiteMC/ArcPass/issues" :external="true" />
     <LinkCard icon="light-bulb" title="功能建议" description="在 GitHub 讨论区提出" href="https://github.com/KiteMC/ArcPass/discussions" :external="true" />
-    <LinkCard icon="chat" title="Discord 社区" description="获取技术支持" href="https://discord.com/invite/TCn9v88V" :external="true" />
+    <LinkCard icon="chat" title="Discord 社区" description="获取技术支持" href="https://discord.gg/dcsBw5Z5ZT" :external="true" />
     <LinkCard icon="mail" title="邮件支持" description="starry_cbz@outlook.com" href="mailto:starry_cbz@outlook.com" :external="true" />
   </LinkGrid>
 </div>

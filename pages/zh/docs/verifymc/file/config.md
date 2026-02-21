@@ -67,11 +67,8 @@ username_regex: "^[a-zA-Z0-9_-]{3,16}$"
 # 如果为 false，则仅大小写不同的用户名（例如 "Player" 和 "player"）将被视为相同。
 username_case_sensitive: false
 
-# 允许免白名单登录服务器的IP地址列表。
-whitelist_bypass_ips:
-  - 127.0.0.1
-
 # 访问网页管理面板的密码。
+# 管理员登录基于已注册玩家凭据验证，仅服务器 OP 可访问管理面板。
 admin:
   password: your_custom_password
 ```
@@ -127,36 +124,11 @@ email_subject: VerifyMC 验证码
 | Outlook | smtp.office365.com | 587 | true |
 | 163 邮箱 | smtp.163.com | 465 | true |
 
-## 同步设置 (用于 Bukkit 模式)
+## 自动更新资源
 
 ```yaml
-# 如果为 true，会自动将 whitelist.json 的变更同步到插件数据库。
-whitelist_json_sync: true
-
-# 如果为 true，会自动将已批准的玩家添加到 whitelist.json，并移除被封禁/删除的玩家。
-auto_sync_whitelist: true
-
-# 如果关闭了 'bukkit' 模式，此项若为 true，则会从 whitelist.json 清理本插件添加过的玩家。
-auto_cleanup_whitelist: true
-```
-
-## 自动更新与备份
-
-```yaml
-# 如果为 true，插件更新时会自动向 config.yml 中添加新增的配置项。
-auto_update_config: true
-
-# 如果为 true，将自动更新语言文件。
-auto_update_i18n: true
-
-# 如果为 true，将自动更新邮件模板。
-auto_update_email: true
-
-# 如果为 true，将自动更新主题文件。
-auto_update_static: true
-
-# 如果为 true，将在自动更新前完整备份插件数据文件夹。
-backup_on_update: true
+# 如果为 true，插件更新时会自动更新国际化文件、邮件模板和主题文件。
+auto_update_resources: true
 ```
 
 ## 邮箱注册限制
@@ -181,17 +153,14 @@ email_domain_whitelist:
   - foxmail.com
 ```
 
-## 存储与数据迁移
+## 存储与 MySQL
 
 ```yaml
-storage:
-  # 存储类型，可选: data（本地文件）, mysql（外部数据库）
-  type: data
+# 存储类型: 'data'（本地文件）或 'mysql'（外部数据库）
+storage: data
 
-  # 是否在 storage.type 切换时自动将原存储的数据迁移到新存储
-  auto_migrate_on_switch: false
-
-  mysql:
+# MySQL 连接设置（当 storage 为 'mysql' 时使用）
+mysql:
     host: localhost
     port: 3306
     database: verifymc
@@ -209,14 +178,36 @@ authme:
   # 是否强制在 Web 注册时要求输入密码
   require_password: true
 
-  # 是否在通过审核时自动注册至 AuthMe
-  auto_register: false
-
-  # 是否在删除用户时自动从 AuthMe 注销
-  auto_unregister: false
-
   # 密码正则表达式
-  password_regex: "^[a-zA-Z0-9_]{3,16}$"
+  password_regex: "^[a-zA-Z0-9_]{8,26}$"
+
+  # AuthMe 数据库直连配置
+  database:
+    # 数据库类型: 'sqlite' 或 'mysql'
+    type: sqlite
+    # AuthMe 表名
+    table: authme
+    # 同步间隔（秒），用于定期数据同步
+    sync_interval_seconds: 30
+
+    # MySQL 设置（当 database.type 为 'mysql' 时使用）
+    mysql:
+      host: 127.0.0.1
+      port: 3306
+      database: authme
+      user: root
+      password: yourpassword
+
+    # SQLite 设置（当 database.type 为 'sqlite' 时使用）
+    sqlite:
+      path: plugins/AuthMe/authme.db
+
+    # 列名映射（需匹配你的 AuthMe 数据库结构）
+    columns:
+      mySQLColumnName: username
+      mySQLRealName: realname
+      mySQLColumnPassword: password
+      mySQLColumnEmail: email
 ```
 
 ## 图形验证码配置
@@ -247,7 +238,7 @@ bedrock:
   prefix: "."
 
   # 基岩版用户名正则表达式
-  username_regex: "^\\.[a-zA-Z0-9_\\s]{3,16}$"
+  username_regex: "^[a-zA-Z0-9._-]{3,15}$"
 ```
 
 ## 问卷调查配置
@@ -261,8 +252,77 @@ questionnaire:
   # 通过所需的最低分数
   pass_score: 60
 
-  # 问卷通过后是否自动批准用户
-  auto_approve_on_pass: false
+  # 问卷提交频率限制
+  rate_limit:
+    # 时间窗口（毫秒）
+    window_ms: 300000
+    ip:
+      max: 20
+    uuid:
+      max: 8
+    email:
+      max: 6
+```
+
+## LLM 问答评分
+
+```yaml
+# AI 驱动的文本问答自动评分
+llm:
+  # 是否启用 LLM 评分
+  enabled: true
+
+  # LLM 提供商: 'deepseek' 或 'google'
+  provider: deepseek
+
+  # API 基础地址
+  api_base: https://api.deepseek.com/v1
+
+  # API 密钥（请妥善保管！）
+  api_key: ""
+
+  # 模型名称
+  model: deepseek-chat
+
+  # 请求超时时间（毫秒）
+  timeout: 10000
+
+  # 失败重试次数
+  retry: 1
+
+  # 最大并发评分请求数
+  max_concurrency: 4
+
+  # 获取并发槽位超时（毫秒）
+  acquire_timeout: 1500
+
+  # 重试退避设置（毫秒）
+  retry_backoff_base: 300
+  retry_backoff_max: 5000
+
+  # 最大输入文本长度
+  input_max_length: 2000
+
+  # 熔断器设置
+  circuit_breaker:
+    failure_threshold: 5
+    open_ms: 30000
+
+  # LLM 系统提示词
+  system_prompt: |
+    You are a fair Minecraft whitelist questionnaire grader.
+    Score strictly based on the question, candidate answer, and scoring rule.
+    Return JSON only.
+
+  # 评分规则
+  scoring_rule: |
+    Evaluate primarily:
+    1) Relevance to the question
+    2) Completeness and level of detail
+    3) Understanding of server rules and community norms
+
+  # 期望的 JSON 响应格式
+  score_format: '{"score": number, "reason": string, "confidence": number}'
 ```
 
 ## Discord 集成（OAuth2）
@@ -298,36 +358,25 @@ language: zh
 debug: false
 web_port: 8080
 web_server_prefix: '[ 服务器名称 ]'
-
 auth_methods:
   - email
-
 max_accounts_per_email: 2
 whitelist_mode: plugin
 web_register_url: https://domain.com/
-
 register:
   auto_approve: false
-
 username_regex: "^[a-zA-Z0-9_-]{3,16}$"
 username_case_sensitive: false
-
-whitelist_bypass_ips:
-  - 127.0.0.1
-
 admin:
   password: your_custom_password
-
 user_notification:
   enabled: true
   on_approve: true
   on_reject: true
-
 frontend:
   theme: glassx
   logo_url: /logo.png
   announcement: 欢迎!
-
 smtp:
   host: smtp.qq.com
   port: 587
@@ -335,41 +384,93 @@ smtp:
   password: your_password
   from: your_email@qq.com
   enable_ssl: true
-
 email_subject: VerifyMC 验证码
-
-storage:
-  type: data
-  auto_migrate_on_switch: false
-  mysql:
+auto_update_resources: true
+enable_email_domain_whitelist: true
+enable_email_alias_limit: false
+email_domain_whitelist:
+  - gmail.com
+  - 163.com
+  - 126.com
+  - qq.com
+  - outlook.com
+  - hotmail.com
+  - icloud.com
+  - yahoo.com
+  - foxmail.com
+storage: data
+mysql:
     host: localhost
     port: 3306
     database: verifymc
     user: root
     password: yourpassword
-
 authme:
   enabled: true
   require_password: true
-  auto_register: false
-  auto_unregister: false
-  password_regex: "^[a-zA-Z0-9_]{3,16}$"
-
+  password_regex: "^[a-zA-Z0-9_]{8,26}$"
+  database:
+    type: sqlite
+    table: authme
+    sync_interval_seconds: 30
+    mysql:
+      host: 127.0.0.1
+      port: 3306
+      database: authme
+      user: root
+      password: yourpassword
+    sqlite:
+      path: plugins/AuthMe/authme.db
+    columns:
+      mySQLColumnName: username
+      mySQLRealName: realname
+      mySQLColumnPassword: password
+      mySQLColumnEmail: email
 captcha:
   type: math
   length: 4
   expire_seconds: 300
-
 bedrock:
   enabled: false
   prefix: "."
-  username_regex: "^\\.[a-zA-Z0-9_\\s]{3,16}$"
-
+  username_regex: "^[a-zA-Z0-9._-]{3,15}$"
 questionnaire:
   enabled: false
   pass_score: 60
-  auto_approve_on_pass: false
-
+  rate_limit:
+    window_ms: 300000
+    ip:
+      max: 20
+    uuid:
+      max: 8
+    email:
+      max: 6
+llm:
+  enabled: true
+  provider: deepseek
+  api_base: https://api.deepseek.com/v1
+  api_key: ""
+  model: deepseek-chat
+  timeout: 10000
+  retry: 1
+  max_concurrency: 4
+  acquire_timeout: 1500
+  retry_backoff_base: 300
+  retry_backoff_max: 5000
+  input_max_length: 2000
+  circuit_breaker:
+    failure_threshold: 5
+    open_ms: 30000
+  system_prompt: |
+    You are a fair Minecraft whitelist questionnaire grader.
+    Score strictly based on the question, candidate answer, and scoring rule.
+    Return JSON only.
+  scoring_rule: |
+    Evaluate primarily:
+    1) Relevance to the question
+    2) Completeness and level of detail
+    3) Understanding of server rules and community norms
+  score_format: '{"score": number, "reason": string, "confidence": number}'
 discord:
   enabled: false
   client_id: ""

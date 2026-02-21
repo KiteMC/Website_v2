@@ -8,7 +8,7 @@ Before starting, ensure your server meets these requirements:
 
 | Requirement | Minimum Version |
 |-------------|-----------------|
-| Minecraft Server | Paper 1.18+ / Spigot 1.18+ / Folia 1.19+ |
+| Minecraft Server | Paper 1.18+ / Spigot 1.18+ / Folia 1.20+ |
 | Java | 17 or higher |
 | License | Valid ArcPass license key |
 
@@ -65,11 +65,11 @@ Visit <InlineLink href="https://license.kitemc.com/products/arcpass" :external="
 Edit `config.yml` to set the default language:
 
 ```yaml
-# Default language
-default-locale: "en_US"
-
-# Use player's client language
-use-client-locale: true
+locale:
+  # Default language for new players
+  default: en_US
+  # Allow players to change their language
+  allow-change: true
 ```
 
 ### 3.2 Database Configuration
@@ -159,7 +159,7 @@ Congratulations! You've completed the basic ArcPass setup. Next you can:
     icon="chat"
     title="Discord Community"
     description="Join our community for support"
-    href="https://discord.com/invite/TCn9v88V"
+    href="https://discord.gg/dcsBw5Z5ZT"
     :external="true"
   />
 </LinkGrid>

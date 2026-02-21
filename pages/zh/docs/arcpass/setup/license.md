@@ -176,7 +176,7 @@ ArcPass 使用以下信息进行服务器绑定：
     icon="chat"
     title="Discord 社区"
     description="加入社区获取实时帮助"
-    href="https://discord.com/invite/TCn9v88V"
+    href="https://discord.gg/dcsBw5Z5ZT"
     :external="true"
   />
   <LinkCard

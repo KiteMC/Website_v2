@@ -32,68 +32,92 @@ plugins/ArcPass/
 ### config.yml
 
 ```yaml
-# ArcPass 主配置文件
+# 配置版本（请勿修改）
+config-version: 1
 
-# 调试模式
+# 调试模式 - 启用详细日志输出
 debug: false
 
 # 语言设置
-language:
-  # 默认语言
-  default: "zh_CN"
-  # 使用玩家客户端语言
-  use-client-locale: true
+locale:
+  # 新玩家的默认语言
+  default: zh_CN
+  # 是否允许玩家更改语言
+  allow-change: true
 
-# 数据保存
-data:
-  # 自动保存间隔（分钟）
-  auto-save-interval: 5
-  # 玩家退出时保存
-  save-on-quit: true
+# 通行证设置
+pass:
+  # 最高等级（建议 1-100）
+  max-level: 100
+  # 1 级所需的基础经验值
+  base-experience: 100
+  # 每级经验倍率（1.1 = 每级增加 10%）
+  experience-multiplier: 1.1
+
+# 任务设置
+quests:
+  # 日常任务重置时间（24 小时制，服务器时区）
+  daily-reset-hour: 4
+  # 周常任务重置日（1=周一，7=周日）
+  weekly-reset-day: 1
 
 # 通知设置
 notifications:
-  # 升级通知
-  level-up:
-    enabled: true
-    sound: "ENTITY_PLAYER_LEVELUP"
-    title: true
-  # 任务完成通知
-  quest-complete:
-    enabled: true
-    sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
-  # 奖励可领取通知
-  reward-available:
-    enabled: true
-    action-bar: true
+  # 升级时通知玩家
+  level-up: true
+  # 完成任务时通知玩家
+  quest-complete: true
+  # 有可领取奖励时通知玩家
+  rewards-available: true
+  # 音效
+  sounds:
+    level-up: ENTITY_PLAYER_LEVELUP
+    quest-complete: ENTITY_EXPERIENCE_ORB_PICKUP
+    reward-claim: BLOCK_NOTE_BLOCK_PLING
+
+# GUI 设置
+gui:
+  # 动画元素更新间隔（tick）
+  update-interval: 20
+  # 点击外部区域时关闭 GUI
+  close-on-outside-click: true
+
+# 性能设置
+performance:
+  # 数据保存间隔（秒）
+  save-interval: 300
+  # 缓存过期时间（分钟）
+  cache-expiry: 30
 ```
 
 ### database.yml
 
 ```yaml
-# 数据库配置
+# 配置版本（请勿修改）
+config-version: 1
 
 # 数据库类型：sqlite 或 mysql
 type: sqlite
 
-# SQLite 配置
+# SQLite 设置（当 type 为 sqlite 时使用）
 sqlite:
-  file: "data.db"
+  # 数据库文件名（在插件文件夹内）
+  file: data.db
 
-# MySQL 配置
+# MySQL 设置（当 type 为 mysql 时使用）
 mysql:
   host: localhost
   port: 3306
   database: arcpass
   username: root
   password: ""
-  # 连接池设置
-  pool:
-    maximum-pool-size: 10
-    minimum-idle: 5
-    connection-timeout: 30000
-    idle-timeout: 600000
-    max-lifetime: 1800000
+  # 连接池大小
+  pool-size: 10
+  # 额外连接属性
+  properties:
+    useSSL: false
+    autoReconnect: true
+    allowPublicKeyRetrieval: true
 ```
 
 ## 配置热重载

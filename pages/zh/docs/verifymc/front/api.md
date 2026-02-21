@@ -2,177 +2,184 @@
 
 ## API 参考文档
 
-## 用户注册与验证
+所有 API 端点使用 JSON 格式的请求和响应体。管理员端点需要在请求头中携带 `Authorization: Bearer <token>`。
 
-### 发送邮箱验证码
-- **接口**：`POST /api/send_code`
-- **用途**：向指定邮箱发送注册验证码，防止恶意注册。
-- **权限**：所有用户（无需登录）
+## 配置
+
+### 获取配置
+- **接口**：`GET /api/config`
+- **用途**：获取前端主题、公告、验证方式等公共配置信息。
+- **权限**：所有用户
+
+## 图形验证码
+
+### 生成验证码
+- **接口**：`GET /api/captcha/generate`
+- **用途**：生成新的图形验证码图片。
+- **权限**：所有用户
+
+## 邮箱验证
+
+### 发送验证码
+- **接口**：`POST /api/verify/send`
+- **用途**：向指定邮箱发送注册验证码。
+- **权限**：所有用户
 - **请求头**：`Content-Type: application/json`
 - **请求参数**：
   | 字段      | 类型   | 必填 | 说明           | 示例                |
   |-----------|--------|------|----------------|---------------------|
   | email     | string | 是   | 用户邮箱       | user@example.com    |
   | language  | string | 否   | 语言（zh/en）  | zh                  |
-- **请求体示例**：
-  ```json
-  { "email": "user@example.com", "language": "zh" }
-  ```
-- **返回值**：
-  | 字段    | 类型    | 说明         |
-  |---------|---------|--------------|
-  | success | boolean | 是否成功     |
-  | msg     | string  | 提示信息     |
-- **成功示例**：
-  ```json
-  { "success": true, "msg": "验证码已发送" }
-  ```
-- **失败示例**：
-  ```json
-  { "success": false, "msg": "邮箱格式不正确或已被注册" }
-  ```
 - **注意事项**：
   - 邮箱每日/每分钟发送次数有限制，防止滥用。
   - 邮箱格式需符合 RFC 标准。
 
-### 注册
+## 问卷
+
+### 获取问卷配置
+- **接口**：`GET /api/questionnaire/config`
+- **用途**：获取问卷题目和配置。
+- **权限**：所有用户
+
+### 提交问卷
+- **接口**：`POST /api/questionnaire/submit`
+- **用途**：提交问卷答案进行评分。
+- **权限**：所有用户
+
+## 注册
+
+### 用户注册
 - **接口**：`POST /api/register`
-- **用途**：用户提交邮箱验证码和信息进行注册。
+- **用途**：用户提交验证码和信息进行注册。
 - **权限**：所有用户
 - **请求头**：`Content-Type: application/json`
 - **请求参数**：
   | 字段      | 类型   | 必填 | 说明           |
   |-----------|--------|------|----------------|
   | email     | string | 是   | 用户邮箱       |
-  | code      | string | 是   | 邮箱验证码     |
-  | uuid      | string | 是   | 玩家 UUID      |
+  | code      | string | 是   | 验证码         |
   | username  | string | 是   | 玩家名         |
   | language  | string | 否   | 语言           |
-- **请求体示例**：
-  ```json
-  { "email": "user@example.com", "code": "123456", "uuid": "玩家UUID", "username": "玩家名", "language": "zh" }
-  ```
-- **返回值**：
-  | 字段    | 类型    | 说明         |
-  |---------|---------|--------------|
-  | success | boolean | 是否成功     |
-  | msg     | string  | 提示信息     |
-- **成功示例**：
-  ```json
-  { "success": true, "msg": "注册成功" }
-  ```
-- **失败示例**：
-  ```json
-  { "success": false, "msg": "验证码错误或已过期" }
-  ```
 - **注意事项**：
   - 验证码有效期一般为 5 分钟。
   - 用户名、邮箱唯一。
   - 注册后可能需要管理员审核。
 
-## 管理员与审核
+### 查询审核状态
+- **接口**：`GET /api/review/status`
+- **用途**：查询注册的审核状态。
+- **权限**：所有用户
+
+## 用户
+
+### 获取用户状态
+- **接口**：`GET /api/user/status`
+- **用途**：查询用户当前状态。
+- **权限**：所有用户
+
+## 认证
+
+### 用户登录
+- **接口**：`POST /api/login`
+- **用途**：普通用户登录。
+- **权限**：所有用户
 
 ### 管理员登录
-- **接口**：`POST /api/admin-login`
-- **用途**：管理员登录后台。
+- **接口**：`POST /api/admin/login`
+- **用途**：管理员登录后台管理面板。
 - **权限**：所有用户
 - **请求头**：`Content-Type: application/json`
 - **请求参数**：
   | 字段      | 类型   | 必填 | 说明           |
   |-----------|--------|------|----------------|
-  | password  | string | 是   | 后台管理密码   |
+  | username  | string | 是   | 玩家用户名     |
+  | password  | string | 是   | 玩家密码       |
   | language  | string | 否   | 语言           |
-- **请求体示例**：
-  ```json
-  { "password": "your_admin_password", "language": "zh" }
-  ```
-- **返回值**：
-  | 字段    | 类型    | 说明         |
-  |---------|---------|--------------|
-  | success | boolean | 是否成功     |
-  | token   | string  | JWT 认证令牌 |
-  | message | string  | 提示信息     |
-- **成功示例**：
-  ```json
-  { "success": true, "token": "JWT_TOKEN", "message": "登录成功" }
-  ```
-- **失败示例**：
-  ```json
-  { "success": false, "message": "密码错误" }
-  ```
 - **注意事项**：
-  - 后续所有需要管理员权限的接口，需在请求头加 `Authorization: Bearer <token>`。
+  - 管理员登录基于已注册玩家凭据验证，仅服务器 OP 可访问管理面板。
+  - 后续所有管理员接口需在请求头加 `Authorization: Bearer <token>`。
 
-### 获取待审核用户列表
-- **接口**：`GET /api/pending-list?language=zh`
-- **用途**：获取所有待审核用户信息。
-- **权限**：需管理员登录（需带 token）
-- **请求头**：`Authorization: Bearer <token>`
+## 管理员端点
 
-### 审核用户
-- **接口**：`POST /api/review`
-- **用途**：管理员审核用户（通过/拒绝）。
-- **权限**：需管理员登录
-- **请求头**：`Authorization: Bearer <token>`, `Content-Type: application/json`
-- **请求参数**：
-  | 字段      | 类型   | 必填 | 说明           |
-  |-----------|--------|------|----------------|
-  | uuid      | string | 是   | 玩家 UUID      |
-  | action    | string | 是   | 操作类型（approve/reject）|
-  | reason    | string | 否   | 拒绝原因       |
-  | language  | string | 否   | 语言           |
+### 验证管理员令牌
+- **接口**：`GET /api/admin/verify`
+- **用途**：验证管理员令牌是否有效。
+- **权限**：管理员（需带 token）
 
-## 其他接口
+### 获取用户列表
+- **接口**：`GET /api/admin/users`
+- **用途**：获取用户列表，支持分页、搜索和状态筛选。
+- **权限**：管理员（需带 token）
+- **查询参数**：`page`、`size`、`search`、`status`
 
-### 健康检查
-- **接口**：`GET /api/ping`
-- **用途**：健康检查接口，用于验证 API 是否可用。
-- **权限**：所有用户
-- **返回值**：
-  ```json
-  { "msg": "pong" }
-  ```
+### 通过用户
+- **接口**：`POST /api/admin/user/approve`
+- **用途**：通过待审核用户的注册申请。
+- **权限**：管理员（需带 token）
 
-### 获取配置
-- **接口**：`GET /api/config`
-- **用途**：获取前端、登录、公告等配置信息。
-- **权限**：所有用户
-
-### 重载配置
-- **接口**：`POST /api/reload-config`
-- **用途**：重载插件配置，如果需要会切换主题。
-- **权限**：需管理员登录（需带 token）
-
-### 获取所有用户
-- **接口**：`GET /api/all-users`
-- **用途**：获取所有非待审核用户（已通过、已拒绝、已封禁）。
-- **权限**：需管理员登录（需带 token）
+### 拒绝用户
+- **接口**：`POST /api/admin/user/reject`
+- **用途**：拒绝待审核用户的注册申请。
+- **权限**：管理员（需带 token）
 
 ### 删除用户
-- **接口**：`POST /api/delete-user`
+- **接口**：`POST /api/admin/user/delete`
 - **用途**：从系统中删除用户。
-- **权限**：需管理员登录
+- **权限**：管理员（需带 token）
 
 ### 封禁用户
-- **接口**：`POST /api/ban-user`
+- **接口**：`POST /api/admin/user/ban`
 - **用途**：封禁用户（将状态改为 banned）。
-- **权限**：需管理员登录
+- **权限**：管理员（需带 token）
 
 ### 解封用户
-- **接口**：`POST /api/unban-user`
+- **接口**：`POST /api/admin/user/unban`
 - **用途**：解封用户（将状态从 banned 改为 approved）。
-- **权限**：需管理员登录
+- **权限**：管理员（需带 token）
 
-## 代理插件 API
+### 修改用户密码
+- **接口**：`POST /api/admin/user/password`
+- **用途**：修改用户密码。
+- **权限**：管理员（需带 token）
 
-### 检查白名单状态
-- **接口**：`GET /api/whitelist-check?username={username}`
-- **用途**：检查玩家是否已通过审核可以加入服务器。
-- **权限**：需要 API 密钥（在代理插件中配置）
-- **返回值**：
-  ```json
-  { "success": true, "approved": true, "status": "approved" }
-  ```
+### 获取审核日志
+- **接口**：`GET /api/admin/audits`
+- **用途**：获取审核日志记录。
+- **权限**：管理员（需带 token）
+
+### 同步 AuthMe 数据
+- **接口**：`POST /api/admin/sync`
+- **用途**：触发 AuthMe 数据同步。
+- **权限**：管理员（需带 token）
+
+## Discord 集成
+
+### Discord 授权
+- **接口**：`GET /api/discord/auth`
+- **用途**：发起 Discord OAuth2 授权流程。
+- **权限**：所有用户
+
+### Discord 回调
+- **接口**：`GET /api/discord/callback`
+- **用途**：处理 Discord OAuth2 回调。
+- **权限**：所有用户
+
+### Discord 状态
+- **接口**：`GET /api/discord/status`
+- **用途**：检查用户的 Discord 绑定状态。
+- **权限**：所有用户
+
+### Discord 解绑
+- **接口**：`POST /api/discord/unlink`
+- **用途**：解绑用户的 Discord 账户。
+- **权限**：所有用户
+
+## 版本
+
+### 获取版本
+- **接口**：`GET /api/version`
+- **用途**：获取插件版本并检查更新。
+- **权限**：所有用户
 
 ---
 

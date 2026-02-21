@@ -132,7 +132,7 @@ captcha:
 ## Installation & Compatibility
 
 ### Which Minecraft versions are supported?
-VerifyMC supports Minecraft **1.8.x to 1.21.x**.
+VerifyMC supports Minecraft **1.13.x to 1.21.x+**.
 
 ### Does VerifyMC work with Geyser/Floodgate (Bedrock Edition)?
 Yes! Configure bedrock support in `config.yml`:
@@ -140,7 +140,7 @@ Yes! Configure bedrock support in `config.yml`:
 bedrock:
   enabled: true
   prefix: "."
-  username_regex: "^\\.[a-zA-Z0-9_\\s]{3,16}$"
+  username_regex: "^[a-zA-Z0-9._-]{3,15}$"
 ```
 
 ---

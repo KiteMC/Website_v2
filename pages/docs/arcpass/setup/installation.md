@@ -8,7 +8,7 @@ This page provides detailed instructions for installing ArcPass on different ser
 |--------|-------------------|-------|
 | Paper | 1.18 - 1.21+ | Recommended |
 | Spigot | 1.18 - 1.21+ | Full support |
-| Folia | 1.19 - 1.21+ | Full multi-threaded support |
+| Folia | 1.20 - 1.21+ | Full multi-threaded support |
 | Purpur | 1.18 - 1.21+ | Paper-based, full support |
 | Bukkit | 1.18 - 1.21+ | Basic features supported |
 

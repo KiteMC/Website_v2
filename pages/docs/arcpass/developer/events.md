@@ -6,7 +6,7 @@ ArcPass provides custom events for other plugins to listen to and handle.
 
 | Event | Description | Cancellable |
 |-------|-------------|-------------|
-| `PlayerLevelUpEvent` | Player levels up | No |
+| `PlayerLevelUpEvent` | Player levels up | Yes |
 | `QuestCompleteEvent` | Quest completed | Yes |
 | `RewardClaimEvent` | Reward claimed | Yes |
 | `SeasonStartEvent` | Season starts | No |

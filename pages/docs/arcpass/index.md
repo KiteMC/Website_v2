@@ -156,7 +156,7 @@ ArcPass is a professional-grade battle pass plugin designed for Minecraft server
     :external="true"
   />
   <ActionButton
-    href="https://discord.com/invite/TCn9v88V"
+    href="https://discord.gg/dcsBw5Z5ZT"
     text="Join Community"
     theme="alt"
     icon="external"

@@ -15,7 +15,6 @@ ArcPass 支持与多种流行插件集成，扩展功能和玩法。
 | PlaceholderAPI | 变量占位符 | ✅ |
 | DeluxeTags | 称号奖励 | ❌ |
 | TAB | 称号奖励 | ✅ |
-| PlayerTitle | 称号奖励 | ✅ |
 | NametagEdit | 称号奖励 | ❌ |
 | MythicMobs | 自定义怪物任务 | ✅ |
 | Jobs Reborn | 职业任务 | ✅ |
@@ -204,16 +203,6 @@ reward_title_legend:
     persistent: true
 ```
 
-### PlayerTitle
-
-PlayerTitle 是一款流行的称号管理插件（在国内 MC 社区中尤为常用）。
-
-**安装要求：**
-
-- PlayerTitle 2.0+
-
-当 DeluxeTags 和 TAB 不可用时，ArcPass 会自动通过 PlayerTitle API 或 `plt give` 命令发放称号。
-
 ### NametagEdit
 
 NametagEdit 是一款名牌编辑插件。
@@ -230,9 +219,8 @@ ArcPass 按以下顺序尝试发放称号奖励：
 
 1. **DeluxeTags** - 如果可用且非 Folia
 2. **TAB** - 如果可用（支持 Folia）
-3. **PlayerTitle** - 如果可用
-4. **NametagEdit** - 如果可用
-5. **LuckPerms** - 作为前缀/后缀回退
+3. **NametagEdit** - 如果可用
+4. **LuckPerms** - 作为前缀/后缀回退
 
 ## 任务触发器
 
@@ -359,7 +347,6 @@ PlaceholderAPI 让您可以在其他插件中使用 ArcPass 的数据。
 [ArcPass] Vault economy hook enabled.
 [ArcPass] PlayerPoints hook enabled.
 [ArcPass] LuckPerms permission hook enabled.
-[ArcPass] PlayerTitle hook enabled.
 [ArcPass] PlaceholderAPI expansion registered.
 [ArcPass] TAB integration enabled!
 [ArcPass] MythicMobs integration enabled!
@@ -378,7 +365,7 @@ PlaceholderAPI 让您可以在其他插件中使用 ArcPass 的数据。
 
 ### 称号奖励不生效
 
-1. 确认称号插件已安装（DeluxeTags、TAB、PlayerTitle 或 NametagEdit）
+1. 确认称号插件已安装（DeluxeTags、TAB 或 NametagEdit）
 2. 对于 Folia，必须使用 TAB
 3. LuckPerms 可作为最终回退方案
 

@@ -23,6 +23,7 @@
 | `/arcpass buy <档位>` | 购买通行证档位 | `arcpass.command.buy` |
 | `/arcpass leaderboard [类型]` | 查看排行榜 | `arcpass.use` |
 | `/arcpass top [类型]` | 查看排行榜（别名） | `arcpass.use` |
+| `/arcpass rewards` | 查看可领取奖励 | `arcpass.use` |
 
 ### 命令详解
 
@@ -109,6 +110,8 @@
 | `/arcpass admin debug [toggle]` | 切换调试模式 |
 | `/arcpass admin save` | 保存所有数据 |
 | `/arcpass admin broadcast <消息>` | 全服广播 |
+| `/arcpass admin confirm` | 确认待执行的危险操作 |
+| `/arcpass admin cancel` | 取消待执行的危险操作 |
 
 ### 管理命令详解
 

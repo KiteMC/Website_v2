@@ -8,7 +8,7 @@
 
 | 要求 | 最低版本 |
 |------|----------|
-| Minecraft 服务端 | Paper 1.18+ / Spigot 1.18+ / Folia 1.19+ |
+| Minecraft 服务端 | Paper 1.18+ / Spigot 1.18+ / Folia 1.20+ |
 | Java | 17 或更高版本 |
 | 许可证 | 有效的 ArcPass 许可证密钥 |
 
@@ -65,11 +65,11 @@ show-status: true
 编辑 `config.yml`，设置默认语言：
 
 ```yaml
-# 默认语言
-default-locale: "zh_CN"
-
-# 是否使用玩家客户端语言
-use-client-locale: true
+locale:
+  # 新玩家的默认语言
+  default: zh_CN
+  # 是否允许玩家更改语言
+  allow-change: true
 ```
 
 ### 3.2 数据库配置
@@ -159,7 +159,7 @@ ArcPass 需要一个活动的赛季才能正常工作。
     icon="chat"
     title="Discord 社区"
     description="加入社区获取帮助"
-    href="https://discord.com/invite/TCn9v88V"
+    href="https://discord.gg/dcsBw5Z5ZT"
     :external="true"
   />
 </LinkGrid>

@@ -188,7 +188,7 @@ compileOnly 'com.kitemc:arcpass-api:1.2.2'
   <LinkGrid :cols="2">
     <LinkCard icon="bug" title="Bug Reports" description="Submit issues on GitHub" href="https://github.com/KiteMC/ArcPass/issues" :external="true" />
     <LinkCard icon="light-bulb" title="Feature Requests" description="Propose on GitHub Discussions" href="https://github.com/KiteMC/ArcPass/discussions" :external="true" />
-    <LinkCard icon="chat" title="Discord Community" description="Get technical support" href="https://discord.com/invite/TCn9v88V" :external="true" />
+    <LinkCard icon="chat" title="Discord Community" description="Get technical support" href="https://discord.gg/dcsBw5Z5ZT" :external="true" />
     <LinkCard icon="mail" title="Email Support" description="starry_cbz@outlook.com" href="mailto:starry_cbz@outlook.com" :external="true" />
   </LinkGrid>
 </div>

@@ -176,7 +176,7 @@ Having license issues?
     icon="chat"
     title="Discord Community"
     description="Get real-time help from our community"
-    href="https://discord.com/invite/TCn9v88V"
+    href="https://discord.gg/dcsBw5Z5ZT"
     :external="true"
   />
   <LinkCard

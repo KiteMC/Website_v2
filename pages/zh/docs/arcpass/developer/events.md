@@ -6,7 +6,7 @@ ArcPass 提供多个自定义事件，供其他插件监听和处理。
 
 | 事件 | 说明 | 可取消 |
 |------|------|--------|
-| `PlayerLevelUpEvent` | 玩家升级 | 否 |
+| `PlayerLevelUpEvent` | 玩家升级 | 是 |
 | `QuestCompleteEvent` | 任务完成 | 是 |
 | `RewardClaimEvent` | 领取奖励 | 是 |
 | `SeasonStartEvent` | 赛季开始 | 否 |

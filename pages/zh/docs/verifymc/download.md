@@ -97,7 +97,7 @@ import DownloadPage from '@theme/components/download/DownloadPage.vue';
   <LinkGrid :cols="2">
     <LinkCard icon="github" title="GitHub 仓库" description="查看源码与更新记录" href="https://github.com/KiteMC/VerifyMC" :external="true" />
     <LinkCard icon="bug" title="Bug 反馈" description="在 GitHub 提交 Issue" href="https://github.com/KiteMC/VerifyMC/issues" :external="true" />
-    <LinkCard icon="chat" title="Discord 社区" description="加入社区获取实时帮助" href="https://discord.com/invite/TCn9v88V" :external="true" />
+    <LinkCard icon="chat" title="Discord 社区" description="加入社区获取实时帮助" href="https://discord.gg/dcsBw5Z5ZT" :external="true" />
     <LinkCard icon="mail" title="邮件支持" description="starry_cbz@outlook.com" href="mailto:starry_cbz@outlook.com" :external="true" />
   </LinkGrid>
 </div>

@@ -8,40 +8,78 @@
 
 ## 子命令列表
 
-| 子命令      | 权限              | 说明                                 | 用法示例                                 |
-|-------------|-------------------|--------------------------------------|------------------------------------------|
-| help        | 所有人            | 显示帮助信息                         | `/vmc help`                              |
-| reload      | verifymc.admin    | 重载插件配置和资源                   | `/vmc reload`                            |
-| add         | verifymc.admin    | 添加玩家到白名单（支持邮箱）         | `/vmc add <玩家名> <邮箱>`               |
-| remove      | verifymc.admin    | 从白名单移除玩家                     | `/vmc remove <玩家名>`                   |
-| port        | 所有人            | 显示当前 Web 管理后台端口            | `/vmc port`                              |
+| 子命令    | 权限             | 说明                 | 用法示例                                         |
+|-----------|-----------------|----------------------|--------------------------------------------------|
+| reload    | verifymc.admin  | 重载插件配置和资源    | `/vmc reload`                                    |
+| approve   | verifymc.admin  | 通过待审核用户       | `/vmc approve <用户名>`                          |
+| reject    | verifymc.admin  | 拒绝待审核用户       | `/vmc reject <用户名> [原因]`                    |
+| delete    | verifymc.admin  | 删除用户             | `/vmc delete <用户名>`                           |
+| ban       | verifymc.admin  | 封禁用户             | `/vmc ban <用户名> [原因]`                       |
+| unban     | verifymc.admin  | 解封用户             | `/vmc unban <用户名>`                            |
+| list      | verifymc.admin  | 按状态列出用户       | `/vmc list [all\|pending\|approved\|rejected\|banned]` |
+| info      | verifymc.admin  | 查看用户信息         | `/vmc info <用户名>`                             |
+| version   | 所有人           | 显示插件版本         | `/vmc version`                                   |
 
 ---
 
 ## 指令详细说明
 
-### `/vmc help`
-- 显示所有可用子命令及其说明。
-
 ### `/vmc reload`
-- 重新加载插件配置文件和资源文件。
+
+- 重新加载插件配置文件、语言文件和资源。
 - 需要 `verifymc.admin` 权限。
 
-### `/vmc add <玩家名> <邮箱>`
-- 将指定玩家添加到白名单，并绑定邮箱。
-- 需要 `verifymc.admin` 权限。
-- 例如：`/vmc add Steve steve@example.com`
+### `/vmc approve <用户名>`
 
-### `/vmc remove <玩家名>`
-- 从白名单中移除指定玩家。
+- 通过待审核用户并将其添加到白名单。
+- 如已配置，会自动发送审核通过邮件通知。
 - 需要 `verifymc.admin` 权限。
-- 例如：`/vmc remove Steve`
+- 例如：`/vmc approve Steve`
 
-### `/vmc port`
-- 显示当前 Web 管理后台的端口号。
+### `/vmc reject <用户名> [原因]`
+
+- 拒绝待审核用户，可附带拒绝原因。
+- 如已配置，会自动发送审核拒绝邮件通知。
+- 需要 `verifymc.admin` 权限。
+- 例如：`/vmc reject Steve 不符合要求`
+
+### `/vmc delete <用户名>`
+
+- 从系统中删除用户并从白名单中移除。
+- 需要 `verifymc.admin` 权限。
+- 例如：`/vmc delete Steve`
+
+### `/vmc ban <用户名> [原因]`
+
+- 封禁用户并从白名单中移除。
+- 需要 `verifymc.admin` 权限。
+- 例如：`/vmc ban Steve 作弊`
+
+### `/vmc unban <用户名>`
+
+- 解封用户并重新添加到白名单。
+- 需要 `verifymc.admin` 权限。
+- 例如：`/vmc unban Steve`
+
+### `/vmc list [状态]`
+
+- 按状态筛选列出用户，默认为 `all`。
+- 可用状态：`all`、`pending`、`approved`、`rejected`、`banned`。
+- 需要 `verifymc.admin` 权限。
+- 例如：`/vmc list pending`
+
+### `/vmc info <用户名>`
+
+- 查看用户的详细信息（用户名、邮箱、状态）。
+- 需要 `verifymc.admin` 权限。
+- 例如：`/vmc info Steve`
+
+### `/vmc version`
+
+- 显示当前插件版本号。
 - 所有人可用。
 
 ## 权限说明
 
 - `verifymc.use`：允许使用 VerifyMC 插件的基础功能（默认所有人）。
-- `verifymc.admin`：允许使用管理相关指令（如 reload、add、remove），默认仅 OP。
+- `verifymc.admin`：允许使用管理相关指令（reload、approve、reject、delete、ban、unban、list、info），默认仅 OP。

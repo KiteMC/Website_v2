@@ -123,6 +123,27 @@ items:
 
 PlaceholderAPI variables also work if installed.
 
+## Screenshots
+
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 1.5rem 0;">
+  <div>
+    <img src="/images/arcpass/screenshot-main-menu.png" alt="Main Menu" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Main Menu</p>
+  </div>
+  <div>
+    <img src="/images/arcpass/screenshot-quest-list.png" alt="Quest List" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Quest List</p>
+  </div>
+  <div>
+    <img src="/images/arcpass/screenshot-reward-track.png" alt="Reward Track" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Reward Track</p>
+  </div>
+  <div>
+    <img src="/images/arcpass/screenshot-admin-panel.png" alt="Admin Panel" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Admin Panel</p>
+  </div>
+</div>
+
 ## Main Menu Example
 
 ```yaml

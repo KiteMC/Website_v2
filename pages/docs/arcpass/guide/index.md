@@ -104,6 +104,11 @@ ArcPass requires an active season to function properly.
 3. Enter season name in chat
 4. Confirm to start
 
+<div style="margin: 1rem 0;">
+  <img src="/images/arcpass/screenshot-admin-panel.png" alt="Admin Panel" style="border-radius: 8px; max-width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+  <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Admin Panel Interface</p>
+</div>
+
 ## Step 5: Test Features
 
 Now you can test ArcPass basic features:
@@ -114,6 +119,11 @@ Now you can test ArcPass basic features:
 | `/arcpass quests` | View current quests |
 | `/arcpass level` | View level and experience |
 | `/arcpass admin` | Open admin panel (requires permission) |
+
+<div style="margin: 1rem 0;">
+  <img src="/images/arcpass/screenshot-main-menu.png" alt="Main Menu" style="border-radius: 8px; max-width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+  <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">ArcPass Main Menu (<code>/arcpass</code>)</p>
+</div>
 
 ## Next Steps
 

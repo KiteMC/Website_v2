@@ -125,6 +125,27 @@ GUI 支持以下内置变量：
 
 如果安装了 PlaceholderAPI，可以使用任意 PAPI 变量。
 
+## 截图展示
+
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 1.5rem 0;">
+  <div>
+    <img src="/images/arcpass/screenshot-main-menu.png" alt="主菜单" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">主菜单</p>
+  </div>
+  <div>
+    <img src="/images/arcpass/screenshot-quest-list.png" alt="任务列表" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">任务列表</p>
+  </div>
+  <div>
+    <img src="/images/arcpass/screenshot-reward-track.png" alt="奖励轨道" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">奖励轨道</p>
+  </div>
+  <div>
+    <img src="/images/arcpass/screenshot-admin-panel.png" alt="管理面板" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">管理面板</p>
+  </div>
+</div>
+
 ## 主菜单配置示例
 
 ```yaml

@@ -104,6 +104,11 @@ ArcPass 需要一个活动的赛季才能正常工作。
 3. 在聊天框输入赛季名称
 4. 确认开启
 
+<div style="margin: 1rem 0;">
+  <img src="/images/arcpass/screenshot-admin-panel.png" alt="管理面板" style="border-radius: 8px; max-width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+  <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">管理面板界面</p>
+</div>
+
 ## 步骤 5：测试功能
 
 现在您可以测试 ArcPass 的基本功能：
@@ -114,6 +119,11 @@ ArcPass 需要一个活动的赛季才能正常工作。
 | `/arcpass quests` | 查看当前任务 |
 | `/arcpass level` | 查看等级和经验 |
 | `/arcpass admin` | 打开管理面板（需要权限） |
+
+<div style="margin: 1rem 0;">
+  <img src="/images/arcpass/screenshot-main-menu.png" alt="主菜单" style="border-radius: 8px; max-width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+  <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">ArcPass 主菜单（<code>/arcpass</code>）</p>
+</div>
 
 ## 下一步
 

@@ -102,7 +102,7 @@ import { ref } from 'vue';
 ### Reward Track Demo
 
 <video controls style="border-radius: 12px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin: 1rem 0;">
-  <source src="/images/arcpass/footage-reward-track.mkv" type="video/x-matroska" />
+  <source src="/images/arcpass/footage-reward-track.mp4" type="video/mp4" />
   Your browser does not support this video format.
 </video>
 

@@ -68,6 +68,44 @@ features:
 import { ref } from 'vue';
 </script>
 
+## Preview
+
+<div style="margin: 2rem 0;">
+  <img src="/images/arcpass/cover-banner.png" alt="ArcPass Cover Banner" style="border-radius: 12px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />
+</div>
+
+### Screenshots
+
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 1.5rem 0;">
+  <div>
+    <img src="/images/arcpass/screenshot-main-menu.png" alt="Main Menu" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Main Menu</p>
+  </div>
+  <div>
+    <img src="/images/arcpass/screenshot-reward-track.png" alt="Reward Track" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Reward Track</p>
+  </div>
+  <div>
+    <img src="/images/arcpass/screenshot-quest-list.png" alt="Quest List" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Quest List</p>
+  </div>
+  <div>
+    <img src="/images/arcpass/screenshot-leaderboard.png" alt="Leaderboard" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Leaderboard</p>
+  </div>
+  <div>
+    <img src="/images/arcpass/screenshot-admin-panel.png" alt="Admin Panel" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Admin Panel</p>
+  </div>
+</div>
+
+### Reward Track Demo
+
+<video controls style="border-radius: 12px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin: 1rem 0;">
+  <source src="/images/arcpass/footage-reward-track.mkv" type="video/x-matroska" />
+  Your browser does not support this video format.
+</video>
+
 ## Why Choose ArcPass?
 
 ArcPass is a professional-grade battle pass plugin designed for Minecraft servers. Whether you run a small private server or a large commercial network, ArcPass provides continuous gameplay goals and rich reward experiences.

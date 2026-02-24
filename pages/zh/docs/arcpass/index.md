@@ -68,6 +68,44 @@ features:
 import { ref } from 'vue';
 </script>
 
+## 预览
+
+<div style="margin: 2rem 0;">
+  <img src="/images/arcpass/cover-banner.png" alt="ArcPass 封面横幅" style="border-radius: 12px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />
+</div>
+
+### 截图展示
+
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 1.5rem 0;">
+  <div>
+    <img src="/images/arcpass/screenshot-main-menu.png" alt="主菜单" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">主菜单</p>
+  </div>
+  <div>
+    <img src="/images/arcpass/screenshot-reward-track.png" alt="奖励轨道" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">奖励轨道</p>
+  </div>
+  <div>
+    <img src="/images/arcpass/screenshot-quest-list.png" alt="任务列表" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">任务列表</p>
+  </div>
+  <div>
+    <img src="/images/arcpass/screenshot-leaderboard.png" alt="排行榜" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">排行榜</p>
+  </div>
+  <div>
+    <img src="/images/arcpass/screenshot-admin-panel.png" alt="管理面板" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">管理面板</p>
+  </div>
+</div>
+
+### 奖励轨道演示
+
+<video controls style="border-radius: 12px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin: 1rem 0;">
+  <source src="/images/arcpass/footage-reward-track.mkv" type="video/x-matroska" />
+  您的浏览器不支持此视频格式。
+</video>
+
 ## 为什么选择 ArcPass？
 
 ArcPass 是一款专为 Minecraft 服务器设计的专业级通行证（Battle Pass）插件。无论是小型私服还是大型商业服务器，ArcPass 都能为您的服务器增添持续的游戏目标和丰富的奖励体验。

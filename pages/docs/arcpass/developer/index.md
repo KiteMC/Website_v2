@@ -1,5 +1,9 @@
 # Developer API
 
+::: warning Professional License Required
+The Developer API is only available with the **Professional** plan. If you are using the Standard plan, `ArcPassProvider.isLoaded()` will return `false`. You can upgrade your license at any time on the <InlineLink href="https://license.kitemc.com/products/arcpass" :external="true">License Center</InlineLink>.
+:::
+
 ArcPass provides a complete API for third-party plugin integration.
 
 ## API Overview
@@ -37,7 +41,7 @@ The ArcPass API module (`arcpass-api`) is open source under the MIT License.
 <dependency>
     <groupId>com.kitemc</groupId>
     <artifactId>arcpass-api</artifactId>
-    <version>1.3.5</version>
+    <version>1.4.0</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -52,7 +56,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.kitemc:arcpass-api:1.3.5")
+    compileOnly("com.kitemc:arcpass-api:1.4.0")
 }
 ```
 

@@ -6,16 +6,17 @@ ArcPass is a paid plugin requiring a valid license for full functionality.
 
 ### Available Plans
 
-| Plan | Price | Devices | Ports per Device | Best For |
-|------|-------|---------|------------------|----------|
-| Personal | $7 | 5 | 3 | Personal/small servers |
-| Professional | $18 | 25 | 15 | Commercial servers |
+| Plan | Price | Devices | Ports per Device | Developer API | Best For |
+|------|-------|---------|------------------|:---:|----------|
+| Standard | $12.99 | 5 | 3 | ❌ | Personal/small servers |
+| Professional | $29.99 | 25 | 15 | ✅ | Commercial servers, API integrations |
 
 ::: tip Note
 
 - **Devices**: Number of "Machine ID + IP + Port" combinations that can be bound
 - **Ports per Device**: Number of different ports on the same machine (same machine ID and IP)
 - All plans are **one-time purchase**, lifetime access
+- **Developer API** is only available with the Professional plan. Standard plan users can upgrade at any time.
 :::
 
 ### Purchase Options

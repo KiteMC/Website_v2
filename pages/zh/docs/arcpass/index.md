@@ -128,13 +128,6 @@ import { ref } from 'vue';
   </div>
 </div>
 
-### 奖励轨道演示
-
-<video controls style="border-radius: 12px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin: 1rem 0;">
-  <source src="/images/arcpass/footage-reward-track.mp4" type="video/mp4" />
-  您的浏览器不支持此视频格式。
-</video>
-
 ## 为什么选择 ArcPass？
 
 ArcPass 是一款专为 Minecraft 服务器设计的专业级通行证（Battle Pass）插件。无论是小型私服还是大型商业服务器，ArcPass 都能为您的服务器增添持续的游戏目标和丰富的奖励体验。

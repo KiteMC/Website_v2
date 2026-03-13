@@ -71,7 +71,36 @@ import { ref } from 'vue';
 ## Preview
 
 <div style="margin: 2rem 0;">
-  <img src="/images/arcpass/cover-banner.png" alt="ArcPass Cover Banner" style="border-radius: 12px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />
+  <img src="/images/arcpass/cover-16x9.png" alt="ArcPass Cover" style="border-radius: 12px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />
+</div>
+
+### Feature Demos
+
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 1.5rem 0;">
+  <div>
+    <video autoplay loop muted playsinline style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);">
+      <source src="/images/arcpass/scenes/S02.mp4" type="video/mp4" />
+    </video>
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Multi-Tier Pass System</p>
+  </div>
+  <div>
+    <video autoplay loop muted playsinline style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);">
+      <source src="/images/arcpass/scenes/S05.mp4" type="video/mp4" />
+    </video>
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Quest System</p>
+  </div>
+  <div>
+    <video autoplay loop muted playsinline style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);">
+      <source src="/images/arcpass/scenes/S06.mp4" type="video/mp4" />
+    </video>
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Quest Completion Flow</p>
+  </div>
+  <div>
+    <video autoplay loop muted playsinline style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);">
+      <source src="/images/arcpass/scenes/S07.mp4" type="video/mp4" />
+    </video>
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Leaderboard</p>
+  </div>
 </div>
 
 ### Screenshots

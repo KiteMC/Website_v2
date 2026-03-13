@@ -71,7 +71,36 @@ import { ref } from 'vue';
 ## 预览
 
 <div style="margin: 2rem 0;">
-  <img src="/images/arcpass/cover-banner.png" alt="ArcPass 封面横幅" style="border-radius: 12px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />
+  <img src="/images/arcpass/cover-16x9.png" alt="ArcPass 封面" style="border-radius: 12px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />
+</div>
+
+### 功能演示
+
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 1.5rem 0;">
+  <div>
+    <video autoplay loop muted playsinline style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);">
+      <source src="/images/arcpass/scenes/S02.mp4" type="video/mp4" />
+    </video>
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">多等级通行证</p>
+  </div>
+  <div>
+    <video autoplay loop muted playsinline style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);">
+      <source src="/images/arcpass/scenes/S05.mp4" type="video/mp4" />
+    </video>
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">任务系统</p>
+  </div>
+  <div>
+    <video autoplay loop muted playsinline style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);">
+      <source src="/images/arcpass/scenes/S06.mp4" type="video/mp4" />
+    </video>
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">任务完成流程</p>
+  </div>
+  <div>
+    <video autoplay loop muted playsinline style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);">
+      <source src="/images/arcpass/scenes/S07.mp4" type="video/mp4" />
+    </video>
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">排行榜</p>
+  </div>
 </div>
 
 ### 截图展示

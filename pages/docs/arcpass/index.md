@@ -128,13 +128,6 @@ import { ref } from 'vue';
   </div>
 </div>
 
-### Reward Track Demo
-
-<video controls style="border-radius: 12px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin: 1rem 0;">
-  <source src="/images/arcpass/footage-reward-track.mp4" type="video/mp4" />
-  Your browser does not support this video format.
-</video>
-
 ## Why Choose ArcPass?
 
 ArcPass is a professional-grade battle pass plugin designed for Minecraft servers. Whether you run a small private server or a large commercial network, ArcPass provides continuous gameplay goals and rich reward experiences.

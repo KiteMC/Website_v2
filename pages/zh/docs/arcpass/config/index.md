@@ -33,7 +33,7 @@ plugins/ArcPass/
 
 ```yaml
 # 配置版本（请勿修改）
-config-version: 1
+config-version: 2
 
 # 调试模式 - 启用详细日志输出
 debug: false
@@ -94,7 +94,7 @@ performance:
 
 ```yaml
 # 配置版本（请勿修改）
-config-version: 1
+config-version: 2
 
 # 数据库类型：sqlite 或 mysql
 type: sqlite
@@ -118,7 +118,28 @@ mysql:
     useSSL: false
     autoReconnect: true
     allowPublicKeyRetrieval: true
+
+# 跨服（网络）设置
+network:
+  # standalone | shared-db | redis
+  mode: standalone
+  server-id: "server-1"
+  redis:
+    host: localhost
+    port: 6379
+    password: ""
+    database: 0
+    pool-size: 8
+    cache-ttl: 10
+    migration-lock-timeout: 5000
+  sync:
+    quit-save-mode: blocking
+    join-lock-wait: 3000
 ```
+
+::: warning 需要专业版许可证
+跨服支持（`shared-db` 和 `redis` 模式）需要 **专业版** 许可证。标准版用户将始终运行在 `standalone` 模式。可在 <InlineLink href="https://license.kitemc.com/products/arcpass" :external="true">许可证中心</InlineLink> 升级。
+:::
 
 ## 配置热重载
 

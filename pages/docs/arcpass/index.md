@@ -62,6 +62,10 @@ features:
       src: /images/icons/bolt.svg
     title: Folia Support
     details: Fully compatible with Folia multi-threaded server software
+  - icon:
+      src: /images/icons/globe.svg
+    title: Cross-Server Support
+    details: Seamless multi-server sync via Redis or shared MySQL with migration locks and distributed locking
 ---
 
 <script setup>

@@ -33,7 +33,7 @@ plugins/ArcPass/
 
 ```yaml
 # Config version (DO NOT MODIFY)
-config-version: 1
+config-version: 2
 
 # Debug mode - enables verbose logging
 debug: false
@@ -94,7 +94,7 @@ performance:
 
 ```yaml
 # Config version (DO NOT MODIFY)
-config-version: 1
+config-version: 2
 
 # Storage type: sqlite or mysql
 type: sqlite
@@ -118,7 +118,28 @@ mysql:
     useSSL: false
     autoReconnect: true
     allowPublicKeyRetrieval: true
+
+# Cross-Server (Network) Settings
+network:
+  # standalone | shared-db | redis
+  mode: standalone
+  server-id: "server-1"
+  redis:
+    host: localhost
+    port: 6379
+    password: ""
+    database: 0
+    pool-size: 8
+    cache-ttl: 10
+    migration-lock-timeout: 5000
+  sync:
+    quit-save-mode: blocking
+    join-lock-wait: 3000
 ```
+
+::: warning Professional License Required
+Cross-server support (`shared-db` and `redis` modes) requires a **Professional** license. Standard license users will always run in `standalone` mode. Upgrade at the <InlineLink href="https://license.kitemc.com/products/arcpass" :external="true">License Center</InlineLink>.
+:::
 
 ## Hot Reload
 

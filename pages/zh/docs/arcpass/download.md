@@ -121,6 +121,7 @@ import DownloadPage from '@theme/components/download/DownloadPage.vue';
         <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 5 台设备</div>
         <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 单机 3 端口</div>
         <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 终身更新</div>
+        <div class="dl-price-feat dl-price-feat-disabled"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> 无跨服同步</div>
         <div class="dl-price-feat dl-price-feat-disabled"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> 无开发者 API</div>
       </div>
     </div>
@@ -133,6 +134,7 @@ import DownloadPage from '@theme/components/download/DownloadPage.vue';
         <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 单机 15 端口</div>
         <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 终身更新</div>
         <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 优先技术支持</div>
+        <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 跨服数据同步</div>
         <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 开发者 API</div>
       </div>
     </div>
@@ -160,17 +162,17 @@ import DownloadPage from '@theme/components/download/DownloadPage.vue';
 <dependency>
     <groupId>com.kitemc</groupId>
     <artifactId>arcpass-api</artifactId>
-    <version>1.4.2</version>
+    <version>1.5.0</version>
     <scope>provided</scope>
 </dependency>
 ```
 
 ```kotlin [Gradle (Kotlin DSL)]
-compileOnly("com.kitemc:arcpass-api:1.4.2")
+compileOnly("com.kitemc:arcpass-api:1.5.0")
 ```
 
 ```groovy [Gradle (Groovy)]
-compileOnly 'com.kitemc:arcpass-api:1.4.2'
+compileOnly 'com.kitemc:arcpass-api:1.5.0'
 ```
 
 :::

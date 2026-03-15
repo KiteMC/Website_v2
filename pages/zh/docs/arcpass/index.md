@@ -62,6 +62,10 @@ features:
       src: /images/icons/bolt.svg
     title: Folia 支持
     details: 完全兼容 Folia 多线程服务端，适用于大型服务器
+  - icon:
+      src: /images/icons/globe.svg
+    title: 跨服支持
+    details: 通过 Redis 或共享 MySQL 实现无缝跨服数据同步，支持迁移锁和分布式锁
 ---
 
 <script setup>

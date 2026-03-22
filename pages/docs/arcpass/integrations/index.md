@@ -16,6 +16,8 @@ ArcPass supports integration with many popular plugins to extend functionality.
 | DeluxeTags | Title rewards | ❌ |
 | TAB | Title rewards | ✅ |
 | NametagEdit | Title rewards | ❌ |
+| PlayerTitle | Title rewards | ✅ |
+| PlayerParticles | Cosmetic particle rewards | ✅ |
 | MythicMobs | Custom mob quests | ✅ |
 | Jobs Reborn | Job quests | ✅ |
 | Oraxen | Custom item rewards | ✅ |
@@ -211,14 +213,93 @@ NametagEdit is a nametag editing plugin.
 
 NametagEdit sets titles as player nametag prefixes. It is used as a fallback when other title plugins are not available.
 
+### PlayerTitle
+
+PlayerTitle is a popular title plugin with built-in particle effects, buff system, and GUI management.
+
+**Requirements:**
+
+- PlayerTitle 4.0+
+
+ArcPass integrates with PlayerTitle via its developer API. Titles must be pre-created in PlayerTitle, then referenced by their integer ID in the reward config.
+
+**Example:**
+
+```yaml
+# Using data.title-id to specify PlayerTitle's integer ID
+reward_arena_champion:
+  type: TITLE
+  display-name: "&6Arena Champion"
+  value: "&e[&6Champion&e] "
+  data:
+    title-id: 5  # PlayerTitle's title ID
+
+# Or embed the ID in the reward key
+title_5:
+  type: TITLE
+  display-name: "&6Arena Champion"
+  value: "&e[&6Champion&e] "
+```
+
+::: tip
+For time-limited titles via PlayerTitle, use a COMMAND reward type:
+
+```yaml
+reward_temp_title:
+  type: COMMAND
+  display-name: "&eLimited Title (30 days)"
+  value: "plt player setTitle %player% 5 30"
+```
+:::
+
 ### Title Priority
 
 ArcPass tries to grant titles in this order:
 
 1. **DeluxeTags** - If available and not Folia
 2. **TAB** - If available (Folia compatible)
-3. **NametagEdit** - If available
-4. **LuckPerms** - As prefix/suffix fallback
+3. **PlayerTitle** - If available (API integration)
+4. **NametagEdit** - If available
+5. **LuckPerms** - As prefix/suffix fallback
+
+## Cosmetic System
+
+### PlayerParticles
+
+PlayerParticles is the most popular cosmetic particle plugin, offering 118+ particle effects and 38 styles.
+
+**Requirements:**
+
+- PlayerParticles 8.0+
+
+ArcPass integrates with PlayerParticles via its developer API. When a COSMETIC reward with `data.particle` is claimed, the particle effect is automatically applied to the player.
+
+**Example:**
+
+```yaml
+cosmetic_particle_flame:
+  type: COSMETIC
+  display-name: "&cFlame Particle Effect"
+  description: "Unlock flame particle effect"
+  icon: BLAZE_POWDER
+  value: "particle_flame"
+  data:
+    particle: FLAME       # PlayerParticles effect name
+    style: trail          # PlayerParticles style name
+
+cosmetic_particle_enchant:
+  type: COSMETIC
+  display-name: "&5Enchant Particle Effect"
+  icon: ENCHANTED_BOOK
+  value: "particle_enchant"
+  data:
+    particle: ENCHANT
+    style: spiral
+```
+
+**Common particle effects:** `FLAME`, `END_ROD`, `ENCHANT`, `TOTEM_OF_UNDYING`, `HEART`, `CRIT`, `SPELL_WITCH`, `DRIP_LAVA`
+
+**Common styles:** `normal`, `spiral`, `trail`, `aura`, `burst`, `orbit`, `pulse`
 
 ## Quest Triggers
 
@@ -336,6 +417,8 @@ On startup, console shows integration status:
 [ArcPass] Jobs Reborn integration enabled!
 [ArcPass] Oraxen integration enabled!
 [ArcPass] ItemsAdder integration enabled!
+[ArcPass] PlayerTitle hook enabled (API mode).
+[ArcPass] PlayerParticles hook enabled (API mode).
 ```
 
 ## Troubleshooting
@@ -348,9 +431,17 @@ On startup, console shows integration status:
 
 ### Title Rewards Not Working
 
-1. Confirm a title plugin is installed (DeluxeTags, TAB, or NametagEdit)
+1. Confirm a title plugin is installed (DeluxeTags, TAB, PlayerTitle, or NametagEdit)
 2. Use TAB on Folia
-3. Check LuckPerms configuration as fallback
+3. For PlayerTitle: ensure the title ID exists in PlayerTitle
+4. Check LuckPerms configuration as fallback
+
+### Cosmetic/Particle Rewards Not Working
+
+1. Confirm PlayerParticles is installed (8.0+)
+2. Check the `data.particle` value matches a valid PlayerParticles effect name
+3. Check the `data.style` value matches a valid PlayerParticles style name
+4. Ensure the player is online when claiming the reward
 
 ### MythicMobs Quest Not Triggering
 

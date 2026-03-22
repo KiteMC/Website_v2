@@ -16,6 +16,8 @@ ArcPass 支持与多种流行插件集成，扩展功能和玩法。
 | DeluxeTags | 称号奖励 | ❌ |
 | TAB | 称号奖励 | ✅ |
 | NametagEdit | 称号奖励 | ❌ |
+| PlayerTitle | 称号奖励 | ✅ |
+| PlayerParticles | 装饰粒子奖励 | ✅ |
 | MythicMobs | 自定义怪物任务 | ✅ |
 | Jobs Reborn | 职业任务 | ✅ |
 | Oraxen | 自定义物品奖励 | ✅ |
@@ -213,14 +215,93 @@ NametagEdit 是一款名牌编辑插件。
 
 NametagEdit 将称号设置为玩家名牌前缀。当其他称号插件不可用时作为回退方案。
 
+### PlayerTitle
+
+PlayerTitle 是一款功能丰富的称号插件，支持粒子特效、属性 Buff 和 GUI 管理。
+
+**安装要求：**
+
+- PlayerTitle 4.0+
+
+ArcPass 通过 PlayerTitle 的开发者 API 进行集成。称号需要先在 PlayerTitle 中创建，然后在奖励配置中引用其整型 ID。
+
+**配置示例：**
+
+```yaml
+# 使用 data.title-id 指定 PlayerTitle 的称号 ID
+reward_arena_champion:
+  type: TITLE
+  display-name: "&6竞技场冠军"
+  value: "&e[&6冠军&e] "
+  data:
+    title-id: 5  # PlayerTitle 中的称号 ID
+
+# 或将 ID 嵌入奖励键名
+title_5:
+  type: TITLE
+  display-name: "&6竞技场冠军"
+  value: "&e[&6冠军&e] "
+```
+
+::: tip
+如需通过 PlayerTitle 发放限时称号，可使用 COMMAND 奖励类型：
+
+```yaml
+reward_temp_title:
+  type: COMMAND
+  display-name: "&e限时称号（30天）"
+  value: "plt player setTitle %player% 5 30"
+```
+:::
+
 ### 称号优先级
 
 ArcPass 按以下顺序尝试发放称号奖励：
 
 1. **DeluxeTags** - 如果可用且非 Folia
 2. **TAB** - 如果可用（支持 Folia）
-3. **NametagEdit** - 如果可用
-4. **LuckPerms** - 作为前缀/后缀回退
+3. **PlayerTitle** - 如果可用（API 集成）
+4. **NametagEdit** - 如果可用
+5. **LuckPerms** - 作为前缀/后缀回退
+
+## 装饰系统
+
+### PlayerParticles
+
+PlayerParticles 是最流行的装饰粒子插件，提供 118+ 种粒子效果和 38 种样式。
+
+**安装要求：**
+
+- PlayerParticles 8.0+
+
+ArcPass 通过 PlayerParticles 的开发者 API 进行集成。当玩家领取带有 `data.particle` 的 COSMETIC 奖励时，粒子效果会自动应用到玩家身上。
+
+**配置示例：**
+
+```yaml
+cosmetic_particle_flame:
+  type: COSMETIC
+  display-name: "&c火焰粒子特效"
+  description: "解锁火焰粒子效果"
+  icon: BLAZE_POWDER
+  value: "particle_flame"
+  data:
+    particle: FLAME       # PlayerParticles 效果名称
+    style: trail          # PlayerParticles 样式名称
+
+cosmetic_particle_enchant:
+  type: COSMETIC
+  display-name: "&5附魔粒子特效"
+  icon: ENCHANTED_BOOK
+  value: "particle_enchant"
+  data:
+    particle: ENCHANT
+    style: spiral
+```
+
+**常用粒子效果：** `FLAME`、`END_ROD`、`ENCHANT`、`TOTEM_OF_UNDYING`、`HEART`、`CRIT`、`SPELL_WITCH`、`DRIP_LAVA`
+
+**常用样式：** `normal`、`spiral`、`trail`、`aura`、`burst`、`orbit`、`pulse`
 
 ## 任务触发器
 
@@ -353,6 +434,8 @@ PlaceholderAPI 让您可以在其他插件中使用 ArcPass 的数据。
 [ArcPass] Jobs Reborn integration enabled!
 [ArcPass] Oraxen integration enabled!
 [ArcPass] ItemsAdder integration enabled!
+[ArcPass] PlayerTitle hook enabled (API mode).
+[ArcPass] PlayerParticles hook enabled (API mode).
 ```
 
 ## 故障排除
@@ -365,9 +448,17 @@ PlaceholderAPI 让您可以在其他插件中使用 ArcPass 的数据。
 
 ### 称号奖励不生效
 
-1. 确认称号插件已安装（DeluxeTags、TAB 或 NametagEdit）
+1. 确认称号插件已安装（DeluxeTags、TAB、PlayerTitle 或 NametagEdit）
 2. 对于 Folia，必须使用 TAB
-3. LuckPerms 可作为最终回退方案
+3. 使用 PlayerTitle 时，确保称号 ID 在 PlayerTitle 中已存在
+4. LuckPerms 可作为最终回退方案
+
+### 装饰/粒子奖励不生效
+
+1. 确认 PlayerParticles 已安装（8.0+）
+2. 检查 `data.particle` 值是否与 PlayerParticles 的效果名称匹配
+3. 检查 `data.style` 值是否与 PlayerParticles 的样式名称匹配
+4. 确保玩家在领取奖励时在线
 
 ### MythicMobs 任务不触发
 

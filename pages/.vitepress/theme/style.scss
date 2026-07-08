@@ -252,17 +252,6 @@ html.dark {
   }
 }
 
-/* SVG icons color - using CSS filter to colorize */
-.VPFeatures .VPFeature .VPImage img,
-.VPFeatures .VPFeature .icon img {
-  filter: brightness(0) saturate(100%) invert(35%) sepia(50%) saturate(1000%) hue-rotate(230deg) brightness(95%) contrast(90%);
-}
-
-html.dark .VPFeatures .VPFeature .VPImage img,
-html.dark .VPFeatures .VPFeature .icon img {
-  filter: brightness(0) saturate(100%) invert(70%) sepia(30%) saturate(800%) hue-rotate(220deg) brightness(105%) contrast(95%);
-}
-
 /**
  * Button styles - Clean and minimal
  * -------------------------------------------------------------------------- */

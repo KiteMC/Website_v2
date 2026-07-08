@@ -29,48 +29,23 @@ hero:
       text: 购买许可证
       link: https://license.kitemc.com/products/arcpass
 
-features:
-  - icon:
-      src: /images/icons/ticket.svg
-    title: 多等级通行证
-    details: 支持免费、付费、VIP 等多个通行证等级，每个等级拥有独立的奖励路线
-  - icon:
-      src: /images/icons/clipboard.svg
-    title: 丰富的任务系统
-    details: 日常任务、周常任务、赛季任务、剧情任务，多种任务类型满足不同玩法
-  - icon:
-      src: /images/icons/gift.svg
-    title: 灵活的奖励类型
-    details: 物品、经济、权限、称号、装饰品等多种奖励，支持 Oraxen/ItemsAdder 自定义物品
-  - icon:
-      src: /images/icons/trophy.svg
-    title: 赛季管理
-    details: 完整的赛季系统，支持手动开启/结束赛季，自动重置玩家进度
-  - icon:
-      src: /images/icons/palette.svg
-    title: 自定义 GUI
-    details: 高度可配置的界面系统，支持自定义布局、物品、动画效果
-  - icon:
-      src: /images/icons/chart.svg
-    title: 排行榜系统
-    details: 等级排行、经验排行、赛季排行，激励玩家竞争
-  - icon:
-      src: /images/icons/plugin.svg
-    title: 广泛的插件兼容
-    details: 支持 Vault、LuckPerms、PlaceholderAPI、DeluxeTags、TAB、MythicMobs、Jobs 等
-  - icon:
-      src: /images/icons/bolt.svg
-    title: Folia 支持
-    details: 完全兼容 Folia 多线程服务端，适用于大型服务器
-  - icon:
-      src: /images/icons/globe.svg
-    title: 跨服支持
-    details: 通过 Redis 或共享 MySQL 实现无缝跨服数据同步，支持迁移锁和分布式锁
 ---
 
 <script setup>
 import { ref } from 'vue';
 </script>
+
+<FeatureGrid :cols="3">
+  <FeatureBox icon="ticket" title="多等级通行证" description="支持免费、付费、VIP 等多个通行证等级，每个等级拥有独立的奖励路线" />
+  <FeatureBox icon="clipboard-list" title="丰富的任务系统" description="日常任务、周常任务、赛季任务、剧情任务，多种任务类型满足不同玩法" />
+  <FeatureBox icon="gift" title="灵活的奖励类型" description="物品、经济、权限、称号、装饰品等多种奖励，支持 Oraxen/ItemsAdder 自定义物品" />
+  <FeatureBox icon="trophy" title="赛季管理" description="完整的赛季系统，支持手动开启/结束赛季，自动重置玩家进度" />
+  <FeatureBox icon="color-swatch" title="自定义 GUI" description="高度可配置的界面系统，支持自定义布局、物品、动画效果" />
+  <FeatureBox icon="chart-bar" title="排行榜系统" description="等级排行、经验排行、赛季排行，激励玩家竞争" />
+  <FeatureBox icon="puzzle" title="广泛的插件兼容" description="支持 Vault、LuckPerms、PlaceholderAPI、DeluxeTags、TAB、MythicMobs、Jobs 等" />
+  <FeatureBox icon="lightning-bolt" title="Folia 支持" description="完全兼容 Folia 多线程服务端，适用于大型服务器" />
+  <FeatureBox icon="globe" title="跨服支持" description="通过 Redis 或共享 MySQL 实现无缝跨服数据同步，支持迁移锁和分布式锁" />
+</FeatureGrid>
 
 ## 预览
 

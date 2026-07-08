@@ -29,48 +29,23 @@ hero:
       text: Purchase License
       link: https://license.kitemc.com/products/arcpass
 
-features:
-  - icon:
-      src: /images/icons/ticket.svg
-    title: Multi-Tier Pass System
-    details: Support for free, premium, and VIP tiers with independent reward tracks
-  - icon:
-      src: /images/icons/clipboard.svg
-    title: Rich Quest System
-    details: Daily, weekly, seasonal, and story quests with various objectives
-  - icon:
-      src: /images/icons/gift.svg
-    title: Flexible Reward Types
-    details: Items, economy, permissions, titles, cosmetics, and custom items via Oraxen/ItemsAdder
-  - icon:
-      src: /images/icons/trophy.svg
-    title: Season Management
-    details: Complete season system with manual control and automatic player progress reset
-  - icon:
-      src: /images/icons/palette.svg
-    title: Customizable GUI
-    details: Highly configurable interface system with custom layouts, items, and animations
-  - icon:
-      src: /images/icons/chart.svg
-    title: Leaderboard System
-    details: Level, experience, and season rankings to encourage competition
-  - icon:
-      src: /images/icons/plugin.svg
-    title: Wide Plugin Compatibility
-    details: Supports Vault, LuckPerms, PlaceholderAPI, DeluxeTags, TAB, MythicMobs, Jobs, and more
-  - icon:
-      src: /images/icons/bolt.svg
-    title: Folia Support
-    details: Fully compatible with Folia multi-threaded server software
-  - icon:
-      src: /images/icons/globe.svg
-    title: Cross-Server Support
-    details: Seamless multi-server sync via Redis or shared MySQL with migration locks and distributed locking
 ---
 
 <script setup>
 import { ref } from 'vue';
 </script>
+
+<FeatureGrid :cols="3">
+  <FeatureBox icon="ticket" title="Multi-Tier Pass System" description="Support for free, premium, and VIP tiers with independent reward tracks" />
+  <FeatureBox icon="clipboard-list" title="Rich Quest System" description="Daily, weekly, seasonal, and story quests with various objectives" />
+  <FeatureBox icon="gift" title="Flexible Reward Types" description="Items, economy, permissions, titles, cosmetics, and custom items via Oraxen/ItemsAdder" />
+  <FeatureBox icon="trophy" title="Season Management" description="Complete season system with manual control and automatic player progress reset" />
+  <FeatureBox icon="color-swatch" title="Customizable GUI" description="Highly configurable interface system with custom layouts, items, and animations" />
+  <FeatureBox icon="chart-bar" title="Leaderboard System" description="Level, experience, and season rankings to encourage competition" />
+  <FeatureBox icon="puzzle" title="Wide Plugin Compatibility" description="Supports Vault, LuckPerms, PlaceholderAPI, DeluxeTags, TAB, MythicMobs, Jobs, and more" />
+  <FeatureBox icon="lightning-bolt" title="Folia Support" description="Fully compatible with Folia multi-threaded server software" />
+  <FeatureBox icon="globe" title="Cross-Server Support" description="Seamless multi-server sync via Redis or shared MySQL with migration locks and distributed locking" />
+</FeatureGrid>
 
 ## Preview
 

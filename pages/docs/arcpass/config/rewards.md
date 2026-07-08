@@ -135,6 +135,20 @@ reward_oraxen_gem:
 The `icon` field controls what is displayed in the GUI. The `value` field controls what the player actually receives. They can be different.
 :::
 
+## Item Preview Slot <Badge type="tip" text="v1.7.0" />
+
+When editing item rewards in the admin GUI (`/arcpass admin rewards`), you can set the reward's display item by clicking an item from your inventory onto the preview slot:
+
+1. Open the reward edit GUI and locate the item preview slot (the empty slot with a red glass pane border)
+2. **Left-click** any item in your inventory — it will stick to your cursor
+3. Move your cursor over the preview slot and **left-click** again — the item will be captured as the reward's display item
+
+::: info
+- The preview slot always shows **a single item** regardless of the stack size you drop in
+- The actual reward **amount** is controlled separately via the amount setting
+- Supports items with custom NBT, CustomModelData, enchantments, etc.
+:::
+
 ## Economy Rewards
 
 ```yaml

@@ -28,33 +28,19 @@ hero:
     - theme: alt
       text: GitHub
       link: https://github.com/KiteMC/VerifyMC
-features:
-  - icon:
-      src: /images/icons/email.svg
-    title: Email & CAPTCHA Verification
-    details: Email verification, self-hosted graphical CAPTCHA (math/text), domain whitelist, alias restrictions
-  - icon:
-      src: /images/icons/gamepad.svg
-    title: Discord Integration
-    details: OAuth2 Discord account linking, optional or required mode, persistent storage
-  - icon:
-      src: /images/icons/shield.svg
-    title: Admin Review & Notifications
-    details: Web admin panel, real-time review, automatic email notifications for approval/rejection
-  - icon:
-      src: /images/icons/palette.svg
-    title: Modern GlassX Theme
-    details: Beautiful glassmorphism design, animated effects, mobile-friendly, i18n support
-  - icon:
-      src: /images/icons/link.svg
-    title: Proxy & Bedrock Support
-    details: BungeeCord/Velocity proxy plugin, Geyser/Floodgate Bedrock edition support
-  - icon:
-      src: /images/icons/clipboard.svg
-    title: Registration Questionnaire
-    details: Customizable questionnaire system, multi-language support, flexible question types
-  - icon:
-      src: /images/icons/shield.svg
-    title: LLM Essay Scoring
-    details: AI-powered auto-scoring for text questionnaire answers via DeepSeek/Google, with circuit breaker and concurrency control
 ---
+
+<script setup>
+import FeatureGrid from '@theme/components/FeatureGrid.vue';
+import FeatureBox from '@theme/components/FeatureBox.vue';
+</script>
+
+<FeatureGrid :cols="3">
+  <FeatureBox icon="mail" title="Email & CAPTCHA Verification" description="Email verification, self-hosted graphical CAPTCHA (math/text), domain whitelist, alias restrictions" />
+  <FeatureBox icon="gamepad" title="Discord Integration" description="OAuth2 Discord account linking, optional or required mode, persistent storage" />
+  <FeatureBox icon="shield" title="Admin Review & Notifications" description="Web admin panel, real-time review, automatic email notifications for approval/rejection" />
+  <FeatureBox icon="color-swatch" title="Modern GlassX Theme" description="Beautiful glassmorphism design, animated effects, mobile-friendly, i18n support" />
+  <FeatureBox icon="link" title="Proxy & Bedrock Support" description="BungeeCord/Velocity proxy plugin, Geyser/Floodgate Bedrock edition support" />
+  <FeatureBox icon="clipboard-list" title="Registration Questionnaire" description="Customizable questionnaire system, multi-language support, flexible question types" />
+  <FeatureBox icon="shield" title="LLM Essay Scoring" description="AI-powered auto-scoring for text questionnaire answers via DeepSeek/Google, with circuit breaker and concurrency control" />
+</FeatureGrid>

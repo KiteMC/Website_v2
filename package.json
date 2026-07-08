@@ -19,5 +19,10 @@
   "engines": {
     "node": ">=18.20.0",
     "pnpm": ">=8.0.0"
+  },
+  "dependencies": {
+    "@iconify-json/game-icons": "^1.2.4",
+    "@iconify/vue": "^5.0.1",
+    "@lucide/vue": "^1.23.0"
   }
 }

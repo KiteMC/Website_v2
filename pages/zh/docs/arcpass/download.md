@@ -69,7 +69,7 @@ import DownloadPage from '@theme/components/download/DownloadPage.vue';
     </span>
     <h2>语言包</h2>
   </div>
-  <p class="dl-text">插件默认配置文件为<strong>英文</strong>。您可以下载英文与简体中文配置包，用于快速恢复示例配置或完成多语言本地化。</p>
+  <p class="dl-text">插件默认配置文件为<strong>简体中文</strong>。英文配置作为可选语言包提供，您可以下载语言包快速切换界面、任务和奖励文本。</p>
 
   <div class="dl-lang-grid">
     <a class="dl-lang-card" href="https://github.com/KiteMC/ArcPass/releases" target="_blank" rel="noopener noreferrer">
@@ -162,17 +162,17 @@ import DownloadPage from '@theme/components/download/DownloadPage.vue';
 <dependency>
     <groupId>com.kitemc</groupId>
     <artifactId>arcpass-api</artifactId>
-    <version>1.8.0</version>
+    <version>1.8.1</version>
     <scope>provided</scope>
 </dependency>
 ```
 
 ```kotlin [Gradle (Kotlin DSL)]
-compileOnly("com.kitemc:arcpass-api:1.8.0")
+compileOnly("com.kitemc:arcpass-api:1.8.1")
 ```
 
 ```groovy [Gradle (Groovy)]
-compileOnly 'com.kitemc:arcpass-api:1.8.0'
+compileOnly 'com.kitemc:arcpass-api:1.8.1'
 ```
 
 :::

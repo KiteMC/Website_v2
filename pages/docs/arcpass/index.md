@@ -49,6 +49,15 @@ import { ref } from 'vue';
 
 ## Preview
 
+## What's New In 1.8.1
+
+- Full in-game reward editor with item capture, serialization, material browsing, amount editing, and display-item preview.
+- Expanded quest conditions, trigger dispatching, completion tracking, and integration APIs.
+- Safer season and cross-server data with generation tracking, reconciliation, archives, and stale-write protection.
+- Bundled reward definitions, including title rewards, with stronger reference validation.
+- Improved Bukkit/Folia adapters, GUI schema validation, configuration migration, and localization.
+- MariaDB 10.11 compatibility fixes for quest completion and reward claim persistence.
+
 <div style="margin: 2rem 0;">
   <img src="/images/arcpass/cover-16x9.png" alt="ArcPass Cover" style="border-radius: 12px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />
 </div>

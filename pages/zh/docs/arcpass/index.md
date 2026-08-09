@@ -49,6 +49,15 @@ import { ref } from 'vue';
 
 ## 预览
 
+## 1.8.1 新功能
+
+- 全新的游戏内奖励编辑器：支持从背包捕获物品、物品序列化、材料浏览、数量编辑和展示物品预览。
+- 增强任务系统：支持条件评估、触发器分发、完成记录和更完整的任务集成 API。
+- 赛季与跨服数据可靠性提升：加入赛季代数、赛季数据协调、历史归档和过期写入保护。
+- 新增内置奖励定义及称号奖励，并加强奖励引用校验。
+- 完善 Bukkit/Folia 适配、GUI 配置校验、配置迁移和本地化支持。
+- MariaDB 10.11 兼容性修复，解决任务完成和奖励领取保存失败。
+
 <div style="margin: 2rem 0;">
   <img src="/images/arcpass/cover-16x9.png" alt="ArcPass 封面" style="border-radius: 12px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />
 </div>

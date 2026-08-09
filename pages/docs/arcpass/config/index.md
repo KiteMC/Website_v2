@@ -41,7 +41,7 @@ debug: false
 # Locale settings
 locale:
   # Default language for new players
-  default: en_US
+  default: zh_CN
   # Allow players to change their language
   allow-change: true
 

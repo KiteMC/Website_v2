@@ -127,7 +127,7 @@ ArcPass is a professional-grade battle pass plugin designed for Minecraft server
   <FeatureBox
     icon="globe"
     title="Multi-Language"
-    description="Built-in English and Chinese, supports custom language packs for easy internationalization"
+    description="Simplified Chinese by default, with optional English and custom language packs"
   />
   <FeatureBox
     icon="code"

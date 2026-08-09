@@ -135,7 +135,7 @@ reward_oraxen_gem:
 The `icon` field controls what is displayed in the GUI. The `value` field controls what the player actually receives. They can be different.
 :::
 
-## Item Preview Slot <Badge type="tip" text="v1.7.0" />
+## Item Preview Slot <Badge type="tip" text="v1.8.0" />
 
 When editing item rewards in the admin GUI (`/arcpass admin rewards`), you can set the reward's display item by clicking an item from your inventory onto the preview slot:
 

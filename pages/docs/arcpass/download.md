@@ -69,7 +69,7 @@ import DownloadPage from '@theme/components/download/DownloadPage.vue';
     </span>
     <h2>Language Packs</h2>
   </div>
-  <p class="dl-text">The plugin ships with <strong>English</strong> configuration by default. You can download ready-made config packs for English and Simplified Chinese to quickly reset or localise all in-game text, GUI titles, quest names, and reward descriptions.</p>
+  <p class="dl-text">The plugin ships with <strong>Simplified Chinese</strong> configuration by default. English configuration remains available as an optional language pack.</p>
 
   <div class="dl-lang-grid">
     <a class="dl-lang-card" href="https://github.com/KiteMC/ArcPass/releases" target="_blank" rel="noopener noreferrer">
@@ -162,17 +162,17 @@ import DownloadPage from '@theme/components/download/DownloadPage.vue';
 <dependency>
     <groupId>com.kitemc</groupId>
     <artifactId>arcpass-api</artifactId>
-    <version>1.7.0</version>
+    <version>1.8.0</version>
     <scope>provided</scope>
 </dependency>
 ```
 
 ```kotlin [Gradle (Kotlin DSL)]
-compileOnly("com.kitemc:arcpass-api:1.7.0")
+compileOnly("com.kitemc:arcpass-api:1.8.0")
 ```
 
 ```groovy [Gradle (Groovy)]
-compileOnly 'com.kitemc:arcpass-api:1.7.0'
+compileOnly 'com.kitemc:arcpass-api:1.8.0'
 ```
 
 :::

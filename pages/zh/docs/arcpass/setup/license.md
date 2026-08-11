@@ -87,7 +87,7 @@ license-key: "XXXX-XXXX-XXXX-XXXX"
 [ArcPass] License validated successfully!
 [ArcPass] Licensed to: YourName
 [ArcPass] Plan: Unlimited (50 devices)
-[ArcPass] ArcPass v1.8.1 enabled!
+[ArcPass] ArcPass v1.8.2 enabled!
 ```
 
 ## 许可证绑定

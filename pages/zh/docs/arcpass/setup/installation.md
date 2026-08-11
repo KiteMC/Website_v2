@@ -34,7 +34,7 @@
 ```
 your-server/
 ├── plugins/
-│   ├── ArcPass-1.8.1.jar    ← 放在这里
+│   ├── ArcPass-1.8.2.jar    ← 放在这里
 │   └── ... 其他插件
 ├── server.jar
 └── ...
@@ -54,7 +54,7 @@ your-server/
 正常启动时，您会看到类似以下日志：
 
 ```
-[ArcPass] Loading ArcPass v1.8.1
+[ArcPass] Loading ArcPass v1.8.2
 [ArcPass] Detected platform: PAPER
 [ArcPass] Loading configuration files...
 [ArcPass] Initializing database (SQLite)...

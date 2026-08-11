@@ -135,14 +135,8 @@ objectives:
   - type: walk
     amount: 1000  # blocks
 
-  - type: jump
-    amount: 100
-
   - type: playtime
     amount: 60  # minutes
-
-  - type: chat
-    amount: 10
 ```
 
 ### Jobs Reborn

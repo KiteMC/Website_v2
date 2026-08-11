@@ -144,21 +144,9 @@ objectives:
   - type: walk
     amount: 1000  # 格
 
-  # 跳跃次数
-  - type: jump
-    amount: 100
-
-  # 死亡次数（惩罚任务？）
-  - type: death
-    amount: 0  # 不死亡
-
   # 在线时长
   - type: playtime
     amount: 60  # 分钟
-
-  # 聊天消息
-  - type: chat
-    amount: 10
 ```
 
 ### Jobs Reborn 集成

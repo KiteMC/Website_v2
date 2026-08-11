@@ -87,7 +87,7 @@ On successful activation, console shows:
 [ArcPass] License validated successfully!
 [ArcPass] Licensed to: YourName
 [ArcPass] Plan: Unlimited (50 devices)
-[ArcPass] ArcPass v1.8.1 enabled!
+[ArcPass] ArcPass v1.8.2 enabled!
 ```
 
 ## License Binding

@@ -147,7 +147,7 @@ reward_oraxen_gem:
 `icon` 字段控制 GUI 中的显示图标，`value` 字段控制玩家实际获得的内容，两者可以不同。
 :::
 
-## 物品预览槽位 <Badge type="tip" text="v1.8.1" />
+## 物品预览槽位 <Badge type="tip" text="v1.8.2" />
 
 在管理 GUI（`/arcpass admin rewards`）中编辑物品奖励时，你可以通过将物品点击到预览槽位来设置奖励的展示物品：
 

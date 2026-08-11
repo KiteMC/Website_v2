@@ -33,7 +33,7 @@ Put the downloaded `ArcPass-x.x.x.jar` in your server's `plugins` folder:
 ```
 your-server/
 ├── plugins/
-│   ├── ArcPass-1.8.2.jar    ← Place here
+│   ├── ArcPass-1.8.3.jar    ← Place here
 │   └── ... other plugins
 ├── server.jar
 └── ...
@@ -53,7 +53,7 @@ On first startup, the plugin will:
 On successful startup, you'll see logs like:
 
 ```
-[ArcPass] Loading ArcPass v1.8.2
+[ArcPass] Loading ArcPass v1.8.3
 [ArcPass] Detected platform: PAPER
 [ArcPass] Loading configuration files...
 [ArcPass] Initializing database (SQLite)...

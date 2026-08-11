@@ -47,14 +47,12 @@ import { ref } from 'vue';
   <FeatureBox icon="globe" title="Cross-Server Support" description="Seamless multi-server sync via Redis or shared MySQL with migration locks and distributed locking" />
 </FeatureGrid>
 
-## Preview
+## What's New In 1.8.3
 
-## What's New In 1.8.2
-
-- Added official `playtime` quests with progress measured in online minutes.
-- Restored compatibility with legacy online quests such as `zaixian30`, `zaixian180`, and `zaixian900`.
-- Fixed playtime quests rejecting the complete quest configuration and preventing core initialization.
-- Fixed the misleading permanent “Plugin is still initializing” message after initialization failure.
+- Fixed the GUI reward editor displaying a new economy amount while saving and granting the previous value.
+- Fixed draft persistence for names, descriptions, item amounts, permission durations, title priorities, particles, and styles entered through chat.
+- Fixed `duplicate reward ID` and initialization failures after bundled rewards were edited through the GUI.
+- `custom.yml` now loads as the final customization layer while duplicates across ordinary reward files remain invalid.
 
 ### 1.8.x Features
 

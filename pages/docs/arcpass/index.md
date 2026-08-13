@@ -47,12 +47,12 @@ import { ref } from 'vue';
   <FeatureBox icon="globe" title="Cross-Server Support" description="Seamless multi-server sync via Redis or shared MySQL with migration locks and distributed locking" />
 </FeatureGrid>
 
-## What's New In 1.8.3
+## What's New In 1.8.4
 
-- Fixed the GUI reward editor displaying a new economy amount while saving and granting the previous value.
-- Fixed draft persistence for names, descriptions, item amounts, permission durations, title priorities, particles, and styles entered through chat.
-- Fixed `duplicate reward ID` and initialization failures after bundled rewards were edited through the GUI.
-- `custom.yml` now loads as the final customization layer while duplicates across ordinary reward files remain invalid.
+- Quest experience remains automatic when a quest is completed; no manual claim is required.
+- Fixed Vault, economy integration, or other bonus reward delivery failures blocking quest experience.
+- Failed bonus rewards now emit a warning while quest experience, completion state, and completion persistence continue normally.
+- Added regression coverage for quests reaching full progress without receiving experience.
 
 ### 1.8.x Features
 

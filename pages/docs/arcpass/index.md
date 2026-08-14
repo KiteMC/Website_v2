@@ -47,12 +47,13 @@ import { ref } from 'vue';
   <FeatureBox icon="globe" title="Cross-Server Support" description="Seamless multi-server sync via Redis or shared MySQL with migration locks and distributed locking" />
 </FeatureGrid>
 
-## What's New In 1.8.4
+## What's New In 1.8.5
 
-- Quest experience remains automatic when a quest is completed; no manual claim is required.
-- Fixed Vault, economy integration, or other bonus reward delivery failures blocking quest experience.
-- Failed bonus rewards now emit a warning while quest experience, completion state, and completion persistence continue normally.
-- Added regression coverage for quests reaching full progress without receiving experience.
+- Fixed intermittent cases where points or economy balance were deducted but the purchased pass tier was not granted.
+- Purchase success now waits for the tier grant to be persisted instead of relying on a later auto-save.
+- Save failures roll back the tier grant and refund the deducted currency.
+- Purchases are serialized per player to prevent rapid clicks or concurrent requests from charging more than once.
+- The GUI shop and `/ap buy` command now share the same transactional purchase path.
 
 ### 1.8.x Features
 

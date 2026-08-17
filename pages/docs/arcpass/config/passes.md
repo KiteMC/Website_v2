@@ -1,71 +1,71 @@
-# Pass Configuration
+# 通行证配置
 
-Passes are the core of ArcPass, defining player progression and reward tracks.
+通行证是 ArcPass 的核心系统，定义了玩家的等级进度和奖励路线。
 
-## File Location
+## 文件位置
 
 ```
 plugins/ArcPass/passes/
-├── default.yml     # Default pass
-├── combat.yml      # Combat pass (example)
-├── builder.yml     # Builder pass (example)
+├── default.yml     # 默认通行证
+├── combat.yml      # 战斗通行证（示例）
+├── builder.yml     # 建造通行证（示例）
 └── ...
 ```
 
-## Basic Structure
+## 基本结构
 
 ```yaml
 # passes/default.yml
 
-# Pass display name
-display-name: "&6&lSeason Pass"
+# 通行证显示名称
+display-name: "&6&l赛季通行证"
 
-# Pass description
-description: "&7Complete quests for awesome rewards!"
+# 通行证描述
+description: "&7完成任务，获取丰厚奖励！"
 
-# Set as default pass (auto-assigned to players on join)
+# 是否为默认通行证（玩家加入时自动分配）
 default: true
 
-# Maximum level
+# 最大等级
 max-level: 100
 
-# Experience curve settings
+# 经验曲线设置
 experience:
-  base: 100        # Base EXP for level 1
-  multiplier: 1.08 # 8% increase per level
+  base: 100        # 等级1的基础经验
+  multiplier: 1.08 # 每级增加8%
 ```
 
-## Tier Configuration
+## 档位配置
 
-Tiers define different reward tracks:
+档位（Tier）定义不同的奖励路线：
 
 ```yaml
 tiers:
-  # Free tier - available to all players
+  # 免费档位 - 所有玩家可用
   free:
-    display-name: "&fFree"
-    description: "&7Basic rewards for free players"
+    display-name: "&f免费版"
+    description: "&7免费玩家可领取的基础奖励"
     free: true
     priority: 0
-    icon: PAPER                # Supports: vanilla material, "itemsadder:ns:id", "oraxen:id"
-    # custom-model-data: 0    # Optional CustomModelData (v1.1.5+)
+    icon: PAPER                # 支持: 原版材料名, "itemsadder:命名空间:ID", "oraxen:ID"
+    # custom-model-data: 0    # 可选 CustomModelData (v1.1.5+)
 
-  # Premium tier - paid upgrade
+  # 高级档位 - 付费升级
   premium:
-    display-name: "&6Premium"
-    description: "&eUnlock more rewards and exclusive content"
+    display-name: "&6高级版"
+    description: "&e解锁更多奖励和专属内容"
     price: 980.0
-    # Currency type: vault (Vault/CMI economy) or points (PlayerPoints/CoinsEngine/TokenManager)
+    # 货币类型: vault (Vault/CMI 经济) 或 points (PlayerPoints/CoinsEngine/TokenManager 点卷)
     currency-type: vault
     free: false
     priority: 1
     icon: GOLD_INGOT
     permission: null
 
-  # Deluxe tier - highest tier
+  # 豪华档位 - 最高档位
   deluxe:
-    display-name: "&dDeluxe"
-    description: "&5Enjoy all rewards and exclusive privileges"
+    display-name: "&d豪华版"
+    description: "&5尊享全部奖励与独家特权"
     price: 1980.0
     currency-type: vault
     free: false
@@ -74,16 +74,16 @@ tiers:
     permission: null
 ```
 
-## Level Rewards
+## 等级奖励
 
-Configure rewards for each level and tier. Reward ID format is `type_value_amount`:
+每个等级可以配置不同档位的奖励。奖励 ID 格式为 `类型_值_数量`：
 
 ```yaml
-# Reward ID format: type_value_amount
-# Types: item, economy, exp, permission, title, command
+# 奖励ID格式: 类型_值_数量
+# 类型: item（物品）, economy（经济）, exp（经验）, permission（权限）, title（称号）, command（命令）
 
 levels:
-  # === Level 1: Starter Rewards ===
+  # === 等级 1: 新手奖励 ===
   1:
     rewards:
       free:
@@ -99,7 +99,7 @@ levels:
         - "item_iron_pickaxe_1"
         - "item_iron_sword_1"
 
-  # === Level 10: First Milestone ===
+  # === 等级 10: 第一个里程碑 ===
   10:
     rewards:
       free:
@@ -119,7 +119,7 @@ levels:
         - "title_adventurer"
         - "exp_500"
 
-  # === Level 50: Midway Milestone ===
+  # === 等级 50: 中途里程碑 ===
   50:
     rewards:
       free:
@@ -145,7 +145,7 @@ levels:
         - "cosmetic_particle_flame"
         - "exp_2000"
 
-  # === Level 100: Final Milestone ===
+  # === 等级 100: 最终里程碑 ===
   100:
     rewards:
       free:
@@ -182,75 +182,97 @@ levels:
         - "exp_10000"
 ```
 
-## Experience Sources
+## 经验获取
 
-### Quest Experience
+### 任务经验
 
-Set in quest configuration:
+任务完成时自动获得经验，在任务配置中设置：
 
 ```yaml
+# quests/daily/mining.yml
 experience-reward: 50
 ```
 
-### Manual Award
+### 手动给予
 
-Admin command:
+管理员可以手动给予经验：
 
 ```
-/arcpass admin give <player> exp <amount>
+/arcpass admin give <玩家> exp <数量>
 ```
 
-### Via API
+### API 给予
+
+通过 API 给予经验：
 
 ```java
 ArcPassAPI api = ArcPassProvider.get();
 api.addExperience(player.getUniqueId(), 100);
 ```
 
-## Advanced Configuration
+## 高级配置
 
-### Experience Formula
+### 经验公式
+
+使用公式计算每级所需经验：
 
 ```yaml
 experience-curve:
   type: formula
+  # 公式：base * (level ^ exponent) + flat
   base: 100
   exponent: 1.2
   flat: 0
 ```
 
-### Level Templates
+### 等级奖励模板
+
+使用模板简化重复配置：
 
 ```yaml
 level-templates:
   every-5:
-    levels: [5, 10, 15, 20, 25, 30]
+    levels: [5, 10, 15, 20, 25, 30, ...]
     free:
       - reward_bonus_exp
     premium:
       - reward_bonus_premium
+
+  every-10:
+    levels: [10, 20, 30, 40, 50, ...]
+    free:
+      - reward_milestone_free
+    premium:
+      - reward_milestone_premium
 ```
 
-### Conditional Tiers
+### 条件档位
+
+设置档位解锁条件：
 
 ```yaml
 tiers:
   veteran:
-    display-name: "&eVeteran Pass"
+    display-name: "&e老兵通行证"
     free: false
     price: 500
+    # 需要完成上赛季
     conditions:
       - type: previous_season_completed
         value: true
+      # 或达到指定等级
+      - type: previous_season_level
+        value: 50
 ```
 
-## Example: Combat Pass
+## 示例：战斗通行证
 
 ```yaml
-display-name: "&cCombat Pass"
+# passes/combat.yml
+display-name: "&c战斗通行证"
 description:
-  - "&7Designed for PVP players"
-  - "&7Earn XP by defeating enemies"
+  - "&7专为 PVP 玩家设计"
+  - "&7击杀敌人获取经验"
 icon: DIAMOND_SWORD
 default: false
 max-level: 50
@@ -261,12 +283,12 @@ experience-curve:
 
 tiers:
   free:
-    display-name: "&fWarrior's Path"
+    display-name: "&f战士之路"
     icon: IRON_SWORD
     free: true
 
   elite:
-    display-name: "&cElite Warrior"
+    display-name: "&c精英战士"
     icon: DIAMOND_SWORD
     free: false
     price: 500
@@ -278,14 +300,15 @@ levels:
   10:
     free: [reward_iron_armor]
     elite: [reward_diamond_armor, reward_title_warrior]
+  # ...
   50:
     free: [reward_combat_final_free]
     elite: [reward_combat_final_elite, reward_title_champion]
 ```
 
-## Next Steps
+## 下一步
 
 <LinkGrid :cols="2">
-  <LinkCard icon="gift" title="Configure Rewards" description="Set up reward types and values" href="./rewards" />
-  <LinkCard icon="clipboard-list" title="Configure Quests" description="Set up quest objectives" href="./quests" />
+  <LinkCard icon="gift" title="配置奖励" description="设置奖励类型和数值" href="./rewards" />
+  <LinkCard icon="clipboard-list" title="配置任务" description="设置任务目标和条件" href="./quests" />
 </LinkGrid>

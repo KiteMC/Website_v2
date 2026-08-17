@@ -1,190 +1,219 @@
-# Quest Configuration
+# 任务配置
 
-The quest system is the primary way players earn experience, supporting various quest types and triggers.
+任务系统是玩家获取经验的主要方式，支持多种任务类型和触发条件。
 
-## File Location
+## 文件位置
 
 ```
 plugins/ArcPass/quests/
-├── daily/          # Daily quests (reset daily)
+├── daily/          # 日常任务（每日重置）
 │   ├── mining.yml
 │   ├── combat.yml
 │   └── ...
-├── weekly/         # Weekly quests (reset weekly)
+├── weekly/         # 周常任务（每周重置）
 │   ├── boss_hunt.yml
 │   └── ...
-└── seasonal/       # Seasonal quests (reset per season)
+└── seasonal/       # 赛季任务（赛季期间）
     ├── main_story.yml
     └── ...
 ```
 
-## Quest Types
+## 任务类型
 
-| Type | Description | Reset Cycle |
-|------|-------------|-------------|
-| `daily` | Daily quests | Daily at 00:00 |
-| `weekly` | Weekly quests | Monday 00:00 |
-| `seasonal` | Seasonal quests | Season end |
-| `story` | Story quests | Never |
-| `challenge` | Challenge quests | Never |
+| 类型 | 说明 | 重置周期 |
+|------|------|----------|
+| `daily` | 日常任务 | 每日 00:00 |
+| `weekly` | 周常任务 | 每周一 00:00 |
+| `seasonal` | 赛季任务 | 赛季结束 |
+| `story` | 剧情任务 | 不重置 |
+| `challenge` | 挑战任务 | 不重置 |
 
-## Basic Structure
+## 基本结构
 
 ```yaml
 # quests/daily/mining.yml
 
-# Quest display name
-display-name: "&6Miner's Daily"
+# 任务显示名称
+display-name: "&6矿工日常"
 
-# Quest description
-description: "&7Mine various ores and become a mining star!"
+# 任务描述
+description: "&7开采各类矿石，成为矿场之星！"
 
-# Quest icon (supports: vanilla material, "itemsadder:ns:id", "oraxen:id")
+# 任务图标 (支持: 原版材料名, "itemsadder:命名空间:ID", "oraxen:ID")
 icon: IRON_PICKAXE
-# custom-model-data: 0    # Optional CustomModelData (v1.1.5+)
+# custom-model-data: 0    # 可选 CustomModelData (v1.1.5+)
 
-# Quest category
+# 任务分类
 category: mining
 
-# Priority (for sorting)
+# 优先级（排序用）
 priority: 1
 
-# Experience earned on completion
+# 完成后获得的经验
 experience: 100
 
-# Quest objectives
+# 任务目标
 objectives:
   mine_stone:
     type: break
     target: STONE,COBBLESTONE,DEEPSLATE,COBBLED_DEEPSLATE
     amount: 100
-    description: "Mine 100 stone/deepslate"
+    description: "开采 100 个石头/深板岩"
 
   mine_coal:
     type: break
     target: COAL_ORE,DEEPSLATE_COAL_ORE
     amount: 15
-    description: "Mine 15 coal ore"
+    description: "开采 15 个煤矿"
 
   mine_iron:
     type: break
     target: IRON_ORE,DEEPSLATE_IRON_ORE
     amount: 10
-    description: "Mine 10 iron ore"
+    description: "开采 10 个铁矿"
 
-# Prerequisites
+# 前置条件
 conditions: []
 
-# Additional rewards
+# 额外奖励
 rewards:
   - "economy_100"
 ```
 
-## Objective Types
+## 任务目标类型
 
-### Block Related
+### 方块相关
 
 ```yaml
 objectives:
+  # 挖掘方块
   - type: block_break
-    block: DIAMOND_ORE
+    block: DIAMOND_ORE  # 方块类型
     amount: 10
 
+  # 放置方块
   - type: block_place
     block: COBBLESTONE
     amount: 100
 ```
 
-### Kill Related
+### 击杀相关
 
 ```yaml
 objectives:
+  # 击杀生物
   - type: kill
     entity: ZOMBIE
     amount: 50
 
+  # 击杀玩家
   - type: player_kill
     amount: 10
 
+  # 击杀 MythicMobs 怪物
   - type: mythicmobs_kill
     mob: SkeletonKing
     amount: 1
 ```
 
-### Item Related
+### 物品相关
 
 ```yaml
 objectives:
+  # 合成物品
   - type: craft
     item: DIAMOND_SWORD
     amount: 1
 
+  # 附魔物品
   - type: enchant
     item: DIAMOND_PICKAXE
     amount: 1
 
+  # 钓鱼
   - type: fish
-    item: COD
+    item: COD  # 可选，不指定则任意鱼
     amount: 20
 ```
 
-### Other Activities
+### 其他活动
 
 ```yaml
 objectives:
+  # 行走距离
   - type: walk
-    amount: 1000  # blocks
+    amount: 1000  # 格
 
+  # 在线时长
   - type: playtime
-    amount: 60  # minutes
+    amount: 60  # 分钟
 ```
 
-### Jobs Reborn
+### Jobs Reborn 集成
 
 ```yaml
 objectives:
+  # Jobs 经验
   - type: jobs_exp
     job: Miner
     amount: 1000
 ```
 
-### Custom Events
+### 自定义事件
 
 ```yaml
 objectives:
+  # 自定义触发器（通过 API 触发）
   - type: custom
     event: my_custom_event
     amount: 1
 ```
 
-## Quest Conditions
+## 任务条件
+
+设置任务的解锁/显示条件：
 
 ```yaml
 mine_deep:
-  display-name: "&bDeep Miner"
+  display-name: "&b深层矿工"
+  # ...
 
+  # 前置任务
   requires:
     - mine_stone_100
     - mine_iron_50
 
+  # 其他条件
   conditions:
+    # 等级要求
     - type: level
       min: 10
 
+    # 权限要求
     - type: permission
       permission: arcpass.quest.deep_mining
 
+    # 世界限制
     - type: world
       worlds:
         - world
         - world_nether
+
+    # 时间限制
+    - type: time
+      start: "18:00"
+      end: "06:00"
 ```
 
-## Multi-Objective Quests
+## 多目标任务
+
+一个任务可以有多个目标：
 
 ```yaml
 explorer_challenge:
-  display-name: "&6Explorer Challenge"
+  display-name: "&6探险家挑战"
+  description:
+    - "&7完成以下所有目标"
   type: challenge
   experience-reward: 500
 
@@ -193,37 +222,44 @@ explorer_challenge:
       type: world_visit
       world: world_nether
       amount: 1
-      description: "&7Visit the Nether"
+      description: "&7访问下界"
 
     - id: visit_end
       type: world_visit
       world: world_the_end
       amount: 1
-      description: "&7Visit the End"
+      description: "&7访问末地"
 
     - id: kill_dragon
       type: kill
       entity: ENDER_DRAGON
       amount: 1
-      description: "&7Slay the Ender Dragon"
+      description: "&7击杀末影龙"
 ```
 
-## Progress Display
+## 进度显示
+
+在 GUI 中显示任务进度：
 
 ```yaml
 objectives:
   - type: block_break
     block: STONE
     amount: 100
-    progress-format: "&7Stone mined: &e%current%&7/&e%required%"
+    # 进度显示格式
+    progress-format: "&7挖掘石头: &e%current%&7/&e%required%"
 ```
 
-## Quest Rewards
+## 奖励配置
+
+除了经验，任务还可以给予其他奖励：
 
 ```yaml
 special_task:
+  # ...
   experience-reward: 100
 
+  # 额外奖励
   rewards:
     - type: item
       item: DIAMOND
@@ -231,20 +267,20 @@ special_task:
     - type: money
       amount: 1000
     - type: command
-      command: "say %player% completed a special task!"
+      command: "say %player% 完成了特殊任务！"
 ```
 
-## Example: Daily Combat Quests
+## 示例：完整日常任务
 
 ```yaml
 # quests/daily/combat.yml
 
 kill_zombies:
   type: daily
-  display-name: "&cUndead Hunter"
+  display-name: "&c猎杀亡灵"
   description:
-    - "&7Slay 30 zombies"
-    - "&7Reward: &e+30 XP"
+    - "&7消灭 30 只僵尸"
+    - "&7奖励: &e+30 经验"
   icon: ROTTEN_FLESH
   experience-reward: 30
   objectives:
@@ -254,21 +290,35 @@ kill_zombies:
 
 kill_skeletons:
   type: daily
-  display-name: "&cBone Collector"
+  display-name: "&c骨头收集者"
   description:
-    - "&7Slay 20 skeletons"
-    - "&7Reward: &e+25 XP"
+    - "&7消灭 20 只骷髅"
+    - "&7奖励: &e+25 经验"
   icon: BONE
   experience-reward: 25
   objectives:
     - type: kill
       entity: SKELETON
       amount: 20
+
+kill_creepers:
+  type: daily
+  display-name: "&c拆弹专家"
+  description:
+    - "&7消灭 10 只苦力怕"
+    - "&7注意不要被炸到！"
+    - "&7奖励: &e+40 经验"
+  icon: GUNPOWDER
+  experience-reward: 40
+  objectives:
+    - type: kill
+      entity: CREEPER
+      amount: 10
 ```
 
-## Next Steps
+## 下一步
 
 <LinkGrid :cols="2">
-  <LinkCard icon="gift" title="Configure Rewards" description="Set up reward types and values" href="./rewards" />
-  <LinkCard icon="trophy" title="Configure Seasons" description="Set up season timing and rules" href="./seasons" />
+  <LinkCard icon="gift" title="配置奖励" description="设置奖励类型和数值" href="./rewards" />
+  <LinkCard icon="trophy" title="配置赛季" description="设置赛季时间和规则" href="./seasons" />
 </LinkGrid>

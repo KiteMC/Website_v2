@@ -1,88 +1,85 @@
-# Plugin Commands
+# 插件指令
 
-## Main Command
+## 主指令
 
 ```
-/vmc [subcommand] [arguments...]
+/vmc [子命令] [参数...]
 ```
 
-## Subcommand List
+## 子命令列表
 
-| Subcommand | Permission      | Description                        | Example Usage                              |
-|------------|-----------------|------------------------------------|--------------------------------------------|
-| reload     | verifymc.admin  | Reload plugin config and resources | `/vmc reload`                              |
-| approve    | verifymc.admin  | Approve a pending user             | `/vmc approve <username>`                  |
-| reject     | verifymc.admin  | Reject a pending user              | `/vmc reject <username> [reason]`          |
-| delete     | verifymc.admin  | Delete a user                      | `/vmc delete <username>`                   |
-| ban        | verifymc.admin  | Ban a user                         | `/vmc ban <username> [reason]`             |
-| unban      | verifymc.admin  | Unban a user                       | `/vmc unban <username>`                    |
-| list       | verifymc.admin  | List users by status               | `/vmc list [all\|pending\|approved\|rejected\|banned]` |
-| info       | verifymc.admin  | Show user info                     | `/vmc info <username>`                     |
-| version    | everyone        | Show plugin version                | `/vmc version`                             |
+| 子命令    | 权限             | 说明                 | 用法示例                                         |
+|-----------|-----------------|----------------------|--------------------------------------------------|
+| reload    | verifymc.admin  | 重载插件配置和资源    | `/vmc reload`                                    |
+| approve   | verifymc.admin  | 通过待审核用户       | `/vmc approve <用户名>`                          |
+| reject    | verifymc.admin  | 拒绝待审核用户       | `/vmc reject <用户名> [原因]`                    |
+| delete    | verifymc.admin  | 删除用户             | `/vmc delete <用户名>`                           |
+| ban       | verifymc.admin  | 封禁用户             | `/vmc ban <用户名> [原因]`                       |
+| unban     | verifymc.admin  | 解封用户             | `/vmc unban <用户名>`                            |
+| list      | verifymc.admin  | 按状态列出用户       | `/vmc list [all\|pending\|approved\|rejected\|banned]` |
+| info      | verifymc.admin  | 查看用户信息         | `/vmc info <用户名>`                             |
+| version   | 所有人           | 显示插件版本         | `/vmc version`                                   |
 
 ---
 
-## Command Details
+## 指令详细说明
 
 ### `/vmc reload`
 
-- Reloads the plugin config, language files, and resources.
-- Requires `verifymc.admin` permission.
+- 重新加载插件配置文件、语言文件和资源。
+- 需要 `verifymc.admin` 权限。
 
-### `/vmc approve <username>`
+### `/vmc approve <用户名>`
 
-- Approves a pending user and adds them to the whitelist.
-- Sends an approval email notification if configured.
-- Requires `verifymc.admin` permission.
-- Example: `/vmc approve Steve`
+- 通过待审核用户并将其添加到白名单。
+- 如已配置，会自动发送审核通过邮件通知。
+- 需要 `verifymc.admin` 权限。
+- 例如：`/vmc approve Steve`
 
-### `/vmc reject <username> [reason]`
+### `/vmc reject <用户名> [原因]`
 
-- Rejects a pending user with an optional reason.
-- Sends a rejection email notification if configured.
-- Requires `verifymc.admin` permission.
-- Example: `/vmc reject Steve Not meeting requirements`
+- 拒绝待审核用户，可附带拒绝原因。
+- 如已配置，会自动发送审核拒绝邮件通知。
+- 需要 `verifymc.admin` 权限。
+- 例如：`/vmc reject Steve 不符合要求`
 
-### `/vmc delete <username>`
+### `/vmc delete <用户名>`
 
-- Deletes a user from the system and removes them from the whitelist.
-- Requires `verifymc.admin` permission.
-- Example: `/vmc delete Steve`
+- 从系统中删除用户并从白名单中移除。
+- 需要 `verifymc.admin` 权限。
+- 例如：`/vmc delete Steve`
 
-### `/vmc ban <username> [reason]`
+### `/vmc ban <用户名> [原因]`
 
-- Bans a user and removes them from the whitelist.
-- Requires `verifymc.admin` permission.
-- Example: `/vmc ban Steve Cheating`
+- 封禁用户并从白名单中移除。
+- 需要 `verifymc.admin` 权限。
+- 例如：`/vmc ban Steve 作弊`
 
-### `/vmc unban <username>`
+### `/vmc unban <用户名>`
 
-- Unbans a user and re-adds them to the whitelist.
-- Requires `verifymc.admin` permission.
-- Example: `/vmc unban Steve`
+- 解封用户并重新添加到白名单。
+- 需要 `verifymc.admin` 权限。
+- 例如：`/vmc unban Steve`
 
-### `/vmc list [status]`
+### `/vmc list [状态]`
 
-- Lists users filtered by status. Default is `all`.
-- Available statuses: `all`, `pending`, `approved`, `rejected`, `banned`.
-- Requires `verifymc.admin` permission.
-- Example: `/vmc list pending`
+- 按状态筛选列出用户，默认为 `all`。
+- 可用状态：`all`、`pending`、`approved`、`rejected`、`banned`。
+- 需要 `verifymc.admin` 权限。
+- 例如：`/vmc list pending`
 
-### `/vmc info <username>`
+### `/vmc info <用户名>`
 
-- Shows detailed information about a user (username, email, status).
-- Requires `verifymc.admin` permission.
-- Example: `/vmc info Steve`
+- 查看用户的详细信息（用户名、邮箱、状态）。
+- 需要 `verifymc.admin` 权限。
+- 例如：`/vmc info Steve`
 
 ### `/vmc version`
 
-- Shows the current plugin version.
-- Available to everyone.
+- 显示当前插件版本号。
+- 所有人可用。
 
-## Permission Notes
+## 权限说明
 
-::: tip Default permissions
-
-- **verifymc.use**: Allows use of VerifyMC's basic features (default: everyone).
-- **verifymc.admin**: Required for admin commands (reload, approve, reject, delete, ban, unban, list, info). Default: OP only.
-:::
+- `verifymc.use`：允许使用 VerifyMC 插件的基础功能（默认所有人）。
+- `verifymc.admin`：允许使用管理相关指令（reload、approve、reject、delete、ban、unban、list、info），默认仅 OP。

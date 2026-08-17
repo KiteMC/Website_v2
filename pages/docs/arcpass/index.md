@@ -1,32 +1,32 @@
 ---
-title: ArcPass - Battle Pass Plugin for Minecraft Servers
-description: Powerful battle pass system for Paper, Spigot, and Folia servers with multi-tier rewards, seasonal quests, and customizable GUI.
+title: ArcPass - Minecraft 服务器通行证插件
+description: 功能强大的战斗通行证系统，支持 Paper、Spigot 和 Folia 服务端，提供多等级奖励、赛季任务和自定义 GUI。
 head:
   - - meta
     - name: keywords
-      content: ArcPass, Minecraft, battle pass, server plugin, Paper, Spigot, Folia, rewards, quests, seasons
+      content: ArcPass, Minecraft, 通行证, 战斗通行证, 服务器插件, Paper, Spigot, Folia, 奖励, 任务, 赛季
   - - meta
     - property: og:title
-      content: ArcPass - Battle Pass Plugin for Minecraft
+      content: ArcPass - Minecraft 服务器通行证插件
   - - meta
     - property: og:description
-      content: Powerful battle pass system with multi-tier rewards, seasonal quests, and customizable GUI for Minecraft servers.
+      content: 功能强大的战斗通行证系统，支持多等级奖励、赛季任务和自定义 GUI。
 layout: home
 
 hero:
   name: "ArcPass"
-  text: "Battle Pass Plugin for Minecraft"
+  text: "Minecraft 服务器通行证插件"
   image: /images/logo/arcpass.svg
-  tagline: Powerful battle pass system for Paper, Spigot, and Folia servers
+  tagline: 功能强大的战斗通行证系统，支持 Paper、Spigot 和 Folia
   actions:
     - theme: brand
-      text: Getting Started
+      text: 快速入门
       link: ./guide/
     - theme: brand
-      text: Download
+      text: 下载
       link: ./download
     - theme: alt
-      text: Purchase License
+      text: 购买许可证
       link: https://license.kitemc.com/products/arcpass
 
 ---
@@ -36,174 +36,157 @@ import { ref } from 'vue';
 </script>
 
 <FeatureGrid :cols="3">
-  <FeatureBox icon="ticket" title="Multi-Tier Pass System" description="Support for free, premium, and VIP tiers with independent reward tracks" />
-  <FeatureBox icon="clipboard-list" title="Rich Quest System" description="Daily, weekly, seasonal, and story quests with various objectives" />
-  <FeatureBox icon="gift" title="Flexible Reward Types" description="Items, economy, permissions, titles, cosmetics, and custom items via Oraxen/ItemsAdder" />
-  <FeatureBox icon="trophy" title="Season Management" description="Complete season system with manual control and automatic player progress reset" />
-  <FeatureBox icon="color-swatch" title="Customizable GUI" description="Highly configurable interface system with custom layouts, items, and animations" />
-  <FeatureBox icon="chart-bar" title="Leaderboard System" description="Level, experience, and season rankings to encourage competition" />
-  <FeatureBox icon="puzzle" title="Wide Plugin Compatibility" description="Supports Vault, LuckPerms, PlaceholderAPI, DeluxeTags, TAB, MythicMobs, Jobs, and more" />
-  <FeatureBox icon="lightning-bolt" title="Folia Support" description="Fully compatible with Folia multi-threaded server software" />
-  <FeatureBox icon="globe" title="Cross-Server Support" description="Seamless multi-server sync via Redis or shared MySQL with migration locks and distributed locking" />
+  <FeatureBox icon="ticket" title="多等级通行证" description="支持免费、付费、VIP 等多个通行证等级，每个等级拥有独立的奖励路线" />
+  <FeatureBox icon="clipboard-list" title="丰富的任务系统" description="日常任务、周常任务、赛季任务、剧情任务，多种任务类型满足不同玩法" />
+  <FeatureBox icon="gift" title="灵活的奖励类型" description="物品、经济、权限、称号、装饰品等多种奖励，支持 Oraxen/ItemsAdder 自定义物品" />
+  <FeatureBox icon="trophy" title="赛季管理" description="完整的赛季系统，支持手动开启/结束赛季，自动重置玩家进度" />
+  <FeatureBox icon="color-swatch" title="自定义 GUI" description="高度可配置的界面系统，支持自定义布局、物品、动画效果" />
+  <FeatureBox icon="chart-bar" title="排行榜系统" description="等级排行、经验排行、赛季排行，激励玩家竞争" />
+  <FeatureBox icon="puzzle" title="广泛的插件兼容" description="支持 Vault、LuckPerms、PlaceholderAPI、DeluxeTags、TAB、MythicMobs、Jobs 等" />
+  <FeatureBox icon="lightning-bolt" title="Folia 支持" description="完全兼容 Folia 多线程服务端，适用于大型服务器" />
+  <FeatureBox icon="globe" title="跨服支持" description="通过 Redis 或共享 MySQL 实现无缝跨服数据同步，支持迁移锁和分布式锁" />
 </FeatureGrid>
 
-## What's New In 1.9.0
-
-- Rewards can use any specified item as their GUI icon while preserving its name, lore, enchantments, and custom data.
-- The reward editor can capture the player's main-hand item as an icon or restore the default icon at any time.
-- GUI text, messages, and titles support `#RRGGBB` and `&#RRGGBB` hex colors.
-- Fixed rewards being claimable more than once through rapid clicks, repeated commands, or cross-server actions.
-- Fixed quests occasionally completing or granting rewards more than once, and recurring quests not becoming available in a new period.
-- Improved reward claim checks for servers using multiple passes.
-
 <div style="margin: 2rem 0;">
-  <img src="/images/arcpass/cover-16x9.png" alt="ArcPass Cover" style="border-radius: 12px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />
+  <img src="/images/arcpass/cover-16x9.png" alt="ArcPass 封面" style="border-radius: 12px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />
 </div>
 
-### Feature Demos
+### 功能演示
 
 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 1.5rem 0;">
   <div>
-    <video autoplay loop muted playsinline style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);">
-      <source src="/images/arcpass/scenes/S02.mp4" type="video/mp4" />
-    </video>
-    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Multi-Tier Pass System</p>
+    <img src="/images/arcpass/scenes/S02.gif" alt="ArcPass feature demo" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">多等级通行证</p>
   </div>
   <div>
-    <video autoplay loop muted playsinline style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);">
-      <source src="/images/arcpass/scenes/S05.mp4" type="video/mp4" />
-    </video>
-    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Quest System</p>
+    <img src="/images/arcpass/scenes/S05.gif" alt="ArcPass feature demo" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">任务系统</p>
   </div>
   <div>
-    <video autoplay loop muted playsinline style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);">
-      <source src="/images/arcpass/scenes/S06.mp4" type="video/mp4" />
-    </video>
-    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Quest Completion Flow</p>
+    <img src="/images/arcpass/scenes/S06.gif" alt="ArcPass feature demo" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">任务完成流程</p>
   </div>
   <div>
-    <video autoplay loop muted playsinline style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);">
-      <source src="/images/arcpass/scenes/S07.mp4" type="video/mp4" />
-    </video>
-    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Leaderboard</p>
+    <img src="/images/arcpass/scenes/S07.gif" alt="ArcPass feature demo" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">排行榜</p>
   </div>
 </div>
 
-### Screenshots
+### 截图展示
 
 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 1.5rem 0;">
   <div>
-    <img src="/images/arcpass/screenshot-main-menu.png" alt="Main Menu" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
-    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Main Menu</p>
+    <img src="/images/arcpass/screenshot-main-menu.png" alt="主菜单" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">主菜单</p>
   </div>
   <div>
-    <img src="/images/arcpass/screenshot-reward-track.png" alt="Reward Track" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
-    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Reward Track</p>
+    <img src="/images/arcpass/screenshot-reward-track.png" alt="奖励轨道" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">奖励轨道</p>
   </div>
   <div>
-    <img src="/images/arcpass/screenshot-quest-list.png" alt="Quest List" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
-    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Quest List</p>
+    <img src="/images/arcpass/screenshot-quest-list.png" alt="任务列表" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">任务列表</p>
   </div>
   <div>
-    <img src="/images/arcpass/screenshot-leaderboard.png" alt="Leaderboard" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
-    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Leaderboard</p>
+    <img src="/images/arcpass/screenshot-leaderboard.png" alt="排行榜" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">排行榜</p>
   </div>
   <div>
-    <img src="/images/arcpass/screenshot-admin-panel.png" alt="Admin Panel" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
-    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Admin Panel</p>
+    <img src="/images/arcpass/screenshot-admin-panel.png" alt="管理面板" style="border-radius: 8px; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+    <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">管理面板</p>
   </div>
 </div>
 
-## Why Choose ArcPass?
+## 为什么选择 ArcPass？
 
-ArcPass is a professional-grade battle pass plugin designed for Minecraft servers. Whether you run a small private server or a large commercial network, ArcPass provides continuous gameplay goals and rich reward experiences.
+ArcPass 是一款专为 Minecraft 服务器设计的专业级通行证（Battle Pass）插件。无论是小型私服还是大型商业服务器，ArcPass 都能为您的服务器增添持续的游戏目标和丰富的奖励体验。
 
-### Core Advantages
+### 核心优势
 
 <FeatureGrid :cols="2">
   <FeatureBox
     icon="puzzle"
-    title="Modular Design"
-    description="Passes, quests, rewards, and seasons are independently configurable for flexible combinations"
+    title="模块化设计"
+    description="通行证、任务、奖励、赛季完全独立配置，灵活组合满足各种需求"
   />
   <FeatureBox
     icon="lightning-bolt"
-    title="Async Operations"
-    description="Database operations run asynchronously without impacting server performance"
+    title="异步处理"
+    description="数据库操作异步执行，不影响服务器性能，保持流畅体验"
   />
   <FeatureBox
     icon="globe"
-    title="Multi-Language"
-    description="Simplified Chinese by default, with optional English and custom language packs"
+    title="多语言支持"
+    description="内置中英文语言包，支持自定义语言文件，轻松国际化"
   />
   <FeatureBox
     icon="code"
-    title="Developer Friendly"
-    description="Complete API and event system for third-party integration and customization"
+    title="开发者友好"
+    description="完整的 API 和事件系统，方便第三方插件集成和二次开发"
   />
 </FeatureGrid>
 
-### Quick Links
+### 快速链接
 
 <LinkGrid :cols="2">
   <LinkCard
     icon="rocket"
-    title="Getting Started Guide"
-    description="Get up and running in 5 minutes"
+    title="快速入门指南"
+    description="5 分钟上手 ArcPass"
     href="./guide/"
   />
   <LinkCard
     icon="cog"
-    title="Configuration Guide"
-    description="Detailed configuration documentation"
+    title="配置文件说明"
+    description="详细的配置文档"
     href="./config/"
   />
   <LinkCard
     icon="document-text"
-    title="Commands & Permissions"
-    description="Complete command list"
+    title="命令与权限"
+    description="完整命令列表"
     href="./commands/"
   />
   <LinkCard
     icon="terminal"
-    title="Developer API"
-    description="API documentation and examples"
+    title="开发者 API"
+    description="API 文档和示例代码"
     href="./developer/"
   />
   <LinkCard
     icon="question-mark-circle"
-    title="FAQ"
-    description="Frequently asked questions"
+    title="常见问题"
+    description="FAQ 解答"
     href="./faq/"
   />
   <LinkCard
     icon="download"
-    title="Download"
-    description="Get the latest version"
+    title="下载"
+    description="获取最新版本"
     href="./download"
   />
 </LinkGrid>
 
-### Get ArcPass
+### 获取 ArcPass
 
 <ButtonGroup>
   <ActionButton
     href="https://license.kitemc.com/products/arcpass"
-    text="Purchase License"
+    text="购买许可证"
     theme="brand"
     icon="cart"
     :external="true"
   />
   <ActionButton
     href="https://license.kitemc.com/register"
-    text="Register Account"
+    text="注册账户"
     theme="alt"
     icon="register"
     :external="true"
   />
   <ActionButton
     href="https://discord.gg/dcsBw5Z5ZT"
-    text="Join Community"
+    text="加入社区"
     theme="alt"
     icon="external"
     :external="true"

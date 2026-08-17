@@ -187,3 +187,20 @@ export function formatDate(dateStr: string): string {
     day: 'numeric',
   });
 }
+
+export type ReleaseLanguage = 'zh' | 'en';
+
+/** Select one language from bilingual release notes, preserving legacy notes. */
+export function selectLocalizedReleaseBody(body: string, language: ReleaseLanguage): string {
+  const chinese = /^###\s+(?:中文说明|中文)\s*$/im.exec(body);
+  const english = /^###\s+English\s*$/im.exec(body);
+
+  if (!chinese || !english || chinese.index >= english.index) return body;
+
+  const versionHeading = body.slice(0, chinese.index).trim();
+  const localized = language === 'zh'
+    ? body.slice(chinese.index + chinese[0].length, english.index).trim()
+    : body.slice(english.index + english[0].length).trim();
+
+  return [versionHeading, localized].filter(Boolean).join('\n\n');
+}

@@ -1,82 +1,97 @@
-# Season Configuration
+# 赛季配置
 
-The season system manages periodic pass resets and special events.
+赛季系统管理通行证的周期性重置和特殊活动。
 
-## Season Concepts
+## 赛季概念
 
-- Each season has independent start and end times
-- Player progress can optionally reset at season end
-- Different seasons can have different quests and rewards
-- Supports permanent seasons (runs indefinitely)
+- 每个赛季有独立的开始和结束时间
+- 赛季结束时，玩家进度可选择重置
+- 不同赛季可以有不同的任务和奖励
+- 支持无限期赛季（永久运行）
 
-## Season Management
+## 赛季管理
 
-### Starting a Season
+### 开启赛季
 
-**Command:**
+**方式一：命令开启**
 
 ```
-/arcpass admin season start <season_name>
+/arcpass admin season start <赛季名称>
 ```
 
-**GUI:**
+**方式二：GUI 开启**
 
-1. Run `/arcpass admin`
-2. Click "Start Season"
-3. Enter season name in chat
-4. Confirm to start
+1. 执行 `/arcpass admin`
+2. 点击「开启赛季」
+3. 输入赛季名称
+4. 确认开启
 
-### Ending a Season
+### 结束赛季
 
 ```
 /arcpass admin season end
 ```
 
-### View Season Info
+### 查看赛季信息
 
 ```
 /arcpass admin season info
 ```
 
-## Season Configuration
+## 赛季配置
 
-Configure season behavior in `config.yml`:
+在 `config.yml` 中配置赛季行为：
 
 ```yaml
+# 赛季设置
 seasons:
+  # 赛季结束时的行为
   on-end:
+    # 重置玩家等级
     reset-level: true
+    # 重置玩家经验
     reset-experience: true
+    # 重置已完成任务
     reset-quests: true
+    # 保留已购买的档位
     keep-purchased-tiers: true
+    # 保留已领取的奖励记录
     keep-claimed-rewards: false
 
+  # 自动赛季（可选）
   auto:
     enabled: false
+    # 赛季持续时间（天）
     duration-days: 90
+    # 赛季结束前通知（天）
     notify-before-end: [7, 3, 1]
 ```
 
-## Seasonal Quests
+## 赛季特殊任务
 
-Create season-exclusive quests in `quests/seasonal/`:
+在 `quests/seasonal/` 目录下创建赛季专属任务：
 
 ```yaml
+# quests/seasonal/main_story.yml
+
 chapter_1:
   type: seasonal
-  display-name: "&6Chapter 1: New Beginnings"
+  display-name: "&6第一章：新的开始"
   description:
-    - "&7Complete the tutorial quests"
+    - "&7完成新手引导任务"
   icon: BOOK
   experience-reward: 100
   objectives:
     - type: block_break
       block: OAK_LOG
       amount: 10
+      description: "&7砍伐 10 棵树"
 
 chapter_2:
   type: seasonal
-  display-name: "&6Chapter 2: Underground"
+  display-name: "&6第二章：地下探险"
+  description:
+    - "&7探索地下世界"
   requires:
     - chapter_1
   icon: IRON_PICKAXE
@@ -87,71 +102,86 @@ chapter_2:
       amount: 30
 ```
 
-## Season Rewards
+## 赛季奖励
 
-### End-of-Season Rewards
+### 赛季结束奖励
+
+根据最终等级发放奖励：
 
 ```yaml
+# config.yml
 seasons:
   end-rewards:
+    # 达到 10 级的奖励
     10:
       - reward_season_badge_bronze
+    # 达到 50 级的奖励
     50:
       - reward_season_badge_silver
+    # 达到 100 级的奖励（满级）
     100:
       - reward_season_badge_gold
       - reward_season_title
 ```
 
-### Leaderboard Rewards
+### 排行榜奖励
 
 ```yaml
 seasons:
   leaderboard-rewards:
+    # 第 1 名
     1:
       - reward_champion_title
       - reward_exclusive_item
+    # 第 2-3 名
     2-3:
       - reward_top3_title
+    # 第 4-10 名
     4-10:
       - reward_top10_badge
 ```
 
-## Season Data
+## 赛季数据
 
-### Data Storage
+### 数据存储
 
-Season data stored in database:
+赛季数据存储在数据库中：
 
-- Current season info
-- Historical season records
-- Player season progress
+- 当前赛季信息
+- 历史赛季记录
+- 玩家赛季进度
 
-### Data Migration
+### 数据迁移
+
+赛季结束时的数据处理：
 
 ```yaml
 seasons:
   data:
+    # 保存历史数据
     archive-history: true
+    # 历史数据保留数量
     max-history: 10
 ```
 
-## Season Notifications
+## 赛季通知
 
-### Start Notification
+### 赛季开始通知
 
 ```yaml
 seasons:
   notifications:
     start:
+      # 全服公告
       broadcast: true
+      # 标题通知
       title:
         enabled: true
-        title: "&6New Season Started!"
+        title: "&6新赛季开始！"
         subtitle: "&e%season_name%"
 ```
 
-### End Notification
+### 赛季结束通知
 
 ```yaml
 seasons:
@@ -160,46 +190,61 @@ seasons:
       broadcast: true
       title:
         enabled: true
-        title: "&cSeason Ended"
-        subtitle: "&7Thanks for participating"
+        title: "&c赛季结束"
+        subtitle: "&7感谢您的参与"
+      # 提前通知
       warnings:
         - days: 7
-          message: "&eSeason ends in 7 days!"
+          message: "&e赛季将在 7 天后结束！"
         - days: 1
-          message: "&cSeason ends tomorrow!"
+          message: "&c赛季明天结束！抓紧完成任务！"
 ```
 
-## Permanent Season
+## 无限期赛季
 
-For no season resets:
+如果不需要赛季重置，可以配置永久赛季：
 
 ```yaml
 seasons:
   permanent:
     enabled: true
+    # 永久赛季不会自动结束
+    # 需要手动结束或切换
 ```
 
-## API Integration
+## API 集成
 
-### Season Events
+### 赛季事件
 
 ```java
 @EventHandler
 public void onSeasonStart(SeasonStartEvent event) {
     Season season = event.getSeason();
-    // Handle season start
+    // 处理赛季开始
 }
 
 @EventHandler
 public void onSeasonEnd(SeasonEndEvent event) {
     Season season = event.getSeason();
-    // Handle season end
+    // 处理赛季结束
 }
 ```
 
-## Example: 90-Day Season
+### 赛季数据查询
+
+```java
+ArcPassAPI api = ArcPassProvider.get();
+Optional<Season> season = api.getCurrentSeason();
+if (season.isPresent()) {
+    String name = season.get().getDisplayName();
+    long remaining = season.get().getTimeRemainingSeconds();
+}
+```
+
+## 示例：90 天赛季配置
 
 ```yaml
+# config.yml
 seasons:
   auto:
     enabled: true
@@ -222,11 +267,19 @@ seasons:
     100:
       - reward_platinum_badge
       - reward_season_exclusive
+
+  leaderboard-rewards:
+    1:
+      - reward_champion
+    2-5:
+      - reward_elite
+    6-20:
+      - reward_veteran
 ```
 
-## Next Steps
+## 下一步
 
 <LinkGrid :cols="2">
-  <LinkCard icon="color-swatch" title="Configure GUI" description="Set up interface layout" href="./gui" />
-  <LinkCard icon="terminal" title="View Commands" description="Commands and permissions" href="../commands/" />
+  <LinkCard icon="color-swatch" title="配置 GUI" description="设置界面布局" href="./gui" />
+  <LinkCard icon="terminal" title="查看命令" description="命令和权限列表" href="../commands/" />
 </LinkGrid>

@@ -1,10 +1,10 @@
-# Code Examples
+# 代码示例
 
-This page provides complete code examples for common scenarios.
+本页面提供常见场景的完整代码示例。
 
-## Mob Kill XP Addon
+## 经验奖励插件
 
-A simple plugin that gives pass XP for mob kills:
+创建一个根据击杀给予通行证经验的简单插件：
 
 ```java
 package com.example.arcpassaddon;
@@ -28,18 +28,23 @@ public class MobExpAddon extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        // 检查 ArcPass
         if (getServer().getPluginManager().getPlugin("ArcPass") == null) {
-            getLogger().severe("ArcPass not installed! Disabling...");
+            getLogger().severe("ArcPass 未安装！插件将禁用");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
 
+        // 延迟获取 API
         getServer().getScheduler().runTaskLater(this, () -> {
             arcPassAPI = ArcPassProvider.get();
-            getLogger().info("ArcPass API connected");
+            getLogger().info("ArcPass API 已连接");
         }, 1L);
 
+        // 配置经验值
         setupExpValues();
+
+        // 注册事件
         getServer().getPluginManager().registerEvents(this, this);
     }
 
@@ -68,8 +73,9 @@ public class MobExpAddon extends JavaPlugin implements Listener {
         if (exp != null && exp > 0) {
             arcPassAPI.addExperience(killer.getUniqueId(), exp)
                 .thenAccept(total -> {
+                    // 可选：发送 ActionBar 提示
                     getServer().getScheduler().runTask(this, () -> {
-                        killer.sendActionBar("§a+" + exp + " Pass XP");
+                        killer.sendActionBar("§a+" + exp + " 通行证经验");
                     });
                 });
         }
@@ -77,9 +83,9 @@ public class MobExpAddon extends JavaPlugin implements Listener {
 }
 ```
 
-## Custom Quest Trigger
+## 自定义任务触发器
 
-A minigame plugin supporting ArcPass custom quests:
+创建支持 ArcPass 自定义任务的小游戏插件：
 
 ```java
 package com.example.minigame;
@@ -95,6 +101,7 @@ public class MiniGamePlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        // 初始化 ArcPass API
         if (getServer().getPluginManager().getPlugin("ArcPass") != null) {
             getServer().getScheduler().runTaskLater(this, () -> {
                 arcPassAPI = ArcPassProvider.get();
@@ -102,18 +109,23 @@ public class MiniGamePlugin extends JavaPlugin {
         }
     }
 
+    /**
+     * 当玩家赢得游戏时调用
+     */
     public void onPlayerWin(Player player, String gameType) {
+        // 发放游戏奖励
         giveGameRewards(player);
 
+        // 触发 ArcPass 自定义任务
         if (arcPassAPI != null) {
-            // Generic win event
+            // 触发通用游戏胜利事件
             arcPassAPI.triggerCustomEvent(
                 player.getUniqueId(),
                 "minigame_win",
                 gameType
             );
 
-            // Specific game win event
+            // 触发特定游戏胜利事件
             arcPassAPI.triggerCustomEvent(
                 player.getUniqueId(),
                 "minigame_win_" + gameType.toLowerCase(),
@@ -122,8 +134,12 @@ public class MiniGamePlugin extends JavaPlugin {
         }
     }
 
+    /**
+     * 当玩家完成游戏（无论输赢）时调用
+     */
     public void onGameComplete(Player player, String gameType, int score) {
         if (arcPassAPI != null) {
+            // 触发游戏完成事件，附带分数数据
             arcPassAPI.triggerCustomEvent(
                 player.getUniqueId(),
                 "minigame_complete",
@@ -136,12 +152,18 @@ public class MiniGamePlugin extends JavaPlugin {
 }
 ```
 
-Quest configuration:
+对应的 ArcPass 任务配置：
 
 ```yaml
+# quests/daily/minigame.yml
+
 win_any_game:
   type: daily
-  display-name: "&eMinigame Champion"
+  display-name: "&e小游戏冠军"
+  description:
+    - "&7赢得任意一场小游戏"
+  icon: GOLDEN_APPLE
+  experience-reward: 30
   objectives:
     - type: custom
       event: minigame_win
@@ -149,16 +171,20 @@ win_any_game:
 
 win_bedwars_3:
   type: weekly
-  display-name: "&cBedWars Master"
+  display-name: "&c起床战争大师"
+  description:
+    - "&7赢得 3 场起床战争"
+  icon: RED_BED
+  experience-reward: 100
   objectives:
     - type: custom
       event: minigame_win_bedwars
       amount: 3
 ```
 
-## Level Milestone Rewards
+## 等级里程碑奖励
 
-Extra rewards for specific levels:
+监听升级事件，在特定等级给予额外奖励：
 
 ```java
 package com.example.milestone;
@@ -176,6 +202,7 @@ import java.util.Map;
 
 public class MilestonePlugin extends JavaPlugin implements Listener {
 
+    // 里程碑等级及其奖励命令
     private final Map<Integer, String[]> milestones = new HashMap<>();
 
     @Override
@@ -210,28 +237,31 @@ public class MilestonePlugin extends JavaPlugin implements Listener {
     public void onLevelUp(PlayerLevelUpEvent event) {
         int newLevel = event.getNewLevel();
 
+        // 检查是否达到里程碑
         String[] rewards = milestones.get(newLevel);
         if (rewards == null) return;
 
         Player player = Bukkit.getPlayer(event.getPlayerId());
         if (player == null) return;
 
+        // 执行奖励命令
         for (String command : rewards) {
             String finalCommand = command.replace("%player%", player.getName());
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), finalCommand);
         }
 
+        // 特殊效果
         player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1.0f, 1.0f);
         Bukkit.broadcastMessage("");
-        Bukkit.broadcastMessage("§6§l★ §e" + player.getName() + " §6reached Level §e" + newLevel + "§6 Milestone! §l★");
+        Bukkit.broadcastMessage("§6§l★ §e" + player.getName() + " §6达成通行证 §e" + newLevel + " 级§6里程碑！ §l★");
         Bukkit.broadcastMessage("");
     }
 }
 ```
 
-## Double XP Event
+## 双倍经验活动
 
-Modify XP rewards via events:
+使用事件修改经验奖励：
 
 ```java
 package com.example.doubleexp;
@@ -259,12 +289,12 @@ public class DoubleExpPlugin extends JavaPlugin implements Listener {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!command.getName().equalsIgnoreCase("doubleexp")) return false;
         if (!sender.hasPermission("doubleexp.admin")) {
-            sender.sendMessage("§cNo permission");
+            sender.sendMessage("§c你没有权限执行此命令");
             return true;
         }
 
         if (args.length == 0) {
-            sender.sendMessage("§eUsage: /doubleexp <start|stop|status> [minutes]");
+            sender.sendMessage("§e用法: /doubleexp <start|stop|status> [分钟]");
             return true;
         }
 
@@ -272,18 +302,18 @@ public class DoubleExpPlugin extends JavaPlugin implements Listener {
             case "start" -> {
                 int minutes = args.length > 1 ? Integer.parseInt(args[1]) : 60;
                 startDoubleExp(minutes);
-                sender.sendMessage("§aDouble XP started for " + minutes + " minutes");
+                sender.sendMessage("§a双倍经验活动已开启，持续 " + minutes + " 分钟");
             }
             case "stop" -> {
                 stopDoubleExp();
-                sender.sendMessage("§cDouble XP stopped");
+                sender.sendMessage("§c双倍经验活动已停止");
             }
             case "status" -> {
                 if (isDoubleExpActive()) {
                     long remaining = (doubleExpEndTime - System.currentTimeMillis()) / 1000 / 60;
-                    sender.sendMessage("§aDouble XP active, " + remaining + " minutes remaining");
+                    sender.sendMessage("§a双倍经验进行中，剩余 " + remaining + " 分钟");
                 } else {
-                    sender.sendMessage("§7Double XP not active");
+                    sender.sendMessage("§7双倍经验未激活");
                 }
             }
         }
@@ -295,17 +325,18 @@ public class DoubleExpPlugin extends JavaPlugin implements Listener {
         doubleExpEndTime = System.currentTimeMillis() + (minutes * 60 * 1000L);
 
         Bukkit.broadcastMessage("");
-        Bukkit.broadcastMessage("§6§l★ Double Pass XP Event Started! ★");
-        Bukkit.broadcastMessage("§eDuration: " + minutes + " minutes");
+        Bukkit.broadcastMessage("§6§l★ 双倍通行证经验活动开始！ ★");
+        Bukkit.broadcastMessage("§e持续时间: " + minutes + " 分钟");
         Bukkit.broadcastMessage("");
 
+        // 定时结束
         getServer().getScheduler().runTaskLater(this, this::stopDoubleExp, minutes * 60 * 20L);
     }
 
     private void stopDoubleExp() {
         if (doubleExpActive) {
             doubleExpActive = false;
-            Bukkit.broadcastMessage("§c§l★ Double Pass XP Event Ended! ★");
+            Bukkit.broadcastMessage("§c§l★ 双倍通行证经验活动结束！ ★");
         }
     }
 
@@ -322,10 +353,11 @@ public class DoubleExpPlugin extends JavaPlugin implements Listener {
             int originalExp = event.getExperienceReward();
             event.setExperienceReward(originalExp * 2);
 
+            // 通知玩家
             getServer().getScheduler().runTask(this, () -> {
                 var player = Bukkit.getPlayer(event.getPlayerId());
                 if (player != null) {
-                    player.sendMessage("§a§l[Double XP] §eExtra +" + originalExp + " XP!");
+                    player.sendMessage("§a§l[双倍经验] §e额外获得 +" + originalExp + " 经验！");
                 }
             });
         }
@@ -333,11 +365,59 @@ public class DoubleExpPlugin extends JavaPlugin implements Listener {
 }
 ```
 
-## Best Practices Summary
+## 排行榜 NPC
 
-1. **Always check API availability** - Check for null before using API
-2. **Use async operations** - Don't block main thread
-3. **Handle main thread callbacks** - Return to main thread for player interaction
-4. **Add error handling** - Use `.exceptionally()` for exceptions
-5. **Check null for cached data** - `getPlayerDataIfCached` may return null
-6. **Follow event priority** - Choose appropriate priority for your use case
+使用 Citizens 创建显示排行榜的 NPC：
+
+```java
+// 简化示例：使用全息图显示排行榜
+package com.example.leaderboard;
+
+import com.kitemc.arcpass.api.ArcPassAPI;
+import com.kitemc.arcpass.api.ArcPassProvider;
+import org.bukkit.Location;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+
+public class LeaderboardDisplay extends JavaPlugin {
+
+    private ArcPassAPI arcPassAPI;
+    private Location displayLocation;
+
+    @Override
+    public void onEnable() {
+        // 初始化
+        getServer().getScheduler().runTaskLater(this, () -> {
+            if (getServer().getPluginManager().getPlugin("ArcPass") != null) {
+                arcPassAPI = ArcPassProvider.get();
+                startLeaderboardUpdate();
+            }
+        }, 1L);
+    }
+
+    private void startLeaderboardUpdate() {
+        // 每 5 分钟更新排行榜显示
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                updateLeaderboardDisplay();
+            }
+        }.runTaskTimer(this, 0L, 6000L); // 5 分钟
+    }
+
+    private void updateLeaderboardDisplay() {
+        // 这里可以集成 HolographicDisplays 或 DecentHolograms
+        // 获取排行榜数据并更新全息图
+        getLogger().info("正在更新排行榜显示...");
+    }
+}
+```
+
+## 最佳实践总结
+
+1. **始终检查 API 可用性** - 在使用 API 前检查是否为 null
+2. **使用异步操作** - 避免阻塞主线程
+3. **正确处理主线程回调** - 与玩家交互时回到主线程
+4. **添加错误处理** - 使用 `.exceptionally()` 处理异常
+5. **使用缓存数据时检查 null** - `getPlayerDataIfCached` 可能返回 null
+6. **遵循事件优先级** - 根据需求选择合适的优先级

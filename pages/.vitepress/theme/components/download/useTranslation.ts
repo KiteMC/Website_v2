@@ -32,6 +32,11 @@ const translations = {
       of: 'of',
       previous: 'Previous',
       next: 'Next',
+      downloadSource: 'Download source',
+      githubDirect: 'GitHub',
+      cloudflareIpv4: 'Cloudflare IPv4',
+      chinesePack: 'Chinese pack',
+      englishPack: 'English pack',
     },
   },
   zh: {
@@ -60,6 +65,11 @@ const translations = {
       of: '/',
       previous: '上一页',
       next: '下一页',
+      downloadSource: '下载源',
+      githubDirect: 'GitHub 直连',
+      cloudflareIpv4: 'Cloudflare IPv4',
+      chinesePack: '中文语言包',
+      englishPack: '英文语言包',
     },
   },
 };
@@ -68,9 +78,11 @@ export function useTranslation() {
   const { lang } = useData();
   
   const t = computed(() => {
-    const currentLang = lang.value === 'zh' ? 'zh' : 'en';
+    const currentLang = lang.value.toLowerCase().startsWith('zh') ? 'zh' : 'en';
     return translations[currentLang].download;
   });
   
-  return { t };
+  const language = computed(() => lang.value.toLowerCase().startsWith('zh') ? 'zh' as const : 'en' as const);
+
+  return { t, language };
 }

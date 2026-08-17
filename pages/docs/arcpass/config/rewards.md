@@ -1,195 +1,211 @@
-# Reward Configuration
+# 奖励配置
 
-Rewards are given to players for completing quests and reaching levels. ArcPass supports many reward types.
+奖励是玩家完成任务和达成等级后获得的回报，ArcPass 支持多种奖励类型。
 
-## File Location
+## 文件位置
 
 ```
 plugins/ArcPass/rewards/
-├── default.yml     # Default rewards
-├── items.yml       # Item rewards
-├── economy.yml     # Economy rewards
-├── titles.yml      # Title rewards
+├── default.yml     # 默认奖励定义
+├── items.yml       # 物品奖励
+├── economy.yml     # 经济奖励
+├── titles.yml      # 称号奖励
 └── ...
 ```
 
-## Reward Types
+## 奖励类型
 
-| Type | Description | Dependency |
-|------|-------------|------------|
-| `ITEM` | Item rewards | None |
-| `ECONOMY` | Currency | Vault / CMI |
-| `COMMAND` | Execute commands | None |
-| `PERMISSION` | Permission nodes | LuckPerms |
-| `TITLE` | Titles/prefixes | DeluxeTags / TAB |
-| `COSMETIC` | Cosmetics | Custom |
-| `EXPERIENCE` | Vanilla XP | None |
+| 类型 | 说明 | 依赖插件 |
+|------|------|----------|
+| `ITEM` | 物品奖励 | 无 |
+| `ECONOMY` | 金币/点券 | Vault / CMI |
+| `COMMAND` | 执行命令 | 无 |
+| `PERMISSION` | 权限节点 | LuckPerms |
+| `TITLE` | 称号/前缀 | DeluxeTags / TAB |
+| `COSMETIC` | 装饰品 | 自定义 |
+| `EXPERIENCE` | 原版经验 | 无 |
 
-## Basic Structure
+## 基本结构
 
 ```yaml
 # rewards/items.yml
 
-# Item reward example
+# 物品奖励示例
 item_diamond_10:
   type: ITEM
-  display-name: "&bDiamond x10"
-  description: "Receive 10 diamonds"
+  display-name: "&b钻石 x10"
+  description: "获得 10 颗钻石"
   icon: DIAMOND
   value: "DIAMOND"
   amount: 10
 
-# Economy reward example
+# 经济奖励示例
 economy_1000:
   type: ECONOMY
-  display-name: "&6Gold x1000"
-  description: "Receive 1000 gold"
+  display-name: "&6金币 x1000"
+  description: "获得 1000 金币"
   icon: GOLD_BLOCK
   value: "1000"
 
-# Title reward example
+# 称号奖励示例
 title_champion:
   type: TITLE
-  display-name: "&bChampion Title"
-  description: "Unlock [Champion] prefix"
+  display-name: "&b冠军称号"
+  description: "解锁「冠军」称号前缀"
   icon: NAME_TAG
-  value: "&b[Champion] "
+  value: "&b[冠军] "
   data:
     priority: 60
 ```
 
-## Item Rewards
+## 物品奖励
 
-### Vanilla Items
+### 原版物品
 
 ```yaml
 reward_diamond_sword:
   type: ITEM
-  display-name: "&bDiamond Sword"
+  display-name: "&b钻石剑"
   icon: DIAMOND_SWORD
   value: "DIAMOND_SWORD"
   amount: 1
 ```
 
-### Oraxen Items
+### Oraxen 物品
 
 ```yaml
 reward_custom_sword:
   type: ITEM
-  display-name: "&6Legendary Sword"
+  display-name: "&6传说之剑"
   icon: DIAMOND_SWORD
-  value: "oraxen:legendary_sword"
+  value: "oraxen:legendary_sword"  # Oraxen 物品 ID
   amount: 1
 ```
 
-### ItemsAdder Items
+### ItemsAdder 物品
 
 ```yaml
 reward_magic_gem:
   type: ITEM
-  display-name: "&dMagic Gem"
+  display-name: "&d魔法宝石"
   icon: EMERALD
-  value: "itemsadder:myitems:magic_gem"
+  value: "itemsadder:myitems:magic_gem"  # ItemsAdder 物品 ID
   amount: 5
 ```
 
-## Custom Icons <Badge type="tip" text="v1.1.5" />
+### 自定义 NBT 物品
 
-By default, the `icon` field accepts a vanilla material name (e.g., `DIAMOND`). Starting from v1.1.5, you can use **CustomModelData**, **ItemsAdder**, or **Oraxen** items as GUI icons.
+```yaml
+reward_custom_item:
+  type: ITEM
+  display-name: "&6特制工具"
+  icon: DIAMOND_PICKAXE
+  # 使用 give 命令格式
+  value: "minecraft:diamond_pickaxe{Enchantments:[{id:efficiency,lvl:5}]}"
+  amount: 1
+```
+
+## 自定义图标 <Badge type="tip" text="v1.1.5" />
+
+默认情况下，`icon` 字段接受原版材料名（如 `DIAMOND`）。从 v1.1.5 起，你可以使用 **CustomModelData**、**ItemsAdder** 或 **Oraxen** 物品作为 GUI 图标。
 
 ### CustomModelData
 
 ```yaml
 reward_exchange_card:
   type: ITEM
-  display-name: "&e Exchange Card"
+  display-name: "&e兑换卡"
   icon: PAPER
-  custom-model-data: 10001    # CustomModelData value
+  custom-model-data: 10001    # CustomModelData 值
   value: "PAPER"
   amount: 5
 ```
 
-### ItemsAdder Icon
+### ItemsAdder 图标
 
 ```yaml
 reward_magic_wand:
   type: ITEM
-  display-name: "&dMagic Wand"
-  icon: "itemsadder:namespace:item_id"   # Uses ItemsAdder item as icon
-  value: "itemsadder:namespace:item_id"
+  display-name: "&d魔法杖"
+  icon: "itemsadder:命名空间:物品ID"   # 使用 ItemsAdder 物品作为图标
+  value: "itemsadder:命名空间:物品ID"
   amount: 1
 ```
 
-### Oraxen Icon
+### Oraxen 图标
 
 ```yaml
 reward_oraxen_gem:
   type: ITEM
-  display-name: "&bCrystal Gem"
-  icon: "oraxen:crystal_gem"   # Uses Oraxen item as icon
+  display-name: "&b水晶宝石"
+  icon: "oraxen:crystal_gem"   # 使用 Oraxen 物品作为图标
   value: "oraxen:crystal_gem"
   amount: 1
 ```
 
 ::: tip
-The `icon` field controls what is displayed in the GUI. The `value` field controls what the player actually receives. They can be different.
+`icon` 字段控制 GUI 中的显示图标，`value` 字段控制玩家实际获得的内容，两者可以不同。
 :::
 
-### Capture Any Item as an Icon <Badge type="tip" text="v1.9.0" />
+### 捕获任意物品作为图标 <Badge type="tip" text="v1.9.0" />
 
-The reward editor can capture any item from the player's main hand as the reward icon:
+奖励编辑 GUI 可以将玩家主手中的任意物品捕获为奖励图标：
 
-1. Hold the desired icon item in your main hand.
-2. Left-click the Icon slot in the reward editor.
-3. Save the reward.
+1. 在主手持有要作为图标的物品。
+2. 左键点击奖励编辑器中的“图标”槽位。
+3. 保存奖励。
 
-Captured icons preserve the item's name, lore, enchantments, CustomModelData, and other custom data. Right-click the Icon slot to restore the default icon for that reward type. The icon only affects GUI display and does not change the reward delivered to the player.
+捕获的图标会保留物品名称、Lore、附魔、CustomModelData 和其他自定义数据。右键点击图标槽位可以恢复该奖励类型的默认图标。图标只影响 GUI 显示，不会改变玩家实际获得的奖励。
 
-## Item Preview Slot <Badge type="tip" text="v1.8.2" />
+## 物品预览槽位 <Badge type="tip" text="v1.8.2" />
 
-When editing item rewards in the admin GUI (`/arcpass admin rewards`), you can set the reward's display item by clicking an item from your inventory onto the preview slot:
+在管理 GUI（`/arcpass admin rewards`）中编辑物品奖励时，你可以通过将物品点击到预览槽位来设置奖励的展示物品：
 
-1. Open the reward edit GUI and locate the item preview slot (the empty slot with a red glass pane border)
-2. **Left-click** any item in your inventory — it will stick to your cursor
-3. Move your cursor over the preview slot and **left-click** again — the item will be captured as the reward's display item
+1. 打开奖励编辑 GUI，找到物品预览槽位（红色玻璃框内的空槽位）
+2. 在你自己背包中**左键点击**任意物品 — 物品会粘在光标上
+3. 将光标移动到预览槽位上方，再次**左键点击** — 物品即被捕获为奖励的展示物品
 
 ::: info
-- The preview slot always shows **a single item** regardless of the stack size you drop in
-- The actual reward **amount** is controlled separately via the amount setting
-- Supports items with custom NBT, CustomModelData, enchantments, etc.
+- 预览槽位始终显示**单个物品**，无论你放入的物品堆叠数量是多少
+- 实际发放**数量**由数量设置单独控制
+- 支持自定义 NBT、CustomModelData、附魔等物品
 :::
 
-## Economy Rewards
+## 经济奖励
 
 ```yaml
+# 给予游戏币
 reward_gold_1000:
   type: ECONOMY
-  display-name: "&6Gold x1000"
-  description: "Receive 1000 gold"
+  display-name: "&6金币 x1000"
+  description: "获得 1000 金币"
   icon: GOLD_INGOT
   value: "1000"
 
+# 给予点券（需要配置点券经济）
 reward_points_100:
   type: ECONOMY
-  display-name: "&ePoints x100"
+  display-name: "&e点券 x100"
   icon: SUNFLOWER
   value: "100"
   data:
-    currency: "points"
+    currency: "points"  # 自定义货币名称
 ```
 
-## Command Rewards
+## 命令奖励
 
 ```yaml
 reward_announce:
   type: COMMAND
-  display-name: "&eServer Announcement"
+  display-name: "&e全服公告"
   icon: BOOK
-  value: "broadcast &6Congratulations to &e%player%!"
+  # %player% 会被替换为玩家名
+  value: "broadcast &6恭喜 &e%player% &6达成成就！"
 
+# 多条命令
 reward_vip_package:
   type: COMMAND
-  display-name: "&dVIP Package"
+  display-name: "&dVIP 礼包"
   icon: CHEST
   value: |
     give %player% diamond 64
@@ -197,111 +213,182 @@ reward_vip_package:
     lp user %player% permission set vip.access true
 ```
 
-## Permission Rewards
+## 权限奖励
+
+需要 LuckPerms 插件：
 
 ```yaml
-reward_fly:
+# 永久权限
+reward_fly_permission:
   type: PERMISSION
-  display-name: "&bFlight Permission"
-  description: "Unlock flying ability"
+  display-name: "&b飞行权限"
+  description: "解锁飞行能力"
   icon: FEATHER
   value: "essentials.fly"
 
+# 临时权限
 reward_temp_vip:
   type: PERMISSION
-  display-name: "&e7-Day VIP"
-  description: "VIP access for 7 days"
+  display-name: "&eVIP 体验卡"
+  description: "7 天 VIP 体验"
   icon: PAPER
   value: "group.vip"
   data:
-    duration: 604800  # seconds
+    duration: 604800  # 秒（7天）
 
-reward_rank_elite:
+# 权限组
+reward_rank_up:
   type: PERMISSION
-  display-name: "&6Elite Rank"
+  display-name: "&6晋升精英"
   icon: GOLDEN_HELMET
   value: "group.elite"
   data:
     type: group
 ```
 
-## Title Rewards
+## 称号奖励
 
-### DeluxeTags
+### DeluxeTags 称号
 
 ```yaml
 reward_title_champion:
   type: TITLE
-  display-name: "&6Champion Title"
-  description: "Unlock [Champion] title"
+  display-name: "&6冠军称号"
+  description: "解锁 [冠军] 称号"
   icon: NAME_TAG
-  value: "&e[&6Champion&e] "
+  value: "&e[&6冠军&e] "
   data:
     tag-id: "champion"
-    description: "Battle pass final reward"
+    description: "战斗通行证最终奖励"
     priority: 100
     auto-equip: true
 ```
 
-### TAB (Folia Compatible)
+### TAB 称号（Folia 兼容）
 
 ```yaml
 reward_title_legend:
   type: TITLE
-  display-name: "&dLegend Title"
+  display-name: "&d传奇称号"
   icon: NAME_TAG
-  value: "&5[&dLegend&5] "
+  value: "&5[&d传奇&5] "
   data:
-    position: prefix
+    position: prefix  # prefix 或 suffix
     persistent: true
 ```
 
-## Experience Rewards
+## 装饰品奖励
+
+```yaml
+reward_particle_flame:
+  type: COSMETIC
+  display-name: "&c火焰粒子"
+  description: "身边环绕火焰粒子效果"
+  icon: BLAZE_POWDER
+  value: "particle_flame"
+  data:
+    cosmetic-type: particle
+```
+
+## 经验奖励
+
+给予原版 Minecraft 经验：
 
 ```yaml
 reward_mc_exp_100:
   type: EXPERIENCE
-  display-name: "&aXP x100"
+  display-name: "&a经验值 x100"
   icon: EXPERIENCE_BOTTLE
-  value: "100"
+  value: "100"  # 经验点数
+  # 或使用等级
+  # data:
+  #   type: levels
+  #   value: 5
 ```
 
-## Conditional Rewards
+## 条件奖励
+
+设置奖励的领取条件：
 
 ```yaml
 reward_special:
   type: ITEM
-  display-name: "&6Special Reward"
+  display-name: "&6特殊奖励"
   icon: NETHER_STAR
   value: "NETHER_STAR"
   amount: 1
 
+  # 领取条件
   conditions:
+    # 需要某个权限
     - type: permission
       permission: arcpass.reward.special
+
+    # 背包有空位
     - type: inventory_space
       slots: 1
 ```
 
-## Reward Groups
+## 奖励组
+
+将多个奖励打包：
 
 ```yaml
 reward_starter_pack:
   type: GROUP
-  display-name: "&aStarter Pack"
+  display-name: "&a新手礼包"
   description:
-    - "&7Contains:"
-    - "&7- Diamond Sword x1"
-    - "&7- Gold x500"
+    - "&7包含以下物品:"
+    - "&7- 钻石剑 x1"
+    - "&7- 金币 x500"
   icon: CHEST
   rewards:
     - reward_diamond_sword
     - reward_gold_500
 ```
 
-## Next Steps
+## 完整示例
+
+```yaml
+# rewards/items.yml
+
+# 新手物品
+reward_starter_sword:
+  type: ITEM
+  display-name: "&f新手之剑"
+  description: "踏上冒险之路的第一把武器"
+  icon: IRON_SWORD
+  value: "IRON_SWORD"
+  amount: 1
+
+# 中期奖励
+reward_diamond_set:
+  type: GROUP
+  display-name: "&b钻石套装"
+  description:
+    - "&7完整的钻石装备"
+  icon: DIAMOND_CHESTPLATE
+  rewards:
+    - reward_diamond_helmet
+    - reward_diamond_chestplate
+    - reward_diamond_leggings
+    - reward_diamond_boots
+
+# 最终奖励
+reward_legendary_weapon:
+  type: ITEM
+  display-name: "&6传说武器"
+  description:
+    - "&7赛季最终奖励"
+    - "&7独一无二的传说装备"
+  icon: NETHERITE_SWORD
+  value: "oraxen:legendary_blade"
+  amount: 1
+```
+
+## 下一步
 
 <LinkGrid :cols="2">
-  <LinkCard icon="ticket" title="Configure Passes" description="Set up tiers and levels" href="./passes" />
-  <LinkCard icon="color-swatch" title="Configure GUI" description="Set up interface layout" href="./gui" />
+  <LinkCard icon="ticket" title="配置通行证" description="设置等级和档位" href="./passes" />
+  <LinkCard icon="color-swatch" title="配置 GUI" description="设置界面布局" href="./gui" />
 </LinkGrid>

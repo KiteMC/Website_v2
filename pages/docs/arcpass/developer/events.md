@@ -1,18 +1,18 @@
-# Event System
+# 事件系统
 
-ArcPass provides custom events for other plugins to listen to and handle.
+ArcPass 提供多个自定义事件，供其他插件监听和处理。
 
-## Event List
+## 事件列表
 
-| Event | Description | Cancellable |
-|-------|-------------|-------------|
-| `PlayerLevelUpEvent` | Player levels up | Yes |
-| `QuestCompleteEvent` | Quest completed | Yes |
-| `RewardClaimEvent` | Reward claimed | Yes |
-| `SeasonStartEvent` | Season starts | No |
-| `SeasonEndEvent` | Season ends | No |
+| 事件 | 说明 | 可取消 |
+|------|------|--------|
+| `PlayerLevelUpEvent` | 玩家升级 | 是 |
+| `QuestCompleteEvent` | 任务完成 | 是 |
+| `RewardClaimEvent` | 领取奖励 | 是 |
+| `SeasonStartEvent` | 赛季开始 | 否 |
+| `SeasonEndEvent` | 赛季结束 | 否 |
 
-## Register Listener
+## 注册监听器
 
 ```java
 import com.kitemc.arcpass.api.event.*;
@@ -23,17 +23,17 @@ public class ArcPassListener implements Listener {
 
     @EventHandler
     public void onLevelUp(PlayerLevelUpEvent event) {
-        // Handle level up
+        // 处理升级事件
     }
 
     @EventHandler
     public void onQuestComplete(QuestCompleteEvent event) {
-        // Handle quest completion
+        // 处理任务完成事件
     }
 }
 ```
 
-Register the listener:
+注册监听器：
 
 ```java
 @Override
@@ -44,7 +44,7 @@ public void onEnable() {
 
 ## PlayerLevelUpEvent
 
-Fired when a player's pass level increases.
+玩家通行证等级提升时触发。
 
 ```java
 @EventHandler
@@ -56,27 +56,33 @@ public void onLevelUp(PlayerLevelUpEvent event) {
 
     Player player = Bukkit.getPlayer(playerId);
     if (player != null) {
-        player.sendMessage("§6Congratulations! §e" + oldLevel + " → " + newLevel);
+        // 发送自定义升级消息
+        player.sendMessage("§6恭喜升级！§e" + oldLevel + " → " + newLevel);
+
+        // 播放烟花效果
         player.getWorld().spawn(player.getLocation(), Firework.class);
+
+        // 触发其他系统
         myRewardSystem.checkMilestone(player, newLevel);
     }
 
-    getLogger().info(player.getName() + " reached level " + newLevel);
+    // 记录日志
+    getLogger().info(player.getName() + " 升级到 " + newLevel + " 级");
 }
 ```
 
-### Properties
+### 事件属性
 
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `getPlayerId()` | `UUID` | Player UUID |
-| `getOldLevel()` | `int` | Previous level |
-| `getNewLevel()` | `int` | New level |
-| `getTotalExperience()` | `long` | Current total XP |
+| 方法 | 返回类型 | 说明 |
+|------|----------|------|
+| `getPlayerId()` | `UUID` | 玩家 UUID |
+| `getOldLevel()` | `int` | 升级前等级 |
+| `getNewLevel()` | `int` | 升级后等级 |
+| `getTotalExperience()` | `long` | 当前总经验 |
 
 ## QuestCompleteEvent
 
-Fired when a quest is completed. Can be cancelled.
+任务完成时触发，可以取消。
 
 ```java
 @EventHandler
@@ -88,37 +94,38 @@ public void onQuestComplete(QuestCompleteEvent event) {
     Player player = Bukkit.getPlayer(playerId);
     if (player == null) return;
 
-    // Anti-cheat check
+    // 检查是否允许完成（例如：防作弊检测）
     if (antiCheat.isSuspicious(player)) {
         event.setCancelled(true);
-        getLogger().warning("Suspicious completion: " + player.getName());
+        getLogger().warning("可疑的任务完成: " + player.getName() + " - " + quest.getId());
         return;
     }
 
-    // Double XP event
+    // 修改经验奖励（例如：双倍经验活动）
     if (isDoubleExpActive()) {
         event.setExperienceReward(experienceReward * 2);
-        player.sendMessage("§aDouble XP! Extra +" + experienceReward);
+        player.sendMessage("§a双倍经验活动中！额外获得 " + experienceReward + " 经验");
     }
 
+    // 记录统计
     questStats.recordCompletion(player, quest);
 }
 ```
 
-### Properties
+### 事件属性
 
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `getPlayerId()` | `UUID` | Player UUID |
-| `getQuest()` | `Quest` | Completed quest |
-| `getExperienceReward()` | `int` | XP reward |
-| `setExperienceReward(int)` | `void` | Modify XP reward |
-| `isCancelled()` | `boolean` | Is cancelled |
-| `setCancelled(boolean)` | `void` | Set cancelled |
+| 方法 | 返回类型 | 说明 |
+|------|----------|------|
+| `getPlayerId()` | `UUID` | 玩家 UUID |
+| `getQuest()` | `Quest` | 完成的任务 |
+| `getExperienceReward()` | `int` | 经验奖励 |
+| `setExperienceReward(int)` | `void` | 设置经验奖励 |
+| `isCancelled()` | `boolean` | 是否已取消 |
+| `setCancelled(boolean)` | `void` | 设置取消状态 |
 
 ## RewardClaimEvent
 
-Fired when a player claims a reward. Can be cancelled.
+玩家领取奖励时触发，可以取消。
 
 ```java
 @EventHandler
@@ -131,127 +138,143 @@ public void onRewardClaim(RewardClaimEvent event) {
     Player player = Bukkit.getPlayer(playerId);
     if (player == null) return;
 
-    // Check inventory space
+    // 检查背包空间
     int requiredSlots = countRequiredSlots(rewards);
     int emptySlots = countEmptySlots(player.getInventory());
 
     if (emptySlots < requiredSlots) {
         event.setCancelled(true);
-        player.sendMessage("§cNot enough inventory space!");
+        player.sendMessage("§c背包空间不足！需要 " + requiredSlots + " 格空位");
         return;
     }
 
-    getLogger().info(player.getName() + " claimed Lv." + level + " " + tierId);
+    // 记录日志
+    getLogger().info(player.getName() + " 领取了 Lv." + level + " " + tierId + " 奖励");
+
+    // 触发成就系统
     achievementSystem.checkRewardMilestone(player, level);
 }
 ```
 
-### Properties
+### 事件属性
 
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `getPlayerId()` | `UUID` | Player UUID |
-| `getLevel()` | `int` | Claimed level |
-| `getTierId()` | `String` | Claimed tier |
-| `getRewards()` | `List<Reward>` | Reward list |
-| `isCancelled()` | `boolean` | Is cancelled |
-| `setCancelled(boolean)` | `void` | Set cancelled |
+| 方法 | 返回类型 | 说明 |
+|------|----------|------|
+| `getPlayerId()` | `UUID` | 玩家 UUID |
+| `getLevel()` | `int` | 领取的等级 |
+| `getTierId()` | `String` | 领取的档位 |
+| `getRewards()` | `List<Reward>` | 奖励列表 |
+| `isCancelled()` | `boolean` | 是否已取消 |
+| `setCancelled(boolean)` | `void` | 设置取消状态 |
 
 ## SeasonStartEvent
 
-Fired when a new season starts.
+新赛季开始时触发。
 
 ```java
 @EventHandler
 public void onSeasonStart(SeasonStartEvent event) {
     Season season = event.getSeason();
 
+    // 全服公告
     Bukkit.broadcastMessage("");
-    Bukkit.broadcastMessage("§6§l★ " + season.getDisplayName() + " Started! ★");
-    Bukkit.broadcastMessage("§7Complete quests for exclusive rewards!");
+    Bukkit.broadcastMessage("§6§l★ " + season.getDisplayName() + " 开始了！ ★");
+    Bukkit.broadcastMessage("§7完成任务，获取独家奖励！");
     Bukkit.broadcastMessage("");
 
+    // 播放音效给所有在线玩家
     for (Player player : Bukkit.getOnlinePlayers()) {
         player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1.0f, 1.0f);
     }
 
+    // 初始化赛季相关数据
     seasonTracker.initNewSeason(season);
+
+    // 发送 Discord 通知
     discordBot.sendSeasonAnnouncement(season);
 }
 ```
 
-### Properties
+### 事件属性
 
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `getSeason()` | `Season` | New season info |
+| 方法 | 返回类型 | 说明 |
+|------|----------|------|
+| `getSeason()` | `Season` | 新赛季信息 |
 
 ## SeasonEndEvent
 
-Fired when a season ends.
+赛季结束时触发。
 
 ```java
 @EventHandler
 public void onSeasonEnd(SeasonEndEvent event) {
     Season season = event.getSeason();
 
+    // 全服公告
     Bukkit.broadcastMessage("");
-    Bukkit.broadcastMessage("§c§l★ " + season.getDisplayName() + " Ended! ★");
-    Bukkit.broadcastMessage("§7Thanks to all participants!");
+    Bukkit.broadcastMessage("§c§l★ " + season.getDisplayName() + " 结束了！ ★");
+    Bukkit.broadcastMessage("§7感谢所有参与的玩家！");
     Bukkit.broadcastMessage("");
 
+    // 保存赛季统计
     seasonTracker.saveSeasonStats(season);
+
+    // 发放排行榜奖励
     distributeLeaderboardRewards(season);
+
+    // 发送 Discord 通知
     discordBot.sendSeasonEndAnnouncement(season);
 }
 ```
 
-### Properties
+### 事件属性
 
-| Method | Return Type | Description |
-|--------|-------------|-------------|
-| `getSeason()` | `Season` | Ended season info |
+| 方法 | 返回类型 | 说明 |
+|------|----------|------|
+| `getSeason()` | `Season` | 结束的赛季信息 |
 
-## Event Priority
+## 事件优先级
 
-Use standard Bukkit event priorities:
+使用 Bukkit 标准事件优先级：
 
 ```java
 @EventHandler(priority = EventPriority.HIGH)
 public void onQuestComplete(QuestCompleteEvent event) {
-    // High priority processing
+    // 高优先级处理
 }
 
 @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 public void onQuestCompleteMonitor(QuestCompleteEvent event) {
-    // Only log if not cancelled
-    getLogger().info("Quest completed: " + event.getQuest().getId());
+    // 仅在事件未被取消时记录日志
+    getLogger().info("任务完成: " + event.getQuest().getId());
 }
 ```
 
-## Best Practices
+## 最佳实践
 
-### 1. Check Player Online Status
+### 1. 检查玩家在线状态
 
 ```java
 @EventHandler
 public void onLevelUp(PlayerLevelUpEvent event) {
     Player player = Bukkit.getPlayer(event.getPlayerId());
     if (player == null || !player.isOnline()) {
-        return;
+        return; // 玩家可能已下线
     }
     // ...
 }
 ```
 
-### 2. Avoid Blocking Main Thread
+### 2. 避免阻塞主线程
 
 ```java
 @EventHandler
 public void onSeasonEnd(SeasonEndEvent event) {
+    // 在异步线程执行耗时操作
     Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
         saveToDatabaseAsync(event.getSeason());
 
+        // 如果需要与玩家交互，回到主线程
         Bukkit.getScheduler().runTask(plugin, () -> {
             notifyPlayers();
         });
@@ -259,19 +282,20 @@ public void onSeasonEnd(SeasonEndEvent event) {
 }
 ```
 
-### 3. Handle Cancellation Properly
+### 3. 正确处理取消事件
 
 ```java
 @EventHandler(priority = EventPriority.LOW)
 public void onRewardClaim(RewardClaimEvent event) {
+    // 低优先级检查，让其他插件可以覆盖
     if (shouldBlock(event)) {
         event.setCancelled(true);
     }
 }
 ```
 
-## Next Steps
+## 下一步
 
 <LinkGrid :cols="1">
-  <LinkCard icon="code" title="Code Examples" description="More practical scenarios" href="./examples" />
+  <LinkCard icon="code" title="代码示例" description="更多实用场景代码" href="./examples" />
 </LinkGrid>

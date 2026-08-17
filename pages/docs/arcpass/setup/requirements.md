@@ -1,62 +1,62 @@
-# System Requirements
+# 系统要求
 
-This page lists all requirements and dependencies for running ArcPass.
+本页面列出运行 ArcPass 的所有系统要求和依赖关系。
 
-## Minimum Requirements
+## 最低要求
 
-| Component | Minimum | Recommended |
-|-----------|---------|-------------|
-| Minecraft Version | 1.18 | 1.20+ |
-| Java Version | 17 | 21 |
-| Server Software | Spigot | Paper / Folia |
-| RAM | 2GB | 4GB+ |
-| Storage | 50MB | 100MB+ |
+| 组件 | 最低要求 | 推荐配置 |
+|------|----------|----------|
+| Minecraft 版本 | 1.18 | 1.20+ |
+| Java 版本 | 17 | 21 |
+| 服务端 | Spigot | Paper / Folia |
+| 内存 | 2GB | 4GB+ |
+| 存储空间 | 50MB | 100MB+ |
 
-## Server Compatibility
+## 服务端兼容性
 
-### Fully Supported
+### 完全支持
 
-| Server | Version Range | Notes |
-|--------|---------------|-------|
-| Paper | 1.18 - 1.21+ | Recommended, best performance |
-| Folia | 1.20 - 1.21+ | Recommended for large servers |
-| Purpur | 1.18 - 1.21+ | Paper-based |
-| Spigot | 1.18 - 1.21+ | Standard support |
+| 服务端 | 版本范围 | 备注 |
+|--------|----------|------|
+| Paper | 1.18 - 1.21+ | 推荐，性能最佳 |
+| Folia | 1.20 - 1.21+ | 推荐大型服务器 |
+| Purpur | 1.18 - 1.21+ | 基于 Paper |
+| Spigot | 1.18 - 1.21+ | 标准支持 |
 
-### Partial Support
+### 部分支持
 
-| Server | Notes |
-|--------|-------|
-| Bukkit | Basic features work, some advanced features limited |
-| Modded (Forge/Fabric) | Not supported |
+| 服务端 | 备注 |
+|--------|------|
+| Bukkit | 基本功能可用，部分高级功能受限 |
+| 模组服（Forge/Fabric） | 不支持 |
 
-### Not Supported
+### 不支持
 
 - CraftBukkit
-- Versions below 1.18
-- Bedrock servers
+- 1.18 以下版本
+- 基岩版服务端
 
-## Java Version
+## Java 版本
 
-### Java 17 (Minimum)
+### Java 17 (最低要求)
 
-ArcPass is compiled with Java 17 features. Java 17+ is required.
+ArcPass 使用 Java 17 特性编译，必须使用 Java 17 或更高版本。
 
-### Java 21 (Recommended)
+### Java 21 (推荐)
 
-We recommend Java 21 LTS:
+推荐使用 Java 21 LTS 版本：
 
-- Better performance
-- Lower memory usage
-- Long-term support
+- 更好的性能
+- 更低的内存占用
+- 长期支持
 
-### Check Java Version
+### 检查 Java 版本
 
 ```bash
 java -version
 ```
 
-Expected output:
+预期输出：
 
 ```
 openjdk version "21.0.1" 2023-10-17
@@ -64,113 +64,113 @@ OpenJDK Runtime Environment (build 21.0.1+12)
 OpenJDK 64-Bit Server VM (build 21.0.1+12, mixed mode, sharing)
 ```
 
-## Plugin Dependencies
+## 依赖插件
 
-### Required
+### 必需依赖
 
-None. ArcPass can run standalone.
+无。ArcPass 可以独立运行。
 
-### Optional Dependencies
+### 可选依赖
 
-These plugins enhance ArcPass functionality:
+以下插件可增强 ArcPass 功能：
 
-#### Economy
+#### 经济系统
 
-| Plugin | Version | Purpose |
-|--------|---------|---------|
-| Vault | 1.7.3+ | Economy bridge |
-| CMI | 9.0+ | Direct economy support |
+| 插件 | 版本 | 用途 |
+|------|------|------|
+| Vault | 1.7.3+ | 经济系统桥接 |
+| CMI | 9.0+ | 直接经济支持 |
 
-Required for economy rewards and tier purchases.
+配置经济奖励、购买通行证等级时需要。
 
-#### Permissions
+#### 权限系统
 
-| Plugin | Version | Purpose |
-|--------|---------|---------|
-| LuckPerms | 5.4+ | Permission rewards, prefix/suffix |
+| 插件 | 版本 | 用途 |
+|------|------|------|
+| LuckPerms | 5.4+ | 权限奖励、称号前缀 |
 
-Required for permission and group rewards.
+配置权限奖励、权限组奖励时需要。
 
-#### Placeholders
+#### 变量系统
 
-| Plugin | Version | Purpose |
-|--------|---------|---------|
-| PlaceholderAPI | 2.11.0+ | Placeholder variables |
+| 插件 | 版本 | 用途 |
+|------|------|------|
+| PlaceholderAPI | 2.11.0+ | 变量占位符支持 |
 
-Required for displaying ArcPass data in scoreboards, chat plugins, etc.
+在计分板、聊天插件中显示 ArcPass 数据时需要。
 
-#### Title Systems
+#### 称号系统
 
-| Plugin | Version | Purpose | Folia |
-|--------|---------|---------|-------|
-| DeluxeTags | 1.8+ | Title rewards | ❌ |
-| TAB | 4.0+ | Title rewards (alternative) | ✅ |
+| 插件 | 版本 | 用途 | Folia 支持 |
+|------|------|------|-----------|
+| DeluxeTags | 1.8+ | 称号奖励 | ❌ |
+| TAB | 4.0+ | 称号奖励（替代） | ✅ |
 
 ::: tip
-Use TAB instead of DeluxeTags if running Folia.
+如果您使用 Folia，请使用 TAB 替代 DeluxeTags。
 :::
 
-#### Quest Triggers
+#### 任务触发器
 
-| Plugin | Version | Purpose |
-|--------|---------|---------|
-| MythicMobs | 5.0+ | Custom mob kill quests |
-| Jobs Reborn | 5.0+ | Job experience quests |
+| 插件 | 版本 | 用途 |
+|------|------|------|
+| MythicMobs | 5.0+ | 自定义怪物击杀任务 |
+| Jobs Reborn | 5.0+ | 职业经验任务 |
 
-#### Custom Items
+#### 自定义物品
 
-| Plugin | Version | Purpose |
-|--------|---------|---------|
-| Oraxen | 1.150+ | Custom item rewards |
-| ItemsAdder | 3.5+ | Custom item rewards |
+| 插件 | 版本 | 用途 |
+|------|------|------|
+| Oraxen | 1.150+ | 自定义物品奖励 |
+| ItemsAdder | 3.5+ | 自定义物品奖励 |
 
-## Database
+## 数据库
 
-### SQLite (Default)
+### SQLite (默认)
 
-- No additional setup
-- Suitable for small servers
-- Data stored in `plugins/ArcPass/data.db`
+- 无需额外配置
+- 适合小型服务器
+- 数据存储在 `plugins/ArcPass/data.db`
 
 ### MySQL
 
-- Recommended for medium/large servers
-- Supports multi-server data sharing
-- Requires MySQL 5.7+ or MariaDB 10.2+
+- 推荐中大型服务器使用
+- 支持多服务器共享数据
+- 需要 MySQL 5.7+ 或 MariaDB 10.2+
 
-## Network Requirements
+## 网络要求
 
-### License Validation
+### 许可证验证
 
-- Connects to `license.kitemc.com`
-- Port: 443 (HTTPS)
-- Results cached after initial validation
+- 需要连接 `license.kitemc.com`
+- 端口：443 (HTTPS)
+- 首次验证后会缓存结果
 
-### Firewall Settings
+### 防火墙设置
 
-Ensure server can access:
+确保服务器可以访问：
 
 ```
 license.kitemc.com:443
 ```
 
-## Performance Recommendations
+## 性能建议
 
-### Small Servers (< 50 players)
+### 小型服务器 (< 50 玩家)
 
-- Use SQLite database
-- Default configuration is fine
+- 使用 SQLite 数据库
+- 默认配置即可
 
-### Medium Servers (50-200 players)
+### 中型服务器 (50-200 玩家)
 
-- Use MySQL database
-- Increase cache sizes
+- 使用 MySQL 数据库
+- 适当增加缓存大小
 
-### Large Servers (200+ players)
+### 大型服务器 (200+ 玩家)
 
-- Use MySQL database
-- Consider Folia server
-- Optimize connection pool
+- 使用 MySQL 数据库
+- 考虑使用 Folia 服务端
+- 优化数据库连接池
 
 ```yaml
 # database.yml
@@ -180,10 +180,11 @@ mysql:
     minimum-idle: 5
 ```
 
-## Next Steps
+## 下一步
 
-After confirming requirements:
+确认满足所有要求后：
+
 <LinkGrid :cols="2">
-  <LinkCard icon="download" title="Install Plugin" description="Download and install guide" href="./installation" />
-  <LinkCard icon="key" title="Activate License" description="Configure license key" href="./license" />
+  <LinkCard icon="download" title="安装插件" description="下载和安装指南" href="./installation" />
+  <LinkCard icon="key" title="激活许可证" description="配置许可证密钥" href="./license" />
 </LinkGrid>

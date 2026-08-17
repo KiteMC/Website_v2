@@ -1,7 +1,7 @@
-# Default Theme (Deprecated)
+# Default 主题（已弃用）
 
-::: warning Notice
-The Default theme has been removed in v1.2.5. VerifyMC now uses the **GlassX** theme exclusively, featuring a modern glassmorphism design with smooth animations and enhanced visual effects.
+::: warning 提示
+Default 主题已在 v1.2.5 中移除。VerifyMC 现在专用 **GlassX** 主题，采用现代玻璃拟态设计，带有流畅动画和增强的视觉效果。
 :::
 
-**[👉 Return to main documentation](./)**
+**[👉 返回主文档](./)**

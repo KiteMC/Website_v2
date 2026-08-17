@@ -1,125 +1,125 @@
-# Configuration Overview
+# 配置概述
 
-ArcPass uses a modular configuration design with different features configured in separate files.
+ArcPass 采用模块化配置设计，不同功能的配置分散在多个文件中，便于管理和维护。
 
-## File Structure
+## 配置文件结构
 
 ```
 plugins/ArcPass/
-├── config.yml          # Main config
-├── database.yml        # Database config
-├── license.yml         # License config
-├── lang/               # Language files
+├── config.yml          # 主配置
+├── database.yml        # 数据库配置
+├── license.yml         # 许可证配置
+├── lang/               # 语言文件
 │   ├── en_US.yml
 │   └── zh_CN.yml
-├── passes/             # Pass configs
+├── passes/             # 通行证配置
 │   ├── default.yml
 │   └── ...
-├── quests/             # Quest configs
-│   ├── daily/
-│   ├── weekly/
-│   └── seasonal/
-├── rewards/            # Reward configs
+├── quests/             # 任务配置
+│   ├── daily/          # 日常任务
+│   ├── weekly/         # 周常任务
+│   └── seasonal/       # 赛季任务
+├── rewards/            # 奖励配置
 │   └── default.yml
-└── gui/                # GUI configs
+└── gui/                # GUI 配置
     ├── main-menu.yml
     ├── quests.yml
     └── rewards.yml
 ```
 
-## Main Configuration Files
+## 主配置文件
 
 ### config.yml
 
 ```yaml
-# Config version (DO NOT MODIFY)
+# 配置版本（请勿修改）
 config-version: 2
 
-# Debug mode - enables verbose logging
+# 调试模式 - 启用详细日志输出
 debug: false
 
-# Locale settings
+# 语言设置
 locale:
-  # Default language for new players
+  # 新玩家的默认语言
   default: zh_CN
-  # Allow players to change their language
+  # 是否允许玩家更改语言
   allow-change: true
 
-# Pass settings
+# 通行证设置
 pass:
-  # Maximum level (1-100 recommended)
+  # 最高等级（建议 1-100）
   max-level: 100
-  # Base experience for level 1
+  # 1 级所需的基础经验值
   base-experience: 100
-  # Experience multiplier per level (1.1 = 10% increase each level)
+  # 每级经验倍率（1.1 = 每级增加 10%）
   experience-multiplier: 1.1
 
-# Quest settings
+# 任务设置
 quests:
-  # Daily quest reset time (24-hour format, server timezone)
+  # 日常任务重置时间（24 小时制，服务器时区）
   daily-reset-hour: 4
-  # Weekly quest reset day (1=Monday, 7=Sunday)
+  # 周常任务重置日（1=周一，7=周日）
   weekly-reset-day: 1
 
-# Notification settings
+# 通知设置
 notifications:
-  # Notify players when they level up
+  # 升级时通知玩家
   level-up: true
-  # Notify players when they complete a quest
+  # 完成任务时通知玩家
   quest-complete: true
-  # Notify players when rewards are available
+  # 有可领取奖励时通知玩家
   rewards-available: true
-  # Sound effects
+  # 音效
   sounds:
     level-up: ENTITY_PLAYER_LEVELUP
     quest-complete: ENTITY_EXPERIENCE_ORB_PICKUP
     reward-claim: BLOCK_NOTE_BLOCK_PLING
 
-# GUI settings
+# GUI 设置
 gui:
-  # Update interval for animated elements (ticks)
+  # 动画元素更新间隔（tick）
   update-interval: 20
-  # Close GUI when clicking outside
+  # 点击外部区域时关闭 GUI
   close-on-outside-click: true
 
-# Performance settings
+# 性能设置
 performance:
-  # Data save interval (seconds)
+  # 数据保存间隔（秒）
   save-interval: 300
-  # Cache expiry time (minutes)
+  # 缓存过期时间（分钟）
   cache-expiry: 30
 ```
 
 ### database.yml
 
 ```yaml
-# Config version (DO NOT MODIFY)
+# 配置版本（请勿修改）
 config-version: 2
 
-# Storage type: sqlite or mysql
+# 数据库类型：sqlite 或 mysql
 type: sqlite
 
-# SQLite settings (when type: sqlite)
+# SQLite 设置（当 type 为 sqlite 时使用）
 sqlite:
-  # Database file name (in plugin folder)
+  # 数据库文件名（在插件文件夹内）
   file: data.db
 
-# MySQL settings (when type: mysql)
+# MySQL 设置（当 type 为 mysql 时使用）
 mysql:
   host: localhost
   port: 3306
   database: arcpass
   username: root
   password: ""
-  # Connection pool size
+  # 连接池大小
   pool-size: 10
-  # Additional connection properties
+  # 额外连接属性
   properties:
     useSSL: false
     autoReconnect: true
     allowPublicKeyRetrieval: true
 
-# Cross-Server (Network) Settings
+# 跨服（网络）设置
 network:
   # standalone | shared-db | redis
   mode: standalone
@@ -137,43 +137,43 @@ network:
     join-lock-wait: 3000
 ```
 
-::: warning Professional License Required
-Cross-server support (`shared-db` and `redis` modes) requires a **Professional** license. Standard license users will always run in `standalone` mode. Upgrade at the <InlineLink href="https://license.kitemc.com/products/arcpass" :external="true">License Center</InlineLink>.
+::: warning 需要专业版许可证
+跨服支持（`shared-db` 和 `redis` 模式）需要 **专业版** 许可证。标准版用户将始终运行在 `standalone` 模式。可在 <InlineLink href="https://license.kitemc.com/products/arcpass" :external="true">许可证中心</InlineLink> 升级。
 :::
 
-## Hot Reload
+## 配置热重载
 
-Most configurations support hot reload:
+大部分配置支持热重载，无需重启服务器：
 
 ```
 /arcpass admin reload
 ```
 
-::: warning Note
-These changes require a server restart:
+::: warning 注意
+以下配置修改后需要重启服务器：
 
-- Database type switch
-- License key change
+- 数据库类型切换
+- 许可证密钥更改
 :::
 
-## Configuration Validation
+## 配置验证
 
-ArcPass validates config files on load:
+ArcPass 会在加载时验证配置文件：
 
-- Syntax errors shown in console
-- Invalid values use defaults with warnings
-- Missing required configs prevent startup
+- 格式错误会在控制台显示详细信息
+- 无效值会使用默认值并警告
+- 缺失的必要配置会阻止插件启动
 
-## Detailed Guides
+## 详细配置指南
 
 <LinkGrid :cols="2">
-  <LinkCard icon="ticket" title="Pass Configuration" description="Tiers, levels, rewards" href="./passes" />
-  <LinkCard icon="clipboard-list" title="Quest Configuration" description="Quest types, objectives" href="./quests" />
-  <LinkCard icon="gift" title="Reward Configuration" description="Reward types, values" href="./rewards" />
-  <LinkCard icon="trophy" title="Season Configuration" description="Season timing, rules" href="./seasons" />
-  <LinkCard icon="color-swatch" title="GUI Configuration" description="Interface layout, items" href="./gui" />
+  <LinkCard icon="ticket" title="通行证配置" description="等级、档位、奖励设置" href="./passes" />
+  <LinkCard icon="clipboard-list" title="任务配置" description="任务类型、目标、条件" href="./quests" />
+  <LinkCard icon="gift" title="奖励配置" description="奖励类型、数值设置" href="./rewards" />
+  <LinkCard icon="trophy" title="赛季配置" description="赛季时间、规则设置" href="./seasons" />
+  <LinkCard icon="color-swatch" title="GUI 配置" description="界面布局、物品设置" href="./gui" />
 </LinkGrid>
 
-## Example Configurations
+## 配置示例
 
-The `docs/examples-en/` folder in the plugin directory contains complete configuration examples.
+插件安装目录下的 `docs/examples-zh/` 文件夹包含完整的配置示例，可以作为参考。

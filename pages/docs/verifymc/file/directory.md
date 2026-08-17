@@ -1,136 +1,136 @@
-# Plugin Directory Structure
+# 插件目录结构
 
-This page provides a detailed overview of the VerifyMC plugin's directory structure and the purpose of each file.
+本页面详细介绍 VerifyMC 插件的目录结构及各文件的用途。
 
 ---
 
-## Directory Overview
+## 目录总览
 
 ```
 /plugins/VerifyMC/
-├── config.yml                 # Main configuration file
-├── config_help_en.yml         # English configuration help
-├── config_help_zh.yml         # Chinese configuration help
-├── questionnaire.yml          # Questionnaire config (optional)
+├── config.yml                 # 主配置文件
+├── config_help_en.yml         # 英文配置帮助文档
+├── config_help_zh.yml         # 中文配置帮助文档
+├── questionnaire.yml          # 问卷调查配置（可选）
 │
-├── email/                     # Email templates directory
-│   ├── verify_code_en.html    # English verification code email
-│   ├── verify_code_zh.html    # Chinese verification code email
-│   ├── review_approved_en.html  # English approval email
-│   ├── review_approved_zh.html  # Chinese approval email
-│   ├── review_rejected_en.html  # English rejection email
-│   └── review_rejected_zh.html  # Chinese rejection email
+├── email/                     # 邮件模板目录
+│   ├── verify_code_en.html    # 英文验证码邮件模板
+│   ├── verify_code_zh.html    # 中文验证码邮件模板
+│   ├── review_approved_en.html  # 英文审核通过邮件
+│   ├── review_approved_zh.html  # 中文审核通过邮件
+│   ├── review_rejected_en.html  # 英文审核拒绝邮件
+│   └── review_rejected_zh.html  # 中文审核拒绝邮件
 │
-├── static/                    # Frontend static resources
-│   └── glassx/                # GlassX theme (default)
-│       ├── index.html         # Main page entry
-│       ├── css/               # Stylesheet files
+├── static/                    # 前端静态资源目录
+│   └── glassx/                # GlassX 主题（默认主题）
+│       ├── index.html         # 主页面入口
+│       ├── css/               # 样式文件
 │       │   ├── index-*.css
 │       │   ├── Login-*.css
 │       │   ├── Register-*.css
 │       │   └── ...
-│       └── js/                # JavaScript files
+│       └── js/                # JavaScript 文件
 │           ├── index-*.js
 │           ├── api-*.js
 │           ├── vendor-*.js
 │           └── ...
 │
-├── i18n/                      # Internationalization files
-│   ├── messages_en.properties        # English messages
-│   ├── messages_en.properties.backup # English messages backup
-│   ├── messages_zh.properties        # Chinese messages
-│   └── messages_zh.properties.backup # Chinese messages backup
+├── i18n/                      # 国际化语言文件
+│   ├── messages_en.properties        # 英文消息
+│   ├── messages_en.properties.backup # 英文消息备份
+│   ├── messages_zh.properties        # 中文消息
+│   └── messages_zh.properties.backup # 中文消息备份
 │
-├── data/                      # Data storage directory
-│   ├── users.json             # User data
-│   └── audits.json            # Audit records
+├── data/                      # 数据存储目录
+│   ├── users.json             # 用户数据
+│   └── audits.json            # 审核记录
 │
-└── backup/                    # Backup directory
-    └── [timestamp]/           # Timestamped backups
-        └── [backup files]
+└── backup/                    # 备份目录
+    └── [时间戳]/              # 按时间戳分类的备份
+        └── [备份文件]
 ```
 
 ---
 
-## Detailed Description
+## 详细说明
 
-### Configuration Files
+### 配置文件
 
-| File | Description |
-|------|-------------|
-| `config.yml` | Main plugin configuration file with all configurable options |
-| `config_help_en.yml` | English configuration help document with detailed explanations |
-| `config_help_zh.yml` | Chinese configuration help document with detailed explanations |
-| `questionnaire.yml` | Questionnaire configuration for custom registration questions |
+| 文件 | 说明 |
+|------|------|
+| `config.yml` | 插件的主配置文件，包含所有可配置选项 |
+| `config_help_en.yml` | 英文版配置帮助文档，包含每个配置项的详细说明 |
+| `config_help_zh.yml` | 中文版配置帮助文档，包含每个配置项的详细说明 |
+| `questionnaire.yml` | 问卷调查配置文件，用于自定义注册时的额外问题 |
 
-### Email Templates (`email/`)
+### 邮件模板 (`email/`)
 
-The plugin uses HTML templates for sending emails, supporting custom styles and content.
+插件使用 HTML 模板发送邮件，支持自定义样式和内容。
 
-| File | Description |
-|------|-------------|
-| `verify_code_*.html` | Verification code email template |
-| `review_approved_*.html` | Approval notification email template |
-| `review_rejected_*.html` | Rejection notification email template |
+| 文件 | 说明 |
+|------|------|
+| `verify_code_*.html` | 验证码邮件模板，用于发送注册验证码 |
+| `review_approved_*.html` | 审核通过邮件模板 |
+| `review_rejected_*.html` | 审核拒绝邮件模板 |
 
-::: tip
-Email templates support variable substitution, such as `{code}`, `{username}`, `{reason}`, etc.
+::: tip 提示
+邮件模板支持变量替换，如 `{code}`、`{username}`、`{reason}` 等。
 :::
 
-### Frontend Resources (`static/`)
+### 前端资源 (`static/`)
 
-The plugin includes a modern web management panel built with Vue.js.
+插件内置了一个现代化的 Web 管理面板，基于 Vue.js 构建。
 
-- **GlassX Theme**: Default glassmorphism-style theme
-- `index.html`: Web panel entry file
-- `css/`: Compiled stylesheet files
-- `js/`: Compiled JavaScript files
+- **GlassX 主题**：默认的玻璃拟态风格主题
+- `index.html`：Web 面板入口文件
+- `css/`：编译后的样式文件
+- `js/`：编译后的 JavaScript 文件
 
-::: warning
-It's not recommended to directly modify files in the `static/` directory as these are compiled frontend resources. For customization, please refer to the frontend development documentation.
+::: warning 注意
+不建议直接修改 `static/` 目录下的文件，因为这些是编译后的前端资源。如需自定义，请参考前端开发文档。
 :::
 
-### Internationalization (`i18n/`)
+### 国际化 (`i18n/`)
 
-The plugin supports multiple languages using Java Properties format.
+插件支持多语言，消息文件使用 Java Properties 格式。
 
-| File | Description |
-|------|-------------|
-| `messages_en.properties` | English message file |
-| `messages_zh.properties` | Chinese message file |
-| `*.backup` | Automatic backups of message files |
+| 文件 | 说明 |
+|------|------|
+| `messages_en.properties` | 英文消息文件 |
+| `messages_zh.properties` | 中文消息文件 |
+| `*.backup` | 消息文件的自动备份 |
 
-### Data Storage (`data/`)
+### 数据存储 (`data/`)
 
-The plugin uses JSON files for data storage:
+插件使用 JSON 文件存储数据：
 
-| File | Description |
-|------|-------------|
-| `users.json` | Stores all user registration information and status |
-| `audits.json` | Stores audit history records |
+| 文件 | 说明 |
+|------|------|
+| `users.json` | 存储所有用户的注册信息和状态 |
+| `audits.json` | 存储审核历史记录 |
 
-::: danger Warning
-Do not directly edit files in the `data/` directory while the server is running, as this may cause data loss or corruption.
+::: danger 警告
+请勿在服务器运行时直接编辑 `data/` 目录下的文件，这可能导致数据丢失或损坏。
 :::
 
-### Backups (`backup/`)
+### 备份 (`backup/`)
 
-The plugin automatically backs up important data, with backup files organized by timestamp.
+插件会自动备份重要数据，备份文件按时间戳分类存储。
 
 ---
 
-## First Launch
+## 首次启动
 
-On first launch, the plugin will automatically generate:
-1. `config.yml` - Default configuration
-2. `email/` - Email templates
-3. `static/` - Frontend resources
-4. `i18n/` - Language files
-5. `data/` - Empty data directory
+首次启动插件时，会自动生成以下文件：
+1. `config.yml` - 默认配置
+2. `email/` - 邮件模板
+3. `static/` - 前端资源
+4. `i18n/` - 语言文件
+5. `data/` - 空的数据目录
 
 ---
 
-## Related Links
+## 相关链接
 
-- [Configuration Guide](./config.md)
-- [FAQ](../question/)
+- [配置文件详解](./config.md)
+- [常见问题](../question/)

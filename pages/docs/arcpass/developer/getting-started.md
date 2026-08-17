@@ -1,13 +1,16 @@
-# API Getting Started
+# API 入门
 
-This guide covers how to integrate ArcPass API into your plugin.
+本指南详细介绍如何在您的插件中集成 ArcPass API。
 
-## Add Dependency
+## 添加依赖
 
 ### Maven
 
+在 `pom.xml` 中添加仓库和依赖：
+
 ```xml
 <repositories>
+    <!-- GitHub Packages -->
     <repository>
         <id>github</id>
         <url>https://maven.pkg.github.com/KiteMC/ArcPass</url>
@@ -48,9 +51,9 @@ dependencies {
 }
 ```
 
-## Configure plugin.yml
+## 配置 plugin.yml
 
-Add ArcPass as soft dependency:
+添加 ArcPass 为软依赖：
 
 ```yaml
 name: MyPlugin
@@ -60,9 +63,9 @@ softdepend:
   - ArcPass
 ```
 
-## Get API Instance
+## 获取 API 实例
 
-### Check Availability
+### 检查 ArcPass 是否可用
 
 ```java
 import com.kitemc.arcpass.api.ArcPassAPI;
@@ -75,11 +78,12 @@ public class MyPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        // 检查 ArcPass 是否已加载
         if (getServer().getPluginManager().getPlugin("ArcPass") != null) {
             arcPassAPI = ArcPassProvider.get();
-            getLogger().info("ArcPass API loaded!");
+            getLogger().info("ArcPass API 已加载！");
         } else {
-            getLogger().warning("ArcPass not installed");
+            getLogger().warning("ArcPass 未安装，相关功能将不可用");
         }
     }
 
@@ -93,56 +97,64 @@ public class MyPlugin extends JavaPlugin {
 }
 ```
 
-### Delayed Access (Recommended)
+### 延迟获取（推荐）
+
+ArcPass 使用延迟初始化，建议在服务器完全启动后获取 API：
 
 ```java
 @Override
 public void onEnable() {
+    // 延迟获取 API
     getServer().getScheduler().runTaskLater(this, () -> {
         if (getServer().getPluginManager().getPlugin("ArcPass") != null) {
             arcPassAPI = ArcPassProvider.get();
             initializeArcPassFeatures();
         }
-    }, 1L);
+    }, 1L); // 1 tick 延迟
 }
 
 private void initializeArcPassFeatures() {
-    getLogger().info("ArcPass version: " + arcPassAPI.getVersion());
+    // 初始化与 ArcPass 相关的功能
+    getLogger().info("ArcPass 版本: " + arcPassAPI.getVersion());
 }
 ```
 
-## Basic Operations
+## 基本操作
 
-### Get Player Data
+### 获取玩家数据
 
 ```java
 public void showPlayerInfo(Player player) {
     if (!isArcPassAvailable()) return;
 
+    // 异步获取玩家数据
     arcPassAPI.getPlayerData(player.getUniqueId())
         .thenAccept(optionalData -> {
             if (optionalData.isEmpty()) {
-                player.sendMessage("§cCouldn't get pass data");
+                player.sendMessage("§c无法获取通行证数据");
                 return;
             }
 
             PlayerData data = optionalData.get();
 
+            // 回到主线程发送消息
             Bukkit.getScheduler().runTask(plugin, () -> {
-                player.sendMessage("§6=== Pass Info ===");
-                player.sendMessage("§7Level: §e" + data.getLevel());
-                player.sendMessage("§7XP: §e" + data.getTotalExperience());
-                player.sendMessage("§7Tiers: §e" + String.join(", ", data.getUnlockedTiers()));
+                player.sendMessage("§6=== 通行证信息 ===");
+                player.sendMessage("§7等级: §e" + data.getLevel());
+                player.sendMessage("§7经验: §e" + data.getTotalExperience());
+                player.sendMessage("§7档位: §e" + String.join(", ", data.getUnlockedTiers()));
             });
         })
         .exceptionally(ex -> {
-            getLogger().warning("Failed to get data: " + ex.getMessage());
+            getLogger().warning("获取玩家数据失败: " + ex.getMessage());
             return null;
         });
 }
 ```
 
-### Use Cached Data
+### 使用缓存数据
+
+如果需要同步访问数据，可以使用缓存：
 
 ```java
 public int getPlayerLevel(Player player) {
@@ -154,10 +166,10 @@ public int getPlayerLevel(Player player) {
 ```
 
 ::: warning
-Cached data may be null. Always check before use.
+缓存数据可能为 null（玩家刚加入或数据未加载），使用前务必检查。
 :::
 
-### Give Experience
+### 给予经验
 
 ```java
 public void giveExperience(Player player, long amount) {
@@ -166,58 +178,61 @@ public void giveExperience(Player player, long amount) {
     arcPassAPI.addExperience(player.getUniqueId(), amount)
         .thenAccept(newTotal -> {
             Bukkit.getScheduler().runTask(plugin, () -> {
-                player.sendMessage("§aGained " + amount + " pass XP!");
-                player.sendMessage("§7Total XP: §e" + newTotal);
+                player.sendMessage("§a获得 " + amount + " 通行证经验！");
+                player.sendMessage("§7当前总经验: §e" + newTotal);
             });
         });
 }
 ```
 
-### Trigger Custom Quest Event
+### 触发自定义任务事件
 
 ```java
+// 触发自定义事件
 public void onCustomAction(Player player, String actionType) {
     if (!isArcPassAvailable()) return;
 
+    // 这会触发配置中 type: custom, event: my_action 的任务进度
     arcPassAPI.triggerCustomEvent(
         player.getUniqueId(),
-        "my_action",
-        actionType
+        "my_action",  // 事件 ID
+        actionType    // 附加数据（可选）
     );
 }
 ```
 
-Corresponding quest config:
+对应的任务配置：
 
 ```yaml
 custom_task:
   type: daily
-  display-name: "&eCustom Task"
+  display-name: "&e自定义任务"
   objectives:
     - type: custom
       event: my_action
       amount: 10
 ```
 
-### Query Pass Info
+### 查询通行证信息
 
 ```java
 public void showPassInfo(Player player) {
     if (!isArcPassAvailable()) return;
 
     Pass defaultPass = arcPassAPI.getDefaultPass();
-    player.sendMessage("§6Current Pass: §e" + defaultPass.getDisplayName());
-    player.sendMessage("§7Max Level: §e" + defaultPass.getMaxLevel());
+    player.sendMessage("§6当前通行证: §e" + defaultPass.getDisplayName());
+    player.sendMessage("§7最大等级: §e" + defaultPass.getMaxLevel());
 
-    player.sendMessage("§7Available Tiers:");
+    // 列出所有档位
+    player.sendMessage("§7可用档位:");
     for (PassTier tier : defaultPass.getTiers()) {
-        String status = tier.isFree() ? "§aFree" : "§e$" + tier.getPrice();
+        String status = tier.isFree() ? "§a免费" : "§e¥" + tier.getPrice();
         player.sendMessage("  §7- " + tier.getDisplayName() + " " + status);
     }
 }
 ```
 
-### Query Season Info
+### 查询赛季信息
 
 ```java
 public void showSeasonInfo(Player player) {
@@ -226,46 +241,48 @@ public void showSeasonInfo(Player player) {
     Optional<Season> seasonOpt = arcPassAPI.getCurrentSeason();
 
     if (seasonOpt.isEmpty()) {
-        player.sendMessage("§cNo active season");
+        player.sendMessage("§c当前没有活动的赛季");
         return;
     }
 
     Season season = seasonOpt.get();
-    player.sendMessage("§6Current Season: §e" + season.getDisplayName());
-    player.sendMessage("§7Status: §e" + season.getStatus());
+    player.sendMessage("§6当前赛季: §e" + season.getDisplayName());
+    player.sendMessage("§7状态: §e" + season.getStatus());
 
     long remaining = season.getTimeRemainingSeconds();
     if (remaining > 0) {
         long days = remaining / 86400;
         long hours = (remaining % 86400) / 3600;
-        player.sendMessage("§7Remaining: §e" + days + "d " + hours + "h");
+        player.sendMessage("§7剩余时间: §e" + days + "天 " + hours + "小时");
     }
 }
 ```
 
-## Error Handling
+## 错误处理
 
-### Handle CompletableFuture Exceptions
+### 处理 CompletableFuture 异常
 
 ```java
 arcPassAPI.getPlayerData(playerId)
     .thenAccept(data -> {
-        // Normal processing
+        // 正常处理
     })
     .exceptionally(ex -> {
-        getLogger().severe("API call failed: " + ex.getMessage());
+        // 记录异常
+        getLogger().severe("ArcPass API 调用失败: " + ex.getMessage());
         ex.printStackTrace();
 
+        // 通知玩家
         Player player = Bukkit.getPlayer(playerId);
         if (player != null) {
-            player.sendMessage("§cOperation failed, please retry");
+            player.sendMessage("§c操作失败，请稍后重试");
         }
 
-        return null;
+        return null; // 必须返回 null
     });
 ```
 
-### Timeout Handling
+### 超时处理
 
 ```java
 import java.util.concurrent.TimeUnit;
@@ -273,19 +290,19 @@ import java.util.concurrent.TimeUnit;
 arcPassAPI.getPlayerData(playerId)
     .orTimeout(5, TimeUnit.SECONDS)
     .thenAccept(data -> {
-        // Process data
+        // 处理数据
     })
     .exceptionally(ex -> {
         if (ex.getCause() instanceof java.util.concurrent.TimeoutException) {
-            getLogger().warning("Data fetch timeout");
+            getLogger().warning("获取数据超时");
         }
         return null;
     });
 ```
 
-## Next Steps
+## 下一步
 
 <LinkGrid :cols="2">
-  <LinkCard icon="lightning-bolt" title="Event System" description="Listen to ArcPass events" href="./events" />
-  <LinkCard icon="code" title="Code Examples" description="More practical examples" href="./examples" />
+  <LinkCard icon="lightning-bolt" title="事件系统" description="监听 ArcPass 事件" href="./events" />
+  <LinkCard icon="code" title="代码示例" description="更多实用代码示例" href="./examples" />
 </LinkGrid>

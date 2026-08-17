@@ -5,6 +5,7 @@ import {
   getLatestRelease,
   formatFileSize,
   formatDate,
+  selectLocalizedReleaseBody,
   type ApiBuild,
   type ReleaseAsset
 } from './downloadApi';
@@ -15,13 +16,15 @@ const props = withDefaults(defineProps<{
   owner?: string;
   repo?: string;
   showProxy?: boolean;
+  showLanguagePacks?: boolean;
 }>(), {
   owner: 'KiteMC',
   repo: 'VerifyMC',
   showProxy: false,
+  showLanguagePacks: false,
 });
 
-const { t } = useTranslation();
+const { t, language } = useTranslation();
 
 // State
 const isLoading = ref(true);
@@ -31,6 +34,7 @@ const allReleases = ref<ApiBuild[]>([]);
 const currentPage = ref(1);
 const itemsPerPage = 5;
 const expandedReleases = ref<Set<string>>(new Set());
+const downloadSource = ref<'github' | 'cloudflare'>('github');
 
 // Computed
 const totalPages = computed(() => {
@@ -64,6 +68,22 @@ function getProxyAsset(release: ApiBuild): ReleaseAsset | undefined {
   return release.assets.find(a =>
     a.name.toLowerCase().includes('proxy') && a.name.endsWith('.jar')
   );
+}
+
+function getLanguagePack(release: ApiBuild, locale: 'zh_CN' | 'en_US'): ReleaseAsset | undefined {
+  return release.assets.find(asset =>
+    asset.name.toLowerCase().includes(`lang-${locale.toLowerCase()}`) && asset.name.endsWith('.zip')
+  );
+}
+
+function resolveDownloadUrl(url: string): string {
+  return downloadSource.value === 'cloudflare'
+    ? `https://v4.gh-proxy.org/${url}`
+    : url;
+}
+
+function localizedBody(body: string): string {
+  return selectLocalizedReleaseBody(body, language.value);
 }
 
 const latestMainAsset = computed(() => {
@@ -217,6 +237,14 @@ onMounted(() => {
 
     <!-- Content -->
     <template v-else>
+      <div class="source-picker" role="group" :aria-label="t.downloadSource">
+        <span class="source-label">{{ t.downloadSource }}</span>
+        <div class="source-options">
+          <button :class="{ active: downloadSource === 'github' }" @click="downloadSource = 'github'">{{ t.githubDirect }}</button>
+          <button :class="{ active: downloadSource === 'cloudflare' }" @click="downloadSource = 'cloudflare'">{{ t.cloudflareIpv4 }}</button>
+        </div>
+      </div>
+
       <!-- Hero Download Section - Latest Release -->
       <section v-if="latestRelease" class="hero-download">
         <div class="hero-content">
@@ -250,7 +278,7 @@ onMounted(() => {
             <!-- Main Download Button -->
             <a
               v-if="latestMainAsset"
-              :href="latestMainAsset.browser_download_url"
+              :href="resolveDownloadUrl(latestMainAsset.browser_download_url)"
               class="download-btn primary"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -264,7 +292,7 @@ onMounted(() => {
             <!-- Proxy Download Button (for VerifyMC) -->
             <a
               v-if="latestProxyAsset"
-              :href="latestProxyAsset.browser_download_url"
+              :href="resolveDownloadUrl(latestProxyAsset.browser_download_url)"
               class="download-btn proxy"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -289,6 +317,11 @@ onMounted(() => {
             </a>
           </div>
 
+          <div v-if="showLanguagePacks" class="language-pack-actions">
+            <a v-if="getLanguagePack(latestRelease, 'zh_CN')" :href="resolveDownloadUrl(getLanguagePack(latestRelease, 'zh_CN')!.browser_download_url)" class="download-btn language">{{ t.chinesePack }}</a>
+            <a v-if="getLanguagePack(latestRelease, 'en_US')" :href="resolveDownloadUrl(getLanguagePack(latestRelease, 'en_US')!.browser_download_url)" class="download-btn language">{{ t.englishPack }}</a>
+          </div>
+
           <!-- Changelog for latest release -->
           <div v-if="latestRelease.body" class="changelog-section">
             <div class="changelog-header">
@@ -303,11 +336,11 @@ onMounted(() => {
             </div>
             <div
               class="changelog-content"
-              :class="{ collapsed: isLongBody(latestRelease.body) && !expandedReleases.has(latestRelease.tag) }"
-              v-html="renderMarkdown(latestRelease.body)"
+              :class="{ collapsed: isLongBody(localizedBody(latestRelease.body)) && !expandedReleases.has(latestRelease.tag) }"
+              v-html="renderMarkdown(localizedBody(latestRelease.body))"
             ></div>
             <button
-              v-if="isLongBody(latestRelease.body)"
+              v-if="isLongBody(localizedBody(latestRelease.body))"
               class="expand-btn"
               @click="toggleExpand(latestRelease.tag)"
             >
@@ -376,7 +409,7 @@ onMounted(() => {
                 <!-- Main Download -->
                 <a
                   v-if="getMainAsset(release)"
-                  :href="getMainAsset(release)?.browser_download_url"
+                  :href="resolveDownloadUrl(getMainAsset(release)!.browser_download_url)"
                   class="action-btn download"
                   :title="t.downloadButton"
                 >
@@ -390,7 +423,7 @@ onMounted(() => {
                 <!-- Proxy Download -->
                 <a
                   v-if="showProxy && getProxyAsset(release)"
-                  :href="getProxyAsset(release)?.browser_download_url"
+                  :href="resolveDownloadUrl(getProxyAsset(release)!.browser_download_url)"
                   class="action-btn proxy"
                   :title="t.proxyPlugin"
                 >
@@ -417,15 +450,20 @@ onMounted(() => {
               </div>
             </div>
 
+            <div v-if="showLanguagePacks && (getLanguagePack(release, 'zh_CN') || getLanguagePack(release, 'en_US'))" class="history-language-packs">
+              <a v-if="getLanguagePack(release, 'zh_CN')" :href="resolveDownloadUrl(getLanguagePack(release, 'zh_CN')!.browser_download_url)">{{ t.chinesePack }}</a>
+              <a v-if="getLanguagePack(release, 'en_US')" :href="resolveDownloadUrl(getLanguagePack(release, 'en_US')!.browser_download_url)">{{ t.englishPack }}</a>
+            </div>
+
             <!-- Changelog -->
             <div v-if="release.body" class="release-changelog">
               <div
                 class="changelog-content small"
-                :class="{ collapsed: isLongBody(release.body) && !expandedReleases.has(release.tag) }"
-                v-html="renderMarkdown(release.body)"
+                :class="{ collapsed: isLongBody(localizedBody(release.body)) && !expandedReleases.has(release.tag) }"
+                v-html="renderMarkdown(localizedBody(release.body))"
               ></div>
               <button
-                v-if="isLongBody(release.body)"
+                v-if="isLongBody(localizedBody(release.body))"
                 class="expand-btn small"
                 @click="toggleExpand(release.tag)"
               >
@@ -515,6 +553,19 @@ onMounted(() => {
   background: var(--vp-c-brand-2);
   color: white;
 }
+
+.source-picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.source-label { font-size: 0.8rem; color: var(--vp-c-text-2); font-weight: 600; }
+.source-options { display: inline-flex; padding: 3px; border: 1px solid var(--vp-c-divider); border-radius: 8px; background: var(--vp-c-bg-soft); }
+.source-options button { min-height: 30px; padding: 0.25rem 0.75rem; border: 0; border-radius: 6px; background: transparent; color: var(--vp-c-text-2); cursor: pointer; font-size: 0.78rem; font-weight: 600; }
+.source-options button.active { background: var(--vp-c-bg); color: var(--vp-c-brand-1); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12); }
 
 /* Hero Download Section */
 .hero-download {
@@ -610,6 +661,12 @@ onMounted(() => {
   gap: 0.5rem;
   margin-bottom: 1.25rem;
 }
+
+.language-pack-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: -0.75rem 0 1.25rem; }
+.download-btn.language { padding: 0.45rem 0.8rem; border: 1px solid var(--vp-c-divider); background: var(--vp-c-bg); color: var(--vp-c-text-1); font-size: 0.78rem; }
+.download-btn.language:hover { border-color: var(--vp-c-brand-1); color: var(--vp-c-brand-1); }
+.history-language-packs { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.75rem; }
+.history-language-packs a { font-size: 0.75rem; font-weight: 600; color: var(--vp-c-brand-1); text-decoration: none; }
 
 .download-btn {
   display: inline-flex;
@@ -967,6 +1024,8 @@ onMounted(() => {
 /* Responsive */
 @media (max-width: 640px) {
   .download-page { padding: 1rem; }
+  .source-picker { align-items: stretch; flex-direction: column; }
+  .source-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hero-download { padding: 1.5rem; }
   .version-name { font-size: 1.4rem; }
 

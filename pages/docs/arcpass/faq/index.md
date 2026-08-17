@@ -1,217 +1,221 @@
-# FAQ
+# 常见问题
 
-This page answers common questions about ArcPass.
+本页面解答 ArcPass 使用过程中的常见问题。
 
-## Installation Issues
+## 安装问题
 
-### Plugin Not Loading
+### 插件无法加载
 
-**Symptom**: No ArcPass logs on server startup
+**症状**：服务器启动后看不到 ArcPass 相关日志
 
-**Solutions**:
+**解决方案**：
 
-1. Confirm JAR file is in `plugins` folder
-2. Check Java version is 17+
-3. Check server log for errors
-4. Confirm using Paper/Spigot 1.18+ or Folia 1.19+
+1. 确认 JAR 文件放在 `plugins` 文件夹中
+2. 检查 Java 版本是否为 17 或更高
+3. 查看服务器日志是否有错误信息
+4. 确认使用的是 Paper/Spigot 1.18+ 或 Folia 1.19+
 
-### Config Files Not Generated
+### 配置文件未生成
 
-**Symptom**: `plugins/ArcPass` folder is empty or missing
+**症状**：`plugins/ArcPass` 文件夹为空或不存在
 
-**Solutions**:
+**解决方案**：
 
-1. Check folder write permissions
-2. Check console for permission errors
-3. Manually create `plugins/ArcPass` folder and restart
+1. 检查文件夹写入权限
+2. 查看控制台是否有权限错误
+3. 手动创建 `plugins/ArcPass` 文件夹后重启
 
-### Plugin Conflicts
+### 与其他插件冲突
 
-**Symptom**: Other plugins error after installing ArcPass
+**症状**：安装 ArcPass 后其他插件报错
 
-**Solutions**:
+**解决方案**：
 
-1. Check for duplicate dependency libraries
-2. Try updating conflicting plugins
-3. Check error logs for specifics
-4. Report to Discord community
+1. 检查是否有重复的依赖库
+2. 尝试更新冲突的插件
+3. 查看错误日志确定具体冲突点
+4. 在 Discord 社区反馈问题
 
-## License Issues
+## 许可证问题
 
-### Validation Failed
+### 许可证验证失败
 
-**Symptom**: Console shows `License validation failed`
+**症状**：控制台显示 `License validation failed`
 
-**Causes and Solutions**:
+**可能原因和解决方案**：
 
-1. **Invalid key**
-   - Check key in `license.yml` is correct
-   - Mind case sensitivity
+1. **密钥错误**
+   - 检查 `license.yml` 中的密钥是否正确
+   - 注意大小写和特殊字符
 
-2. **Network issues**
-   - Confirm server can reach `license.kitemc.com`
-   - Check firewall settings
+2. **网络问题**
+   - 确认服务器可以访问 `license.kitemc.com`
+   - 检查防火墙设置
 
-3. **Binding limit reached**
-   - Login to dashboard and unbind unused servers
-   - Or upgrade license plan
+3. **绑定数量已满**
+   - 登录用户中心解绑不用的服务器
+   - 或升级到更高版本许可证
 
-4. **License expired**
-   - Check license validity
-   - Renew or purchase new license
+4. **许可证过期**
+   - 检查许可证有效期
+   - 续费或购买新许可证
 
-### Can't Use After Server Migration
+### 更换服务器后无法使用
 
-**Symptom**: License invalid after moving servers
+**症状**：迁移服务器后许可证无效
 
-**Solution**:
+**解决方案**：
 
-1. Login to <InlineLink href="https://license.kitemc.com/login" :external="true">KiteMC License Center</InlineLink>
-2. Find your license
-3. Unbind original server
-4. Reactivate on new server
+1. 登录 <InlineLink href="https://license.kitemc.com/login" :external="true">KiteMC 许可证中心</InlineLink>
+2. 找到您的许可证
+3. 解绑原服务器
+4. 在新服务器上重新激活
 
-### Binding Failed
+### 许可证绑定失败
 
-**Symptom**: `LIMIT_EXCEEDED` or `BINDING_FAILED`
+**症状**：`LIMIT_EXCEEDED` 或 `BINDING_FAILED`
 
-**Solutions**:
+**解决方案**：
 
-1. Check current binding count
-2. Unbind unused servers
-3. Verify server IP and port
+1. 检查当前绑定数量是否已满
+2. 解绑不使用的服务器
+3. 确认服务器 IP 和端口正确
 
-## Feature Issues
+## 功能问题
 
-### Experience Not Increasing
+### 经验不增加
 
-**Causes**:
+**可能原因**：
 
-1. No active season
-2. Quest config error
-3. Player lacks permission
+1. 没有活动的赛季
+2. 任务未正确配置
+3. 玩家没有相应权限
 
-**Solutions**:
+**解决方案**：
 
-1. Use `/arcpass admin season start` to start season
-2. Check quest config files for syntax errors
-3. Confirm player has `arcpass.use` permission
+1. 使用 `/arcpass admin season start` 开启赛季
+2. 检查任务配置文件是否有语法错误
+3. 确认玩家有 `arcpass.use` 权限
 
-### Can't Claim Rewards
+### 奖励无法领取
 
-**Causes**:
+**可能原因**：
 
-1. Level too low
-2. Missing required tier
-3. Already claimed
+1. 等级不足
+2. 未拥有对应档位
+3. 已经领取过
 
-**Check**:
+**检查方法**：
 
 ```
-/arcpass admin lookup <player>
+/arcpass admin lookup <玩家名>
 ```
 
-### GUI Won't Open
+### GUI 打不开
 
-**Causes**:
+**可能原因**：
 
-1. Plugin not fully initialized
-2. License not activated
-3. GUI config error
+1. 插件未完全初始化
+2. 许可证未激活
+3. GUI 配置文件错误
 
-**Solutions**:
+**解决方案**：
 
-1. Wait for plugin to fully load
-2. Check license status
-3. Check `gui/*.yml` files for syntax errors
+1. 等待插件完全加载后再尝试
+2. 检查许可证状态
+3. 检查 `gui/*.yml` 文件是否有语法错误
 
-### Quest Progress Not Updating
+### 任务进度不更新
 
-**Causes**:
+**可能原因**：
 
-1. Quest type configured incorrectly
-2. Target parameters don't match
-3. Quest conditions not met
+1. 任务类型配置错误
+2. 目标参数不匹配
+3. 任务条件未满足
 
-**Troubleshoot**:
+**排查步骤**：
 
-1. Verify quest type spelling
-2. Check target parameters (block/entity names)
-3. Enable debug mode:
+1. 确认任务类型拼写正确
+2. 检查目标参数（如方块/生物名称）
+3. 开启调试模式查看详细日志
 
    ```
    /arcpass admin debug toggle
    ```
 
-## Compatibility Issues
+## 兼容性问题
 
-### Folia Server Issues
+### Folia 服务端问题
 
-**Q: Does ArcPass support Folia?**
+**Q: ArcPass 支持 Folia 吗？**
 
-A: Yes, fully supported. ArcPass auto-detects Folia and uses compatible schedulers.
+A: 完全支持。ArcPass 会自动检测 Folia 并使用兼容的调度器。
 
-**Q: Some features don't work on Folia?**
+**Q: 某些功能在 Folia 上不工作？**
 
-A: Check if third-party plugins support Folia:
+A: 检查第三方插件是否支持 Folia：
 
-- DeluxeTags doesn't support Folia - use TAB instead
-- Some economy plugins may be incompatible
+- DeluxeTags 不支持 Folia，请使用 TAB 替代
+- 部分经济插件可能不兼容
 
-### PlaceholderAPI Variables Not Showing
+### PlaceholderAPI 变量不显示
 
-**Causes**:
+**可能原因**：
 
-1. PlaceholderAPI not installed
-2. Expansion not registered
-3. Variable name typo
+1. PlaceholderAPI 未安装
+2. 扩展未注册成功
+3. 变量名拼写错误
 
-**Solutions**:
+**解决方案**：
 
-1. Install PlaceholderAPI 2.11.0+
-2. Restart server
-3. Test with `/papi parse me %arcpass_level%`
-4. Check variable names (case-sensitive)
+1. 安装 PlaceholderAPI 2.11.0+
+2. 重启服务器
+3. 使用 `/papi parse me %arcpass_level%` 测试
+4. 检查变量名是否正确（区分大小写）
 
-### Economy Plugin Not Working
+### 经济插件不工作
 
-**Symptom**: Tier purchase or economy rewards fail
+**症状**：购买档位或经济奖励失败
 
-**Solutions**:
+**解决方案**：
 
-1. Confirm Vault or CMI is installed
-2. Confirm economy plugin (e.g., EssentialsX) works
-3. Test: `/eco give <player> 100`
+1. 确认 Vault 或 CMI 已安装
+2. 确认有经济插件（如 EssentialsX）
+3. 测试经济插件是否正常工作
 
-### MythicMobs/Jobs Quest Not Triggering
+   ```
+   /eco give <玩家> 100
+   ```
 
-**Causes**:
+### MythicMobs/Jobs 任务不触发
 
-1. Incompatible plugin version
-2. Wrong ID configuration
-3. Event not firing properly
+**可能原因**：
 
-**Solutions**:
+1. 插件版本不兼容
+2. ID 配置错误
+3. 事件未正确触发
 
-1. Update to recommended versions
-2. Check IDs (case-sensitive)
-3. Enable debug mode to confirm events
+**解决方案**：
 
-## Performance Issues
+1. 更新到推荐版本
+2. 检查 ID 是否区分大小写
+3. 开启调试模式确认事件触发
 
-### Server Lag
+## 性能问题
 
-**Causes**:
+### 服务器卡顿
 
-1. Slow database operations
-2. Frequent leaderboard calculations
-3. Too many online players
+**可能原因**：
 
-**Optimizations**:
+1. 数据库操作缓慢
+2. 排行榜计算频繁
+3. 同时在线玩家过多
 
-1. Use MySQL instead of SQLite
-2. Increase cache times
-3. Optimize connection pool
+**优化建议**：
+
+1. 使用 MySQL 替代 SQLite
+2. 增加缓存时间
+3. 优化数据库连接池配置
 
 ```yaml
 # database.yml
@@ -221,91 +225,91 @@ mysql:
     minimum-idle: 5
 ```
 
-### High Memory Usage
+### 内存占用高
 
-**Solutions**:
+**解决方案**：
 
-1. Check player data cache settings
-2. Reduce unnecessary quest types
-3. Periodically clean old data
+1. 检查玩家数据缓存配置
+2. 减少不必要的任务类型
+3. 定期清理旧数据
 
-## Configuration Issues
+## 配置问题
 
-### YAML Syntax Errors
+### YAML 语法错误
 
-**Symptom**: Config files fail to load
+**症状**：配置文件加载失败
 
-**Common Errors**:
+**常见错误**：
 
-1. Using tabs instead of spaces for indent
-2. Unescaped special characters
-3. Missing space after colons
+1. 缩进使用了 Tab 而不是空格
+2. 特殊字符未转义
+3. 冒号后缺少空格
 
-**Suggestions**:
+**建议**：
 
-- Use a YAML-aware editor (VSCode + YAML plugin)
-- Use online YAML validators
+- 使用支持 YAML 的编辑器（VSCode + YAML 插件）
+- 使用在线 YAML 验证工具检查
 
-### Garbled Chinese/Unicode
+### 中文乱码
 
-**Solutions**:
+**解决方案**：
 
-1. Ensure config files are saved as UTF-8
-2. Convert encoding in Notepad++ or VSCode
-3. Regenerate config files
+1. 确保配置文件使用 UTF-8 编码保存
+2. 在 Notepad++ 或 VSCode 中转换编码
+3. 重新生成配置文件
 
-## Getting Help
+## 获取帮助
 
-If these solutions don't work:
+如果以上方案无法解决您的问题：
 
-1. **View detailed logs**
+1. **查看详细日志**
 
    ```
    /arcpass admin debug toggle
    ```
 
-2. **Export diagnostics**
+2. **导出诊断信息**
 
    ```
    /arcpass admin debug
    ```
 
-3. **Contact support**
+3. **联系支持**
 
 <LinkGrid :cols="2">
   <LinkCard
     icon="chat"
-    title="Discord Community"
-    description="Get real-time help from our community"
+    title="Discord 社区"
+    description="加入社区获取实时帮助"
     href="https://discord.gg/dcsBw5Z5ZT"
     :external="true"
   />
   <LinkCard
     icon="mail"
-    title="Email Support"
+    title="邮件支持"
     description="starry_cbz@outlook.com"
     href="mailto:starry_cbz@outlook.com"
     :external="true"
   />
   <LinkCard
     icon="ticket"
-    title="License Center"
-    description="View license status and tickets"
+    title="许可证中心"
+    description="查看许可证状态和工单"
     href="https://license.kitemc.com/dashboard/licenses"
     :external="true"
   />
   <LinkCard
     icon="bug"
     title="GitHub Issues"
-    description="Submit bug reports"
+    description="提交 Bug 报告"
     href="https://github.com/KiteMC/ArcPass/issues"
     :external="true"
   />
 </LinkGrid>
 
-When submitting issues, please provide:
+提交问题时请提供：
 
-- Server type and version
-- ArcPass version
-- Error log screenshots
-- Relevant config files
+- 服务端类型和版本
+- ArcPass 版本
+- 错误日志截图
+- 相关配置文件

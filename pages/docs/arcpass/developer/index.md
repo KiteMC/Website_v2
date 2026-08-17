@@ -1,34 +1,34 @@
-# Developer API
+# 开发者 API
 
-::: warning Professional License Required
-The Developer API is only available with the **Professional** plan. If you are using the Standard plan, `ArcPassProvider.isLoaded()` will return `false`. You can upgrade your license at any time on the <InlineLink href="https://license.kitemc.com/products/arcpass" :external="true">License Center</InlineLink>.
+::: warning 需要专业版许可证
+开发者 API 仅在**专业版**许可证下可用。标准版用户调用 `ArcPassProvider.isLoaded()` 将返回 `false`。您可以随时在 <InlineLink href="https://license.kitemc.com/products/arcpass" :external="true">许可证中心</InlineLink> 升级。
 :::
 
-ArcPass provides a complete API for third-party plugin integration.
+ArcPass 提供完整的 API 供第三方插件集成和扩展。
 
-## API Overview
+## API 概述
 
-The ArcPass API module (`arcpass-api`) is open source under the MIT License.
+ArcPass API 模块 (`arcpass-api`) 采用 MIT 许可证开源，可自由使用。
 
-### Features
+### 功能
 
-- Get and modify player data
-- Query passes, quests, rewards
-- Manage season system
-- Listen to events
-- Trigger custom quest progress
+- 获取和修改玩家数据
+- 查询通行证、任务、奖励信息
+- 管理赛季系统
+- 监听各种事件
+- 触发自定义任务进度
 
-### Documentation
+### 文档目录
 
 <LinkGrid :cols="3">
-  <LinkCard icon="rocket" title="Getting Started" description="Add dependency and basic usage" href="./getting-started" />
-  <LinkCard icon="lightning-bolt" title="Event System" description="Listen to ArcPass events" href="./events" />
-  <LinkCard icon="code" title="Code Examples" description="Common scenario examples" href="./examples" />
+  <LinkCard icon="rocket" title="API 入门" description="添加依赖和基本使用" href="./getting-started" />
+  <LinkCard icon="lightning-bolt" title="事件系统" description="监听 ArcPass 事件" href="./events" />
+  <LinkCard icon="code" title="代码示例" description="常见场景代码示例" href="./examples" />
 </LinkGrid>
 
-## Quick Start
+## 快速开始
 
-### Add Dependency
+### 添加依赖
 
 **Maven**
 
@@ -60,73 +60,76 @@ dependencies {
 }
 ```
 
-### Get API Instance
+### 获取 API 实例
 
 ```java
 import com.kitemc.arcpass.api.ArcPassAPI;
 import com.kitemc.arcpass.api.ArcPassProvider;
 
+// 获取 API 实例
 ArcPassAPI api = ArcPassProvider.get();
 ```
 
-### Basic Example
+### 基本示例
 
 ```java
-// Get player level
+// 获取玩家等级
 api.getPlayerData(player.getUniqueId())
     .thenAccept(optionalData -> {
         optionalData.ifPresent(data -> {
             int level = data.getLevel();
             long exp = data.getTotalExperience();
-            player.sendMessage("Your level: " + level);
+            player.sendMessage("你的等级: " + level);
         });
     });
 
-// Give experience
+// 给予经验
 api.addExperience(player.getUniqueId(), 100)
     .thenAccept(newTotal -> {
-        player.sendMessage("Gained 100 XP! Total: " + newTotal);
+        player.sendMessage("获得 100 经验！总经验: " + newTotal);
     });
 ```
 
-## API Interface
+## API 接口
 
 ### ArcPassAPI
 
-Main API interface:
+主要 API 接口，提供以下功能：
 
 ```java
 public interface ArcPassAPI {
-    // Player data
+    // 玩家数据
     CompletableFuture<Optional<PlayerData>> getPlayerData(UUID playerId);
     PlayerData getPlayerDataIfCached(UUID playerId);
     CompletableFuture<Long> addExperience(UUID playerId, long amount);
     CompletableFuture<Boolean> claimReward(UUID playerId, int level, String tierId);
 
-    // Pass system
+    // 通行证系统
     Collection<Pass> getPasses();
     Optional<Pass> getPass(String passId);
     Pass getDefaultPass();
 
-    // Quest system
+    // 任务系统
     Collection<Quest> getActiveQuests(UUID playerId);
     CompletableFuture<Boolean> completeQuest(UUID playerId, String questId);
     void triggerCustomEvent(UUID playerId, String eventId, Object data);
 
-    // Season system
+    // 赛季系统
     Optional<Season> getCurrentSeason();
     CompletableFuture<Boolean> startNewSeason(String seasonId);
     CompletableFuture<Boolean> endSeason();
 
-    // Utilities
+    // 工具
     void reload();
     String getVersion();
 }
 ```
 
-## Data Models
+## 数据模型
 
 ### PlayerData
+
+玩家数据接口：
 
 ```java
 public interface PlayerData {
@@ -146,6 +149,8 @@ public interface PlayerData {
 
 ### Pass
 
+通行证接口：
+
 ```java
 public interface Pass {
     String getId();
@@ -161,6 +166,8 @@ public interface Pass {
 
 ### Quest
 
+任务接口：
+
 ```java
 public interface Quest {
     String getId();
@@ -175,6 +182,8 @@ public interface Quest {
 
 ### Season
 
+赛季接口：
+
 ```java
 public interface Season {
     String getId();
@@ -188,39 +197,41 @@ public interface Season {
 }
 ```
 
-## Async Operations
+## 异步操作
 
-ArcPass API uses `CompletableFuture` for async operations:
+ArcPass API 大量使用 `CompletableFuture` 处理异步操作：
 
 ```java
+// 正确的异步处理方式
 api.getPlayerData(playerId)
     .thenAccept(data -> {
-        // Process data on async thread
+        // 在异步线程处理数据
     })
     .exceptionally(ex -> {
-        plugin.getLogger().warning("Failed: " + ex.getMessage());
+        // 处理异常
+        plugin.getLogger().warning("获取数据失败: " + ex.getMessage());
         return null;
     });
 
-// If main thread needed
+// 如果需要在主线程更新
 api.getPlayerData(playerId)
     .thenAccept(data -> {
         Bukkit.getScheduler().runTask(plugin, () -> {
-            // Update UI on main thread
+            // 在主线程更新 UI 或发送消息
         });
     });
 ```
 
-## Thread Safety
+## 线程安全
 
-- API methods can be called from any thread
-- Returned data objects are immutable or thread-safe
-- CompletableFuture callbacks may execute on any thread
+- API 方法可以从任何线程调用
+- 返回的数据对象是不可变的或线程安全的
+- `CompletableFuture` 的回调可能在任意线程执行
 
-## Next Steps
+## 下一步
 
 <LinkGrid :cols="3">
-  <LinkCard icon="rocket" title="Detailed Getting Started" description="Complete tutorial" href="./getting-started" />
-  <LinkCard icon="lightning-bolt" title="Event System" description="Event handling" href="./events" />
-  <LinkCard icon="code" title="Code Examples" description="Practical code samples" href="./examples" />
+  <LinkCard icon="rocket" title="API 入门详细指南" description="完整的入门教程" href="./getting-started" />
+  <LinkCard icon="lightning-bolt" title="事件系统文档" description="事件监听和处理" href="./events" />
+  <LinkCard icon="code" title="代码示例" description="实用代码示例" href="./examples" />
 </LinkGrid>

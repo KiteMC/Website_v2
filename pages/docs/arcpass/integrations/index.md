@@ -1,295 +1,297 @@
-# Third-Party Integrations
+# 第三方插件集成
 
-ArcPass supports integration with many popular plugins to extend functionality.
+ArcPass 支持与多种流行插件集成，扩展功能和玩法。
 
-## Integration Overview
+## 集成概览
 
-| Plugin | Function | Folia Support |
-|--------|----------|---------------|
-| Vault | Economy system | ✅ |
-| CMI | Economy (direct) | ✅ |
-| PlayerPoints | Points currency | ✅ |
-| CoinsEngine | Points currency | ✅ |
-| TokenManager | Points currency | ✅ |
-| LuckPerms | Permission rewards | ✅ |
-| PlaceholderAPI | Placeholder variables | ✅ |
-| DeluxeTags | Title rewards | ❌ |
-| TAB | Title rewards | ✅ |
-| NametagEdit | Title rewards | ❌ |
-| PlayerTitle | Title rewards | ✅ |
-| PlayerParticles | Cosmetic particle rewards | ✅ |
-| MythicMobs | Custom mob quests | ✅ |
-| Jobs Reborn | Job quests | ✅ |
-| Oraxen | Custom item rewards | ✅ |
-| ItemsAdder | Custom item rewards | ✅ |
+| 插件 | 功能 | Folia 支持 |
+|------|------|-----------|
+| Vault | 经济系统 | ✅ |
+| CMI | 经济系统（直接） | ✅ |
+| PlayerPoints | 点卷货币 | ✅ |
+| CoinsEngine | 点卷货币 | ✅ |
+| TokenManager | 点卷货币 | ✅ |
+| LuckPerms | 权限奖励 | ✅ |
+| PlaceholderAPI | 变量占位符 | ✅ |
+| DeluxeTags | 称号奖励 | ❌ |
+| TAB | 称号奖励 | ✅ |
+| NametagEdit | 称号奖励 | ❌ |
+| PlayerTitle | 称号奖励 | ✅ |
+| PlayerParticles | 装饰粒子奖励 | ✅ |
+| MythicMobs | 自定义怪物任务 | ✅ |
+| Jobs Reborn | 职业任务 | ✅ |
+| Oraxen | 自定义物品奖励 | ✅ |
+| ItemsAdder | 自定义物品奖励 | ✅ |
 
-## Economy System
+## 经济系统
 
 ### Vault
 
-Vault is the most common economy bridge plugin.
+Vault 是最常用的经济系统桥接插件。
 
-**Requirements:**
+**安装要求：**
 
 - Vault 1.7.3+
-- Any Vault-compatible economy plugin (e.g., EssentialsX)
+- 任意 Vault 兼容的经济插件（如 EssentialsX）
 
-**Uses:**
+**用途：**
 
-- Economy rewards
-- Tier purchases
+- 经济奖励（给予金币）
+- 购买通行证档位
 
-**Example:**
+**配置示例：**
 
 ```yaml
+# rewards/economy.yml
 reward_gold_1000:
   type: ECONOMY
-  display-name: "&6Gold x1000"
+  display-name: "&6金币 x1000"
   value: "1000"
 ```
 
 ### CMI
 
-CMI is a comprehensive server management plugin. ArcPass supports CMI economy directly.
+CMI 是一款功能全面的服务器管理插件，ArcPass 支持直接使用 CMI 经济。
 
-**Requirements:**
+**安装要求：**
 
 - CMI 9.0+
 
-CMI economy takes priority over Vault when both are installed.
+CMI 经济优先于 Vault，如果同时安装，将使用 CMI。
 
-## Points System
+## 点卷系统
 
-ArcPass supports points/voucher plugins as an alternative currency for tier purchases.
+ArcPass 支持多款点卷插件作为替代货币，用于购买通行证档位。
 
 ### PlayerPoints
 
-PlayerPoints is the most popular points plugin.
+PlayerPoints 是最流行的点卷插件。
 
-**Requirements:**
+**安装要求：**
 
 - PlayerPoints 2.0+
 
-**Uses:**
+**用途：**
 
-- Tier purchases (via `currency-type: points`)
+- 购买通行证档位（通过 `currency-type: points` 配置）
 
 ### CoinsEngine
 
-CoinsEngine is a multi-currency economy plugin.
+CoinsEngine 是一款多币种经济插件。
 
-**Requirements:**
+**安装要求：**
 
 - CoinsEngine 2.0+
 
 ### TokenManager
 
-TokenManager provides a token-based currency system.
+TokenManager 提供基于 Token 的货币系统。
 
-**Requirements:**
+**安装要求：**
 
 - TokenManager 3.0+
 
-### Points Priority
+### 点卷优先级
 
-When multiple points plugins are installed, ArcPass uses the first available:
+当同时安装多个点卷插件时，ArcPass 按以下顺序使用第一个可用的：
 
 1. **PlayerPoints**
 2. **CoinsEngine**
 3. **TokenManager**
 
-### Using Points for Tier Purchases
+### 使用点卷购买档位
 
-To use points instead of Vault/CMI economy for a tier, set `currency-type: points` in the pass configuration:
+在通行证配置中，将 `currency-type` 设置为 `points` 即可使用点卷替代 Vault/CMI 经济：
 
 ```yaml
 tiers:
   premium:
-    display-name: "&6Premium"
+    display-name: "&6高级版"
     price: 980
-    currency-type: points  # Use points plugin instead of Vault/CMI
+    currency-type: points  # 使用点卷插件替代 Vault/CMI
 ```
 
-See <InlineLink href="../config/passes">Pass Configuration</InlineLink> for details.
+详见 <InlineLink href="../config/passes">通行证配置</InlineLink>。
 
-## Permission System
+## 权限系统
 
 ### LuckPerms
 
-LuckPerms is the most popular permission plugin.
+LuckPerms 是最流行的权限管理插件。
 
-**Requirements:**
+**安装要求：**
 
 - LuckPerms 5.4+
 
-**Features:**
+**功能：**
 
-- Permission rewards
-- Group rewards
-- Prefix/suffix
-- Temporary permissions
+- 权限奖励
+- 权限组奖励
+- 前缀/后缀设置
+- 临时权限
 
-**Examples:**
+**配置示例：**
 
 ```yaml
-# Permanent permission
+# 永久权限奖励
 reward_fly:
   type: PERMISSION
-  display-name: "&bFlight"
+  display-name: "&b飞行权限"
   value: "essentials.fly"
 
-# Temporary (7 days)
+# 临时权限（7天）
 reward_temp_vip:
   type: PERMISSION
-  display-name: "&e7-Day VIP"
+  display-name: "&e7天VIP"
   value: "group.vip"
   data:
     duration: 604800
 
-# Group
+# 权限组
 reward_rank_elite:
   type: PERMISSION
-  display-name: "&6Elite Rank"
+  display-name: "&6晋升精英"
   value: "group.elite"
   data:
     type: group
 ```
 
-## Title System
+## 称号系统
 
 ### DeluxeTags
 
-DeluxeTags is a title management plugin.
+DeluxeTags 是一款称号管理插件。
 
 ::: warning
-DeluxeTags does not support Folia. Use TAB instead on Folia servers.
+DeluxeTags 不支持 Folia。如果您使用 Folia 服务端，请使用 TAB 替代。
 :::
 
-**Requirements:**
+**安装要求：**
 
 - DeluxeTags 1.8+
-- LuckPerms (recommended)
+- LuckPerms（推荐）
 
-**Example:**
+**配置示例：**
 
 ```yaml
 reward_title_champion:
   type: TITLE
-  display-name: "&6Champion Title"
-  value: "&e[&6Champion&e] "
+  display-name: "&6冠军称号"
+  value: "&e[&6冠军&e] "
   data:
     tag-id: "champion"
+    description: "战斗通行证最终奖励"
     priority: 100
     auto-equip: true
 ```
 
 ### TAB
 
-TAB is a Folia-compatible nametag/tablist plugin.
+TAB 是一款支持 Folia 的名牌/Tab 列表管理插件。
 
-**Requirements:**
+**安装要求：**
 
 - TAB 4.0+
 
-**Example:**
+**配置示例：**
 
 ```yaml
 reward_title_legend:
   type: TITLE
-  display-name: "&dLegend Title"
-  value: "&5[&dLegend&5] "
+  display-name: "&d传奇称号"
+  value: "&5[&d传奇&5] "
   data:
-    position: prefix
+    position: prefix  # prefix 或 suffix
     persistent: true
 ```
 
 ### NametagEdit
 
-NametagEdit is a nametag editing plugin.
+NametagEdit 是一款名牌编辑插件。
 
-**Requirements:**
+**安装要求：**
 
 - NametagEdit 4.0+
 
-NametagEdit sets titles as player nametag prefixes. It is used as a fallback when other title plugins are not available.
+NametagEdit 将称号设置为玩家名牌前缀。当其他称号插件不可用时作为回退方案。
 
 ### PlayerTitle
 
-PlayerTitle is a popular title plugin with built-in particle effects, buff system, and GUI management.
+PlayerTitle 是一款功能丰富的称号插件，支持粒子特效、属性 Buff 和 GUI 管理。
 
-**Requirements:**
+**安装要求：**
 
 - PlayerTitle 4.0+
 
-ArcPass integrates with PlayerTitle via its developer API. Titles must be pre-created in PlayerTitle, then referenced by their integer ID in the reward config.
+ArcPass 通过 PlayerTitle 的开发者 API 进行集成。称号需要先在 PlayerTitle 中创建，然后在奖励配置中引用其整型 ID。
 
-**Example:**
+**配置示例：**
 
 ```yaml
-# Using data.title-id to specify PlayerTitle's integer ID
+# 使用 data.title-id 指定 PlayerTitle 的称号 ID
 reward_arena_champion:
   type: TITLE
-  display-name: "&6Arena Champion"
-  value: "&e[&6Champion&e] "
+  display-name: "&6竞技场冠军"
+  value: "&e[&6冠军&e] "
   data:
-    title-id: 5  # PlayerTitle's title ID
+    title-id: 5  # PlayerTitle 中的称号 ID
 
-# Or embed the ID in the reward key
+# 或将 ID 嵌入奖励键名
 title_5:
   type: TITLE
-  display-name: "&6Arena Champion"
-  value: "&e[&6Champion&e] "
+  display-name: "&6竞技场冠军"
+  value: "&e[&6冠军&e] "
 ```
 
 ::: tip
-For time-limited titles via PlayerTitle, use a COMMAND reward type:
+如需通过 PlayerTitle 发放限时称号，可使用 COMMAND 奖励类型：
 
 ```yaml
 reward_temp_title:
   type: COMMAND
-  display-name: "&eLimited Title (30 days)"
+  display-name: "&e限时称号（30天）"
   value: "plt player setTitle %player% 5 30"
 ```
 :::
 
-### Title Priority
+### 称号优先级
 
-ArcPass tries to grant titles in this order:
+ArcPass 按以下顺序尝试发放称号奖励：
 
-1. **DeluxeTags** - If available and not Folia
-2. **TAB** - If available (Folia compatible)
-3. **PlayerTitle** - If available (API integration)
-4. **NametagEdit** - If available
-5. **LuckPerms** - As prefix/suffix fallback
+1. **DeluxeTags** - 如果可用且非 Folia
+2. **TAB** - 如果可用（支持 Folia）
+3. **PlayerTitle** - 如果可用（API 集成）
+4. **NametagEdit** - 如果可用
+5. **LuckPerms** - 作为前缀/后缀回退
 
-## Cosmetic System
+## 装饰系统
 
 ### PlayerParticles
 
-PlayerParticles is the most popular cosmetic particle plugin, offering 118+ particle effects and 38 styles.
+PlayerParticles 是最流行的装饰粒子插件，提供 118+ 种粒子效果和 38 种样式。
 
-**Requirements:**
+**安装要求：**
 
 - PlayerParticles 8.0+
 
-ArcPass integrates with PlayerParticles via its developer API. When a COSMETIC reward with `data.particle` is claimed, the particle effect is automatically applied to the player.
+ArcPass 通过 PlayerParticles 的开发者 API 进行集成。当玩家领取带有 `data.particle` 的 COSMETIC 奖励时，粒子效果会自动应用到玩家身上。
 
-**Example:**
+**配置示例：**
 
 ```yaml
 cosmetic_particle_flame:
   type: COSMETIC
-  display-name: "&cFlame Particle Effect"
-  description: "Unlock flame particle effect"
+  display-name: "&c火焰粒子特效"
+  description: "解锁火焰粒子效果"
   icon: BLAZE_POWDER
   value: "particle_flame"
   data:
-    particle: FLAME       # PlayerParticles effect name
-    style: trail          # PlayerParticles style name
+    particle: FLAME       # PlayerParticles 效果名称
+    style: trail          # PlayerParticles 样式名称
 
 cosmetic_particle_enchant:
   type: COSMETIC
-  display-name: "&5Enchant Particle Effect"
+  display-name: "&5附魔粒子特效"
   icon: ENCHANTED_BOOK
   value: "particle_enchant"
   data:
@@ -297,115 +299,130 @@ cosmetic_particle_enchant:
     style: spiral
 ```
 
-**Common particle effects:** `FLAME`, `END_ROD`, `ENCHANT`, `TOTEM_OF_UNDYING`, `HEART`, `CRIT`, `SPELL_WITCH`, `DRIP_LAVA`
+**常用粒子效果：** `FLAME`、`END_ROD`、`ENCHANT`、`TOTEM_OF_UNDYING`、`HEART`、`CRIT`、`SPELL_WITCH`、`DRIP_LAVA`
 
-**Common styles:** `normal`, `spiral`, `trail`, `aura`, `burst`, `orbit`, `pulse`
+**常用样式：** `normal`、`spiral`、`trail`、`aura`、`burst`、`orbit`、`pulse`
 
-## Quest Triggers
+## 任务触发器
 
 ### MythicMobs
 
-MythicMobs allows custom mob kill quests.
+MythicMobs 是一款自定义怪物插件，可创建击杀 MythicMobs 怪物的任务。
 
-**Requirements:**
+**安装要求：**
 
 - MythicMobs 5.0+
 
-**Quest Config:**
+**任务配置：**
 
 ```yaml
+# quests/daily/mythic.yml
 kill_dragon_boss:
   type: daily
-  display-name: "&cSlay the Dragon"
+  display-name: "&c击杀龙王"
   objectives:
     - type: mythicmobs_kill
-      mob: DragonBoss
+      mob: DragonBoss  # MythicMobs 怪物 ID
       amount: 1
+```
+
+也可以使用通用格式：
+
+```yaml
+objectives:
+  - type: kill
+    entity: "mythicmob:DragonBoss"
+    amount: 1
 ```
 
 ### Jobs Reborn
 
-Jobs Reborn enables job experience quests.
+Jobs Reborn 是一款职业系统插件。
 
-**Requirements:**
+**安装要求：**
 
 - Jobs Reborn 5.0+
 
-**Quest Config:**
+**任务配置：**
 
 ```yaml
+# quests/weekly/jobs.yml
 miner_exp_1000:
   type: weekly
-  display-name: "&eMiner Experience"
+  display-name: "&e矿工经验"
+  description:
+    - "&7获得 1000 矿工职业经验"
   objectives:
     - type: jobs_exp
       job: Miner
       amount: 1000
 ```
 
-## Custom Items
+## 自定义物品
 
 ### Oraxen
 
-Oraxen provides custom items and resource packs.
+Oraxen 是一款自定义物品和资源包插件。
 
-**Requirements:**
+**安装要求：**
 
 - Oraxen 1.150+
 
-**Item Format:**
+**物品格式：**
 
 ```
-oraxen:<item_id>
+oraxen:<物品ID>
 ```
 
-**Example:**
+**配置示例：**
 
 ```yaml
 reward_custom_sword:
   type: ITEM
-  display-name: "&6Legendary Sword"
+  display-name: "&6传说之剑"
+  icon: DIAMOND_SWORD
   value: "oraxen:legendary_sword"
   amount: 1
 ```
 
 ### ItemsAdder
 
-ItemsAdder is another custom item plugin.
+ItemsAdder 是另一款自定义物品插件。
 
-**Requirements:**
+**安装要求：**
 
 - ItemsAdder 3.5+
 
-**Item Format:**
+**物品格式：**
 
 ```
-itemsadder:<namespace>:<item_id>
+itemsadder:<命名空间>:<物品ID>
 ```
 
-**Example:**
+**配置示例：**
 
 ```yaml
 reward_magic_gem:
   type: ITEM
-  display-name: "&dMagic Gem"
+  display-name: "&d魔法宝石"
+  icon: EMERALD
   value: "itemsadder:myitems:magic_gem"
   amount: 5
 ```
 
 ## PlaceholderAPI
 
-PlaceholderAPI lets you use ArcPass data in other plugins.
+PlaceholderAPI 让您可以在其他插件中使用 ArcPass 的数据。
 
-**Requirements:**
+**安装要求：**
 
 - PlaceholderAPI 2.11.0+
 
-See <InlineLink href="../placeholders/">PlaceholderAPI Documentation</InlineLink> for full variable list.
+详细的变量列表请查看 <InlineLink href="../placeholders/">PlaceholderAPI 文档</InlineLink>。
 
-## Check Integration Status
+## 检测集成状态
 
-On startup, console shows integration status:
+启动服务器后，查看控制台日志确认集成状态：
 
 ```
 [ArcPass] Vault economy hook enabled.
@@ -421,36 +438,36 @@ On startup, console shows integration status:
 [ArcPass] PlayerParticles hook enabled (API mode).
 ```
 
-## Troubleshooting
+## 故障排除
 
-### Economy Rewards Not Working
+### 经济奖励不生效
 
-1. Confirm Vault or CMI is installed
-2. Confirm economy plugin works
-3. Test: `/eco give <player> 100`
+1. 确认 Vault 和经济插件已安装
+2. 检查经济插件是否正常工作
+3. 查看控制台是否有错误信息
 
-### Title Rewards Not Working
+### 称号奖励不生效
 
-1. Confirm a title plugin is installed (DeluxeTags, TAB, PlayerTitle, or NametagEdit)
-2. Use TAB on Folia
-3. For PlayerTitle: ensure the title ID exists in PlayerTitle
-4. Check LuckPerms configuration as fallback
+1. 确认称号插件已安装（DeluxeTags、TAB、PlayerTitle 或 NametagEdit）
+2. 对于 Folia，必须使用 TAB
+3. 使用 PlayerTitle 时，确保称号 ID 在 PlayerTitle 中已存在
+4. LuckPerms 可作为最终回退方案
 
-### Cosmetic/Particle Rewards Not Working
+### 装饰/粒子奖励不生效
 
-1. Confirm PlayerParticles is installed (8.0+)
-2. Check the `data.particle` value matches a valid PlayerParticles effect name
-3. Check the `data.style` value matches a valid PlayerParticles style name
-4. Ensure the player is online when claiming the reward
+1. 确认 PlayerParticles 已安装（8.0+）
+2. 检查 `data.particle` 值是否与 PlayerParticles 的效果名称匹配
+3. 检查 `data.style` 值是否与 PlayerParticles 的样式名称匹配
+4. 确保玩家在领取奖励时在线
 
-### MythicMobs Quest Not Triggering
+### MythicMobs 任务不触发
 
-1. Confirm compatible version
-2. Check mob ID (case-sensitive)
-3. Ensure player is the killer
+1. 确认 MythicMobs 版本兼容
+2. 检查怪物 ID 是否正确（区分大小写）
+3. 确保玩家是击杀者
 
-### Custom Items Not Showing
+### 自定义物品不显示
 
-1. Confirm compatible plugin version
-2. Check item ID format
-3. Ensure item exists in the plugin
+1. 确认 Oraxen/ItemsAdder 版本兼容
+2. 检查物品 ID 格式是否正确
+3. 确保物品在对应插件中已定义

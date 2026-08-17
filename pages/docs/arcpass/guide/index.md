@@ -1,80 +1,80 @@
-# Getting Started
+# 快速入门
 
-This guide will help you install and configure ArcPass in under 5 minutes.
+本指南将帮助您在 5 分钟内完成 ArcPass 的安装和基本配置。
 
-## Prerequisites
+## 前置要求
 
-Before starting, ensure your server meets these requirements:
+在开始之前，请确保您的服务器满足以下要求：
 
-| Requirement | Minimum Version |
-|-------------|-----------------|
-| Minecraft Server | Paper 1.18+ / Spigot 1.18+ / Folia 1.20+ |
-| Java | 17 or higher |
-| License | Valid ArcPass license key |
+| 要求 | 最低版本 |
+|------|----------|
+| Minecraft 服务端 | Paper 1.18+ / Spigot 1.18+ / Folia 1.20+ |
+| Java | 17 或更高版本 |
+| 许可证 | 有效的 ArcPass 许可证密钥 |
 
-### Optional Dependencies
+### 可选依赖
 
-| Plugin | Purpose |
-|--------|---------|
-| Vault | Economy system support |
-| PlaceholderAPI | Placeholder variables |
-| LuckPerms | Permission rewards |
+| 插件 | 用途 |
+|------|------|
+| Vault | 经济系统支持 |
+| PlaceholderAPI | 变量占位符支持 |
+| LuckPerms | 权限奖励支持 |
 
-## Step 1: Install the Plugin
+## 步骤 1：安装插件
 
-1. Download the latest `ArcPass-x.x.x.jar` from the <InlineLink href="../download">download page</InlineLink>
-2. Place the JAR file in your server's `plugins` folder
-3. Restart the server
+1. 从 <InlineLink href="../download">下载页面</InlineLink> 获取最新版本的 `ArcPass-x.x.x.jar`
+2. 将 JAR 文件放入服务器的 `plugins` 文件夹
+3. 重启服务器
 
-On first startup, the plugin generates default configuration files:
+首次启动时，插件会生成默认配置文件：
 
 ```
 plugins/ArcPass/
-├── config.yml          # Main configuration
-├── database.yml        # Database settings
-├── license.yml         # License configuration
-├── lang/               # Language files
-├── passes/             # Pass configurations
-├── quests/             # Quest configurations
-├── rewards/            # Reward definitions
-└── gui/                # GUI configurations
+├── config.yml          # 主配置
+├── database.yml        # 数据库配置
+├── license.yml         # 许可证配置
+├── lang/               # 语言文件
+├── passes/             # 通行证配置
+├── quests/             # 任务配置
+├── rewards/            # 奖励配置
+└── gui/                # GUI 配置
 ```
 
-## Step 2: Activate License
+## 步骤 2：激活许可证
 
-Edit `plugins/ArcPass/license.yml`:
+编辑 `plugins/ArcPass/license.yml`：
 
 ```yaml
-# License key (obtained from KiteMC after purchase)
+# 许可证密钥（从 KiteMC 购买后获取）
 license-key: "YOUR-LICENSE-KEY-HERE"
 
-# Show license status messages
+# 是否显示许可证状态信息
 show-status: true
 ```
 
-Save the file and run `/arcpass admin reload` or restart the server.
+保存文件后，执行 `/arcpass admin reload` 或重启服务器。
 
-::: tip How to get a license?
-Visit <InlineLink href="https://license.kitemc.com/products/arcpass" :external="true">KiteMC License Center</InlineLink> to purchase a license. After purchase, you can view your key on the <InlineLink href="https://license.kitemc.com/dashboard/licenses" :external="true">License Management Page</InlineLink>.
+::: tip 如何获取许可证？
+访问 <InlineLink href="https://license.kitemc.com/products/arcpass" :external="true">KiteMC 许可证中心</InlineLink> 购买许可证。购买后，您可以在 <InlineLink href="https://license.kitemc.com/dashboard/licenses" :external="true">许可证管理页面</InlineLink> 查看您的密钥。
 :::
 
-## Step 3: Basic Configuration
+## 步骤 3：基本配置
 
-### 3.1 Language Setting
+### 3.1 语言设置
 
-Edit `config.yml` to set the default language:
+编辑 `config.yml`，设置默认语言：
 
 ```yaml
 locale:
-  # Default language for new players
+  # 新玩家的默认语言
   default: zh_CN
-  # Allow players to change their language
+  # 是否允许玩家更改语言
   allow-change: true
 ```
 
-### 3.2 Database Configuration
+### 3.2 数据库配置
 
-Default uses SQLite, no additional setup needed. For MySQL:
+默认使用 SQLite，无需额外配置。如需使用 MySQL：
 
 ```yaml
 # database.yml
@@ -87,88 +87,88 @@ mysql:
   password: your_password
 ```
 
-## Step 4: Start a Season
+## 步骤 4：开启赛季
 
-ArcPass requires an active season to function properly.
+ArcPass 需要一个活动的赛季才能正常工作。
 
-### Option 1: Using Commands
+### 方式一：使用命令
 
 ```
-/arcpass admin season start Season1
+/arcpass admin season start 第一赛季
 ```
 
-### Option 2: Using Admin GUI
+### 方式二：使用管理界面
 
-1. Run `/arcpass admin` to open admin panel
-2. Click "Start Season" button
-3. Enter season name in chat
-4. Confirm to start
-
-<div style="margin: 1rem 0;">
-  <img src="/images/arcpass/screenshot-admin-panel.png" alt="Admin Panel" style="border-radius: 8px; max-width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
-  <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">Admin Panel Interface</p>
-</div>
-
-## Step 5: Test Features
-
-Now you can test ArcPass basic features:
-
-| Command | Description |
-|---------|-------------|
-| `/arcpass` | Open main pass interface |
-| `/arcpass quests` | View current quests |
-| `/arcpass level` | View level and experience |
-| `/arcpass admin` | Open admin panel (requires permission) |
+1. 执行 `/arcpass admin` 打开管理面板
+2. 点击「开启赛季」按钮
+3. 在聊天框输入赛季名称
+4. 确认开启
 
 <div style="margin: 1rem 0;">
-  <img src="/images/arcpass/screenshot-main-menu.png" alt="Main Menu" style="border-radius: 8px; max-width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
-  <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">ArcPass Main Menu (<code>/arcpass</code>)</p>
+  <img src="/images/arcpass/screenshot-admin-panel.png" alt="管理面板" style="border-radius: 8px; max-width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+  <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">管理面板界面</p>
 </div>
 
-## Next Steps
+## 步骤 5：测试功能
 
-Congratulations! You've completed the basic ArcPass setup. Next you can:
+现在您可以测试 ArcPass 的基本功能：
+
+| 命令 | 说明 |
+|------|------|
+| `/arcpass` | 打开通行证主界面 |
+| `/arcpass quests` | 查看当前任务 |
+| `/arcpass level` | 查看等级和经验 |
+| `/arcpass admin` | 打开管理面板（需要权限） |
+
+<div style="margin: 1rem 0;">
+  <img src="/images/arcpass/screenshot-main-menu.png" alt="主菜单" style="border-radius: 8px; max-width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);" />
+  <p style="text-align: center; color: var(--vp-c-text-2); margin-top: 8px; font-size: 0.9em;">ArcPass 主菜单（<code>/arcpass</code>）</p>
+</div>
+
+## 下一步
+
+恭喜！您已经完成了 ArcPass 的基本配置。接下来您可以：
 
 <LinkGrid :cols="2">
   <LinkCard
     icon="ticket"
-    title="Configure Pass Tiers and Rewards"
-    description="Customize pass tiers and level rewards"
+    title="配置通行证等级和奖励"
+    description="自定义通行证档位和等级奖励"
     href="../config/passes"
   />
   <LinkCard
     icon="clipboard-list"
-    title="Set Up Quest System"
-    description="Configure daily, weekly, and seasonal quests"
+    title="设置任务系统"
+    description="配置日常、周常和赛季任务"
     href="../config/quests"
   />
   <LinkCard
     icon="color-swatch"
-    title="Customize GUI Interface"
-    description="Beautify your pass interface"
+    title="自定义 GUI 界面"
+    description="美化您的通行证界面"
     href="../config/gui"
   />
   <LinkCard
     icon="puzzle"
-    title="Integrate Third-Party Plugins"
-    description="Connect Vault, LuckPerms, and more"
+    title="集成第三方插件"
+    description="连接 Vault、LuckPerms 等插件"
     href="../integrations/"
   />
 </LinkGrid>
 
-## Need Help?
+## 遇到问题？
 
 <LinkGrid :cols="2">
   <LinkCard
     icon="question-mark-circle"
-    title="FAQ"
-    description="Check FAQ for common issues"
+    title="常见问题"
+    description="查看 FAQ 解决常见问题"
     href="../faq/"
   />
   <LinkCard
     icon="chat"
-    title="Discord Community"
-    description="Join our community for support"
+    title="Discord 社区"
+    description="加入社区获取帮助"
     href="https://discord.gg/dcsBw5Z5ZT"
     :external="true"
   />

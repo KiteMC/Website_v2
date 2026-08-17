@@ -1,222 +1,231 @@
-# Commands & Permissions
+# 命令与权限
 
-This page lists all ArcPass commands and permission nodes.
+本页面列出 ArcPass 的所有命令和权限节点。
 
-## Command Aliases
+## 命令别名
 
-The main command `/arcpass` supports these aliases:
+主命令 `/arcpass` 支持以下别名：
+
 - `/ap`
 - `/battlepass`
 - `/bp`
 - `/pass`
 
-## Player Commands
+## 玩家命令
 
-| Command | Description | Permission |
-|---------|-------------|------------|
-| `/arcpass` | Open main interface | `arcpass.use` |
-| `/arcpass help` | View help information | `arcpass.use` |
-| `/arcpass level` | View level and XP | `arcpass.command.level` |
-| `/arcpass quests` | View current quests | `arcpass.command.quests` |
-| `/arcpass claim <level> [tier]` | Claim level reward | `arcpass.command.claim` |
-| `/arcpass buy <tier>` | Purchase pass tier | `arcpass.command.buy` |
-| `/arcpass leaderboard [type]` | View leaderboard | `arcpass.use` |
-| `/arcpass top [type]` | View leaderboard (alias) | `arcpass.use` |
-| `/arcpass rewards` | View available rewards | `arcpass.use` |
+| 命令 | 说明 | 权限 |
+|------|------|------|
+| `/arcpass` | 打开通行证主界面 | `arcpass.use` |
+| `/arcpass help` | 查看帮助信息 | `arcpass.use` |
+| `/arcpass level` | 查看等级和经验 | `arcpass.command.level` |
+| `/arcpass quests` | 查看当前任务 | `arcpass.command.quests` |
+| `/arcpass claim <等级> [档位]` | 领取等级奖励 | `arcpass.command.claim` |
+| `/arcpass buy <档位>` | 购买通行证档位 | `arcpass.command.buy` |
+| `/arcpass leaderboard [类型]` | 查看排行榜 | `arcpass.use` |
+| `/arcpass top [类型]` | 查看排行榜（别名） | `arcpass.use` |
+| `/arcpass rewards` | 查看可领取奖励 | `arcpass.use` |
 
-### Command Details
+### 命令详解
 
 #### /arcpass level
 
-Displays player's current pass status:
+显示玩家当前的通行证状态：
 
 ```
 /arcpass level
 ```
 
-Output example:
+输出示例：
 ```
-=== Pass Level ===
-Current Level: 15
-Total XP: 2500
-Progress: 75/100 (75%)
-Owned Tiers: Free, Premium
+=== 通行证等级 ===
+当前等级: 15
+总经验值: 2500
+升级进度: 75/100 (75%)
+已拥有档位: 免费, 高级
 ```
 
 #### /arcpass claim
 
-Claim rewards for a specific level:
+领取指定等级的奖励：
 
 ```
-/arcpass claim <level> [tier]
+/arcpass claim <等级> [档位]
 ```
 
-- `level` - Level to claim (required)
-- `tier` - Tier to claim, defaults to `free` (optional)
+- `等级` - 要领取的等级（必填）
+- `档位` - 要领取的档位，默认为 `free`（可选）
 
-Examples:
+示例：
 ```
-/arcpass claim 10 free      # Claim level 10 free reward
-/arcpass claim 10 premium   # Claim level 10 premium reward
+/arcpass claim 10 free      # 领取 10 级免费奖励
+/arcpass claim 10 premium   # 领取 10 级高级奖励
 ```
 
 #### /arcpass buy
 
-Purchase a pass tier:
+购买通行证档位：
 
 ```
-/arcpass buy <tier>
+/arcpass buy <档位>
 ```
 
-Examples:
+示例：
 ```
-/arcpass buy premium   # Purchase premium pass
-/arcpass buy vip       # Purchase VIP pass
+/arcpass buy premium   # 购买高级通行证
+/arcpass buy vip       # 购买 VIP 通行证
 ```
 
 #### /arcpass leaderboard
 
-View leaderboards:
+查看排行榜：
 
 ```
-/arcpass leaderboard [type] [page]
+/arcpass leaderboard [类型] [页码]
 ```
 
-Type options:
-- `level` / `lvl` - Level ranking (default)
-- `exp` / `experience` - XP ranking
-- `season` - Season ranking
+类型选项：
+- `level` / `lvl` - 等级排行（默认）
+- `exp` / `experience` - 经验排行
+- `season` - 赛季排行
 
-## Admin Commands
+## 管理员命令
 
-All admin commands require `arcpass.admin` permission.
+所有管理员命令需要 `arcpass.admin` 权限。
 
-| Command | Description |
-|---------|-------------|
-| `/arcpass admin` | Open admin panel |
-| `/arcpass admin help` | View admin help |
-| `/arcpass admin reload` | Reload configuration |
-| `/arcpass admin season start <name>` | Start new season |
-| `/arcpass admin season end` | End current season |
-| `/arcpass admin season info` | View season info |
-| `/arcpass admin give <player> exp <amount>` | Give player XP |
-| `/arcpass admin give <player> level <amount>` | Give player levels |
-| `/arcpass admin set <player> tier <tier>` | Set player tier |
-| `/arcpass admin reset <player>` | Reset player data |
-| `/arcpass admin lookup <player>` | Query player data |
-| `/arcpass admin quest complete <player> <quest_id>` | Complete quest |
-| `/arcpass admin leaderboard refresh` | Refresh leaderboard cache |
-| `/arcpass admin debug [toggle]` | Toggle debug mode |
-| `/arcpass admin save` | Save all data |
-| `/arcpass admin broadcast <message>` | Server broadcast |
-| `/arcpass admin confirm` | Confirm pending dangerous action |
-| `/arcpass admin cancel` | Cancel pending dangerous action |
+| 命令 | 说明 |
+|------|------|
+| `/arcpass admin` | 打开管理面板 |
+| `/arcpass admin help` | 查看管理员帮助 |
+| `/arcpass admin reload` | 重载配置文件 |
+| `/arcpass admin season start <名称>` | 开始新赛季 |
+| `/arcpass admin season end` | 结束当前赛季 |
+| `/arcpass admin season info` | 查看赛季信息 |
+| `/arcpass admin give <玩家> exp <数量>` | 给予玩家经验 |
+| `/arcpass admin give <玩家> level <数量>` | 给予玩家等级 |
+| `/arcpass admin set <玩家> tier <档位>` | 设置玩家档位 |
+| `/arcpass admin reset <玩家>` | 重置玩家数据 |
+| `/arcpass admin lookup <玩家>` | 查询玩家数据 |
+| `/arcpass admin quest complete <玩家> <任务ID>` | 完成指定任务 |
+| `/arcpass admin leaderboard refresh` | 刷新排行榜缓存 |
+| `/arcpass admin debug [toggle]` | 切换调试模式 |
+| `/arcpass admin save` | 保存所有数据 |
+| `/arcpass admin broadcast <消息>` | 全服广播 |
+| `/arcpass admin confirm` | 确认待执行的危险操作 |
+| `/arcpass admin cancel` | 取消待执行的危险操作 |
 
-### Admin Command Details
+### 管理命令详解
 
 #### /arcpass admin season
 
-Season management:
+赛季管理命令：
 
 ```bash
-# Start new season
-/arcpass admin season start Season1
+# 开始新赛季
+/arcpass admin season start 第一赛季
 
-# End current season
+# 结束当前赛季
 /arcpass admin season end
 
-# View season info
+# 查看赛季信息
 /arcpass admin season info
 ```
 
-::: warning Dangerous Operation
-Starting/ending seasons affects all player data. Confirmation required.
+::: warning 危险操作
+开始/结束赛季是重要操作，会影响所有玩家数据。命令执行前会要求确认。
 :::
 
 #### /arcpass admin give
 
-Give player XP or levels:
+给予玩家经验或等级：
 
 ```bash
-# Give 1000 XP
+# 给予 1000 经验
 /arcpass admin give Steve exp 1000
 
-# Give 5 levels
+# 给予 5 个等级
 /arcpass admin give Steve level 5
 ```
 
 #### /arcpass admin lookup
 
-Query player data:
+查询玩家详细数据：
 
 ```
 /arcpass admin lookup Steve
 ```
 
-Output example:
+输出示例：
 ```
-=== Player Data: Steve ===
+=== 玩家数据: Steve ===
 UUID: 12345678-1234-...
-Level: 25
-Total XP: 5000
-Progress: 30/150
-Owned Tiers: free, premium
-Completed Quests: 42
-Claimed Rewards: 38
+等级: 25
+总经验: 5000
+升级进度: 30/150
+已拥有档位: free, premium
+已完成任务: 42
+已领取奖励: 38
 ```
 
-## Permission Nodes
+## 权限节点
 
-### Player Permissions
+### 玩家权限
 
-| Permission | Description | Default |
-|------------|-------------|---------|
-| `arcpass.use` | Basic usage | true |
-| `arcpass.command.level` | Use /arcpass level | true |
-| `arcpass.command.quests` | Use /arcpass quests | true |
-| `arcpass.command.claim` | Use /arcpass claim | true |
-| `arcpass.command.buy` | Use /arcpass buy | true |
-| `arcpass.command.*` | All player commands | op |
+| 权限 | 说明 | 默认 |
+|------|------|------|
+| `arcpass.use` | 基本使用权限 | true |
+| `arcpass.command.level` | 使用 /arcpass level | true |
+| `arcpass.command.quests` | 使用 /arcpass quests | true |
+| `arcpass.command.claim` | 使用 /arcpass claim | true |
+| `arcpass.command.buy` | 使用 /arcpass buy | true |
+| `arcpass.command.*` | 所有玩家命令 | op |
 
-### Admin Permissions
+### 管理员权限
 
-| Permission | Description | Default |
-|------------|-------------|---------|
-| `arcpass.admin` | All admin permissions | op |
-| `arcpass.bypass.cooldown` | Bypass cooldowns | op |
+| 权限 | 说明 | 默认 |
+|------|------|------|
+| `arcpass.admin` | 所有管理权限 | op |
+| `arcpass.bypass.cooldown` | 绕过冷却时间 | op |
 
-### LuckPerms Examples
+### 权限示例（LuckPerms）
 
 ```bash
-# Grant basic usage
+# 给予基本使用权限
 /lp group default permission set arcpass.use true
 
-# Grant VIP group purchase permission
+# 给予 VIP 组购买权限
 /lp group vip permission set arcpass.command.buy true
 
-# Grant admin full permissions
+# 给予管理员全部权限
 /lp group admin permission set arcpass.admin true
 ```
 
-## Tab Completion
+## Tab 补全
 
-ArcPass supports smart tab completion:
-- Command arguments auto-complete
-- Player names
-- Tier/quest IDs
-- Online player list
+ArcPass 支持智能 Tab 补全：
 
-## Console Commands
+- 命令参数自动补全
+- 玩家名称补全
+- 档位/任务 ID 补全
+- 在线玩家列表
 
-These commands can run from console:
+## 控制台命令
+
+以下命令可在控制台执行：
 
 ```bash
+# 重载配置
 arcpass admin reload
-arcpass admin season start TestSeason
+
+# 赛季管理
+arcpass admin season start 测试赛季
+
+# 给予玩家奖励
 arcpass admin give Steve exp 1000
+
+# 查询玩家数据
 arcpass admin lookup Steve
 ```
 
 ::: tip
-Console dangerous operations skip GUI confirmation, requiring command confirmation via `/arcpass admin confirm`.
+控制台执行危险操作时，会跳过 GUI 确认，直接要求命令确认。输入 `/arcpass admin confirm` 确认操作。
 :::

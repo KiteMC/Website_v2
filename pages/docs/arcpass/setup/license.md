@@ -1,87 +1,87 @@
-# License Activation
+# 许可证激活
 
-ArcPass is a paid plugin requiring a valid license for full functionality.
+ArcPass 是付费插件，需要有效的许可证才能使用全部功能。
 
-## Purchase a License
+## 购买许可证
 
-### Available Plans
+### 可用版本
 
-| Plan | Price | Devices | Ports per Device | Developer API | Best For |
-|------|-------|---------|------------------|:---:|----------|
-| Standard | $12.99 | 5 | 3 | ❌ | Personal/small servers |
-| Professional | $29.99 | 25 | 15 | ✅ | Commercial servers, API integrations |
+| 版本 | 价格 | 设备数量 | 单机端口数 | 开发者 API | 适用场景 |
+|------|------|---------|-----------|:---:|---------|
+| 标准版 | ¥68 | 5 台 | 3 端口 | ❌ | 个人/小型服务器 |
+| 专业版 | ¥198 | 25 台 | 15 端口 | ✅ | 商业服务器、API 集成 |
 
-::: tip Note
+::: tip 说明
 
-- **Devices**: Number of "Machine ID + IP + Port" combinations that can be bound
-- **Ports per Device**: Number of different ports on the same machine (same machine ID and IP)
-- All plans are **one-time purchase**, lifetime access
-- **Developer API** is only available with the Professional plan. Standard plan users can upgrade at any time.
+- **设备数量**：可绑定的「机器码 + IP + 端口」组合数量
+- **单机端口数**：同一台机器（相同机器码和 IP）上可运行的不同端口数量
+- 所有版本均为**永久买断**，一次购买，终身使用
+- **开发者 API** 仅专业版可用。标准版用户可随时升级。
 :::
 
-### Purchase Options
+### 购买渠道
 
 <ButtonGroup>
   <ActionButton
     href="https://license.kitemc.com/products/arcpass"
-    text="Purchase Now"
+    text="立即购买"
     theme="brand"
     icon="cart"
     :external="true"
   />
   <ActionButton
     href="https://license.kitemc.com/register"
-    text="Register Account"
+    text="注册账户"
     theme="alt"
     icon="register"
     :external="true"
   />
 </ButtonGroup>
 
-After purchase, you can view your key on the <InlineLink href="https://license.kitemc.com/dashboard/licenses" :external="true">License Management Page</InlineLink>.
+购买成功后，您可以在 <InlineLink href="https://license.kitemc.com/dashboard/licenses" :external="true">许可证管理页面</InlineLink> 查看您的密钥。
 
-## Activation Steps
+## 激活步骤
 
-### 1. Edit Configuration
+### 1. 编辑配置文件
 
-Open `plugins/ArcPass/license.yml`:
+打开 `plugins/ArcPass/license.yml`：
 
 ```yaml
 # ========================================
-#       ArcPass License Configuration
+#       ArcPass 许可证配置
 # ========================================
 
-# Config version (DO NOT MODIFY)
+# 配置版本（请勿修改）
 config-version: 1
 
-# Your license key (obtain from KiteMC)
-# Format: XXXX-XXXX-XXXX-XXXX
+# 您的许可证密钥（从 KiteMC 获取）
+# 格式: XXXX-XXXX-XXXX-XXXX
 license-key: ""
 
-# Note: License verification uses local cache (24hr validity)
-# with a 7-day grace period for network issues.
-# Cache file: plugins/ArcPass/license.cache
+# 说明: 许可证验证使用本地缓存（24小时有效）
+# 网络问题时有 7 天宽限期
+# 缓存文件: plugins/ArcPass/license.cache
 ```
 
-### 2. Enter Your Key
+### 2. 填写密钥
 
-Replace the empty string with your license key:
+将空字符串替换为您收到的许可证密钥：
 
 ```yaml
 license-key: "XXXX-XXXX-XXXX-XXXX"
 ```
 
-### 3. Reload Configuration
+### 3. 重载配置
 
-Run the command or restart:
+执行命令或重启服务器：
 
 ```
 /arcpass admin reload
 ```
 
-### 4. Verify Activation
+### 4. 验证激活
 
-On successful activation, console shows:
+成功激活后，控制台会显示：
 
 ```
 [ArcPass] License validated successfully!
@@ -90,113 +90,113 @@ On successful activation, console shows:
 [ArcPass] ArcPass v1.9.0 enabled!
 ```
 
-## License Binding
+## 许可证绑定
 
-### Binding Mechanism
+### 绑定机制
 
-ArcPass uses these identifiers for server binding:
+ArcPass 使用以下信息进行服务器绑定：
 
-- **Machine ID** - Unique hardware identifier
-- **IP Address** - Server public IP
-- **Port** - Server running port
+- **机器码** - 服务器硬件唯一标识
+- **IP 地址** - 服务器公网 IP
+- **端口** - 服务器运行端口
 
-On first activation, the license binds to the current server.
+首次激活时，许可证会自动绑定到当前服务器。
 
-### Check Binding Status
+### 查看绑定状态
 
 ```
 /arcpass admin debug
 ```
 
-### Unbind/Transfer
+### 解绑/换绑
 
-All plans support **unlimited transfers**. Follow these steps:
+所有版本均支持**无限次换绑**，操作步骤如下：
 
-1. Login to <InlineLink href="https://license.kitemc.com/dashboard/licenses" :external="true">KiteMC License Center</InlineLink>
-2. Find your ArcPass license on the "My Licenses" page
-3. Click "View Details" to enter the license details page
-4. Manage bindings in the "Bound Devices" section on the right:
-   - Click "Reset Bindings" to clear all bindings
-   - Click the delete button next to a device to unbind a single device
-   - Click the delete button next to a port to unbind a single port
+1. 登录 <InlineLink href="https://license.kitemc.com/dashboard/licenses" :external="true">KiteMC 许可证中心</InlineLink>
+2. 在「我的许可证」页面找到您的 ArcPass 许可证
+3. 点击「查看详情」进入许可证详情页
+4. 在右侧「绑定设备」区域进行管理：
+   - 点击「重置绑定」可清除所有绑定
+   - 点击设备旁的删除按钮可解绑单个设备
+   - 点击端口旁的删除按钮可解绑单个端口
 
-::: tip
-After unbinding, configure the same license key on the new server and start it to automatically complete the binding.
+::: tip 提示
+解绑后，在新服务器上配置相同的许可证密钥并启动即可自动完成绑定。
 :::
 
-## License Status
+## 许可证状态
 
-### Status Codes
+### 状态说明
 
-| Status | Description |
-|--------|-------------|
-| `VALID` | License valid, plugin running |
-| `INVALID` | Key invalid or malformed |
-| `EXPIRED` | License expired (subscription) |
-| `SUSPENDED` | License suspended (TOS violation) |
-| `UNBOUND` | Not bound to server |
-| `LIMIT_EXCEEDED` | Exceeded binding limit |
+| 状态 | 说明 |
+|------|------|
+| `VALID` | 许可证有效，插件正常运行 |
+| `INVALID` | 密钥无效或格式错误 |
+| `EXPIRED` | 许可证已过期（订阅制） |
+| `SUSPENDED` | 许可证被暂停（违规使用） |
+| `UNBOUND` | 未绑定服务器 |
+| `LIMIT_EXCEEDED` | 超出绑定数量限制 |
 
-### Offline Mode
+### 离线模式
 
-When license server is unreachable:
+当无法连接许可证服务器时：
 
-- Cached validation continues to work
-- Cache validity is 24 hours with a 7-day grace period
-- Cache file located at `plugins/ArcPass/license.cache`
-- Features limited after grace period expires
+- 如果本地有缓存的验证结果，插件将继续运行
+- 缓存有效期为 24 小时，并有 7 天宽限期
+- 缓存文件位于 `plugins/ArcPass/license.cache`
+- 超过宽限期后，插件功能将受限
 
-## Common Issues
+## 常见问题
 
-### Validation Failed
+### 许可证验证失败
 
-1. Check network connectivity
-2. Verify key is entered correctly (case-sensitive)
-3. Check firewall settings
+1. 检查网络连接是否正常
+2. 确认密钥输入正确（注意大小写）
+3. 检查服务器防火墙设置
 
-### Binding Limit Reached
+### 绑定数量已满
 
-1. Login to <InlineLink href="https://license.kitemc.com/dashboard/licenses" :external="true">License Center</InlineLink> to view current bindings
-2. Unbind unused devices/ports on the license details page
-3. Or upgrade to a higher plan
+1. 登录 <InlineLink href="https://license.kitemc.com/dashboard/licenses" :external="true">许可证中心</InlineLink> 查看当前绑定
+2. 在许可证详情页解除不再使用的设备/端口绑定
+3. 或升级到更高版本的许可证
 
-### Server Migration
+### 更换服务器
 
-1. Login to <InlineLink href="https://license.kitemc.com/dashboard/licenses" :external="true">License Center</InlineLink>
-2. Go to license details and click "Reset Bindings" or delete the device
-3. Configure same key on new server
-4. Start new server to auto-bind
+1. 登录 <InlineLink href="https://license.kitemc.com/dashboard/licenses" :external="true">许可证中心</InlineLink>
+2. 进入许可证详情页，点击「重置绑定」或删除对应设备
+3. 在新服务器配置相同的许可证密钥
+4. 启动新服务器自动完成绑定
 
-## Support
+## 技术支持
 
-Having license issues?
+遇到许可证问题？
 
 <LinkGrid :cols="2">
   <LinkCard
     icon="chat"
-    title="Discord Community"
-    description="Get real-time help from our community"
+    title="Discord 社区"
+    description="加入社区获取实时帮助"
     href="https://discord.gg/dcsBw5Z5ZT"
     :external="true"
   />
   <LinkCard
     icon="mail"
-    title="Email Support"
+    title="邮件支持"
     description="starry_cbz@outlook.com"
     href="mailto:starry_cbz@outlook.com"
     :external="true"
   />
   <LinkCard
     icon="ticket"
-    title="License Center"
-    description="Manage licenses and bindings"
+    title="许可证中心"
+    description="管理许可证和绑定"
     href="https://license.kitemc.com/dashboard/licenses"
     :external="true"
   />
   <LinkCard
     icon="key"
-    title="Login"
-    description="Login to manage your licenses"
+    title="登录账户"
+    description="登录管理您的许可证"
     href="https://license.kitemc.com/login"
     :external="true"
   />

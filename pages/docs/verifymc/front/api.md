@@ -1,186 +1,186 @@
-# Backend API
+# 后端 API
 
-## API Reference Documentation
+## API 参考文档
 
-All API endpoints use JSON for request and response bodies. Admin endpoints require `Authorization: Bearer <token>` in the request header.
+所有 API 端点使用 JSON 格式的请求和响应体。管理员端点需要在请求头中携带 `Authorization: Bearer <token>`。
 
-## Configuration
+## 配置
 
-### Get Config
-- **Endpoint**: `GET /api/config`
-- **Purpose**: Get frontend theme, announcement, auth methods, and other public config info.
-- **Permission**: Public
+### 获取配置
+- **接口**：`GET /api/config`
+- **用途**：获取前端主题、公告、验证方式等公共配置信息。
+- **权限**：所有用户
 
-## Captcha
+## 图形验证码
 
-### Generate Captcha
-- **Endpoint**: `GET /api/captcha/generate`
-- **Purpose**: Generate a new graphical captcha image.
-- **Permission**: Public
+### 生成验证码
+- **接口**：`GET /api/captcha/generate`
+- **用途**：生成新的图形验证码图片。
+- **权限**：所有用户
 
-## Email Verification
+## 邮箱验证
 
-### Send Verification Code
-- **Endpoint**: `POST /api/verify/send`
-- **Purpose**: Send a registration verification code to the specified email.
-- **Permission**: Public
-- **Request Header**: `Content-Type: application/json`
-- **Request Parameters**:
-  | Field    | Type   | Required | Description         | Example             |
-  |----------|--------|----------|---------------------|---------------------|
-  | email    | string | Yes      | User email          | user@example.com    |
-  | language | string | No       | Language (zh/en)    | en                  |
-- **Notes**:
-  - Email sending is rate-limited per day/minute to prevent abuse.
-  - Email format must comply with RFC standards.
+### 发送验证码
+- **接口**：`POST /api/verify/send`
+- **用途**：向指定邮箱发送注册验证码。
+- **权限**：所有用户
+- **请求头**：`Content-Type: application/json`
+- **请求参数**：
+  | 字段      | 类型   | 必填 | 说明           | 示例                |
+  |-----------|--------|------|----------------|---------------------|
+  | email     | string | 是   | 用户邮箱       | user@example.com    |
+  | language  | string | 否   | 语言（zh/en）  | zh                  |
+- **注意事项**：
+  - 邮箱每日/每分钟发送次数有限制，防止滥用。
+  - 邮箱格式需符合 RFC 标准。
 
-## Questionnaire
+## 问卷
 
-### Get Questionnaire Config
-- **Endpoint**: `GET /api/questionnaire/config`
-- **Purpose**: Get questionnaire questions and configuration.
-- **Permission**: Public
+### 获取问卷配置
+- **接口**：`GET /api/questionnaire/config`
+- **用途**：获取问卷题目和配置。
+- **权限**：所有用户
 
-### Submit Questionnaire
-- **Endpoint**: `POST /api/questionnaire/submit`
-- **Purpose**: Submit questionnaire answers for scoring.
-- **Permission**: Public
+### 提交问卷
+- **接口**：`POST /api/questionnaire/submit`
+- **用途**：提交问卷答案进行评分。
+- **权限**：所有用户
 
-## Registration
+## 注册
 
-### Register
-- **Endpoint**: `POST /api/register`
-- **Purpose**: User submits verification code and info to register.
-- **Permission**: Public
-- **Request Header**: `Content-Type: application/json`
-- **Request Parameters**:
-  | Field    | Type   | Required | Description         |
-  |----------|--------|----------|---------------------|
-  | email    | string | Yes      | User email          |
-  | code     | string | Yes      | Verification code   |
-  | username | string | Yes      | Player name         |
-  | language | string | No       | Language            |
-- **Notes**:
-  - Verification code is usually valid for 5 minutes.
-  - Username and email must be unique.
-  - Registration may require admin approval.
+### 用户注册
+- **接口**：`POST /api/register`
+- **用途**：用户提交验证码和信息进行注册。
+- **权限**：所有用户
+- **请求头**：`Content-Type: application/json`
+- **请求参数**：
+  | 字段      | 类型   | 必填 | 说明           |
+  |-----------|--------|------|----------------|
+  | email     | string | 是   | 用户邮箱       |
+  | code      | string | 是   | 验证码         |
+  | username  | string | 是   | 玩家名         |
+  | language  | string | 否   | 语言           |
+- **注意事项**：
+  - 验证码有效期一般为 5 分钟。
+  - 用户名、邮箱唯一。
+  - 注册后可能需要管理员审核。
 
-### Check Review Status
-- **Endpoint**: `GET /api/review/status`
-- **Purpose**: Check the review status of a registration.
-- **Permission**: Public
+### 查询审核状态
+- **接口**：`GET /api/review/status`
+- **用途**：查询注册的审核状态。
+- **权限**：所有用户
 
-## User
+## 用户
 
-### Get User Status
-- **Endpoint**: `GET /api/user/status`
-- **Purpose**: Query the current status of a user.
-- **Permission**: Public
+### 获取用户状态
+- **接口**：`GET /api/user/status`
+- **用途**：查询用户当前状态。
+- **权限**：所有用户
 
-## Authentication
+## 认证
 
-### User Login
-- **Endpoint**: `POST /api/login`
-- **Purpose**: User login (non-admin).
-- **Permission**: Public
+### 用户登录
+- **接口**：`POST /api/login`
+- **用途**：普通用户登录。
+- **权限**：所有用户
 
-### Admin Login
-- **Endpoint**: `POST /api/admin/login`
-- **Purpose**: Admin login to backend management panel.
-- **Permission**: Public
-- **Request Header**: `Content-Type: application/json`
-- **Request Parameters**:
-  | Field    | Type   | Required | Description            |
-  |----------|--------|----------|------------------------|
-  | username | string | Yes      | Player username        |
-  | password | string | Yes      | Player password        |
-  | language | string | No       | Language               |
-- **Notes**:
-  - Admin login verifies against registered player credentials. Only server OPs can access the admin panel.
-  - All admin APIs require `Authorization: Bearer <token>` in the header after login.
+### 管理员登录
+- **接口**：`POST /api/admin/login`
+- **用途**：管理员登录后台管理面板。
+- **权限**：所有用户
+- **请求头**：`Content-Type: application/json`
+- **请求参数**：
+  | 字段      | 类型   | 必填 | 说明           |
+  |-----------|--------|------|----------------|
+  | username  | string | 是   | 玩家用户名     |
+  | password  | string | 是   | 玩家密码       |
+  | language  | string | 否   | 语言           |
+- **注意事项**：
+  - 管理员登录基于已注册玩家凭据验证，仅服务器 OP 可访问管理面板。
+  - 后续所有管理员接口需在请求头加 `Authorization: Bearer <token>`。
 
-## Admin Endpoints
+## 管理员端点
 
-### Verify Admin Token
-- **Endpoint**: `GET /api/admin/verify`
-- **Purpose**: Verify if the admin token is still valid.
-- **Permission**: Admin (token required)
+### 验证管理员令牌
+- **接口**：`GET /api/admin/verify`
+- **用途**：验证管理员令牌是否有效。
+- **权限**：管理员（需带 token）
 
-### Get User List
-- **Endpoint**: `GET /api/admin/users`
-- **Purpose**: Get users with pagination, search, and status filtering.
-- **Permission**: Admin (token required)
-- **Query Parameters**: `page`, `size`, `search`, `status`
+### 获取用户列表
+- **接口**：`GET /api/admin/users`
+- **用途**：获取用户列表，支持分页、搜索和状态筛选。
+- **权限**：管理员（需带 token）
+- **查询参数**：`page`、`size`、`search`、`status`
 
-### Approve User
-- **Endpoint**: `POST /api/admin/user/approve`
-- **Purpose**: Approve a pending user's registration.
-- **Permission**: Admin (token required)
+### 通过用户
+- **接口**：`POST /api/admin/user/approve`
+- **用途**：通过待审核用户的注册申请。
+- **权限**：管理员（需带 token）
 
-### Reject User
-- **Endpoint**: `POST /api/admin/user/reject`
-- **Purpose**: Reject a pending user's registration.
-- **Permission**: Admin (token required)
+### 拒绝用户
+- **接口**：`POST /api/admin/user/reject`
+- **用途**：拒绝待审核用户的注册申请。
+- **权限**：管理员（需带 token）
 
-### Delete User
-- **Endpoint**: `POST /api/admin/user/delete`
-- **Purpose**: Delete a user from the system.
-- **Permission**: Admin (token required)
+### 删除用户
+- **接口**：`POST /api/admin/user/delete`
+- **用途**：从系统中删除用户。
+- **权限**：管理员（需带 token）
 
-### Ban User
-- **Endpoint**: `POST /api/admin/user/ban`
-- **Purpose**: Ban a user (change status to banned).
-- **Permission**: Admin (token required)
+### 封禁用户
+- **接口**：`POST /api/admin/user/ban`
+- **用途**：封禁用户（将状态改为 banned）。
+- **权限**：管理员（需带 token）
 
-### Unban User
-- **Endpoint**: `POST /api/admin/user/unban`
-- **Purpose**: Unban a user (change status from banned to approved).
-- **Permission**: Admin (token required)
+### 解封用户
+- **接口**：`POST /api/admin/user/unban`
+- **用途**：解封用户（将状态从 banned 改为 approved）。
+- **权限**：管理员（需带 token）
 
-### Change User Password
-- **Endpoint**: `POST /api/admin/user/password`
-- **Purpose**: Change a user's password.
-- **Permission**: Admin (token required)
+### 修改用户密码
+- **接口**：`POST /api/admin/user/password`
+- **用途**：修改用户密码。
+- **权限**：管理员（需带 token）
 
-### Get Audit Logs
-- **Endpoint**: `GET /api/admin/audits`
-- **Purpose**: Get audit log records.
-- **Permission**: Admin (token required)
+### 获取审核日志
+- **接口**：`GET /api/admin/audits`
+- **用途**：获取审核日志记录。
+- **权限**：管理员（需带 token）
 
-### Sync AuthMe Data
-- **Endpoint**: `POST /api/admin/sync`
-- **Purpose**: Trigger AuthMe data synchronization.
-- **Permission**: Admin (token required)
+### 同步 AuthMe 数据
+- **接口**：`POST /api/admin/sync`
+- **用途**：触发 AuthMe 数据同步。
+- **权限**：管理员（需带 token）
 
-## Discord Integration
+## Discord 集成
 
-### Discord Auth
-- **Endpoint**: `GET /api/discord/auth`
-- **Purpose**: Initiate Discord OAuth2 authorization flow.
-- **Permission**: Public
+### Discord 授权
+- **接口**：`GET /api/discord/auth`
+- **用途**：发起 Discord OAuth2 授权流程。
+- **权限**：所有用户
 
-### Discord Callback
-- **Endpoint**: `GET /api/discord/callback`
-- **Purpose**: Handle Discord OAuth2 callback.
-- **Permission**: Public
+### Discord 回调
+- **接口**：`GET /api/discord/callback`
+- **用途**：处理 Discord OAuth2 回调。
+- **权限**：所有用户
 
-### Discord Status
-- **Endpoint**: `GET /api/discord/status`
-- **Purpose**: Check Discord linking status for a user.
-- **Permission**: Public
+### Discord 状态
+- **接口**：`GET /api/discord/status`
+- **用途**：检查用户的 Discord 绑定状态。
+- **权限**：所有用户
 
-### Discord Unlink
-- **Endpoint**: `POST /api/discord/unlink`
-- **Purpose**: Unlink a user's Discord account.
-- **Permission**: Public
+### Discord 解绑
+- **接口**：`POST /api/discord/unlink`
+- **用途**：解绑用户的 Discord 账户。
+- **权限**：所有用户
 
-## Version
+## 版本
 
-### Get Version
-- **Endpoint**: `GET /api/version`
-- **Purpose**: Get the plugin version and check for updates.
-- **Permission**: Public
+### 获取版本
+- **接口**：`GET /api/version`
+- **用途**：获取插件版本并检查更新。
+- **权限**：所有用户
 
 ---
 
-> For more APIs and parameters, see the source code or frontend `src/services/api.ts`.
+> 更多接口和参数详见源码或前端 `src/services/api.ts`。

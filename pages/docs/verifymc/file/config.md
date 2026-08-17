@@ -1,147 +1,146 @@
-# Configuration File
+# 配置文件
 
-This document provides detailed explanations for all configuration options in `config.yml`.
+本文档详细说明 `config.yml` 中所有配置选项的用途和用法。
 
-::: tip Apply changes
-After editing `config.yml`, run `/vmc reload` to apply changes without restarting the server.
-You can also find an English example `config.yml` in the VerifyMC GitHub repository ([KiteMC/VerifyMC](https://github.com/KiteMC/VerifyMC)).
+::: tip 英文示例配置
+除本页示例外，英文版示例 `config.yml` 也会在 VerifyMC 的 GitHub 仓库中发布：[KiteMC/VerifyMC](https://github.com/KiteMC/VerifyMC)。
 :::
 
-## General Settings
+## 全局设置
 
 ```yaml
-# Global language setting. Affects plugin messages and web UI. (e.g., 'zh', 'en')
-language: en
+# 全局语言设置，影响插件消息和网页界面。(例如 'zh', 'en')
+language: zh
 
-# Enable detailed console logs for troubleshooting.
+# 开启后，控制台会输出详细的日志，用于故障排查。
 debug: false
 ```
 
-## Web Server
+## 网页服务器
 
 ```yaml
-# The port for the web interface.
+# 网页服务使用的端口。
 web_port: 8080
 
-# The server name displayed on the web interface.
-web_server_prefix: '[ Server Name ]'
+# 显示在网页界面上的服务器名称。
+web_server_prefix: '[ 服务器名称 ]'
 ```
 
-## Verification & Whitelist
+## 验证与白名单
 
 ```yaml
-# Supported authentication methods. Options: 'email' (email verification), 'captcha' (graphical captcha).
-# You can use multiple methods, e.g.: [email, captcha]
+# 支持的验证方式。可选: 'email'（邮箱验证码）, 'captcha'（图形验证码）。
+# 可以同时使用多种方式，例如: [email, captcha]
 #
-# [IMPORTANT] Configuring the captcha: section below does NOT enable captcha!
-# To enable captcha, you MUST add 'captcha' to this list:
-#   Captcha only: auth_methods: [captcha]
-#   Both email and captcha: auth_methods: [email, captcha]
+# 【重要】仅配置下方的 captcha: 部分不会启用图形验证码！
+# 要启用图形验证码，必须在此列表中添加 'captcha'：
+#   仅使用图形验证码: auth_methods: [captcha]
+#   同时使用邮箱和图形验证码: auth_methods: [email, captcha]
 auth_methods:
   - email
 
-# Maximum number of game accounts that can be linked to a single email address.
+# 单个邮箱最多可以绑定的游戏账号数量。
 max_accounts_per_email: 2
 
-# Whitelist mode: 'bukkit' (syncs with server's whitelist.json) or 'plugin' (uses internal database).
+# 白名单模式: 'bukkit' (与服务器的 whitelist.json 同步) 或 'plugin' (使用插件内部数据库)。
 whitelist_mode: plugin
 
-# Registration URL displayed to non-whitelisted players when in 'plugin' mode.
+# 在 'plugin' 模式下，向未在白名单中的玩家显示的注册URL。
 web_register_url: https://domain.com/
 ```
 
-## Registration
+## 注册
 
 ```yaml
-# If true, new user registrations are automatically approved.
-# If false, they require manual admin approval.
+# 如果为 true，新用户注册将自动通过。
+# 如果为 false，则需要管理员手动审核。
 register:
   auto_approve: false
 ```
 
-## User & Security
+## 用户与安全
 
 ```yaml
-# A regular expression to validate player names.
+# 用于验证玩家名的正则表达式。
 username_regex: "^[a-zA-Z0-9_-]{3,16}$"
 
-# If false, usernames that only differ by case (e.g., "Player" and "player") are treated as the same.
+# 如果为 false，则仅大小写不同的用户名（例如 "Player" 和 "player"）将被视为相同。
 username_case_sensitive: false
 
-# The password for accessing the admin panel on the web interface.
-# Admin login verifies against registered player credentials; only server OPs can access the admin panel.
+# 访问网页管理面板的密码。
+# 管理员登录基于已注册玩家凭据验证，仅服务器 OP 可访问管理面板。
 admin:
   password: your_custom_password
 ```
 
-## User Notification
+## 用户通知
 
 ```yaml
-# Send email notification to users when admin reviews their application.
+# 当管理员审核用户申请后，向用户发送邮件通知。
 user_notification:
-  # Whether to enable user notification feature
+  # 是否启用用户通知功能
   enabled: true
-  # Whether to send notification when application is approved
+  # 审核通过时是否发送通知邮件
   on_approve: true
-  # Whether to send notification when application is rejected
+  # 审核拒绝时是否发送通知邮件
   on_reject: true
 ```
 
-## Frontend (UI)
+## 前端 (UI)
 
 ```yaml
 frontend:
-  # The visual theme for the web interface. Options: 'glassx'.
+  # 网页界面的视觉主题。可选: 'glassx'。
   theme: glassx
 
-  # URL for the logo. Can be a web link or a local file path (e.g., '/logo.png').
+  # Logo 的 URL。可以是网页链接或本地文件路径 (例如 '/logo.png')。
   logo_url: /logo.png
 
-  # A message to display on the homepage.
-  announcement: Welcome to our server!
+  # 显示在主页上的公告信息。
+  announcement: 欢迎来到我们的服务器!
 ```
 
-## Email (SMTP)
+## 邮箱 (SMTP)
 
 ```yaml
 smtp:
-  host: smtp.gmail.com
+  host: smtp.qq.com
   port: 587
-  username: your_email@gmail.com
-  password: your_app_password
-  from: your_email@gmail.com
+  username: your_email@qq.com
+  password: your_email_password
+  from: your_email@qq.com
   enable_ssl: true
 
-# Subject (title) of the verification code email
-email_subject: VerifyMC Verification Code
+# 验证码邮件的主题（标题）
+email_subject: VerifyMC 验证码
 ```
 
-### Common SMTP Configurations
+### 常见 SMTP 配置
 
-| Provider | Host | Port | SSL |
-|----------|------|------|-----|
+| 服务商 | Host | Port | SSL |
+|--------|------|------|-----|
 | Gmail | smtp.gmail.com | 587 | true |
-| QQ Mail | smtp.qq.com | 587 | true |
+| QQ 邮箱 | smtp.qq.com | 587 | true |
 | Outlook | smtp.office365.com | 587 | true |
-| 163 Mail | smtp.163.com | 465 | true |
+| 163 邮箱 | smtp.163.com | 465 | true |
 
-## Auto Update Resources
+## 自动更新资源
 
 ```yaml
-# If true, automatically updates i18n, email templates, and theme files on plugin updates.
+# 如果为 true，插件更新时会自动更新国际化文件、邮件模板和主题文件。
 auto_update_resources: true
 ```
 
-## Email Registration Restrictions
+## 邮箱注册限制
 
 ```yaml
-# Enable email domain whitelist
+# 是否启用邮箱域名白名单
 enable_email_domain_whitelist: true
 
-# Enable email alias limit (e.g. forbid user+xxx@gmail.com)
+# 是否限制邮箱别名（如禁止 user+xxx@gmail.com）
 enable_email_alias_limit: false
 
-# Email domain whitelist. Leave empty to use default mainstream domains
+# 邮箱域名白名单，留空则使用默认主流邮箱域
 email_domain_whitelist:
   - gmail.com
   - 163.com
@@ -154,13 +153,13 @@ email_domain_whitelist:
   - foxmail.com
 ```
 
-## Storage & MySQL
+## 存储与 MySQL
 
 ```yaml
-# Storage type: 'data' (local file) or 'mysql' (external database)
+# 存储类型: 'data'（本地文件）或 'mysql'（外部数据库）
 storage: data
 
-# MySQL connection settings (used when storage is 'mysql')
+# MySQL 连接设置（当 storage 为 'mysql' 时使用）
 mysql:
     host: localhost
     port: 3306
@@ -169,29 +168,29 @@ mysql:
     password: yourpassword
 ```
 
-## AuthMe Integration
+## AuthMe 集成配置
 
 ```yaml
 authme:
-  # Whether to enable AuthMe integration functionality
+  # 是否启用 AuthMe 集成功能
   enabled: true
 
-  # Whether to require password input during web registration
+  # 是否强制在 Web 注册时要求输入密码
   require_password: true
 
-  # Password regex pattern
+  # 密码正则表达式
   password_regex: "^[a-zA-Z0-9_]{8,26}$"
 
-  # AuthMe database configuration for direct integration
+  # AuthMe 数据库直连配置
   database:
-    # Database type: 'sqlite' or 'mysql'
+    # 数据库类型: 'sqlite' 或 'mysql'
     type: sqlite
-    # AuthMe table name
+    # AuthMe 表名
     table: authme
-    # Sync interval in seconds (for periodic data synchronization)
+    # 同步间隔（秒），用于定期数据同步
     sync_interval_seconds: 30
 
-    # MySQL settings (used when database.type is 'mysql')
+    # MySQL 设置（当 database.type 为 'mysql' 时使用）
     mysql:
       host: 127.0.0.1
       port: 3306
@@ -199,11 +198,11 @@ authme:
       user: root
       password: yourpassword
 
-    # SQLite settings (used when database.type is 'sqlite')
+    # SQLite 设置（当 database.type 为 'sqlite' 时使用）
     sqlite:
       path: plugins/AuthMe/authme.db
 
-    # Column name mapping (match your AuthMe database schema)
+    # 列名映射（需匹配你的 AuthMe 数据库结构）
     columns:
       mySQLColumnName: username
       mySQLRealName: realname
@@ -211,51 +210,51 @@ authme:
       mySQLColumnEmail: email
 ```
 
-## Captcha Configuration
+## 图形验证码配置
 
 ```yaml
-# Captcha can be used as an alternative or supplement to email verification
-# Add 'captcha' to auth_methods to enable: auth_methods: [captcha]
+# 图形验证码可作为邮箱验证的替代或补充方案
+# 在 auth_methods 中添加 'captcha' 来启用: auth_methods: [captcha]
 captcha:
-  # Captcha type: math (math expression) or text (random characters)
+  # 验证码类型: math（数学表达式）或 text（随机字符）
   type: math
 
-  # Length of text captcha (ignored for math type)
+  # 文本验证码长度（math 类型时忽略此项）
   length: 4
 
-  # Captcha expiration time in seconds
+  # 验证码过期时间（秒）
   expire_seconds: 300
 ```
 
-## Bedrock Player Support
+## 基岩版玩家支持
 
 ```yaml
-# For Geyser/Floodgate bedrock players
+# 适用于 Geyser/Floodgate 的基岩版玩家
 bedrock:
-  # Whether to enable bedrock player support
+  # 是否启用基岩版玩家支持
   enabled: false
 
-  # Prefix for bedrock players (commonly "." for Floodgate)
+  # 基岩版玩家用户名前缀（Floodgate 常用 "."）
   prefix: "."
 
-  # Regex for bedrock usernames
+  # 基岩版用户名正则表达式
   username_regex: "^[a-zA-Z0-9._-]{3,15}$"
 ```
 
-## Questionnaire Configuration
+## 问卷调查配置
 
 ```yaml
-# Detailed questions are configured in questionnaire.yml
+# 详细问题配置请参见 questionnaire.yml
 questionnaire:
-  # Whether to enable questionnaire feature
+  # 是否启用问卷功能
   enabled: false
 
-  # Minimum score to pass
+  # 通过所需的最低分数
   pass_score: 60
 
-  # Rate limiting for questionnaire submissions
+  # 问卷提交频率限制
   rate_limit:
-    # Time window in milliseconds
+    # 时间窗口（毫秒）
     window_ms: 300000
     ip:
       max: 20
@@ -265,100 +264,100 @@ questionnaire:
       max: 6
 ```
 
-## LLM Essay Scoring
+## LLM 问答评分
 
 ```yaml
-# AI-powered auto-scoring for text questionnaire answers
+# AI 驱动的文本问答自动评分
 llm:
-  # Whether to enable LLM scoring
+  # 是否启用 LLM 评分
   enabled: true
 
-  # LLM provider: 'deepseek' or 'google'
+  # LLM 提供商: 'deepseek' 或 'google'
   provider: deepseek
 
-  # API base URL
+  # API 基础地址
   api_base: https://api.deepseek.com/v1
 
-  # API key (keep this secret!)
+  # API 密钥（请妥善保管！）
   api_key: ""
 
-  # Model name
+  # 模型名称
   model: deepseek-chat
 
-  # Request timeout in milliseconds
+  # 请求超时时间（毫秒）
   timeout: 10000
 
-  # Number of retries on failure
+  # 失败重试次数
   retry: 1
 
-  # Maximum concurrent scoring requests
+  # 最大并发评分请求数
   max_concurrency: 4
 
-  # Timeout for acquiring a concurrency slot (ms)
+  # 获取并发槽位超时（毫秒）
   acquire_timeout: 1500
 
-  # Retry backoff settings (ms)
+  # 重试退避设置（毫秒）
   retry_backoff_base: 300
   retry_backoff_max: 5000
 
-  # Maximum input text length
+  # 最大输入文本长度
   input_max_length: 2000
 
-  # Circuit breaker settings
+  # 熔断器设置
   circuit_breaker:
     failure_threshold: 5
     open_ms: 30000
 
-  # System prompt for the LLM
+  # LLM 系统提示词
   system_prompt: |
     You are a fair Minecraft whitelist questionnaire grader.
     Score strictly based on the question, candidate answer, and scoring rule.
     Return JSON only.
 
-  # Scoring rule for evaluation
+  # 评分规则
   scoring_rule: |
     Evaluate primarily:
     1) Relevance to the question
     2) Completeness and level of detail
     3) Understanding of server rules and community norms
 
-  # Expected JSON response format
+  # 期望的 JSON 响应格式
   score_format: '{"score": number, "reason": string, "confidence": number}'
 ```
 
-## Discord Integration (OAuth2)
+## Discord 集成（OAuth2）
 
 ```yaml
-# Requires creating a Discord application at https://discord.com/developers/applications
+# 需要在 https://discord.com/developers/applications 创建 Discord 应用
 discord:
-  # Whether to enable Discord integration
+  # 是否启用 Discord 集成
   enabled: false
 
-  # Discord application client ID
+  # Discord 应用的客户端ID
   client_id: ""
 
-  # Discord application client secret
+  # Discord 应用的客户端密钥
   client_secret: ""
 
-  # OAuth2 redirect URI
+  # OAuth2 回调地址
   redirect_uri: "https://yourdomain.com/api/discord/callback"
 
-  # Optional: require users to be in specific guild/server
+  # 可选：要求用户加入特定服务器的ID
   guild_id: ""
 
-  # Whether Discord linking is required for registration
+  # 是否强制要求绑定 Discord 才能注册
   required: false
 ```
 
 ---
 
-## Full Configuration Example
+## 完整配置示例
 
 ```yaml
-language: en
+language: zh
 debug: false
 web_port: 8080
-web_server_prefix: '[ Server Name ]'
+web_server_prefix: '[ 服务器名称 ]'
 auth_methods:
   - email
 max_accounts_per_email: 2
@@ -377,7 +376,7 @@ user_notification:
 frontend:
   theme: glassx
   logo_url: /logo.png
-  announcement: Welcome!
+  announcement: 欢迎!
 smtp:
   host: smtp.qq.com
   port: 587
@@ -385,7 +384,7 @@ smtp:
   password: your_password
   from: your_email@qq.com
   enable_ssl: true
-email_subject: VerifyMC Verification Code
+email_subject: VerifyMC 验证码
 auto_update_resources: true
 enable_email_domain_whitelist: true
 enable_email_alias_limit: false

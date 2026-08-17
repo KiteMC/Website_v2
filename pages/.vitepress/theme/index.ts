@@ -67,7 +67,7 @@ export default {
       "nav-bar-content-before": () => h(PageTransition),
     });
   },
-  enhanceApp({ app, router }) {
+  enhanceApp({ app }) {
     // Register custom components
     app.component("PageTransition", PageTransition);
     app.component("DownloadPage", DownloadPage);
@@ -83,26 +83,5 @@ export default {
     app.component("FriendLinks", FriendLinks);
     app.component("InlineLink", InlineLink);
 
-    if (typeof window !== "undefined") {
-      const preferenceKey = "kitemc-language";
-
-      document.addEventListener("click", (event) => {
-        const link = (event.target as HTMLElement).closest<HTMLAnchorElement>("a[href]");
-        if (!link) return;
-
-        const url = new URL(link.href, window.location.origin);
-        if (url.origin !== window.location.origin) return;
-
-        if (url.pathname === "/") {
-          window.localStorage.setItem(preferenceKey, "en");
-        } else if (url.pathname === "/zh/" || url.pathname.startsWith("/zh/")) {
-          window.localStorage.setItem(preferenceKey, "zh");
-        }
-      }, true);
-
-      if (window.location.pathname === "/" && window.localStorage.getItem(preferenceKey) !== "en") {
-        router.go("/zh/");
-      }
-    }
   },
 } satisfies Theme;

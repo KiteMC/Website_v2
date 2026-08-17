@@ -12,8 +12,8 @@ import DownloadPage from '@theme/components/download/DownloadPage.vue';
 <div class="dl-hero">
   <div class="dl-hero-content">
     <p class="dl-hero-label">ArcPass</p>
-    <h1 class="dl-hero-title">Download</h1>
-    <p class="dl-hero-desc">Get the latest release and start building your battle pass system.</p>
+    <h1 class="dl-hero-title">下载</h1>
+    <p class="dl-hero-desc">获取最新版本，开始构建你的战令系统。</p>
   </div>
   <div class="dl-hero-glow"></div>
 </div>
@@ -24,13 +24,13 @@ import DownloadPage from '@theme/components/download/DownloadPage.vue';
     <span class="dl-section-icon">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
     </span>
-    <h2>Requirements</h2>
+    <h2>版本要求</h2>
   </div>
 
   <div class="dl-req-grid">
     <div class="dl-req-card">
       <div class="dl-req-label">Minecraft</div>
-      <div class="dl-req-value">1.18 – 1.21+</div>
+      <div class="dl-req-value">1.18 – 最新版本</div>
     </div>
     <div class="dl-req-card">
       <div class="dl-req-label">Java</div>
@@ -53,54 +53,12 @@ import DownloadPage from '@theme/components/download/DownloadPage.vue';
     <span class="dl-section-icon">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
     </span>
-    <h2>Releases</h2>
+    <h2>版本列表</h2>
   </div>
 
   <ClientOnly>
-    <DownloadPage owner="KiteMC" repo="ArcPass" :show-proxy="false" />
+    <DownloadPage owner="KiteMC" repo="ArcPass" :show-language-packs="true" />
   </ClientOnly>
-</div>
-
-<!-- Language Packs -->
-<div class="dl-section">
-  <div class="dl-section-head">
-    <span class="dl-section-icon">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
-    </span>
-    <h2>Language Packs</h2>
-  </div>
-  <p class="dl-text">The plugin ships with <strong>Simplified Chinese</strong> configuration by default. English configuration remains available as an optional language pack.</p>
-
-  <div class="dl-lang-grid">
-    <a class="dl-lang-card" href="https://github.com/KiteMC/ArcPass/releases" target="_blank" rel="noopener noreferrer">
-      <div class="dl-lang-flag">EN</div>
-      <div class="dl-lang-info">
-        <div class="dl-lang-name">English</div>
-        <div class="dl-lang-status">
-          <span class="dl-badge default">Default</span>
-          <span class="dl-badge download">Download pack</span>
-        </div>
-      </div>
-      <svg class="dl-lang-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-    </a>
-    <a class="dl-lang-card" href="https://github.com/KiteMC/ArcPass/releases" target="_blank" rel="noopener noreferrer">
-      <div class="dl-lang-flag">中</div>
-      <div class="dl-lang-info">
-        <div class="dl-lang-name">简体中文</div>
-        <div class="dl-lang-status">
-          <span class="dl-badge download">Download pack</span>
-        </div>
-      </div>
-      <svg class="dl-lang-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-    </a>
-  </div>
-
-  <div class="dl-steps">
-    <div class="dl-step"><span class="dl-step-num">1</span><span>Download <code>ArcPass-lang-&lt;locale&gt;.zip</code> from <a href="https://github.com/KiteMC/ArcPass/releases" target="_blank" rel="noopener">Releases</a></span></div>
-    <div class="dl-step"><span class="dl-step-num">2</span><span>Extract and overwrite into <code>plugins/ArcPass/</code></span></div>
-    <div class="dl-step"><span class="dl-step-num">3</span><span>Set <code>locale.default</code> in <code>config.yml</code></span></div>
-    <div class="dl-step"><span class="dl-step-num">4</span><span>Restart or run <code>/arcpass reload</code></span></div>
-  </div>
 </div>
 
 <!-- License -->
@@ -109,40 +67,40 @@ import DownloadPage from '@theme/components/download/DownloadPage.vue';
     <span class="dl-section-icon">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
     </span>
-    <h2>Purchase License</h2>
+    <h2>购买许可证</h2>
   </div>
-  <p class="dl-text">ArcPass is a paid plugin. A valid license is required to activate and use it on your server.</p>
+  <p class="dl-text">ArcPass 是付费插件，需要有效许可证才能在服务器上激活使用。</p>
 
   <div class="dl-price-grid">
     <div class="dl-price-card">
-      <div class="dl-price-name">Standard</div>
-      <div class="dl-price-amount">$12.99</div>
+      <div class="dl-price-name">标准版</div>
+      <div class="dl-price-amount">¥68</div>
       <div class="dl-price-features">
-        <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 5 devices</div>
-        <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 3 ports / device</div>
-        <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Lifetime updates</div>
-        <div class="dl-price-feat dl-price-feat-disabled"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> No Cross-Server Sync</div>
-        <div class="dl-price-feat dl-price-feat-disabled"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> No Developer API</div>
+        <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 5 台设备</div>
+        <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 单机 3 端口</div>
+        <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 终身更新</div>
+        <div class="dl-price-feat dl-price-feat-disabled"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> 无跨服同步</div>
+        <div class="dl-price-feat dl-price-feat-disabled"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> 无开发者 API</div>
       </div>
     </div>
     <div class="dl-price-card featured">
-      <div class="dl-price-badge">Popular</div>
-      <div class="dl-price-name">Professional</div>
-      <div class="dl-price-amount">$29.99</div>
+      <div class="dl-price-badge">推荐</div>
+      <div class="dl-price-name">专业版</div>
+      <div class="dl-price-amount">¥198</div>
       <div class="dl-price-features">
-        <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 25 devices</div>
-        <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 15 ports / device</div>
-        <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Lifetime updates</div>
-        <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Priority support</div>
-        <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Cross-Server Sync</div>
-        <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Developer API</div>
+        <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 25 台设备</div>
+        <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 单机 15 端口</div>
+        <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 终身更新</div>
+        <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 优先技术支持</div>
+        <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 跨服数据同步</div>
+        <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 开发者 API</div>
       </div>
     </div>
   </div>
 
   <ButtonGroup>
-    <ActionButton href="https://license.kitemc.com/products/arcpass" text="Purchase Now" theme="brand" icon="cart" :external="true" />
-    <ActionButton href="https://license.kitemc.com/dashboard/licenses" text="View Licenses" theme="alt" icon="login" :external="true" />
+    <ActionButton href="https://license.kitemc.com/products/arcpass" text="立即购买" theme="brand" icon="cart" :external="true" />
+    <ActionButton href="https://license.kitemc.com/dashboard/licenses" text="查看许可证" theme="alt" icon="login" :external="true" />
   </ButtonGroup>
 </div>
 
@@ -152,9 +110,9 @@ import DownloadPage from '@theme/components/download/DownloadPage.vue';
     <span class="dl-section-icon">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
     </span>
-    <h2>API Dependency</h2>
+    <h2>API 依赖</h2>
   </div>
-  <p class="dl-text">For developers integrating with ArcPass:</p>
+  <p class="dl-text">如果您是开发者，需要集成 ArcPass API：</p>
 
 ::: code-group
 
@@ -177,7 +135,7 @@ compileOnly 'com.kitemc:arcpass-api:1.9.0'
 
 :::
 
-  <p class="dl-text">See <InlineLink href="./developer/">Developer Documentation</InlineLink> for full API reference.</p>
+  <p class="dl-text">详细信息请参阅 <InlineLink href="./developer/">开发者文档</InlineLink>。</p>
 </div>
 
 <!-- Support -->
@@ -186,14 +144,14 @@ compileOnly 'com.kitemc:arcpass-api:1.9.0'
     <span class="dl-section-icon">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
     </span>
-    <h2>Feedback & Support</h2>
+    <h2>反馈与支持</h2>
   </div>
 
   <LinkGrid :cols="2">
-    <LinkCard icon="bug" title="Bug Reports" description="Submit issues on GitHub" href="https://github.com/KiteMC/ArcPass/issues" :external="true" />
-    <LinkCard icon="light-bulb" title="Feature Requests" description="Propose on GitHub Discussions" href="https://github.com/KiteMC/ArcPass/discussions" :external="true" />
-    <LinkCard icon="chat" title="Discord Community" description="Get technical support" href="https://discord.gg/dcsBw5Z5ZT" :external="true" />
-    <LinkCard icon="mail" title="Email Support" description="starry_cbz@outlook.com" href="mailto:starry_cbz@outlook.com" :external="true" />
+    <LinkCard icon="bug" title="Bug 反馈" description="在 GitHub 提交问题" href="https://github.com/KiteMC/ArcPass/issues" :external="true" />
+    <LinkCard icon="light-bulb" title="功能建议" description="在 GitHub 讨论区提出" href="https://github.com/KiteMC/ArcPass/discussions" :external="true" />
+    <LinkCard icon="chat" title="Discord 社区" description="获取技术支持" href="https://discord.gg/dcsBw5Z5ZT" :external="true" />
+    <LinkCard icon="mail" title="邮件支持" description="starry_cbz@outlook.com" href="mailto:starry_cbz@outlook.com" :external="true" />
   </LinkGrid>
 </div>
 

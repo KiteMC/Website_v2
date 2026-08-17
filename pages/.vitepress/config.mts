@@ -86,7 +86,7 @@ export default defineConfig({
   // SEO: Add canonical URL and hreflang for each page
   transformPageData(pageData) {
     const relativePath = pageData.relativePath.replace(/\.md$/, '').replace(/index$/, '');
-    const isZhPage = relativePath.startsWith('zh/');
+    const isEnPage = relativePath.startsWith('en/');
 
     // Generate canonical URL
     const canonicalPath = relativePath.endsWith('/') || relativePath === ''
@@ -95,8 +95,8 @@ export default defineConfig({
     const canonicalUrl = `${SITE_URL}/${canonicalPath}`.replace(/\/+$/, '/').replace(/\/$/, '') || SITE_URL;
 
     // Generate alternate language URLs
-    const enPath = isZhPage ? relativePath.replace(/^zh\//, '') : relativePath;
-    const zhPath = isZhPage ? relativePath : `zh/${relativePath}`;
+    const zhPath = isEnPage ? relativePath.replace(/^en\//, '') : relativePath;
+    const enPath = isEnPage ? relativePath : `en/${relativePath}`;
 
     const enUrl = `${SITE_URL}/${enPath}`.replace(/\/+$/, '/').replace(/\/$/, '') || SITE_URL;
     const zhUrl = `${SITE_URL}/${zhPath}`.replace(/\/+$/, '/').replace(/\/$/, '');
@@ -118,24 +118,24 @@ export default defineConfig({
 
   locales: {
     root: {
-      label: "English",
-      lang: "en",
+      label: "简体中文",
+      lang: "zh-CN",
       themeConfig: {
         nav: [
-          { text: "Home", link: "/" },
+          { text: "首页", link: "/" },
           { text: "ArcPass", link: "/docs/arcpass/", activeMatch: "/docs/arcpass/" },
           { text: "VerifyMC", link: "/docs/verifymc/", activeMatch: "/docs/verifymc/" },
         ],
       },
     },
-    zh: {
-      label: "简体中文",
-      lang: "zh",
+    en: {
+      label: "English",
+      lang: "en",
       themeConfig: {
         nav: [
-          { text: "首页", link: "/zh/" },
-          { text: "ArcPass", link: "/zh/docs/arcpass/", activeMatch: "/zh/docs/arcpass/" },
-          { text: "VerifyMC", link: "/zh/docs/verifymc/", activeMatch: "/zh/docs/verifymc/" },
+          { text: "Home", link: "/en/" },
+          { text: "ArcPass", link: "/en/docs/arcpass/", activeMatch: "/en/docs/arcpass/" },
+          { text: "VerifyMC", link: "/en/docs/verifymc/", activeMatch: "/en/docs/verifymc/" },
         ],
       },
     },
@@ -145,7 +145,7 @@ export default defineConfig({
     logo: "/images/logo/kitemc.svg",
 
     nav: [
-      { text: "Home", link: "/" },
+      { text: "首页", link: "/" },
       { text: "ArcPass", link: "/docs/arcpass/", activeMatch: "/docs/arcpass/" },
       { text: "VerifyMC", link: "/docs/verifymc/", activeMatch: "/docs/verifymc/" },
     ],

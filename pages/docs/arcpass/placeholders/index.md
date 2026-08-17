@@ -1,156 +1,158 @@
-# PlaceholderAPI Variables
+# PlaceholderAPI 变量
 
-ArcPass provides extensive PlaceholderAPI variables for use in scoreboards, chat, holograms, and more.
+ArcPass 提供丰富的 PlaceholderAPI 变量，可在计分板、聊天、全息图等插件中使用。
 
-## Requirements
+## 前置要求
 
 - PlaceholderAPI 2.11.0+
 
-ArcPass automatically registers its expansion on startup.
+安装后，ArcPass 会自动注册扩展，无需额外配置。
 
-## Variable List
+## 变量列表
 
-### Player Data
+### 玩家数据
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `%arcpass_level%` | Current level | `25` |
-| `%arcpass_exp%` | Total XP | `5000` |
-| `%arcpass_experience%` | Total XP (alias) | `5000` |
-| `%arcpass_total_exp%` | Total XP (alias) | `5000` |
-| `%arcpass_current_exp%` | Current level XP | `75` |
-| `%arcpass_required_exp%` | XP to next level | `150` |
-| `%arcpass_exp_to_level%` | XP to level (alias) | `150` |
-| `%arcpass_progress%` | Progress percentage | `50.0` |
-| `%arcpass_progress_bar%` | Progress bar (10 chars) | `§a█████§7█████` |
+| 变量 | 说明 | 示例输出 |
+|------|------|----------|
+| `%arcpass_level%` | 当前等级 | `25` |
+| `%arcpass_exp%` | 总经验值 | `5000` |
+| `%arcpass_experience%` | 总经验值（别名） | `5000` |
+| `%arcpass_total_exp%` | 总经验值（别名） | `5000` |
+| `%arcpass_current_exp%` | 当前等级经验 | `75` |
+| `%arcpass_required_exp%` | 升级所需经验 | `150` |
+| `%arcpass_exp_to_level%` | 升级所需经验（别名） | `150` |
+| `%arcpass_progress%` | 升级进度百分比 | `50.0` |
+| `%arcpass_progress_bar%` | 进度条（10格） | `§a█████§7█████` |
 
-### Tier Information
+### 档位信息
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `%arcpass_tiers%` | Owned tiers | `free, premium` |
-| `%arcpass_unlocked_tiers%` | Owned tiers (alias) | `free, premium` |
-| `%arcpass_tier_count%` | Number of tiers owned | `2` |
-| `%arcpass_has_premium%` | Has premium tier | `true` |
-| `%arcpass_has_tier_<tier>%` | Has specific tier | `true` / `false` |
+| 变量 | 说明 | 示例输出 |
+|------|------|----------|
+| `%arcpass_tiers%` | 已拥有档位列表 | `free, premium` |
+| `%arcpass_unlocked_tiers%` | 已拥有档位列表（别名） | `free, premium` |
+| `%arcpass_tier_count%` | 已拥有档位数量 | `2` |
+| `%arcpass_has_premium%` | 是否拥有 premium 档位 | `true` |
+| `%arcpass_has_tier_<档位>%` | 是否拥有指定档位 | `true` / `false` |
 
-### Quest Information
+### 任务信息
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `%arcpass_quests_completed%` | Completed quests | `42` |
-| `%arcpass_quest_<quest_id>%` | Quest progress | `5/10` |
+| 变量 | 说明 | 示例输出 |
+|------|------|----------|
+| `%arcpass_quests_completed%` | 已完成任务数 | `42` |
+| `%arcpass_quest_<任务ID>%` | 指定任务进度 | `5/10` |
 
-### Reward Information
+### 奖励信息
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `%arcpass_rewards_claimed%` | Claimed rewards | `38` |
+| 变量 | 说明 | 示例输出 |
+|------|------|----------|
+| `%arcpass_rewards_claimed%` | 已领取奖励数 | `38` |
 
-### Season Information
+### 赛季信息
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `%arcpass_season%` | Season name | `Season 1` |
-| `%arcpass_season_name%` | Season name (alias) | `Season 1` |
-| `%arcpass_season_number%` | Season number | `1` |
-| `%arcpass_season_status%` | Season status | `ACTIVE` |
-| `%arcpass_season_time_remaining%` | Time remaining | `7d 12h` |
+| 变量 | 说明 | 示例输出 |
+|------|------|----------|
+| `%arcpass_season%` | 当前赛季名称 | `第一赛季` |
+| `%arcpass_season_name%` | 当前赛季名称（别名） | `第一赛季` |
+| `%arcpass_season_number%` | 赛季编号 | `1` |
+| `%arcpass_season_status%` | 赛季状态 | `ACTIVE` |
+| `%arcpass_season_time_remaining%` | 赛季剩余时间 | `7d 12h` |
 
-### Leaderboard
+### 排行榜
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `%arcpass_rank%` | Level rank | `5` |
-| `%arcpass_rank_level%` | Level rank (alias) | `5` |
-| `%arcpass_rank_exp%` | XP rank | `3` |
-| `%arcpass_rank_experience%` | XP rank (alias) | `3` |
-| `%arcpass_rank_season%` | Season rank | `10` |
+| 变量 | 说明 | 示例输出 |
+|------|------|----------|
+| `%arcpass_rank%` | 等级排名 | `5` |
+| `%arcpass_rank_level%` | 等级排名（别名） | `5` |
+| `%arcpass_rank_exp%` | 经验排名 | `3` |
+| `%arcpass_rank_experience%` | 经验排名（别名） | `3` |
+| `%arcpass_rank_season%` | 赛季排名 | `10` |
 
-## Usage Examples
+## 使用示例
 
-### Scoreboard (FeatherBoard)
+### 计分板（FeatherBoard）
 
 ```yaml
 lines:
-  - "&6Pass Level: &e%arcpass_level%"
-  - "&7XP: &f%arcpass_current_exp%&7/&f%arcpass_required_exp%"
-  - "&7Progress: %arcpass_progress_bar%"
+  - "&6通行证等级: &e%arcpass_level%"
+  - "&7经验: &f%arcpass_current_exp%&7/&f%arcpass_required_exp%"
+  - "&7进度: %arcpass_progress_bar%"
   - ""
-  - "&6Season: &e%arcpass_season_name%"
-  - "&7Remaining: &f%arcpass_season_time_remaining%"
+  - "&6赛季: &e%arcpass_season_name%"
+  - "&7剩余: &f%arcpass_season_time_remaining%"
 ```
 
-### Chat Format (EssentialsX Chat)
+### 聊天格式（EssentialsX Chat）
 
 ```yaml
 format: "[Lv.%arcpass_level%] {DISPLAYNAME}: {MESSAGE}"
 ```
 
-### Tab List (TAB)
+### Tab 列表（TAB）
 
 ```yaml
 tablist:
   header:
-    - "&6=== Battle Pass ==="
-    - "&7Level: &e%arcpass_level% &7| XP: &e%arcpass_exp%"
+    - "&6=== 通行证 ==="
+    - "&7等级: &e%arcpass_level% &7| 经验: &e%arcpass_exp%"
 ```
 
-### Hologram (HolographicDisplays)
+### 全息图（HolographicDisplays）
 
 ```
-&6Pass Leaderboard
+&6通行证排行榜
 &7#1 &e{top_player_1} &7- Lv.{top_level_1}
 &7#2 &e{top_player_2} &7- Lv.{top_level_2}
 &7#3 &e{top_player_3} &7- Lv.{top_level_3}
 &7...
-&7Your Rank: &e%arcpass_rank%
+&7你的排名: &e%arcpass_rank%
 ```
 
-## Progress Bar Customization
+## 进度条自定义
 
-Default progress bar uses 10 characters:
+默认进度条使用 10 格显示，格式为：
+
 ```
-Completed: §a█
-Remaining: §7█
+已完成部分: §a█
+未完成部分: §7█
 ```
 
-Use `%arcpass_progress%` with other plugins for custom progress bars.
+如需自定义进度条样式，可以使用 `%arcpass_progress%` 配合其他插件的进度条功能。
 
-## Conditional Variables
+## 条件变量
 
-Use with condition plugins:
+配合条件插件使用：
 
 ```yaml
+# 示例：仅向拥有 premium 档位的玩家显示特定内容
 condition: "%arcpass_has_premium% == true"
 ```
 
-## Caching
+## 缓存说明
 
-For performance, some variables are cached:
+为了性能考虑，部分变量会进行缓存：
 
-| Variable Type | Cache Duration |
-|---------------|----------------|
-| Player data | Real-time |
-| Leaderboard ranks | 2 minutes |
-| Season info | 1 minute |
+| 变量类型 | 缓存时间 |
+|----------|----------|
+| 玩家数据 | 实时 |
+| 排行榜排名 | 2 分钟 |
+| 赛季信息 | 1 分钟 |
 
-Leaderboard ranks show `...` while loading.
+排行榜排名首次查询时会显示 `...`，加载完成后显示实际排名。
 
-## Troubleshooting
+## 故障排除
 
-### Variable Shows Raw Text
+### 变量显示为原文
 
-1. Confirm PlaceholderAPI is installed
-2. Check console for registration success
-3. Test with `/papi parse me %arcpass_level%`
+1. 确认 PlaceholderAPI 已正确安装
+2. 检查服务器控制台是否有注册成功的日志
+3. 使用 `/papi parse me %arcpass_level%` 测试
 
-### Variable Shows Empty
+### 变量显示为空
 
-1. Confirm player is online
-2. For season variables, confirm active season exists
-3. Check variable name spelling (case-sensitive)
+1. 确认玩家数据已加载（玩家需要在线）
+2. 对于赛季相关变量，确认有活动的赛季
+3. 检查变量名是否正确（区分大小写）
 
-### Rank Shows ?
+### 排名显示为 ?
 
-Leaderboard data is loading. Wait a moment and refresh.
+排行榜数据正在加载，稍等片刻后刷新。

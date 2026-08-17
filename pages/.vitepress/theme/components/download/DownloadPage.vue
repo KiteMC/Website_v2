@@ -212,6 +212,9 @@ async function loadReleases() {
 
     latestRelease.value = latest;
     allReleases.value = all;
+    if (!latest && all.length === 0) {
+      throw new Error('No releases returned');
+    }
   } catch (e) {
     error.value = t.value.error;
     console.error('Failed to load releases:', e);

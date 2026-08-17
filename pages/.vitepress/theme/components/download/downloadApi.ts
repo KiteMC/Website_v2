@@ -33,29 +33,42 @@ export interface ApiBuild {
   assets: ReleaseAsset[];
 }
 
+const releaseRequests = new Map<string, Promise<Release[]>>();
+
+function fetchReleaseList(url: string): Promise<Release[]> {
+  return fetch(url, {
+    headers: { 'Accept': 'application/vnd.github+json' },
+    signal: AbortSignal.timeout(10000),
+  }).then(async response => {
+    if (!response.ok) throw new Error(`GitHub API error: ${response.status}`);
+    const data: unknown = await response.json();
+    if (!Array.isArray(data)) throw new Error('GitHub API returned invalid release data');
+    return data as Release[];
+  });
+}
+
 /**
  * Fetch all releases from GitHub
  */
 export async function getGitHubReleases(owner: string, repo: string): Promise<Release[]> {
-  try {
-    const response = await fetch(
-      `https://api.github.com/repos/${owner}/${repo}/releases`,
-      {
-        headers: {
-          'Accept': 'application/vnd.github.v3+json',
-        },
-      }
-    );
+  const key = `${owner}/${repo}`;
+  const cached = releaseRequests.get(key);
+  if (cached) return cached;
 
-    if (!response.ok) {
-      throw new Error(`GitHub API error: ${response.status}`);
-    }
+  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/releases?per_page=100`;
+  const request = fetchReleaseList(apiUrl)
+    .catch(async directError => {
+      console.warn('GitHub API direct request failed, trying IPv4 mirror:', directError);
+      return fetchReleaseList(`https://v4.gh-proxy.org/${apiUrl}`);
+    })
+    .catch(error => {
+      releaseRequests.delete(key);
+      console.error('Failed to fetch GitHub releases from direct API and mirror:', error);
+      throw error;
+    });
 
-    return await response.json();
-  } catch (error) {
-    console.error('Failed to fetch GitHub releases:', error);
-    return [];
-  }
+  releaseRequests.set(key, request);
+  return request;
 }
 
 /**

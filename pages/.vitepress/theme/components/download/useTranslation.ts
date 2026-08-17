@@ -37,6 +37,7 @@ const translations = {
       cloudflareIpv4: 'Cloudflare IPv4',
       chinesePack: 'Chinese pack',
       englishPack: 'English pack',
+      languagePacks: 'Language packs',
     },
   },
   zh: {
@@ -70,6 +71,7 @@ const translations = {
       cloudflareIpv4: 'Cloudflare IPv4',
       chinesePack: '中文语言包',
       englishPack: '英文语言包',
+      languagePacks: '语言包',
     },
   },
 };

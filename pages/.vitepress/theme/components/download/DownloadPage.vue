@@ -318,8 +318,15 @@ onMounted(() => {
           </div>
 
           <div v-if="showLanguagePacks" class="language-pack-actions">
-            <a v-if="getLanguagePack(latestRelease, 'zh_CN')" :href="resolveDownloadUrl(getLanguagePack(latestRelease, 'zh_CN')!.browser_download_url)" class="download-btn language">{{ t.chinesePack }}</a>
-            <a v-if="getLanguagePack(latestRelease, 'en_US')" :href="resolveDownloadUrl(getLanguagePack(latestRelease, 'en_US')!.browser_download_url)" class="download-btn language">{{ t.englishPack }}</a>
+            <span class="language-pack-label">{{ t.languagePacks }}</span>
+            <a v-if="getLanguagePack(latestRelease, 'zh_CN')" :href="resolveDownloadUrl(getLanguagePack(latestRelease, 'zh_CN')!.browser_download_url)" class="download-btn language">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+              <span>{{ t.chinesePack }}</span>
+            </a>
+            <a v-if="getLanguagePack(latestRelease, 'en_US')" :href="resolveDownloadUrl(getLanguagePack(latestRelease, 'en_US')!.browser_download_url)" class="download-btn language">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+              <span>{{ t.englishPack }}</span>
+            </a>
           </div>
 
           <!-- Changelog for latest release -->
@@ -662,11 +669,16 @@ onMounted(() => {
   margin-bottom: 1.25rem;
 }
 
-.language-pack-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: -0.75rem 0 1.25rem; }
-.download-btn.language { padding: 0.45rem 0.8rem; border: 1px solid var(--vp-c-divider); background: var(--vp-c-bg); color: var(--vp-c-text-1); font-size: 0.78rem; }
-.download-btn.language:hover { border-color: var(--vp-c-brand-1); color: var(--vp-c-brand-1); }
-.history-language-packs { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.75rem; }
-.history-language-packs a { font-size: 0.75rem; font-weight: 600; color: var(--vp-c-brand-1); text-decoration: none; }
+.language-pack-actions { display: flex; flex-wrap: wrap; gap: 0.55rem; align-items: center; margin: -0.7rem 0 1.35rem; padding-top: 0.7rem; border-top: 1px solid color-mix(in srgb, var(--vp-c-divider) 70%, transparent); }
+.language-pack-label { color: var(--vp-c-text-3); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin-right: 0.15rem; }
+.download-btn.language { width: auto; min-height: 34px; padding: 0.4rem 0.75rem; border: 1px solid var(--vp-c-divider); border-radius: 7px; background: var(--vp-c-bg); color: var(--vp-c-text-1); font-size: 0.78rem; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06); }
+.download-btn.language svg { color: var(--vp-c-brand-1); flex-shrink: 0; }
+.download-btn.language:hover { transform: translateY(-1px); border-color: var(--vp-c-brand-1); background: var(--vp-c-brand-soft); color: var(--vp-c-brand-1); box-shadow: 0 3px 8px color-mix(in srgb, var(--vp-c-brand-1) 18%, transparent); }
+.download-btn.language:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 2px; }
+.history-language-packs { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.75rem; }
+.history-language-packs a { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.3rem 0.55rem; border: 1px solid var(--vp-c-divider); border-radius: 6px; background: var(--vp-c-bg-soft); font-size: 0.72rem; font-weight: 600; color: var(--vp-c-brand-1); text-decoration: none; }
+.history-language-packs a::before { content: '↓'; font-size: 0.85rem; }
+.history-language-packs a:hover { border-color: var(--vp-c-brand-1); background: var(--vp-c-brand-soft); }
 
 .download-btn {
   display: inline-flex;
@@ -1031,6 +1043,9 @@ onMounted(() => {
 
   .download-actions { flex-direction: column; }
   .download-btn { width: 100%; justify-content: center; }
+  .language-pack-actions { align-items: stretch; }
+  .language-pack-label { flex-basis: 100%; }
+  .download-btn.language { width: auto; flex: 1 1 0; }
 
   .release-header-row {
     flex-direction: column;

@@ -669,9 +669,9 @@ onMounted(() => {
   margin-bottom: 1.25rem;
 }
 
-.language-pack-actions { display: flex; flex-wrap: wrap; gap: 0.55rem; align-items: center; margin: -0.7rem 0 1.35rem; padding-top: 0.7rem; border-top: 1px solid color-mix(in srgb, var(--vp-c-divider) 70%, transparent); }
-.language-pack-label { color: var(--vp-c-text-3); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin-right: 0.15rem; }
-.download-btn.language { width: auto; min-height: 34px; padding: 0.4rem 0.75rem; border: 1px solid var(--vp-c-divider); border-radius: 7px; background: var(--vp-c-bg); color: var(--vp-c-text-1); font-size: 0.78rem; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06); }
+.language-pack-actions { display: flex; flex-wrap: wrap; gap: 0.55rem; align-items: center; margin: -0.7rem 0 1.35rem; padding: 0.6rem; border-radius: 8px; background: var(--vp-c-bg-soft); }
+.language-pack-label { color: var(--vp-c-text-3); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin: 0 0.15rem 0 0.1rem; }
+.download-btn.language { width: auto; min-height: 34px; padding: 0.4rem 0.75rem; border: 1px solid transparent; border-radius: 6px; background: var(--vp-c-bg); color: var(--vp-c-text-1); font-size: 0.78rem; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08); }
 .download-btn.language svg { color: var(--vp-c-brand-1); flex-shrink: 0; }
 .download-btn.language:hover { transform: translateY(-1px); border-color: var(--vp-c-brand-1); background: var(--vp-c-brand-soft); color: var(--vp-c-brand-1); box-shadow: 0 3px 8px color-mix(in srgb, var(--vp-c-brand-1) 18%, transparent); }
 .download-btn.language:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 2px; }
@@ -1043,9 +1043,10 @@ onMounted(() => {
 
   .download-actions { flex-direction: column; }
   .download-btn { width: 100%; justify-content: center; }
-  .language-pack-actions { align-items: stretch; }
+  .language-pack-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; gap: 0.45rem; }
   .language-pack-label { flex-basis: 100%; }
-  .download-btn.language { width: auto; flex: 1 1 0; }
+  .language-pack-label { grid-column: 1 / -1; }
+  .download-btn.language { width: 100%; min-width: 0; padding-inline: 0.5rem; }
 
   .release-header-row {
     flex-direction: column;
@@ -1055,5 +1056,10 @@ onMounted(() => {
 
   .release-actions { width: 100%; }
   .action-btn { flex: 1; }
+}
+
+@media (max-width: 380px) {
+  .language-pack-actions { grid-template-columns: 1fr; }
+  .language-pack-label { grid-column: auto; }
 }
 </style>

@@ -41,7 +41,7 @@ The ArcPass API module (`arcpass-api`) is open source under the MIT License.
 <dependency>
     <groupId>com.kitemc</groupId>
     <artifactId>arcpass-api</artifactId>
-    <version>1.8.5</version>
+    <version>1.9.0</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -56,7 +56,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.kitemc:arcpass-api:1.8.5")
+    compileOnly("com.kitemc:arcpass-api:1.9.0")
 }
 ```
 

@@ -44,6 +44,17 @@ items:
     skull-owner: "%player_name%"
 ```
 
+## Hex RGB Colors <Badge type="tip" text="v1.9.0" />
+
+GUI titles, item names, lore, plugin messages, and title text support hex RGB colors. Both formats below work alongside existing color codes:
+
+```yaml
+title: "#12ABEFArcPass Battle Pass"
+name: "&#FF8800Season Reward"
+lore:
+  - "&7Legacy colors and #55FFAAhex colors&7 can be combined"
+```
+
 ## Slot Numbers
 
 Slots are numbered from 0, row by row:

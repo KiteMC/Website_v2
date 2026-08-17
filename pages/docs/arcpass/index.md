@@ -47,22 +47,14 @@ import { ref } from 'vue';
   <FeatureBox icon="globe" title="Cross-Server Support" description="Seamless multi-server sync via Redis or shared MySQL with migration locks and distributed locking" />
 </FeatureGrid>
 
-## What's New In 1.8.5
+## What's New In 1.9.0
 
-- Fixed intermittent cases where points or economy balance were deducted but the purchased pass tier was not granted.
-- Purchase success now waits for the tier grant to be persisted instead of relying on a later auto-save.
-- Save failures roll back the tier grant and refund the deducted currency.
-- Purchases are serialized per player to prevent rapid clicks or concurrent requests from charging more than once.
-- The GUI shop and `/ap buy` command now share the same transactional purchase path.
-
-### 1.8.x Features
-
-- Full in-game reward editor with item capture, serialization, material browsing, amount editing, and display-item preview.
-- Expanded quest conditions, trigger dispatching, completion tracking, and integration APIs.
-- Safer season and cross-server data with generation tracking, reconciliation, archives, and stale-write protection.
-- Bundled reward definitions, including title rewards, with stronger reference validation.
-- Improved Bukkit/Folia adapters, GUI schema validation, configuration migration, and localization.
-- MariaDB 10.11 compatibility fixes for quest completion and reward claim persistence.
+- Rewards can use any specified item as their GUI icon while preserving its name, lore, enchantments, and custom data.
+- The reward editor can capture the player's main-hand item as an icon or restore the default icon at any time.
+- GUI text, messages, and titles support `#RRGGBB` and `&#RRGGBB` hex colors.
+- Fixed rewards being claimable more than once through rapid clicks, repeated commands, or cross-server actions.
+- Fixed quests occasionally completing or granting rewards more than once, and recurring quests not becoming available in a new period.
+- Improved reward claim checks for servers using multiple passes.
 
 <div style="margin: 2rem 0;">
   <img src="/images/arcpass/cover-16x9.png" alt="ArcPass Cover" style="border-radius: 12px; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />

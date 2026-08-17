@@ -135,6 +135,16 @@ reward_oraxen_gem:
 The `icon` field controls what is displayed in the GUI. The `value` field controls what the player actually receives. They can be different.
 :::
 
+### Capture Any Item as an Icon <Badge type="tip" text="v1.9.0" />
+
+The reward editor can capture any item from the player's main hand as the reward icon:
+
+1. Hold the desired icon item in your main hand.
+2. Left-click the Icon slot in the reward editor.
+3. Save the reward.
+
+Captured icons preserve the item's name, lore, enchantments, CustomModelData, and other custom data. Right-click the Icon slot to restore the default icon for that reward type. The icon only affects GUI display and does not change the reward delivered to the player.
+
 ## Item Preview Slot <Badge type="tip" text="v1.8.2" />
 
 When editing item rewards in the admin GUI (`/arcpass admin rewards`), you can set the reward's display item by clicking an item from your inventory onto the preview slot:

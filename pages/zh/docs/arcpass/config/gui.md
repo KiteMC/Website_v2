@@ -44,6 +44,17 @@ items:
     skull-owner: "%player_name%"
 ```
 
+## 十六进制 RGB 色彩 <Badge type="tip" text="v1.9.0" />
+
+GUI 标题、物品名称、Lore、插件消息和称号文本支持十六进制 RGB 色彩。可以使用以下两种写法，并继续混用传统颜色代码：
+
+```yaml
+title: "#12ABEFArcPass 通行证"
+name: "&#FF8800赛季奖励"
+lore:
+  - "&7传统颜色与 #55FFAA十六进制色彩&7 可以混用"
+```
+
 ## 槽位编号
 
 GUI 槽位从 0 开始，按行排列：

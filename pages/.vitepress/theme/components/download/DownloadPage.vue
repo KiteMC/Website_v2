@@ -123,6 +123,9 @@ function renderMarkdown(text: string): string {
       .replace(/>/g, '&gt;')
       // Bold
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      // Strikethrough and italic
+      .replace(/~~(.+?)~~/g, '<del>$1</del>')
+      .replace(/(^|[^*])\*([^*]+)\*(?!\*)/g, '$1<em>$2</em>')
       // Code inline
       .replace(/`([^`]+)`/g, '<code>$1</code>')
       // Links
@@ -133,6 +136,8 @@ function renderMarkdown(text: string): string {
   const lines = text.split('\n');
   const result: string[] = [];
   let inList = false;
+  let inCodeBlock = false;
+  let codeLines: string[] = [];
 
   // Emoji pattern for detecting emoji-prefixed headers
   const emojiPattern = /^([\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}])\s*(.+)$/u;
@@ -140,25 +145,31 @@ function renderMarkdown(text: string): string {
   for (const line of lines) {
     const trimmedLine = line.trim();
 
+    if (trimmedLine.startsWith('```')) {
+      if (inCodeBlock) {
+        result.push('<pre><code>' + processInline(codeLines.join('\n')) + '</code></pre>');
+        codeLines = [];
+      }
+      inCodeBlock = !inCodeBlock;
+      continue;
+    }
+    if (inCodeBlock) {
+      codeLines.push(line);
+      continue;
+    }
+
     // Skip horizontal rules (---, ***, ___)
     if (/^[-*_]{3,}$/.test(trimmedLine)) {
       if (inList) { result.push('</ul>'); inList = false; }
       continue;
     }
 
-    // Headers with # syntax (check raw line first)
-    if (/^###\s+(.+)$/.test(trimmedLine)) {
+    // Headers with any Markdown heading depth
+    const heading = /^(#{1,6})\s+(.+)$/.exec(trimmedLine);
+    if (heading) {
       if (inList) { result.push('</ul>'); inList = false; }
-      const content = trimmedLine.replace(/^###\s+(.+)$/, '$1');
-      result.push('<h4>' + processInline(content) + '</h4>');
-    } else if (/^##\s+(.+)$/.test(trimmedLine)) {
-      if (inList) { result.push('</ul>'); inList = false; }
-      const content = trimmedLine.replace(/^##\s+(.+)$/, '$1');
-      result.push('<h3>' + processInline(content) + '</h3>');
-    } else if (/^#\s+(.+)$/.test(trimmedLine)) {
-      if (inList) { result.push('</ul>'); inList = false; }
-      const content = trimmedLine.replace(/^#\s+(.+)$/, '$1');
-      result.push('<h2>' + processInline(content) + '</h2>');
+      const level = Math.min(6, heading[1].length + 1);
+      result.push(`<h${level}>${processInline(heading[2])}</h${level}>`);
     }
     // List items (check raw line - must be "- " or "* " at start)
     else if (/^[-*]\s+(.+)$/.test(trimmedLine)) {
@@ -183,6 +194,7 @@ function renderMarkdown(text: string): string {
   }
 
   if (inList) result.push('</ul>');
+  if (inCodeBlock && codeLines.length) result.push('<pre><code>' + processInline(codeLines.join('\n')) + '</code></pre>');
 
   return result.join('');
 }
@@ -669,7 +681,7 @@ onMounted(() => {
   margin-bottom: 1.25rem;
 }
 
-.language-pack-actions { display: flex; flex-wrap: wrap; gap: 0.55rem; align-items: center; margin: -0.7rem 0 1.35rem; padding: 0.6rem; border-radius: 8px; background: var(--vp-c-bg-soft); }
+.language-pack-actions { display: flex; flex-wrap: wrap; gap: 0.55rem; align-items: center; margin: -0.7rem 0 1.35rem; padding: 0.6rem; border: 0 !important; border-radius: 8px; background: var(--vp-c-bg-soft); box-shadow: none !important; }
 .language-pack-label { color: var(--vp-c-text-3); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin: 0 0.15rem 0 0.1rem; }
 .download-btn.language { width: auto; min-height: 34px; padding: 0.4rem 0.75rem; border: 1px solid transparent; border-radius: 6px; background: var(--vp-c-bg); color: var(--vp-c-text-1); font-size: 0.78rem; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08); }
 .download-btn.language svg { color: var(--vp-c-brand-1); flex-shrink: 0; }

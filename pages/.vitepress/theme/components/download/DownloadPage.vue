@@ -168,8 +168,8 @@ function renderMarkdown(text: string): string {
     const heading = /^(#{1,6})\s+(.+)$/.exec(trimmedLine);
     if (heading) {
       if (inList) { result.push('</ul>'); inList = false; }
-      const level = Math.min(6, heading[1].length + 1);
-      result.push(`<h${level}>${processInline(heading[2])}</h${level}>`);
+      const level = heading[1].length;
+      result.push(`<div class="md-heading md-heading-${level}">${processInline(heading[2])}</div>`);
     }
     // List items (check raw line - must be "- " or "* " at start)
     else if (/^[-*]\s+(.+)$/.test(trimmedLine)) {
@@ -681,14 +681,14 @@ onMounted(() => {
   margin-bottom: 1.25rem;
 }
 
-.language-pack-actions { display: flex; flex-wrap: wrap; gap: 0.55rem; align-items: center; margin: -0.7rem 0 1.35rem; padding: 0.6rem; border: 0 !important; border-radius: 8px; background: var(--vp-c-bg-soft); box-shadow: none !important; }
-.language-pack-label { color: var(--vp-c-text-3); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin: 0 0.15rem 0 0.1rem; }
-.download-btn.language { width: auto; min-height: 34px; padding: 0.4rem 0.75rem; border: 1px solid transparent; border-radius: 6px; background: var(--vp-c-bg); color: var(--vp-c-text-1); font-size: 0.78rem; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08); }
+.language-pack-actions { display: flex; flex-wrap: wrap; gap: 0.55rem; align-items: center; width: 100%; max-width: 100%; box-sizing: border-box; margin: -0.7rem 0 1.35rem; padding: 0.6rem; border: 0 !important; outline: 0 !important; border-radius: 8px; background: var(--vp-c-bg-soft); box-shadow: none !important; overflow: hidden; }
+.language-pack-label { color: var(--vp-c-text-3); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin: 0 0.15rem 0 0.1rem; border: 0 !important; outline: 0 !important; background: transparent !important; box-shadow: none !important; }
+.download-btn.language { width: auto; min-height: 34px; padding: 0.4rem 0.75rem; border: 0 !important; border-radius: 6px; background: var(--vp-c-brand-soft); color: var(--vp-c-text-1); font-size: 0.78rem; box-shadow: none !important; }
 .download-btn.language svg { color: var(--vp-c-brand-1); flex-shrink: 0; }
 .download-btn.language:hover { transform: translateY(-1px); border-color: var(--vp-c-brand-1); background: var(--vp-c-brand-soft); color: var(--vp-c-brand-1); box-shadow: 0 3px 8px color-mix(in srgb, var(--vp-c-brand-1) 18%, transparent); }
 .download-btn.language:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 2px; }
-.history-language-packs { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.75rem; }
-.history-language-packs a { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.3rem 0.55rem; border: 1px solid var(--vp-c-divider); border-radius: 6px; background: var(--vp-c-bg-soft); font-size: 0.72rem; font-weight: 600; color: var(--vp-c-brand-1); text-decoration: none; }
+.history-language-packs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem; width: 100%; max-width: 100%; box-sizing: border-box; margin-top: 0.75rem; border: 0 !important; outline: 0 !important; box-shadow: none !important; overflow: hidden; }
+.history-language-packs a { display: inline-flex; align-items: center; justify-content: center; min-width: 0; gap: 0.3rem; padding: 0.4rem 0.45rem; border: 0 !important; border-radius: 6px; background: var(--vp-c-brand-soft); font-size: 0.72rem; font-weight: 600; color: var(--vp-c-brand-1); text-decoration: none; box-shadow: none !important; white-space: normal; overflow-wrap: anywhere; }
 .history-language-packs a::before { content: '↓'; font-size: 0.85rem; }
 .history-language-packs a:hover { border-color: var(--vp-c-brand-1); background: var(--vp-c-brand-soft); }
 
@@ -804,15 +804,20 @@ onMounted(() => {
   margin: 0.1rem 0;
 }
 
-.changelog-content :deep(h2),
-.changelog-content :deep(h3),
-.changelog-content :deep(h4) {
-  font-size: 0.88em;
+.changelog-content :deep(.md-heading) {
   font-weight: 600;
   color: var(--vp-c-text-1);
   margin: 0.3rem 0 0.1rem;
   line-height: 1.3;
+  letter-spacing: 0;
 }
+
+.changelog-content :deep(.md-heading-1) { font-size: 1.1em; }
+.changelog-content :deep(.md-heading-2) { font-size: 1em; }
+.changelog-content :deep(.md-heading-3) { font-size: 0.94em; }
+.changelog-content :deep(.md-heading-4) { font-size: 0.9em; }
+.changelog-content :deep(.md-heading-5),
+.changelog-content :deep(.md-heading-6) { font-size: 0.86em; }
 
 .changelog-content :deep(h4.emoji-header) {
   font-size: 0.85em;
@@ -1073,5 +1078,6 @@ onMounted(() => {
 @media (max-width: 380px) {
   .language-pack-actions { grid-template-columns: 1fr; }
   .language-pack-label { grid-column: auto; }
+  .history-language-packs { grid-template-columns: 1fr; }
 }
 </style>

@@ -147,7 +147,7 @@ reward_oraxen_gem:
 `icon` 字段控制 GUI 中的显示图标，`value` 字段控制玩家实际获得的内容，两者可以不同。
 :::
 
-### 捕获任意物品作为图标 <Badge type="tip" text="v1.9.0" />
+### 捕获任意物品作为图标 <Badge type="tip" text="v1.9.1" />
 
 奖励编辑 GUI 可以将玩家主手中的任意物品捕获为奖励图标：
 

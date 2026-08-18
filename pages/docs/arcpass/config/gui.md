@@ -44,7 +44,7 @@ items:
     skull-owner: "%player_name%"
 ```
 
-## 十六进制 RGB 色彩 <Badge type="tip" text="v1.9.0" />
+## 十六进制 RGB 色彩 <Badge type="tip" text="v1.9.1" />
 
 GUI 标题、物品名称、Lore、插件消息和称号文本支持十六进制 RGB 色彩。可以使用以下两种写法，并继续混用传统颜色代码：
 

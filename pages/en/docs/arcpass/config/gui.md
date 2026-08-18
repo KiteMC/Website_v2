@@ -44,7 +44,7 @@ items:
     skull-owner: "%player_name%"
 ```
 
-## Hex RGB Colors <Badge type="tip" text="v1.9.1" />
+## Hex RGB Colors <Badge type="tip" text="v1.9.2" />
 
 GUI titles, item names, lore, plugin messages, and title text support hex RGB colors. Both formats below work alongside existing color codes:
 

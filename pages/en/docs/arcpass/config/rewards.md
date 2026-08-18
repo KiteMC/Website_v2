@@ -135,7 +135,7 @@ reward_oraxen_gem:
 The `icon` field controls what is displayed in the GUI. The `value` field controls what the player actually receives. They can be different.
 :::
 
-### Capture Any Item as an Icon <Badge type="tip" text="v1.9.1" />
+### Capture Any Item as an Icon <Badge type="tip" text="v1.9.2" />
 
 The reward editor can capture any item from the player's main hand as the reward icon:
 

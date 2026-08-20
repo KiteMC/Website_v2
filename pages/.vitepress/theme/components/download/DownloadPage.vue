@@ -726,7 +726,7 @@ onMounted(() => {
 .download-btn.language svg { color: var(--vp-c-brand-1); flex-shrink: 0; }
 .download-btn.language:hover { transform: translateY(-1px); border-color: var(--vp-c-brand-1); background: var(--vp-c-brand-soft); color: var(--vp-c-brand-1); box-shadow: 0 3px 8px color-mix(in srgb, var(--vp-c-brand-1) 18%, transparent); }
 .download-btn.language:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 2px; }
-.history-language-packs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem; width: 100%; max-width: 100%; box-sizing: border-box; margin: 0.75rem auto 0; border: 0 !important; outline: 0 !important; box-shadow: none !important; overflow: hidden; }
+.history-language-packs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem; align-self: stretch; width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; margin: 0.75rem 0 0; border: 0 !important; outline: 0 !important; box-shadow: none !important; overflow: hidden; }
 .history-language-packs a { display: inline-flex; align-items: center; justify-content: center; min-width: 0; gap: 0.3rem; padding: 0.4rem 0.45rem; border: 0 !important; border-radius: 6px; background: var(--vp-c-brand-soft); font-size: 0.72rem; font-weight: 600; color: var(--vp-c-brand-1); text-decoration: none; box-shadow: none !important; white-space: normal; overflow-wrap: anywhere; }
 .history-language-packs a::before { content: '↓'; font-size: 0.85rem; }
 .history-language-packs a:hover { border-color: var(--vp-c-brand-1); background: var(--vp-c-brand-soft); }

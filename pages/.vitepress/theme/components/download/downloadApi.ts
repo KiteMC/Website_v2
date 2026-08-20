@@ -194,10 +194,16 @@ export function formatFileSize(bytes: number): string {
  */
 export function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
-  return date.toLocaleDateString('en-US', {
+  // Use the viewer's browser locale and IANA timezone instead of the server's.
+  const locale = typeof navigator !== 'undefined' ? navigator.language : 'en-US';
+  const timeZone = typeof Intl !== 'undefined'
+    ? Intl.DateTimeFormat().resolvedOptions().timeZone
+    : undefined;
+  return date.toLocaleDateString(locale, {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
+    ...(timeZone ? { timeZone } : {}),
   });
 }
 

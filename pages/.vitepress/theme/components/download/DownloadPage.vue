@@ -722,7 +722,8 @@ onMounted(() => {
 
 .language-pack-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.55rem; align-items: center; width: 100%; max-width: 100%; box-sizing: border-box; margin: -0.7rem auto 1.35rem; padding: 0.6rem; border: 0 !important; outline: 0 !important; border-radius: 8px; background: var(--vp-c-bg-soft); box-shadow: none !important; overflow: hidden; }
 .language-pack-label { grid-column: 1 / -1; color: var(--vp-c-text-3); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; text-align: center; margin: 0; border: 0 !important; outline: 0 !important; background: transparent !important; box-shadow: none !important; }
-.download-btn.language { width: 100%; justify-content: center; min-height: 34px; padding: 0.4rem 0.75rem; border: 0 !important; border-radius: 6px; background: var(--vp-c-brand-soft); color: var(--vp-c-text-1); font-size: 0.78rem; box-shadow: none !important; }
+.download-btn.language { position: relative; width: 100%; justify-content: center; min-height: 34px; padding: 0.4rem 0.75rem; border: 0 !important; border-radius: 6px; background: var(--vp-c-brand-soft); color: var(--vp-c-text-1); font-size: 0.78rem; text-align: center; box-shadow: none !important; }
+.download-btn.language svg { position: absolute; left: calc(50% - 4.8rem); }
 .download-btn.language svg { color: var(--vp-c-brand-1); flex-shrink: 0; }
 .download-btn.language:hover { transform: translateY(-1px); border-color: var(--vp-c-brand-1); background: var(--vp-c-brand-soft); color: var(--vp-c-brand-1); box-shadow: 0 3px 8px color-mix(in srgb, var(--vp-c-brand-1) 18%, transparent); }
 .download-btn.language:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 2px; }

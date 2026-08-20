@@ -38,14 +38,21 @@ const downloadSource = ref<'github' | 'cloudflare'>('github');
 
 // Computed
 const totalPages = computed(() => {
-  return Math.ceil(allReleases.value.length / itemsPerPage);
+  return Math.ceil(historicalReleases.value.length / itemsPerPage);
 });
 
 const paginatedReleases = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage;
   const end = start + itemsPerPage;
-  return allReleases.value.slice(start, end);
+  return historicalReleases.value.slice(start, end);
 });
+
+// GitHub returns releases newest-first. Keep a prerelease in its own section
+// and omit the current stable release from the historical list.
+const previewRelease = computed(() => allReleases.value[0]?.prerelease ? allReleases.value[0] : null);
+const historicalReleases = computed(() => allReleases.value.filter(release =>
+  release.tag !== latestRelease.value?.tag && release.tag !== previewRelease.value?.tag
+));
 
 // Get main downloadable asset (.jar or .zip)
 function getMainAsset(release: ApiBuild): ReleaseAsset | undefined {
@@ -390,7 +397,36 @@ onMounted(() => {
         </div>
       </section>
 
-      <!-- All Releases Section -->
+      <!-- Preview Release Section -->
+      <section v-if="previewRelease" class="releases-section preview-releases-section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg>
+          {{ t.previewReleases }}
+        </h2>
+        <div class="releases-list">
+          <div class="release-card">
+            <div class="release-header-row">
+              <div class="release-info">
+                <div class="release-title-row">
+                  <a :href="previewRelease.url" target="_blank" rel="noopener" class="release-name">{{ previewRelease.name || previewRelease.tag }}</a>
+                  <span class="tag prerelease">{{ t.prerelease }}</span>
+                </div>
+                <div class="release-meta"><span>{{ formatDate(previewRelease.publishedAt) }}</span><span v-if="previewRelease.assets.length > 0">{{ previewRelease.assets.length }} {{ t.assets }}</span></div>
+              </div>
+              <div class="release-actions">
+                <a v-if="getMainAsset(previewRelease)" :href="resolveDownloadUrl(getMainAsset(previewRelease)!.browser_download_url)" class="action-btn download" :title="t.downloadButton"><span aria-hidden="true">↓</span></a>
+                <a :href="previewRelease.url" target="_blank" rel="noopener" class="action-btn github" :title="t.viewOnGitHub"><span aria-hidden="true">GitHub</span></a>
+              </div>
+            </div>
+            <div v-if="showLanguagePacks && (getLanguagePack(previewRelease, 'zh_CN') || getLanguagePack(previewRelease, 'en_US'))" class="history-language-packs">
+              <a v-if="getLanguagePack(previewRelease, 'zh_CN')" :href="resolveDownloadUrl(getLanguagePack(previewRelease, 'zh_CN')!.browser_download_url)">{{ t.chinesePack }}</a>
+              <a v-if="getLanguagePack(previewRelease, 'en_US')" :href="resolveDownloadUrl(getLanguagePack(previewRelease, 'en_US')!.browser_download_url)">{{ t.englishPack }}</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Historical Releases Section -->
       <section class="releases-section">
         <h2 class="section-title">
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -684,9 +720,9 @@ onMounted(() => {
   margin-bottom: 1.25rem;
 }
 
-.language-pack-actions { display: flex; flex-wrap: wrap; gap: 0.55rem; align-items: center; width: 100%; max-width: 100%; box-sizing: border-box; margin: -0.7rem auto 1.35rem; padding: 0.6rem; border: 0 !important; outline: 0 !important; border-radius: 8px; background: var(--vp-c-bg-soft); box-shadow: none !important; overflow: hidden; }
-.language-pack-label { color: var(--vp-c-text-3); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin: 0 0.15rem 0 0.1rem; border: 0 !important; outline: 0 !important; background: transparent !important; box-shadow: none !important; }
-.download-btn.language { width: auto; min-height: 34px; padding: 0.4rem 0.75rem; border: 0 !important; border-radius: 6px; background: var(--vp-c-brand-soft); color: var(--vp-c-text-1); font-size: 0.78rem; box-shadow: none !important; }
+.language-pack-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.55rem; align-items: center; width: 100%; max-width: 100%; box-sizing: border-box; margin: -0.7rem auto 1.35rem; padding: 0.6rem; border: 0 !important; outline: 0 !important; border-radius: 8px; background: var(--vp-c-bg-soft); box-shadow: none !important; overflow: hidden; }
+.language-pack-label { grid-column: 1 / -1; color: var(--vp-c-text-3); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; text-align: center; margin: 0; border: 0 !important; outline: 0 !important; background: transparent !important; box-shadow: none !important; }
+.download-btn.language { width: 100%; justify-content: center; min-height: 34px; padding: 0.4rem 0.75rem; border: 0 !important; border-radius: 6px; background: var(--vp-c-brand-soft); color: var(--vp-c-text-1); font-size: 0.78rem; box-shadow: none !important; }
 .download-btn.language svg { color: var(--vp-c-brand-1); flex-shrink: 0; }
 .download-btn.language:hover { transform: translateY(-1px); border-color: var(--vp-c-brand-1); background: var(--vp-c-brand-soft); color: var(--vp-c-brand-1); box-shadow: 0 3px 8px color-mix(in srgb, var(--vp-c-brand-1) 18%, transparent); }
 .download-btn.language:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 2px; }

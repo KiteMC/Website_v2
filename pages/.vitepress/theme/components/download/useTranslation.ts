@@ -10,7 +10,8 @@ const translations = {
     download: {
       title: 'Download',
       latestRelease: 'Latest Release',
-      allReleases: 'All Releases',
+      allReleases: 'Historical Releases',
+      previewReleases: 'Preview Release',
       version: 'Version',
       releaseDate: 'Release Date',
       downloadButton: 'Download',
@@ -44,7 +45,8 @@ const translations = {
     download: {
       title: '下载',
       latestRelease: '最新版本',
-      allReleases: '所有版本',
+      allReleases: '历史版本',
+      previewReleases: '预览版本',
       version: '版本',
       releaseDate: '发布日期',
       downloadButton: '下载',

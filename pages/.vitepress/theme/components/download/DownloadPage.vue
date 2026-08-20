@@ -731,6 +731,13 @@ onMounted(() => {
 .history-language-packs a::before { content: '↓'; font-size: 0.85rem; }
 .history-language-packs a:hover { border-color: var(--vp-c-brand-1); background: var(--vp-c-brand-soft); }
 
+/* Keep the latest-release pack panel aligned with the hero content column. */
+.hero-download .language-pack-actions {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: -0.7rem 0 1.35rem !important;
+}
+
 .download-btn {
   display: inline-flex;
   align-items: center;

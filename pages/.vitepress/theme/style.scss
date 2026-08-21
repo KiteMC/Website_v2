@@ -531,6 +531,15 @@ html.page-transitioning {
   border-radius: 10px;
 }
 
+@media (max-width: 768px) {
+  .vp-doc table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
 /**
  * Blockquote enhancements - Elegant callout style
  * -------------------------------------------------------------------------- */

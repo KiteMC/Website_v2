@@ -167,9 +167,9 @@ ArcPass 需要一个活动的赛季才能正常工作。
   />
   <LinkCard
     icon="chat"
-    title="Discord 社区"
+    title="QQ 社区"
     description="加入社区获取帮助"
-    href="https://discord.gg/dcsBw5Z5ZT"
+    href="https://qm.qq.com/q/R83fq82HWm"
     :external="true"
   />
 </LinkGrid>

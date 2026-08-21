@@ -8,8 +8,8 @@ ArcPass is a paid plugin requiring a valid license for full functionality.
 
 | Plan | Price | Devices | Ports per Device | Developer API | Best For |
 |------|-------|---------|------------------|:---:|----------|
-| Standard | $10.99 | 5 | 3 | ❌ | Personal/small servers |
-| Professional | $29.99 | 25 | 15 | ✅ | Commercial servers, API integrations |
+| Standard | \$10.99 | 5 | 3 | ❌ | Personal/small servers |
+| Professional | \$29.99 | 25 | 15 | ✅ | Commercial servers, API integrations |
 
 ::: tip Note
 

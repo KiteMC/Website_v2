@@ -74,7 +74,7 @@ import DownloadPage from '@theme/components/download/DownloadPage.vue';
   <div class="dl-price-grid">
     <div class="dl-price-card">
       <div class="dl-price-name">Standard</div>
-      <div class="dl-price-amount">$12.99</div>
+      <div class="dl-price-amount">$10.99</div>
       <div class="dl-price-features">
         <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 5 devices</div>
         <div class="dl-price-feat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 3 ports / device</div>

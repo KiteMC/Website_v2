@@ -200,7 +200,7 @@ discord:
 ## 官方社区
 
 - **QQ 群**: 1041540576 ([点击加入](https://qm.qq.com/q/F7zuhZ7Mze))
-- **Discord**: [https://discord.gg/dcsBw5Z5ZT](https://discord.gg/dcsBw5Z5ZT)
+- **QQ 社区**: [https://qm.qq.com/q/R83fq82HWm](https://qm.qq.com/q/R83fq82HWm)
 
 ---
 

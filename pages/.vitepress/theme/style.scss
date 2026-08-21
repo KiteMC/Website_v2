@@ -532,10 +532,15 @@ html.page-transitioning {
 }
 
 @media (max-width: 768px) {
-  .vp-doc table {
-    display: block;
-    max-width: 100%;
+  .vp-doc {
     overflow-x: auto;
+  }
+
+  .vp-doc table {
+    display: table;
+    width: max-content;
+    min-width: 100%;
+    max-width: none;
     white-space: nowrap;
   }
 }

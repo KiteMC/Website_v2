@@ -120,17 +120,17 @@ import DownloadPage from '@theme/components/download/DownloadPage.vue';
 <dependency>
     <groupId>com.kitemc</groupId>
     <artifactId>arcpass-api</artifactId>
-    <version>1.9.2</version>
+    <version>1.9.3</version>
     <scope>provided</scope>
 </dependency>
 ```
 
 ```kotlin [Gradle (Kotlin DSL)]
-compileOnly("com.kitemc:arcpass-api:1.9.2")
+compileOnly("com.kitemc:arcpass-api:1.9.3")
 ```
 
 ```groovy [Gradle (Groovy)]
-compileOnly 'com.kitemc:arcpass-api:1.9.2'
+compileOnly 'com.kitemc:arcpass-api:1.9.3'
 ```
 
 :::

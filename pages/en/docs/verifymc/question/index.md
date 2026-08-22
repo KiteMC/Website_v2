@@ -23,6 +23,15 @@ http://your-server-ip:8080
 3. Verify the plugin loaded correctly by checking the console
 4. Make sure `web_port` in `config.yml` is correctly set
 
+### How does an administrator sign in?
+Admin login uses a registered player account and requires that player to be a server OP:
+
+1. Register an account through the web page.
+2. Run `/op player_name` from the console or in-game.
+3. Click “Login” in the page header and use the registered username and password.
+
+VerifyMC has no separate default admin password. If access is denied, confirm that the username matches the OP entry in `ops.json`.
+
 ---
 
 ## Discord Integration

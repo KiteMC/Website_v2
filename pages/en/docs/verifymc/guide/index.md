@@ -2,49 +2,21 @@
 
 ## Introduction
 
-**VerifyMC** is an ultra-lightweight, powerful whitelist management plugin for Minecraft servers. It supports web-based registration, auto/manual review, banning, theme switching, AuthMe integration, and high customizability, helping you secure and manage your server community with ease.
+**VerifyMC** is a whitelist verification and user management plugin for Minecraft servers. Players register from a web page while administrators review applications from the dashboard. Version **v1.8.0** uses Chinese by default and keeps English available whenever you need it.
 
 ---
 
 ## Key Features
 
-1. **Web Registration & Review** - Players can submit whitelist applications via a web page; admins can review, ban, and manage users online
-2. **Auto/Manual Review** - Supports both automatic approval and manual admin review to fit different server needs
-3. **Ban System** - Ban problematic players to keep your server safe
-4. **GlassX Theme** - Beautiful glassmorphism design with smooth animations and modern UI
-5. **Email Verification & Domain Whitelist** - Integrated SMTP email verification, supports email domain whitelist and alias limit
-6. **Self-hosted CAPTCHA** - Built-in graphical CAPTCHA (math/text), no external services required
-7. **Discord Integration** - OAuth2 Discord account linking with optional/required mode
-8. **Registration Questionnaire** - Customizable questionnaire system with multi-language support
-9. **User Notifications** - Automatic email notifications for whitelist approval/rejection
-10. **Multi-language Support** - Both web UI and plugin messages support English and Chinese
-11. **Highly Customizable** - Set max accounts per email, player ID regex, whitelist bypass IPs, and more
-12. **Lightweight** - Plugin jar is under 6MB, integrates multiple features, and runs efficiently
-13. **Auto Update & Backup** - Config files auto-upgrade, with full backup before each update
-14. **Flexible Whitelist Modes** - Supports Bukkit native whitelist sync, plugin self-management, and MySQL storage
-15. **MySQL & Data File Storage** - Easily switch between local file and MySQL storage; supports automatic migration
-16. **Audit Log Multi-Storage** - Audit logs can be stored in file or MySQL
-17. **Custom Internationalization** - Auto-loads any messages_xx.properties file; users can add any language
-18. **AuthMe Integration** - Seamless integration with AuthMe plugin for password management and auto-registration
-19. **Bedrock Support** - Geyser/Floodgate player prefix support for cross-platform servers
-20. **Proxy Support** - BungeeCord/Velocity proxy plugin for network-level whitelist enforcement
-21. **LLM Essay Scoring** - AI-powered auto-scoring for text questionnaire answers via DeepSeek/Google, with circuit breaker and concurrency control
-
----
-
-## Screenshots (GlassX Theme)
-
-### Home Page
-
-![Home GlassX](/images/verifymc/docs/screenshot-home-glassx.png)
-
-### Registration Page
-
-![Registration GlassX](/images/verifymc/docs/screenshot-register-glassx.png)
-
-### Admin Panel
-
-![Admin GlassX](/images/verifymc/docs/screenshot-admin-glassx.png)
+1. **Web registration and review** - Players submit applications while admins approve, reject, ban, or remove accounts online.
+2. **Flexible review modes** - Use automatic approval, manual review, optional questionnaires, or LLM scoring.
+3. **Email and built-in CAPTCHA** - Use SMTP verification or the built-in math/text CAPTCHA.
+4. **Chinese by default, English available** - The plugin, web UI, and proxy extension support both languages.
+5. **Clear admin workspace** - The GlassX frontend provides user lists, review history, search, and live notifications.
+6. **Discord and AuthMe integration** - Link Discord accounts and synchronize AuthMe users and passwords.
+7. **Multiple whitelist and storage modes** - Supports Bukkit whitelist sync, plugin-managed data, local files, and MySQL.
+8. **Proxy and Bedrock support** - Supports BungeeCord, Waterfall, Velocity, Geyser, and Floodgate.
+9. **Automatic configuration backup** - Configuration and language resources are backed up before upgrades.
 
 ---
 
@@ -59,11 +31,27 @@
 
 ## Installation & Configuration
 
-1. Download the latest `VerifyMC.jar` and place it in your server's `plugins` directory.
-2. Start the server to auto-generate config files, then edit `config.yml` as needed (see full example below).
-3. Restart the server and visit `http://your_server_ip:8080` to access the admin panel.
+1. Download the latest `verifymc-*.jar` from [GitHub Releases](https://github.com/KiteMC/VerifyMC/releases). If you use a proxy, download `verifymc-proxy-*.jar` as well.
+2. Put the main plugin in the backend server's `plugins` directory and the proxy plugin in the BungeeCord, Waterfall, or Velocity `plugins` directory.
+3. Start the server, then edit `plugins/VerifyMC/config.yml` to confirm the port, registration URL, authentication methods, and storage mode.
+4. Restart the server and open `http://your-server-ip:8080`.
+
+### Administrator Login
+
+The admin panel does not use a separate default password. It verifies a registered account and requires that player to be a server OP:
+
+1. Register an administrator account on the web page and keep its username and password.
+2. Run `/op player_name` from the console or in-game.
+3. Open “Login” in the page header and sign in with that account. The admin menus appear after authorization.
+
+If access is denied, confirm that the username matches the OP name in `ops.json`. Admin API calls use the session token issued after login.
+
+### Language
+
+Chinese is the default language. Use the language switcher in the web page header to choose English, or set the plugin default explicitly:
 
 ```yaml
+# This example selects English; the plugin defaults to Chinese.
 language: en
 debug: false
 web_port: 8080
@@ -77,8 +65,6 @@ register:
   auto_approve: false
 username_regex: "^[a-zA-Z0-9_-]{3,16}$"
 username_case_sensitive: false
-admin:
-  password: your_custom_password
 user_notification:
   enabled: true
   on_approve: true

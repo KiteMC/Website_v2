@@ -67,10 +67,8 @@ username_regex: "^[a-zA-Z0-9_-]{3,16}$"
 # 如果为 false，则仅大小写不同的用户名（例如 "Player" 和 "player"）将被视为相同。
 username_case_sensitive: false
 
-# 访问网页管理面板的密码。
-# 管理员登录基于已注册玩家凭据验证，仅服务器 OP 可访问管理面板。
-admin:
-  password: your_custom_password
+# 管理员面板不使用单独密码。
+# 登录时使用已注册玩家账号密码，并且该玩家必须是服务器 OP。
 ```
 
 ## 用户通知
@@ -367,8 +365,6 @@ register:
   auto_approve: false
 username_regex: "^[a-zA-Z0-9_-]{3,16}$"
 username_case_sensitive: false
-admin:
-  password: your_custom_password
 user_notification:
   enabled: true
   on_approve: true

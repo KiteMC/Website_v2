@@ -1,23 +1,23 @@
 ---
 title: VerifyMC - Minecraft Whitelist & Registration Plugin
-description: Modern whitelist and registration plugin with email verification, Discord integration, admin panel, and beautiful GlassX theme for Minecraft servers.
+description: Minecraft whitelist and registration plugin with Chinese as the default language, English switching, email verification, Discord linking, and a web admin panel.
 head:
   - - meta
     - name: keywords
-      content: VerifyMC, Minecraft, whitelist, registration, email verification, Discord, admin panel, BungeeCord, Velocity
+      content: VerifyMC, Minecraft, whitelist, registration, email verification, Discord, admin panel, BungeeCord, Velocity, Chinese, English
   - - meta
     - property: og:title
       content: VerifyMC - Minecraft Whitelist & Registration Plugin
   - - meta
     - property: og:description
-      content: Modern whitelist plugin with email verification, Discord integration, and web admin panel for Minecraft servers.
+      content: Minecraft whitelist plugin with Chinese as the default, English switching, email verification, Discord linking, and a web admin panel.
 layout: home
 
 hero:
   name: "VerifyMC"
-  text: "Modern Minecraft Whitelist & Registration Plugin"
+  text: "Minecraft Whitelist & Registration Plugin"
   image: /images/logo/verifymc.svg
-  tagline: Powerful, secure, and extensible whitelist management for Minecraft servers
+  tagline: v1.8.0 - Chinese by default, English available - Registration, review, and management in one place
   actions:
     - theme: brand
       text: Documentation
@@ -38,9 +38,15 @@ import FeatureBox from '@theme/components/FeatureBox.vue';
 <FeatureGrid :cols="3">
   <FeatureBox icon="mail" title="Email & CAPTCHA Verification" description="Email verification, self-hosted graphical CAPTCHA (math/text), domain whitelist, alias restrictions" />
   <FeatureBox icon="gamepad" title="Discord Integration" description="OAuth2 Discord account linking, optional or required mode, persistent storage" />
-  <FeatureBox icon="shield" title="Admin Review & Notifications" description="Web admin panel, real-time review, automatic email notifications for approval/rejection" />
-  <FeatureBox icon="color-swatch" title="Modern GlassX Theme" description="Beautiful glassmorphism design, animated effects, mobile-friendly, i18n support" />
+  <FeatureBox icon="shield" title="Review & Notifications" description="Web admin panel, real-time review, and email notifications for decisions" />
+  <FeatureBox icon="color-swatch" title="Clear Admin Interface" description="GlassX frontend with mobile support, Chinese default, and English switching" />
   <FeatureBox icon="link" title="Proxy & Bedrock Support" description="BungeeCord/Velocity proxy plugin, Geyser/Floodgate Bedrock edition support" />
   <FeatureBox icon="clipboard-list" title="Registration Questionnaire" description="Customizable questionnaire system, multi-language support, flexible question types" />
-  <FeatureBox icon="shield" title="LLM Essay Scoring" description="AI-powered auto-scoring for text questionnaire answers via DeepSeek/Google, with circuit breaker and concurrency control" />
+  <FeatureBox icon="shield" title="Optional Questionnaire Scoring" description="Review registration questionnaires manually or score them with DeepSeek/Google" />
 </FeatureGrid>
+
+<p class="current-release"><strong>Current release: v1.8.0</strong> - See <a href="./download">downloads and updates</a> or visit <a href="https://github.com/KiteMC/VerifyMC/releases">GitHub Releases</a>.</p>
+
+<style>
+.current-release { margin: 2rem 0 0; color: var(--vp-c-text-2); }
+</style>

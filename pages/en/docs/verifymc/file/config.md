@@ -4,13 +4,13 @@ This document provides detailed explanations for all configuration options in `c
 
 ::: tip Apply changes
 After editing `config.yml`, run `/vmc reload` to apply changes without restarting the server.
-You can also find an English example `config.yml` in the VerifyMC GitHub repository ([KiteMC/VerifyMC](https://github.com/KiteMC/VerifyMC)).
+The repository also contains the latest example configuration ([KiteMC/VerifyMC](https://github.com/KiteMC/VerifyMC)).
 :::
 
 ## General Settings
 
 ```yaml
-# Global language setting. Affects plugin messages and web UI. (e.g., 'zh', 'en')
+# Global language setting. Chinese is the default; use 'en' for the English interface.
 language: en
 
 # Enable detailed console logs for troubleshooting.
@@ -68,10 +68,8 @@ username_regex: "^[a-zA-Z0-9_-]{3,16}$"
 # If false, usernames that only differ by case (e.g., "Player" and "player") are treated as the same.
 username_case_sensitive: false
 
-# The password for accessing the admin panel on the web interface.
-# Admin login verifies against registered player credentials; only server OPs can access the admin panel.
-admin:
-  password: your_custom_password
+# The admin panel has no separate password.
+# Sign in with a registered player account; that player must also be a server OP.
 ```
 
 ## User Notification
@@ -355,6 +353,7 @@ discord:
 ## Full Configuration Example
 
 ```yaml
+# This example explicitly selects English; omit the setting or use 'zh' for the default Chinese interface.
 language: en
 debug: false
 web_port: 8080
@@ -368,8 +367,6 @@ register:
   auto_approve: false
 username_regex: "^[a-zA-Z0-9_-]{3,16}$"
 username_case_sensitive: false
-admin:
-  password: your_custom_password
 user_notification:
   enabled: true
   on_approve: true

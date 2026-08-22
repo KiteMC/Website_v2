@@ -1,5 +1,7 @@
 ---
 aside: false
+title: VerifyMC 下载
+description: 下载 VerifyMC v1.8.0 及匹配的代理端插件，并查看中英文 Release 信息。
 ---
 
 <script setup>
@@ -13,7 +15,7 @@ import DownloadPage from '@theme/components/download/DownloadPage.vue';
   <div class="dl-hero-content">
     <p class="dl-hero-label">VerifyMC</p>
     <h1 class="dl-hero-title">下载</h1>
-    <p class="dl-hero-desc">从 GitHub Releases 获取最新稳定版本，并按要求部署到您的服务器与代理端。</p>
+    <p class="dl-hero-desc">当前版本为 v1.8.0。请从 GitHub Releases 获取最新稳定版本，并按要求部署到您的服务器与代理端。</p>
   </div>
   <div class="dl-hero-glow"></div>
 </div>

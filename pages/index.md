@@ -57,7 +57,7 @@ hero:
   {
     name: '爱发电',
     description: '支持 KiteMC 创作',
-    image: '/images/logo/kitemc.svg',
+    image: 'https://ifdian.net/favicon.ico',
     href: 'https://ifdian.net/a/kitemc'
   },
   {

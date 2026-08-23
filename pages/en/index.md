@@ -57,7 +57,7 @@ hero:
   {
     name: 'Afdian',
     description: 'Support KiteMC creators',
-    image: '/images/logo/kitemc.svg',
+    image: 'https://ifdian.net/favicon.ico',
     href: 'https://ifdian.net/a/kitemc'
   },
   {

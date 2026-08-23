@@ -55,6 +55,12 @@ hero:
     href: 'https://license.kitemc.com/'
   },
   {
+    name: '爱发电',
+    description: '支持 KiteMC 创作',
+    image: '/images/logo/kitemc.svg',
+    href: 'https://ifdian.net/a/kitemc'
+  },
+  {
     name: 'Rainyun',
     description: '云服务提供商',
     image: '/images/logo/rainyun.png',

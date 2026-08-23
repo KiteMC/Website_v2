@@ -55,6 +55,12 @@ hero:
     href: 'https://license.kitemc.com/'
   },
   {
+    name: 'Afdian',
+    description: 'Support KiteMC creators',
+    image: '/images/logo/kitemc.svg',
+    href: 'https://ifdian.net/a/kitemc'
+  },
+  {
     name: 'Rainyun',
     description: 'Cloud service provider',
     image: '/images/logo/rainyun.png',

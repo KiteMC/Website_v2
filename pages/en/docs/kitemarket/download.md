@@ -1,15 +1,32 @@
 ---
-title: KiteMarket Downloads and Release Status
+title: KiteMarket Downloads
 description: Three KiteMarket runtime distributions, two public SDKs, runnable examples, bilingual configuration and SHA-256 verification.
+aside: false
 ---
 
-# Downloads and release status
+<script setup>
+import ProductDownloadLayout from '@theme/components/download/ProductDownloadLayout.vue';
+</script>
+
+<ProductDownloadLayout product="KiteMarket" title="Downloads" description="Choose a server runtime or get the public SDKs, examples and configuration." image="/images/kitemarket/kitemarket-icon.svg">
+
+<ButtonGroup>
+  <ActionButton href="./guide" text="Installation Guide" theme="brand" icon="arrow" />
+  <ActionButton href="./api" text="Market API" theme="alt" icon="arrow" />
+  <ActionButton href="https://github.com/KiteMC/KiteMarket/releases" text="GitHub Releases" theme="alt" icon="external" :external="true" />
+</ButtonGroup>
 
 ::: info Current status
-`1.0.0` is being prepared. **Runtime plugin downloads and sales are not open yet.** Local test builds or unreleased candidates are not offered as production downloads. The public repository contains interfaces, examples, documentation and Issues; core source stays private.
+**1.0.0 runtime downloads and sales are not open yet.** The public repository provides interfaces, example sources, documentation and Issues; core source stays private.
 :::
 
-Public repository: [KiteMC/KiteMarket](https://github.com/KiteMC/KiteMarket). The list below only shows actual public GitHub Release assets, with an empty state before release. SDK assets can be downloaded directly without requiring a GitHub Token for Packages.
+All release files come from [KiteMC/KiteMarket](https://github.com/KiteMC/KiteMarket) on GitHub Releases, using direct GitHub downloads without a GitHub Packages Token. Only public releases appear below; no placeholder download is offered when none exist.
+
+## Available versions
+
+<ClientOnly>
+  <DownloadPage owner="KiteMC" repo="KiteMarket" asset-profile="kitemarket" />
+</ClientOnly>
 
 ## Server owners: choose exactly one runtime
 
@@ -37,7 +54,7 @@ Both SDKs target Java 11 with MIT licenses. Use `compileOnly`: **do not bundle o
 
 ## Configuration and integrity
 
-The release will also include `KiteMarket-config-zh_CN-1.0.0.zip`, `KiteMarket-config-en_US-1.0.0.zip` and `SHA256SUMS.txt`. Configuration carries the real product information and trusted public key. Fill in your own license, database and actual economy configuration rather than copying isolated test credentials.
+GitHub Releases also provide `KiteMarket-config-zh_CN-1.0.0.zip`, `KiteMarket-config-en_US-1.0.0.zip` and `SHA256SUMS.txt`. Configuration carries the product information and trusted public key. Fill in your own license, database and actual economy configuration.
 
 Compare downloads against the SHA-256 file, for example:
 
@@ -45,8 +62,6 @@ Compare downloads against the SHA-256 file, for example:
 Get-FileHash -Algorithm SHA256 .\KiteMarket-modern-1.0.0.jar
 ```
 
-For a network holding assets, read [backup, upgrades and rollback](./operations), stop cleanly and back up the full database and configuration first. Public files exclude obfuscation maps, private keys, network credentials and historical commercial-theme artwork.
+For a network holding assets, read [backup, upgrades and rollback](./operations), stop cleanly and back up the full database and configuration first. Public files exclude obfuscation maps, private keys and network credentials.
 
-<ClientOnly>
-  <DownloadPage owner="KiteMC" repo="KiteMarket" asset-profile="kitemarket" />
-</ClientOnly>
+</ProductDownloadLayout>

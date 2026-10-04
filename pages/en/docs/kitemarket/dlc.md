@@ -1,9 +1,9 @@
 # ItemsAdder integration
 
-KiteMarket retains the complete vanilla GUI and ItemsAdder v4 compatibility. Server owners and developers may create configuration themes or Java renderers with their own resources, for private use, free distribution or independent sale, **without an official DLC entitlement**. Shared server flows still handle transactions, actual items, input validation and confirmation.
+KiteMarket provides the complete vanilla GUI and ItemsAdder v4 compatibility. Server owners and developers may create configuration themes or Java renderers with their own resources, for private use, free distribution or independent sale, **without an additional KiteMC theme license**. Shared server flows still handle transactions, actual items, input validation and confirmation.
 
-::: info Official theme canceled
-On October 4, 2026, KiteMC canceled development and sale of the official Market Stall IA theme DLC. It will not launch alongside the plugin. This existing route now guides third-party IA integration; archived artwork, releases and acceptance records remain historical material. The license platform retains its generic DLC capability.
+::: tip Prepare the theme resources first
+IA theme resources are not bundled. Install your own theme, a third-party theme or the public MIT development example. Without a theme, the complete vanilla interface remains available.
 :::
 
 ## Install your own theme
@@ -29,7 +29,7 @@ gui:
     pack-id: "REPLACE_WITH_ACTUAL_SENT_UUID"
 ```
 
-Use `gui.default-themes: {}` when no IA theme is installed; the old official theme is not selected by default. Third-party declarations may register a separate pack through `requires`; see the developer guide. Invalid candidates preserve the current valid configuration. No official DLC product ID, signature or download endpoint is required.
+Use `gui.default-themes: {}` when no IA theme is installed. Third-party declarations may register a separate pack through `requires`; see the developer guide. Invalid candidates preserve the current valid configuration. Themes need no KiteMC product ID or download endpoint.
 
 ## Use and fallback
 
@@ -44,8 +44,8 @@ Preferences persist per market network and player across nodes. Missing themes o
 
 Registered resources, the adapter and **successful loading of the specific pack by this player** must be ready. Sending or accepting is not successful loading. Rejection, failure, discard/removal of that pack or mismatched identity causes fallback; unrelated packs do not erase IA readiness. Disconnects, node changes, removal of all packs and IA reload require confirmation again. Changed content requires a new actual sent UUID and matching digest; a random UUID entered only in KiteMarket or a different digest assigned to a registered UUID is insufficient.
 
-## Development and historical material
+## Develop your own interface
 
-The base inventory layout, shared pages and amount input remain. Developers may use their own font images, button-item icons and page configuration. SDK actions and input retain server validation; a theme cannot bypass confirmation or debit funds directly. See [interface development](./ui-development) for working examples, the 34 page keys and lifecycle.
+The base inventory layout, shared pages and amount input remain. Developers may use their own font images, button-item icons and page configuration. SDK actions and input retain server validation; a theme cannot bypass confirmation or debit funds directly. See [interface development](./ui-development) for working examples, the 35 page keys and lifecycle.
 
-Historical `official.market-stall`/`market-stall` preferences and installation commands remain compatibility material, not a current official product or installation flow. Preserve existing archived artwork, caches and proofs during migration; see [operations](./operations). Canceling the theme does not automatically license historical artwork under MIT or delete market wallets, orders or assets.
+Preserve theme declarations, resources and player preferences during migration, backing them up before updates; see [operations](./operations). The public examples' MIT license covers only the source and resources identified in those examples. Other themes retain their own licenses.

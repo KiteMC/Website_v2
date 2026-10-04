@@ -81,7 +81,7 @@ license:
 
 ## 6. 界面配置
 
-默认原版采用暖色54槽界面：顶部工具区、中间36格列表、底部翻页与返回；无需资源包。新增设置：
+默认原版采用暖色54槽界面：分类首页、顶部工具区、中间36格列表、底部翻页与返回；无需资源包。常用设置：
 
 ```yaml
 gui:
@@ -89,6 +89,7 @@ gui:
   auto-order: [itemsadder, vanilla]
   default-themes: {}
   allow-player-switch: true
+  home-layout: auto
   sounds:
     enabled: true
   vanilla:
@@ -100,21 +101,48 @@ gui:
     pack-id: ""
 ```
 
-当前呈现选项为 `auto/vanilla/itemsadder`，原版布局允许 `auto/warm/legacy`。`auto-order` 决定自动尝试顺序，默认 ItemsAdder→原版；`default-themes` 指定后端默认主题。布尔字段使用 YAML 的 `true/false`，不能写成字符串。原版布局 `auto` 在旧首页入口位置偏离默认或页面配置 `slots`／`buttons.slot` 时保留兼容布局；只修改标题、图标、名称、Lore、背景或切换控件不触发兼容布局。显式 `warm` 与自定义位置冲突会被拒绝。音效可通过 `gui.sounds.enabled: false` 关闭。
+当前呈现选项为 `auto/vanilla/itemsadder`。`auto-order` 决定自动尝试顺序，默认 ItemsAdder→原版；`default-themes` 指定后端默认主题。布尔字段使用 YAML 的 `true/false`，不能写成字符串。音效可通过 `gui.sounds.enabled: false` 关闭。
 
-玩家用 `/km ui` 打开设置，或选择 `/km ui <auto|vanilla|itemsadder> [theme-id]`。这是选择后端和已安装主题，不是样式编辑器；服主的样式个性化只通过 `config.yml` 完成，不提供游戏内样式编辑功能。偏好保存在同网络共享数据库中，没有记录为 `AUTO`；`allow-player-switch: false` 禁用选择并采用服务器偏好。默认不指定 IA 主题；安装自己的主题后，可将其 ID 填入 `gui.default-themes.itemsadder`。实际资源包的 SHA-1 和 UUID 登记后，玩家加载指定包成功才可启用；完整步骤见[ItemsAdder 接入](./dlc)。官方 Market Stall DLC 已取消，不再作为安装步骤或默认主题。
+`gui.vanilla.layout: auto|warm|legacy` 控制通用槽位映射。`auto` 在旧首页入口位置偏离默认或页面配置 `slots`／`buttons.slot` 时保留兼容布局；只修改标题、图标、名称、Lore、背景或切换控件不改变这项映射。显式 `warm` 与自定义位置冲突会被拒绝。
 
-IA 运行插件与 ProtocolLib 必须另行合法安装；本轮固定组合及摘要见[兼容说明](./compatibility)。按实际 IA 指南安装主题，等待 `/iareload` 完成，再执行 `/iazip`。可临时设置 `gui.itemsadder.diagnostics: true` 并 `/km reload`，从服务端 `[KITEMARKET_PACK]` 读取实际下发的 UUID、SHA-1及 URL，登记到上述字段后再次 `/km reload`；诊断完成后关闭。发送或接受不等于加载成功，资源包内容更新必须使用新的实际下发 UUID和对应摘要，不能只在 KiteMarket 中填写一个随机 UUID。
+`gui.home-layout` 单独选择首页内容：
 
-第三方界面可自由开发和销售，无需官方 DLC 权益：将独立主题放入 `plugins/KiteMarket/themes/*.yml`，使用自有资源和已注册 provider。格式与示例见[界面开发](./ui-development)。旧 `germ`／`dragoncore` 偏好、配置和 SDK 扩展位置仍可读取；已取消两者第一方接入，没有自行注册的实际 provider 时返回 `UI_BACKEND_RETIRED` 并回退，保留原偏好。资源包或主题不可用不触发市场清退。
+| 值 | 首页行为 |
+|---|---|
+| `auto` | 使用暖布局、没有自定义 `gui.home-slots` 且没有 `menus.home` 时采用紧凑分类首页；已有首页个性化配置则保留旧首页 |
+| `compact` | 明确采用紧凑分类首页；旧首页按钮配置需改用下表的原始槽位 |
+| `legacy` | 使用旧首页入口及 `gui.home-slots`，适合保留已有首页配置 |
+
+即使 `menus.home` 只修改标题或 Lore，`home-layout: auto` 也会保留旧首页。两项布局设置作用不同：`vanilla.layout` 管理通用位置映射，`home-layout` 管理首页入口。
+
+默认紧凑首页的原始槽位与物理槽位相同：
+
+| 槽位 | 内容 |
+|---|---|
+| `0` | 玩家头像“我的集市”：界面偏好、自己的待核对操作、历史与按权限显示的管理入口 |
+| `4` | 问候与使用说明，仅作提示 |
+| `8` | 领取箱及真实待领提醒 |
+| `20` / `22` / `24` | 一口价市场／收购供货市场／竞拍市场 |
+| `45` | 钱包 |
+| `53` | 我的挂单及发布入口提示 |
+
+挂单、待领和待核对提醒使用真实查询；查询失败显示暂不可用。“我的集市”使用独立 `profile` 页面，返回首页和界面切换保留当前发布草稿。
+
+玩家用 `/km ui` 打开设置，或选择 `/km ui <auto|vanilla|itemsadder> [theme-id]`。这是选择后端和已安装主题，不是样式编辑器；服主的样式个性化只通过 `config.yml` 完成，不提供游戏内样式编辑功能。偏好保存在同网络共享数据库中，没有记录为 `AUTO`；`allow-player-switch: false` 禁用选择并采用服务器偏好。默认不指定 IA 主题；安装自己的主题后，可将其 ID 填入 `gui.default-themes.itemsadder`。实际资源包的 SHA-1 和 UUID 登记后，玩家加载指定包成功才可启用；完整步骤见[ItemsAdder 接入](./dlc)。
+
+IA 运行插件与 ProtocolLib 必须另行合法安装；已有实测组合及摘要见[兼容说明](./compatibility)。按实际 IA 指南安装主题，等待 `/iareload` 完成，再执行 `/iazip`。可临时设置 `gui.itemsadder.diagnostics: true` 并 `/km reload`，从服务端 `[KITEMARKET_PACK]` 读取实际下发的 UUID、SHA-1及 URL，登记到上述字段后再次 `/km reload`；诊断完成后关闭。发送或接受不等于加载成功，资源包内容更新必须使用新的实际下发 UUID和对应摘要，不能只在 KiteMarket 中填写一个随机 UUID。
+
+第三方界面可自由开发和销售，无需额外的 KiteMC 主题授权：将独立主题放入 `plugins/KiteMarket/themes/*.yml`，使用自有资源和已注册 provider。格式与示例见[界面 SDK](./ui-development)。旧 `germ`／`dragoncore` 偏好、配置和 SDK 扩展位置仍可读取，但不代表内置厂商适配器；没有已注册的实际 provider 时返回 `UI_BACKEND_RETIRED` 并回退，保留原偏好。资源包或主题不可用不触发市场清退。
 
 ### 原版 GUI 个性化
 
-在 `plugins/KiteMarket/config.yml` 的 `menus` 中可个性化全部34个页面，包括 `ui`、`themes` 和 `result`。无需资源包或 IA。编辑后执行 `/km reload`，再重新打开页面；重载先校验候选，无效配置保留上一份有效配置。显示设置只改变外观与位置，不改变原有动作、权限、交易规则或资产处理，也不能新增交易按钮。
+在 `plugins/KiteMarket/config.yml` 的 `menus` 中可个性化全部35个页面，包括 `profile`、`ui`、`themes` 和 `result`。无需资源包或 IA。编辑后执行 `/km reload`，再重新打开页面；重载先校验候选，无效配置保留上一份有效配置。显示设置只改变外观与位置，不改变原有动作、权限、交易规则或资产处理，也不能新增交易按钮。
 
-将下面示例合并到已有 `menus` 中，不要重复写顶层键。未填写的字段保留默认值：
+下面示例保留旧首页的“我的挂单”原始槽位 `32`，因此明确选择 `home-layout: legacy`。合并到已有 `gui` 和 `menus` 中，不要重复写顶层键。未填写的字段保留默认值：
 
 ```yaml
+gui:
+  home-layout: legacy
 menus:
   home:
     title:
@@ -148,10 +176,11 @@ menus:
 | `switch.slot`／`switch.material` | 自动界面切换控件的最终物理槽位／图标 |
 | `switch.name`／`switch.lore` | 自动切换控件的名称／说明，文本格式同按钮 |
 
-菜单槽位为 `0..53`，不包括下方玩家背包。`buttons`、`slots`、`icons` 按**原始槽位**配置，不按新版布局移位后的视觉位置：列表原始 `0..35` 对应新版物理 `9..44`，所以第一件商品的附加说明配置 `buttons.'0'`。首页 `32` 为“我的挂单”，`34` 为“交易历史”。位置变更必须完整交换，不能只移动一边；例如：
+菜单槽位为 `0..53`，不包括下方玩家背包。`buttons`、`slots`、`icons` 按**原始槽位**配置，不按新版布局移位后的视觉位置：列表原始 `0..35` 对应新版物理 `9..44`，所以第一件商品的附加说明配置 `buttons.'0'`。旧首页 `32` 为“我的挂单”，`34` 为“交易历史”；紧凑首页使用上表槽位。位置变更必须完整交换，不能只移动一边；以下示例明确保留旧首页：
 
 ```yaml
 gui:
+  home-layout: legacy
   vanilla:
     layout: auto
 menus:
@@ -163,7 +192,7 @@ menus:
         slot: 32
 ```
 
-`buttons.slot` 与 `slots` 共用位置机制，不要重复配置同一来源；旧写法可改为 `slots: {'32': 34, '34': 32}`。位置改动要求 `gui.vanilla.layout: auto` 使用兼容布局，原始槽位直接对应物理槽位；不要同时强制 `warm`。`gui.home-slots` 的旧首页位置配置仍可读取。自动 `switch.slot` 默认为物理 `8`，只在适用页面／布局显示；被商品或控件占用时省略，不覆盖已有内容，仍可 `/km ui` 切换。
+`buttons.slot` 与 `slots` 共用位置机制，不要重复配置同一来源；旧写法可改为 `slots: {'32': 34, '34': 32}`。位置改动要求 `gui.vanilla.layout: auto` 使用兼容布局，原始槽位直接对应物理槽位；不要同时强制 `warm`。`gui.home-slots` 的旧首页位置配置仍可读取；切换为 `compact` 后应迁移为对应的新首页槽位。自动 `switch.slot` 默认为物理 `8`，只在适用页面／布局显示；被商品或控件占用时省略，不覆盖已有内容，仍可 `/km ui` 或从头像进入界面偏好。
 
 标题和名称可写单一字符串或双语映射，Lore 可写单一列表或双语列表映射。`&`／`§` 支持原版颜色和格式，生成名称默认金色、Lore 默认灰色，未明确设置斜体时不使用斜体。标题／名称中的 `{default}` 保留原文；Lore **独占一行**的 `'{default}'` 展开默认市场说明。省略 `lore` 保留原说明，`lore: []` 只清除附加说明。`${字段名}` 读取本页已有只读字段，如 `${wizard.step}`；缺失字段显示 `—`，不执行脚本。金额原值为最小单位，优先保留 `{default}` 中的格式化金额与资产去向。
 
@@ -172,7 +201,7 @@ menus:
 全部配置页 ID：
 
 ```text
-home, browse, browse-filters, order, details, editor, confirm, preview,
+home, profile, browse, browse-filters, order, details, editor, confirm, preview,
 supply-preview, number, materials, durability, text-condition, enchantments,
 enchantment-range, insufficient, wallet, wallet-currency, assets, history,
 receipt, admin, admin-player, admin-wallet, admin-assets, admin-orders,

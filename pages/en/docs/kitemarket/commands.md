@@ -4,6 +4,8 @@ The main command is `/kitemarket`, with `/km` and `/market` aliases. `/km` alone
 
 `<...>` means required and `[...]` optional; do not type the brackets. Currency arguments are IDs under `currencies`. Order and operation IDs are complete UUIDs.
 
+The default home separates fixed-price sales, buy-order fulfillment and auctions into three entrances. Its corners provide the player head, claims, wallet and my orders. The head opens “My market” for personal review operations, history and interface preferences; my orders provides a publishing entrance. Existing customized home layouts remain supported; see [installation](./guide#customize-the-vanilla-gui).
+
 ## Player commands
 
 | Command | Purpose |
@@ -40,12 +42,14 @@ Select materials, enchantments, and ranges in the editor. Chat is used when ente
 | Field | Example |
 |---|---|
 | Materials | Select from the catalog; bulk input accepts IDs such as `DIAMOND_SWORD,NETHERITE_SWORD` |
-| Enchantments | Select an enchantment and use minimum/maximum level buttons, or import from the main hand |
+| Enchantments | Search Chinese/English names or IDs, select an enchantment and use minimum/maximum level buttons, or import from the main hand |
 | Remaining durability | Percentage range buttons, presets, or a precise integer |
 | Name | Select exact/contains in the menu, then enter only text such as `Miner Pick` |
 | Lore | Same as name; literal `\n` inserts a newline, and the joined lines are compared |
 
 Name and lore do not need `=` or `~` prefixes. Separate buttons clear the condition or import held text. See [item conditions](./trading) for the complete rules.
+
+Result messages link to details. The receipt's “View / copy operation ID” control shows the complete UUID in chat when requested and lets you copy it for `/km inspect`. Default summaries omit long IDs; operation records and audit queries remain traceable.
 
 ## Administrative commands
 
@@ -64,7 +68,7 @@ Name and lore do not need `=` or `~` prefixes. Separate buttons clear the condit
 
 Reasons must contain at least 5 characters and should describe the evidence. Never pick an outcome merely to empty the queue; see [operations](./operations). Administrators can cancel orders from their detail screen with an audit record.
 
-The official IA DLC has been canceled. Existing development builds retain `km dlc` commands and settings only for historical compatibility, not as a current sales or installation flow. Third-party IA themes use configuration files, their own resources and `/km reload`; see [ItemsAdder integration](./dlc).
+Third-party IA themes use configuration files, their own resources and `/km reload`, without an additional KiteMC theme license. See [ItemsAdder integration](./dlc) for installation.
 
 Player audit pages retain the selected UUID. Assets can be filtered and paged by available, escrowed, delivering, claimed, and spent states. These pages cannot claim items, transfer funds, or edit balances on the player's behalf. A `PREPARED` operation is read-only and can be refreshed; only `UNKNOWN` permits reconciliation, and an unfinished external call still blocks recording an outcome.
 

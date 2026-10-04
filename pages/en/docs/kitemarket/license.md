@@ -6,7 +6,7 @@ One KiteMarket license binds to one market network with no limit on that network
 The complete product is **CNY 128 / USD 19.99 as a one-time purchase**, including base-plugin updates and issue support while maintained. Perpetual maintenance is not promised. Third-party economy plugins, ItemsAdder and resources are not included. Runtime downloads and sales are not open yet; see [release status](./download).
 :::
 
-Once sales open, buy only through the [KiteMC License Center](https://license.kitemc.com/en/products/kitemarket), using existing payment channels without additional launch channels or discounts. Your key appears under [your licenses](https://license.kitemc.com/en/dashboard/licenses). **Each independent purchase creates an independent license** instead of merging existing markets.
+Once sales open, purchase through the [KiteMC License Center](https://license.kitemc.com/en/products/kitemarket). Your key appears under [your licenses](https://license.kitemc.com/en/dashboard/licenses). **Each independent purchase creates an independent license** instead of merging existing markets.
 
 A network uses the persistent UUID in its shared database, with no per-subserver-port fee. Copying configuration into another independent database does not make it the same licensed network. Production configuration supplies the correct product ID, endpoint and production signing public key; fill in your own license key. The public key is not a license key.
 
@@ -42,10 +42,8 @@ Maintain an accurate system clock and configure the correct endpoint and trusted
 
 See [installation](./guide) for the actual fields and [recovery](./operations) for wind-down and uncertain operations.
 
-## IA compatibility and the generic DLC platform
+## Interfaces and third-party themes
 
-Development and sale of the official Market Stall IA theme DLC have been canceled. The ItemsAdder v4 adapter, configuration themes and Java SDK remain base capabilities. Third parties may freely develop, use, distribute or independently sell their own themes without an official DLC entitlement or its font namespace. See [ItemsAdder integration](./dlc) and [interface development](./ui-development).
+The vanilla GUI, ItemsAdder v4 adapter, configuration themes and Java SDK are base capabilities. Third parties may freely develop, use, distribute or independently sell their own themes without an additional KiteMC theme license. Theme resources follow their authors' licenses; third-party plugins and resources are not included in KiteMarket's price.
 
-The license platform retains generic DLC products, grant sources, lifetime/subscription plans and release capabilities. Canceling this theme does not remove them. Platform DLC belongs to an explicitly selected matching base license without another key or network binding. Refunds withdraw only the corresponding source while retaining other valid sources; marking an order refunded and returning money through the payment provider are separate actions. ArcPass v1 and market base-license v2 remain.
-
-Historical official-theme proofs and settings are not prerequisites for third-party themes and do not affect market money, items or asset exit. The base license still governs the market as described above. See [operations](./operations) for preserving files from historical development builds.
+An unavailable theme falls back to vanilla without changing market wallets, items or license status. The base license still governs the market as described above. See [ItemsAdder integration](./dlc) and the [UI SDK](./ui-development).

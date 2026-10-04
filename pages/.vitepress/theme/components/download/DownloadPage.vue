@@ -88,7 +88,7 @@ function getLanguagePack(release: ApiBuild, locale: 'zh_CN' | 'en_US'): ReleaseA
 }
 
 function resolveDownloadUrl(url: string): string {
-  return downloadSource.value === 'cloudflare'
+  return props.assetProfile !== 'kitemarket' && downloadSource.value === 'cloudflare'
     ? `https://v4.gh-proxy.org/${url}`
     : url;
 }
@@ -266,7 +266,7 @@ onMounted(() => {
 
     <!-- Content -->
     <template v-else>
-      <div class="source-picker" role="group" :aria-label="t.downloadSource">
+      <div v-if="assetProfile !== 'kitemarket'" class="source-picker" role="group" :aria-label="t.downloadSource">
         <span class="source-label">{{ t.downloadSource }}</span>
         <div class="source-options">
           <button :class="{ active: downloadSource === 'github' }" @click="downloadSource = 'github'">{{ t.githubDirect }}</button>
@@ -346,7 +346,7 @@ onMounted(() => {
             </a>
           </div>
 
-          <KiteMarketReleaseFiles v-if="assetProfile === 'kitemarket'" :release="latestRelease" :source="downloadSource" />
+          <KiteMarketReleaseFiles v-if="assetProfile === 'kitemarket'" :release="latestRelease" />
 
           <div v-if="showLanguagePacks" class="language-pack-actions">
             <span class="language-pack-label">{{ t.languagePacks }}</span>
@@ -427,7 +427,7 @@ onMounted(() => {
                 <a :href="previewRelease.url" target="_blank" rel="noopener" class="action-btn github" :title="t.viewOnGitHub"><span aria-hidden="true">GitHub</span></a>
               </div>
             </div>
-            <KiteMarketReleaseFiles v-if="assetProfile === 'kitemarket'" :release="previewRelease" :source="downloadSource" />
+            <KiteMarketReleaseFiles v-if="assetProfile === 'kitemarket'" :release="previewRelease" />
             <div v-if="showLanguagePacks && (getLanguagePack(previewRelease, 'zh_CN') || getLanguagePack(previewRelease, 'en_US'))" class="history-language-packs">
               <a v-if="getLanguagePack(previewRelease, 'zh_CN')" :href="resolveDownloadUrl(getLanguagePack(previewRelease, 'zh_CN')!.browser_download_url)">{{ t.chinesePack }}</a>
               <a v-if="getLanguagePack(previewRelease, 'en_US')" :href="resolveDownloadUrl(getLanguagePack(previewRelease, 'en_US')!.browser_download_url)">{{ t.englishPack }}</a>
@@ -518,7 +518,7 @@ onMounted(() => {
               </div>
             </div>
 
-            <KiteMarketReleaseFiles v-if="assetProfile === 'kitemarket'" :release="release" :source="downloadSource" />
+            <KiteMarketReleaseFiles v-if="assetProfile === 'kitemarket'" :release="release" />
 
             <div v-if="showLanguagePacks && (getLanguagePack(release, 'zh_CN') || getLanguagePack(release, 'en_US'))" class="history-language-packs">
               <a v-if="getLanguagePack(release, 'zh_CN')" :href="resolveDownloadUrl(getLanguagePack(release, 'zh_CN')!.browser_download_url)">{{ t.chinesePack }}</a>

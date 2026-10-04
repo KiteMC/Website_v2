@@ -4,6 +4,18 @@ All three modes use market funds and escrowed assets. Other nodes may change an 
 
 Listing, purchase, and bid confirmations retain the real sale/auction item's name, enchantments, and lore. Exact-sample buy orders also show their saved sample. Use the confirmation text for quantity, total, reserved funds, and tax; display items never become the assets removed or settled.
 
+### Listing quantities and maximum values
+
+The publishing wizard calculates **Maximum** from what is actually available:
+
+| Type | Quantity limit |
+|---|---|
+| Buy order | Minimum whole quantity allowed by the configured limit, currency amount limit ÷ unit price, and available market funds ÷ unit price |
+| Fixed-price sale | Minimum of the configured quantity limit, currency amount limit ÷ unit price, and actual inventory quantity matching the main-hand sample's complete properties |
+| Auction | Minimum of the configured quantity limit and the current main-hand stack; the starting price is for the entire lot |
+
+External economy funds are not automatically included in a buy-order budget. Insufficient market funds offer a deposit entrance while retaining the draft; missing sale or auction items show a shortfall. Applying a quantity and confirming publication recheck it. Reduced funds or items require another choice; a GUI quote does not reserve future capacity. Fulfillment's **Maximum available** separately uses remaining demand and the selected matching items.
+
 ## Advanced buy orders
 
 The buyer selects a currency, unit price, quantity, duration, and item conditions, then reserves the necessary market funds. A supplier selects matching items and a quantity before confirming. Partial fulfillment is allowed; cancellation or expiry returns unspent funds.
@@ -30,7 +42,7 @@ Order details and listing confirmations explain which conditions apply in the se
 
 Open **Materials** to select multiple items from the current server catalog. Click a selected item to remove it. Filter by material ID, show selected items only, add the held material, or enter IDs in bulk, up to 64 materials. Materials failing item admission cannot be newly selected. Invalid bulk input preserves the existing selection; a cleared set must be filled before listing.
 
-Click **Enchantments** to open the selector, then choose an enchantment and adjust its minimum and maximum levels with the buttons. You can also remove an individual condition. A minimum of zero allows the enchantment to be absent; `0–0` requires its absence. **Import from main hand** replaces the current enchantment conditions with the held item's enchantments, setting each minimum and maximum to its held level. If no material is selected, it also adds the held material. Other edited conditions remain, and importing switches to advanced mode.
+Click **Enchantments** to open the selector. Search Chinese names, English names or IDs, such as `锋利`, `Sharpness` or `minecraft:sharpness`, or clear the search. Cancelling input preserves the filter and draft. Then choose an enchantment and adjust its minimum and maximum levels with the buttons. You can also remove an individual condition. A minimum of zero allows the enchantment to be absent; `0–0` requires its absence. **Import from main hand** replaces the current enchantment conditions with the held item's enchantments, setting each minimum and maximum to its held level. If no material is selected, it also adds the held material. Other edited conditions remain, and importing switches to advanced mode.
 
 **Durability** provides minimum and maximum percentage buttons in steps of 5%. Click a value to enter a precise integer, choose 100% or at least 50%, or import the held item's remaining durability. A configured range requires a durable item; clearing it removes that restriction.
 
@@ -92,4 +104,4 @@ Click a history entry for a read-only receipt showing the individual trade's qua
 
 Bidder history includes the amount unfrozen when outbid and the settled whole lot when winning. Raising your own bid is not recorded as being outbid; duplicate requests or concurrent settlement workers do not duplicate these records.
 
-Historical and current operation states are separate. Missing older details are explicitly marked, not treated as zero or successful. Result messages distinguish success, failure, and pending review, retain a clickable operation ID, and provide relevant wallet or claims links. Pending results do not offer automatic retries, refunds, or redelivery.
+Historical and current operation states are separate. Missing older details are explicitly marked, not treated as zero or successful. Result messages distinguish success, failure and pending review, with details and relevant wallet or claims entrances. When needed, use the receipt's **View / copy operation ID** control to show the complete UUID in chat and copy it for `inspect`. Default summaries stay concise, and audit records retain the ID. Pending results do not offer automatic retries, refunds or redelivery.

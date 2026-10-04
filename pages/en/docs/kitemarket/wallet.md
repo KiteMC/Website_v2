@@ -13,6 +13,19 @@ Each currency has a stable ID, scale, native mapping, and transfer gateway. Chan
 
 <ScreenshotPlaceholder src="/images/kitemarket/screenshot-wallet.png" caption="Market wallet" description="Real gameplay screenshot coming later: available and reserved currency balances, deposit and withdrawal entrances." />
 
+## Amount input and actual limits
+
+The currency page queries both the market wallet and the local economy backend's actual balance. Amount input offers increments, presets, a maximum button and custom chat input. The maximum is the minimum of these limits, calculated in the currency's minor units:
+
+| Operation | Currently available limit |
+|---|---|
+| Deposit | Available external funds, currency per-operation amount limit, and remaining market-wallet integer capacity including available and reserved funds |
+| Withdrawal | Available market funds, currency per-operation amount limit, and any known backend receive capacity |
+
+Reserved funds cannot be withdrawn. When a backend cannot quote its receive capacity, the quote uses other known limits and the backend still validates execution; this does not mean it can receive unlimited funds. Failed balance queries report the reason and block transfers without inventing a zero balance or maximum amount.
+
+Opening amount input, entering confirmation and executing the transfer query again. If changed funds or receive capacity make the amount too large, choose it again. After depositing funds, refresh and reconfirm the original trade as well. Only the compatible local gateway handles external balances; changing nodes does not silently call another server.
+
 ## Gateway node
 
 Assign a `gateway` to each currency, matching the target node's `network.node-id`. **Players must switch to that node to deposit or withdraw.** There is no automatic remote RPC forwarding. Another node returns `GATEWAY_NODE`; market funds and internal trading remain shared.

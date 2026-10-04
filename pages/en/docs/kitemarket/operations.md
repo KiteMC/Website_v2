@@ -11,9 +11,9 @@ For money or item incidents, first record the operation ID, player UUID, node, t
 | `GATEWAY_NODE` | Switch to the currency's configured transfer node |
 | `UNCERTIFIED_PROVIDER_VERSION` | Verify and test the actual plugin build before adding it to the allowlist |
 | `PROVIDER_API_INCOMPATIBLE` | Disable transfers and verify the provider/build; do not substitute another adapter |
-| `UI_BACKEND_RETIRED` | A legacy Germ/DragonCore preference or theme lacks a developer-registered actual provider; retain its preference and use vanilla, or choose vanilla/IA through `/km ui` |
+| `UI_BACKEND_RETIRED` | The saved backend preference or theme has no actual provider. Retain the preference and fall back to vanilla; choose vanilla or IA through `/km ui` |
 | `IA_PACK_NOT_REGISTERED` / `IA_PACK_NOT_APPLIED` | Verify the actual sent UUID/SHA-1 and the player's successful load; temporarily enable `gui.itemsadder.diagnostics` if needed. An unrelated pack or accepted-only status is insufficient |
-| Historical build reports `DLC_NAMESPACE_CHANGED` / `DLC_INSTALLED_PACKAGE_INVALID` | The official theme has been canceled. Retain the old namespace and backup without deleting files to bypass checks. Choose vanilla or your own IA theme; historical files do not block community themes or market assets |
+| `DLC_NAMESPACE_CHANGED` / `DLC_INSTALLED_PACKAGE_INVALID` | Existing theme data failed validation. Retain the namespace and backup instead of deleting files to bypass checks. Choose vanilla or your own IA theme; theme problems do not affect market assets |
 | `UNKNOWN` | Stop replaying; inspect the operation and external evidence before reconciliation |
 | `EXECUTION_IN_FLIGHT` | The source node is active and execution has not confirmed completion; refunds/redelivery are blocked until a real return receipt or source-node recovery |
 | `SOURCE_QUIESCENCE_REQUIRED` | An offline source does not prove a stopped call; confirm that the source is stopped and external requests are no longer pending before the separate declaration |
@@ -42,18 +42,16 @@ Use `/km admin <player-UUID-or-online-name>` to cross-check the same player's wa
 ## Backup and migration
 
 Stop market writes on every old node before migration and account for pending operations. Back up the complete database and `plugins/KiteMarket/` configuration. Preserve network identity, currencies, wallets, orders, escrowed items, and operation records together.
-The interface update adds separate InnoDB tables `km_ui_preferences` and `km_ui_theme_selections`, both keyed by network and player UUID, with the mode or theme ID and database update time. No preference row means `AUTO`; no theme row uses the selected backend's server default. Startup creates both through the existing migration entry without changing the financial schema version, protocol 3, or snapshot format 2. Fixed backup, restore, and scoped-cleanup lists must include both tables. Historical `official.market-stall`/`market-stall` selections remain readable but are no longer a default theme or release capability.
+GUI preferences use separate InnoDB tables `km_ui_preferences` and `km_ui_theme_selections`, both keyed by network and player UUID, with the mode or theme ID and database update time. No preference row means `AUTO`; no theme row uses the selected backend's server default. Startup creates both through the migration entry without changing the financial schema version, protocol 3 or snapshot format 2. Fixed backup and restore lists must include both tables. Older theme IDs remain readable; a missing theme causes fallback without rewriting the saved preference.
 
 Validate the restored environment in isolation, then add nodes gradually. Match the Minecraft version, market protocol, item profile, and currency definitions; keep node IDs unique. Ensure old nodes cannot keep writing before opening the new network.
 
 The current database schema is version 1; startup validates it and requires InnoDB. Before upgrading, inventory unfinished orders, claim assets, and `PREPARED`/`UNKNOWN` operations, then back up and test in an isolated database. There is no defined automatic downgrade between schema versions. Do not bypass version checks with an older JAR or partial restore.
-Replacing an interface development build requires a normal full-network stop, complete backup, and matching builds. It does not require a protocol upgrade or clearing existing assets. New settings default to the warm layout, old custom slots select the compatible layout, and invalid candidates leave active settings intact. Vanilla and ItemsAdder v4 compatibility remain, with automatic selection defaulting to IA, then vanilla, and no default IA theme. Germ/DragonCore integration has been withdrawn; old preferences, settings and SDK extension positions remain readable without rewriting saved choices. Community interfaces need no official DLC; development and sale of the official Market Stall theme have been canceled. Live checks exist for the pinned environment; see [compatibility](./compatibility) for the recorded scope.
+Replacing a plugin JAR requires a normal full-network stop, complete backup and matching builds. An interface-only update does not require a protocol upgrade or clearing existing assets. The warm layout is the default; older custom slots select the compatible layout, and invalid candidates leave active settings intact. Automatic selection tries IA, then vanilla, with no default IA theme; saved preferences and settings are not rewritten. Third-party themes need no additional KiteMC theme license. See [compatibility](./compatibility) for the tested scope.
 
-Historical development builds use `km_dlc_proofs` for independent network DLC proof generations, sequences and signatures; include the table in full `km_*` backup/restoration when it exists. Retain any installed encrypted DLC/proof caches and `plugins/ItemsAdder/contents/km_market_stall/` as historical or rollback material rather than automatically deleting them because the product was canceled. Key caches are private operational data, not public downloads.
+If the database contains extension tables such as `km_dlc_proofs`, include them in full `km_*` backup/restoration. Back up installed theme resources, proofs or encrypted caches together with the matching build; do not automatically delete them or mix older loaders. Key caches are private operational data, not public downloads.
 
-Community themes load from `plugins/KiteMarket/themes/` without the historical official install endpoint; retain their declarations and resources during migration. `/km ui` explains the actual interface and fallback. After rebuilding changes the content, register a new actual sent UUID and matching SHA-1 and run `/km reload`; assigning a different digest to a registered UUID is rejected. Theme or historical DLC state never cancels orders, releases reserved market funds, or blocks community themes. See [ItemsAdder integration](./dlc) and [interface development](./ui-development).
-
-Historical official installation used signed byte checks and optional PNG pixel digests. Preserve the matching builds, namespace and private caches for rollback; optimized installations are not automatically compatible with older loaders. This is no longer a new official-theme release flow and third-party themes need not adopt it.
+Third-party themes load from `plugins/KiteMarket/themes/`; retain their declarations and resources during migration. `/km ui` explains the actual interface and fallback. After pack content changes, register a new actual sent UUID and matching SHA-1 and run `/km reload`. Assigning a different digest to a registered UUID is rejected. An unavailable theme affects presentation without canceling orders or releasing market reservations. See [ItemsAdder integration](./dlc) and the [UI SDK](./ui-development).
 
 Do not restore only order tables, roll back a single node's configuration independently, or connect cloned test servers to production data. Currency-scale or provider changes need a dedicated reconciliation migration. Cross-Minecraft-version conversion is outside v1.
 
@@ -78,7 +76,7 @@ New item snapshots use format `2`. `data` retains the original bytes produced by
 
 Comparison ignores only typed-NBT compound field order and the order of vanilla enchantment entries with unique string `id` values in the legacy root `tag.Enchantments` / `tag.StoredEnchantments`. Names, Lore, other lists (including PDC lists), data types, numeric values, strings, and array contents still participate. Corrupted, ambiguous, or over-budget data is rejected without falling back to looser matching.
 
-Comparison does not rewrite escrowed items; claiming still restores the original snapshot. Raw-byte integrity and attribute equivalence are separate checks. Players cannot provide custom NBT expressions. Historical [certification records](./compatibility) retain exact artifacts and scenarios; this phase does not repeat unchanged item or full trading tests.
+Comparison does not rewrite escrowed items; claiming still restores the original snapshot. Raw-byte integrity and attribute equivalence are separate checks. Players cannot provide custom NBT expressions. [Verification records](./compatibility) list exact artifacts and scenarios.
 
 ### Narrower admission and existing assets
 
@@ -90,7 +88,7 @@ Admission limits new samples, listings, supplies, and escrow deposits. Existing 
 
 Use isolated test players and small test balances to exercise all three trading modes, simultaneous actions on two nodes, transfers, full-inventory claims, and restart recovery. Remove test assets afterward and retain useful acceptance records. See [certification](./compatibility) for platform coverage.
 
-That checklist applies when enabling a new environment or changing related features. IA compatibility changes receive targeted checks for affected pages, drafts, input, resource packs and community-theme fallback, without repeating unchanged financial tests or a game-version matrix and without resetting existing player assets. Official-theme and release acceptance work has been canceled.
+That checklist applies when enabling a new environment or changing related features. Interface updates also need checks for navigation, drafts, amount input, resource-pack rejection/failure and third-party-theme fallback. Use isolated characters and orders without resetting existing players' assets.
 
 ## Read-only developer API
 

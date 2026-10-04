@@ -6,7 +6,6 @@ import { selectKiteMarketAssets } from './kiteMarketAssets.mjs';
 
 const props = defineProps<{
   release: ApiBuild;
-  source: 'github' | 'cloudflare';
 }>();
 const { language } = useTranslation();
 const files = computed(() => selectKiteMarketAssets(props.release));
@@ -36,9 +35,6 @@ const runtimeDetails: Record<string, { name: string; range: string; java: string
   modern: { name: 'Modern', range: 'Minecraft 1.20.5–1.21.11', java: 'Java 21' },
   current: { name: 'Current', range: 'Minecraft 26.2', java: 'Java 25' },
 };
-function url(value: string) {
-  return props.source === 'cloudflare' ? `https://v4.gh-proxy.org/${value}` : value;
-}
 </script>
 
 <template>
@@ -49,7 +45,7 @@ function url(value: string) {
         <strong>{{ runtimeDetails[file.id].name }}</strong>
         <span>{{ runtimeDetails[file.id].range }}</span>
         <span class="runtime-java">{{ runtimeDetails[file.id].java }} {{ language === 'zh' ? '字节码' : 'bytecode' }}</span>
-        <a v-if="file.asset" :href="url(file.asset.browser_download_url)" class="file-link">
+        <a v-if="file.asset" :href="file.asset.browser_download_url" class="file-link">
           <span>{{ labels.download }} · {{ formatFileSize(file.asset.size) }}</span>
           <code>{{ file.asset.name }}</code>
         </a>
@@ -61,9 +57,9 @@ function url(value: string) {
       <div v-for="sdk in files.sdks" :key="sdk.id" class="sdk-card">
         <strong>{{ sdk.id === 'API' ? 'Market API' : 'UI API' }}</strong>
         <div class="sdk-links">
-          <a v-if="sdk.jar" :href="url(sdk.jar.browser_download_url)" :title="sdk.jar.name">JAR</a>
-          <a v-if="sdk.sources" :href="url(sdk.sources.browser_download_url)" :title="sdk.sources.name">Sources</a>
-          <a v-if="sdk.javadoc" :href="url(sdk.javadoc.browser_download_url)" :title="sdk.javadoc.name">Javadoc</a>
+          <a v-if="sdk.jar" :href="sdk.jar.browser_download_url" :title="sdk.jar.name">JAR</a>
+          <a v-if="sdk.sources" :href="sdk.sources.browser_download_url" :title="sdk.sources.name">{{ language === 'zh' ? '源码' : 'Sources' }}</a>
+          <a v-if="sdk.javadoc" :href="sdk.javadoc.browser_download_url" :title="sdk.javadoc.name">Javadoc</a>
           <span v-if="!sdk.jar && !sdk.sources && !sdk.javadoc" class="file-missing">{{ labels.unavailable }}</span>
         </div>
       </div>
@@ -71,7 +67,7 @@ function url(value: string) {
     <h3>{{ labels.extras }}</h3>
     <div class="extra-links">
       <template v-for="file in files.extras" :key="file.id">
-        <a v-if="file.asset" :href="url(file.asset.browser_download_url)" :title="file.asset.name">
+        <a v-if="file.asset" :href="file.asset.browser_download_url" :title="file.asset.name">
           {{ labels[file.id as 'examples' | 'zh' | 'en' | 'checksums'] }}
         </a>
       </template>

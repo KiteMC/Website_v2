@@ -68,7 +68,7 @@ Amounts use `long` integer minor units. At `CurrencyView.getPrecision() == 2`, `
 
 Standalone DTOs live under `com.kitemc.market.api.model`: `CurrencyView`, `OrderView`, `WalletView`, `ClaimAssetView`, `HistoryEntry`, `TradeSummary`, `ItemSummary` and enums. Fields and nested lists, sets and maps are immutable. Optional order samples expose only material, name, lore, enchantments and durability; they cannot recreate or claim assets.
 
-Results exclude raw audit JSON, serialized item bytes, exact-sample fingerprints, license credentials, execution tokens and recovery evidence. Missing historical amounts remain `null` rather than becoming zero. `RECORDED` does not prove an external side effect succeeded; `PENDING_REVIEW` needs investigation. The development `match(ItemRule, ItemSnapshot)` signature is not public.
+Results exclude raw audit JSON, serialized item bytes, exact-sample fingerprints, license credentials, execution tokens and recovery evidence. Missing historical amounts remain `null` rather than becoming zero. `RECORDED` does not prove an external side effect succeeded; `PENDING_REVIEW` needs investigation. Item matching and transaction submission are handled by the host plugin, outside the public query API.
 
 ## Post-commit notifications
 

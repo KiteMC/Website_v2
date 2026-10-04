@@ -1,6 +1,6 @@
 # 界面、主题与第三方开发
 
-KiteMarket 当前界面范围为**完整原版 GUI＋ItemsAdder v4 兼容**。第三方开发者可以自由制作、修改、自用、分发或独立销售自己的配置／Java界面，**不需要官方 DLC 权益**。官方 Market Stall IA 主题的开发与上架已取消，IA 适配和公开 SDK 继续保留。
+KiteMarket 提供**完整原版 GUI＋ItemsAdder v4 兼容**。第三方开发者可以自由制作、修改、自用、分发或独立销售自己的配置／Java 界面，**无需额外的 KiteMC 主题授权**。公开 SDK 与示例采用独立 MIT 许可，基础插件不内置 IA 主题资源。
 
 ::: info 版本与获取
 本页对应 `1.0.0` 的公开 UI SDK，插件运行包目前待发布。接口源码和示例通过[公开仓库](https://github.com/KiteMC/KiteMarket)提供，文件名与发行安排见[下载页](./download)。固定 Paper1.21.11／Java21／ItemsAdder4.0.16组合已有自有配置主题与 Java 市场示例的真实打开记录，具体范围见[兼容说明](./compatibility)，不推及其他版本或 Folia。
@@ -54,7 +54,7 @@ gui:
 
 ## 自有主题描述
 
-把声明文件保存到 `plugins/KiteMarket/themes/*.yml`，用 `/km reload` 校验并加载；无效候选保留当前有效目录。主题 ID 使用小写字母、数字、点、下划线和连字符，最长 96 字符，首字符为字母或数字。`official.*` 及历史 `km_market_stall` 资源命名空间仍保留，第三方应使用自己的 ID 和命名空间，不冒用旧官方标识。
+把声明文件保存到 `plugins/KiteMarket/themes/*.yml`，用 `/km reload` 校验并加载；无效候选保留当前有效目录。主题 ID 使用小写字母、数字、点、下划线和连字符，最长 96 字符，首字符为字母或数字。`official.*` 及 `km_market_stall` 资源命名空间为保留标识，第三方应使用自己的 ID 和命名空间。
 
 ```yaml
 schema: 1
@@ -81,14 +81,14 @@ pages:
 
 `state-font-images` 根据服务端的 `result.status` 选择状态背景。运行值为 `SUCCESS`、`PENDING`、`FAILED`、`UNCONFIRMED`，分别说明完成、待核对、拒绝和尚不能确认结果；不要与账本操作状态混用。先检查本页映射，再检查 `resources` 的状态映射，没有匹配时使用本页／通用背景。具体页面存在时使用该页配置，否则使用 `*`；未指定的字体和偏移使用 `resources`／`config` 默认值。
 
-ItemsAdder 内置 provider 为 `kitemarket.itemsadder`。第三方可以使用自己任意注册的字体 ID，例如 `km_example:market`，不需要使用 `km_market_stall` 或取得自家 DLC 租约。`requires: {}` 省略资源包字段，继承节点默认身份；使用另一个包时，添加实际小写 SHA-1（40 位）和下发 UUID 为 `requires.pack-sha1`、`pack-id`，覆盖节点默认值。**空字符串会导致主题校验失败**。未登记有效身份或玩家未成功应用指定包时回退；更新内容必须对应新的实际下发 UUID，不允许已登记的同一 UUID 换摘要。
+ItemsAdder 内置 provider 为 `kitemarket.itemsadder`。第三方可以使用自己注册的字体 ID，例如 `km_example:market`，无需主题商品 ID 或权益凭据。`requires: {}` 省略资源包字段，继承节点默认身份；使用另一个包时，添加实际小写 SHA-1（40 位）和下发 UUID 为 `requires.pack-sha1`、`pack-id`，覆盖节点默认值。**空字符串会导致主题校验失败**。未登记有效身份或玩家未成功应用指定包时回退；更新内容必须对应新的实际下发 UUID，不允许已登记的同一 UUID 换摘要。
 
 资源就绪使用公开 ProtocolLib 记录真实 UUID、SHA-1和URL，再与 IA公共发送事件关联；不是调用内部混淆类或只等待发送事件。临时启用 `gui.itemsadder.diagnostics: true` 可查看 `[KITEMARKET_PACK]`，完成身份登记后关闭。对应包失败、丢弃或移除会撤销该记录，无关包不清空 IA状态；断线、换节点、全量移除或 IA重载后重新确认。原生状态报文没有发送代次，同 UUID同内容重发的迟到响应无法凭协议区分，因此内容更新必须使用新实际 UUID。
 
 ## 安装资源与实现提供者
 
 - **ItemsAdder**：自行维护独立命名空间，手动重建和下发资源包，登记实际 SHA-1 与 Minecraft pack UUID。资源包“已发送”不等于“已加载”。市场图标仍为真实 ItemStack；字体图片仅装饰原版容器。
-- **Java 扩展**：通过公开 SDK 注册自己的 provider，独立维护实际引擎、资源和线程兼容。旧萌芽／龙核枚举只保留扩展位置，第一方不提供这两种厂商桥接。
+- **Java 扩展**：通过公开 SDK 注册自己的 provider，独立维护实际引擎、资源和线程兼容。SDK 的兼容枚举值不代表基础插件内置相应厂商适配器。
 
 提供者负责显示和输入，交易仍由共用服务端控制器处理。回调必须使用服务器登记的动作／输入标识，不能把客户端金额、玩家身份或旧页面当作有效请求。页面关闭、失效或重复确认继续执行共用会话保护。
 
@@ -104,7 +104,7 @@ IA 适配器先填充 `TexturedInventoryWrapper.getInternal()` 返回的受保�
 
 发行时 `KiteMarket-Examples-1.0.0.zip` 汇总查询例与 IA 例，包含可运行 JAR、主题、MIT 自有资源、双语说明及源码／构建文件。将 IA 示例 JAR 放入 `plugins/`、`theme.yml` 放到 `plugins/KiteMarket/themes/example-ia-java.yml`、`itemsadder/` 内容放到 `plugins/ItemsAdder/contents/km_example/`；按实际 IA 指南重建和下发，登记真实包身份后通过 `/km ui itemsadder example-ia-java` 选择主题。运行包未发布时可先阅读公开示例源码，不把编译成功当作真实市场已经运行。更新、旧关闭、重复点击和聊天输入继续遵循共用保护。
 
-配置主题及 Java 示例均采用独立 MIT License，可修改并用于商业界面，不需要官方 DLC；**许可不包含历史官方主题美术**，取消产品不等于将其素材改为开源。白框配置与Java示例的真实发布页已在固定组合打开，但不据此认证其他资源包或全部页面。旧 Germ／DragonCore 声明仅用于格式参考，不是第一方厂商适配成品。源码、编译和注册成功不替代实际客户端验收。
+配置主题及 Java 示例中标记为 MIT 的源码与资源可以修改并用于商业界面，无需额外的 KiteMC 主题授权。其他主题遵循各自许可。白框配置与 Java 示例的真实发布页已在[代表组合](./compatibility)打开，这项记录不认证其他资源包或全部页面；源码、编译和注册成功也不替代实际客户端验证。
 
 ### 自定义 IA 功能图标
 
@@ -126,11 +126,12 @@ pages:
 
 ## 页面、动作与生命周期
 
-`UiPage.key()` 是逻辑页面 ID，`UiPage.template()` 是主题选择 ID。原版 `menus` 配置按逻辑 ID，IA `pages` 按模板 ID。完整34页及主要动作如下，标记“同名”的页面使用自己的页面 ID 作为模板：
+`UiPage.key()` 是逻辑页面 ID，`UiPage.template()` 是主题选择 ID。原版 `menus` 配置按逻辑 ID，IA `pages` 按模板 ID。完整35页及主要动作如下，标记“同名”的页面使用自己的页面 ID 作为模板：
 
 | 页面 ID | 模板 ID | 主要动作 |
 |---|---|---|
-| `home` | 同名 | 交易入口、发布、钱包、领取、历史 |
+| `home` | 同名 | 紧凑首页：三类交易、头像、钱包、领取、我的挂单；旧首页保留原入口 |
+| `profile` | 同名 | 界面偏好、自己的待核对操作、历史、按权限显示的管理入口及返回 |
 | `browse` | `browse` / `orders` | 搜索筛选、翻页、详情；个人订单使用 `orders` |
 | `browse-filters` | 同名 | 类型、币种、材料、排序、搜索 |
 | `order` | `detail` | 购买、供货、出价、撤单前确认 |
@@ -139,16 +140,16 @@ pages:
 | `confirm` | `confirm` / `wizard-confirm` | 最终确认、返回 |
 | `preview` | 同名 | 当前规则的背包匹配检查 |
 | `supply-preview` | `supply` | 保护格、数量、最大可交、刷新、确认 |
-| `number` | 同名 | 增减、预设、最大值、自定义输入 |
+| `number` | 同名 | 增减、预设、实际可用最大值、自定义输入 |
 | `materials` | 同名 | 多选、筛选、主手导入 |
 | `durability` | 同名 | 范围、预设、导入、清除 |
 | `text-condition` | 同名 | 精确／包含、聊天输入、导入、清除 |
-| `enchantments` | 同名 | 选择、导入、额外附魔开关 |
+| `enchantments` | 同名 | 按中文名／英文名／ID 搜索、清空搜索、选择、导入、额外附魔开关 |
 | `enchantment-range` | 同名 | 最低／最高等级、移除 |
 | `insufficient` | 同名 | 所需金额和充值入口 |
 | `wallet` / `wallet-currency` | `wallet` | 查看余额、充值／提现确认 |
 | `assets` | `claims` | 查看资产、领取 |
-| `history` / `receipt` | `history` | 翻页、查看只读收据 |
+| `history` / `receipt` | `history` | 翻页、只读收据、按需查看／复制操作编号 |
 | `admin` / `admin-player` | 同名 | 待核对与指定玩家审计入口 |
 | `admin-wallet` / `admin-assets` | 同名 | 指定玩家余额／全状态资产只读查看 |
 | `admin-orders` / `admin-player-history` | 同名 | 指定玩家订单／历史只读查看 |
@@ -159,6 +160,10 @@ pages:
 | `result` | 同名 | 状态、收据、钱包、领取和继续浏览 |
 
 发布编辑器的模板依步骤为 `wizard-type`、`wizard-item`、`wizard-terms`（收购）、`wizard-sale-terms`（出售）、`wizard-auction-terms`（拍卖）；最后确认使用 `wizard-confirm`。
+
+默认紧凑首页的原始槽位为 `0` 头像、`4` 提示、`8` 领取、`20/22/24` 三类交易、`45` 钱包、`53` 我的挂单。`profile` 使用 `20` 界面偏好、`22` 待核对、`24` 历史、`31` 管理与 `49` 返回；管理入口随权限显示。待核对列表复用 `history` 页面。首页布局可通过 `gui.home-layout: auto|compact|legacy` 选择；已有 `menus.home` 在 `auto` 下保留旧首页，迁移规则见[原版 GUI 个性化](./guide#原版-gui-个性化)。呈现器应读取当前快照和动作，不假设所有首页都使用同一组槽位。
+
+数量最大值按实际钱包、可用背包物品及币种限额计算，拍卖只取主手这一堆；充值和提现使用真实余额及可预查的后端容量。报价变化会要求重新选择，最终提交仍重新校验，主题不得自行放宽上限。收据提供独立的“查看／复制操作编号”动作，在聊天中显示完整编号和复制入口；摘要保持简短，`inspect` 与只读 API 仍保留编号。
 
 动作清单以当前 `page.actions()` 的槽位→不透明令牌为准。没有令牌的格子只展示信息；不得自己制造动作字符串，或将上一页面的令牌复用到新页。每次打开或更新都替换页面身份、令牌与回调。输入通过 `UiCallbacks.input(raw)`，关闭通过 `closed()`；`prompt()` 返回 `false` 时主插件继续使用聊天输入并保留草稿。
 

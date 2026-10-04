@@ -68,7 +68,7 @@ api.orders(null, null, "", 0, 36).whenComplete((orders, failure) -> {
 
 独立 DTO 在 `com.kitemc.market.api.model` 下：`CurrencyView`、`OrderView`、`WalletView`、`ClaimAssetView`、`HistoryEntry`、`TradeSummary`、`ItemSummary` 及枚举。字段和嵌套列表、集合、映射不可变。订单的可选样品摘要只含材质、名称、Lore、附魔与耐久，不能据此生成或领取资产。
 
-接口不返回原始审计 JSON、序列化物品字节、精确样品指纹、许可证凭据、执行令牌或恢复证据。缺失历史金额保持 `null`，不猜成零；`RECORDED` 不表示外部副作用已经成功，`PENDING_REVIEW` 表示需要核对。开发版 `match(ItemRule, ItemSnapshot)` 不属于公开 API。
+接口不返回原始审计 JSON、序列化物品字节、精确样品指纹、许可证凭据、执行令牌或恢复证据。缺失历史金额保持 `null`，不猜成零；`RECORDED` 不表示外部副作用已经成功，`PENDING_REVIEW` 表示需要核对。物品匹配和交易提交由主插件处理，不属于公开查询接口。
 
 ## 成交后通知
 

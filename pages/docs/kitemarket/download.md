@@ -1,15 +1,32 @@
 ---
-title: KiteMarket 下载与发行安排
+title: KiteMarket 下载
 description: KiteMarket 三种服务器运行包、两个公开 SDK、可运行示例、双语配置与 SHA-256 校验说明。
+aside: false
 ---
 
-# 下载与发行安排
+<script setup>
+import ProductDownloadLayout from '@theme/components/download/ProductDownloadLayout.vue';
+</script>
+
+<ProductDownloadLayout product="KiteMarket" title="下载" description="选择适合服务器的运行包，或获取公开 SDK、示例和配置。" image="/images/kitemarket/kitemarket-icon.svg">
+
+<ButtonGroup>
+  <ActionButton href="./guide" text="安装指南" theme="brand" icon="arrow" />
+  <ActionButton href="./api" text="市场 API" theme="alt" icon="arrow" />
+  <ActionButton href="https://github.com/KiteMC/KiteMarket/releases" text="GitHub Releases" theme="alt" icon="external" :external="true" />
+</ButtonGroup>
 
 ::: info 当前状态
-`1.0.0` 正在准备发行。**插件运行包暂未发布，购买暂未开放**；不会将本地测试包或未发布的候选包当作正式下载。公开仓库提供开发接口、示例、文档和 Issues，核心源码保持私有。
+**1.0.0 运行包暂未发布，购买暂未开放。** 公开仓库已提供开发接口、示例源码、文档和 Issues，核心源码保持私有。
 :::
 
-公开入口：[KiteMC/KiteMarket](https://github.com/KiteMC/KiteMarket)。下方仅展示 GitHub 实际公开的 Release 文件；暂未发行时显示空状态。SDK 通过公开资产直接下载，不强制使用需要 GitHub Token 的 Packages。
+全部发行文件由 [KiteMC/KiteMarket](https://github.com/KiteMC/KiteMarket) 的 GitHub Releases 提供，使用 GitHub 直接下载，不要求 GitHub Packages Token。下方仅展示已经公开的版本；没有 Release 时不会显示占位下载。
+
+## 版本列表
+
+<ClientOnly>
+  <DownloadPage owner="KiteMC" repo="KiteMarket" asset-profile="kitemarket" />
+</ClientOnly>
 
 ## 服主：按服务器选择一份运行包
 
@@ -37,7 +54,7 @@ description: KiteMarket 三种服务器运行包、两个公开 SDK、可运行�
 
 ## 配置与校验
 
-发布时另附 `KiteMarket-config-zh_CN-1.0.0.zip`、`KiteMarket-config-en_US-1.0.0.zip` 和 `SHA256SUMS.txt`。配置包含正式产品信息与可信公钥；仅填写自己的许可证、数据库和实际经济后端，不使用隔离测试凭据。
+GitHub Release 同时提供 `KiteMarket-config-zh_CN-1.0.0.zip`、`KiteMarket-config-en_US-1.0.0.zip` 和 `SHA256SUMS.txt`。配置包含正式产品信息与可信公钥；仅填写自己的许可证、数据库和实际经济后端。
 
 下载后按校验文件核对 SHA-256，例如：
 
@@ -45,8 +62,6 @@ description: KiteMarket 三种服务器运行包、两个公开 SDK、可运行�
 Get-FileHash -Algorithm SHA256 .\KiteMarket-modern-1.0.0.jar
 ```
 
-有资产的网络升级前先阅读[备份、升级与回滚](./operations)，正常停服并备份完整数据库和配置。公开文件不含混淆映射、私钥、网络凭据或历史商业主题素材。
+有资产的网络升级前先阅读[备份、升级与回滚](./operations)，正常停服并备份完整数据库和配置。公开文件不含混淆映射、私钥或网络凭据。
 
-<ClientOnly>
-  <DownloadPage owner="KiteMC" repo="KiteMarket" asset-profile="kitemarket" />
-</ClientOnly>
+</ProductDownloadLayout>

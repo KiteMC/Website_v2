@@ -1,6 +1,6 @@
 # Interfaces, themes, and third-party development
 
-KiteMarket's interface coverage is **the complete vanilla GUI plus ItemsAdder v4 compatibility**. Third-party developers may freely create, modify, use, distribute, or independently sell their own configuration or Java interfaces **without an official DLC entitlement**. Development and sale of the official Market Stall IA theme have been canceled; the IA adapter and public SDK remain.
+KiteMarket provides **the complete vanilla GUI plus ItemsAdder v4 compatibility**. Third-party developers may freely create, modify, use, distribute or independently sell their own configuration or Java interfaces **without an additional KiteMC theme license**. Public SDKs and examples have independent MIT licenses; IA theme resources are not bundled.
 
 ::: info Version and downloads
 This page covers the `1.0.0` public UI SDK. Runtime downloads are pending. Interface source and examples are available through the [public repository](https://github.com/KiteMC/KiteMarket); see [downloads](./download) for filenames and release status. The pinned Paper 1.21.11 / Java 21 / ItemsAdder 4.0.16 combination has real openings of community configuration and Java examples; the [recorded scope](./compatibility) does not certify other versions or Folia.
@@ -54,7 +54,7 @@ Player buttons, command help and completion show only auto/vanilla/itemsadder. O
 
 ## Own theme declarations
 
-Place declarations in `plugins/KiteMarket/themes/*.yml` and validate/load them with `/km reload`; an invalid candidate retains the active catalog. IDs use lowercase letters, digits, dots, underscores, and hyphens, up to 96 characters, beginning with a letter or digit. `official.*` and the historical `km_market_stall` namespace remain reserved. Third parties should use their own IDs and namespaces without impersonating the old official identifiers.
+Place declarations in `plugins/KiteMarket/themes/*.yml` and validate/load them with `/km reload`; an invalid candidate retains the active catalog. IDs use lowercase letters, digits, dots, underscores and hyphens, up to 96 characters, beginning with a letter or digit. `official.*` and the `km_market_stall` namespace are reserved identifiers. Third parties should use their own IDs and namespaces.
 
 ```yaml
 schema: 1
@@ -81,14 +81,14 @@ This is KiteMarket's common theme format, not a vendor-native configuration. `pr
 
 `state-font-images` selects artwork from the server's `result.status`: `SUCCESS`, `PENDING`, `FAILED` and `UNCONFIRMED` describe completion, review required, refusal and an unconfirmed outcome. These presentation values are distinct from ledger operation states. A page mapping takes precedence over a resource-level state mapping; absent mappings use the page/general background. An exact page declaration is used when present, otherwise `*`; omitted font/offset fields use `resources`/`config` defaults.
 
-The built-in ItemsAdder provider is `kitemarket.itemsadder`. Third-party themes may reference their own registered font IDs, such as `km_example:market`, without using `km_market_stall` or obtaining an official DLC lease. `requires: {}` omits pack fields and inherits node defaults. For a separate pack, add its actual lowercase SHA-1 (40 digits) and sent UUID as `requires.pack-sha1` and `pack-id`. **Empty strings fail theme validation.** Missing valid identity or an unsuccessfully applied pack falls back. Updated content requires a new actual sent UUID; a registered UUID cannot be assigned a different digest.
+The built-in ItemsAdder provider is `kitemarket.itemsadder`. Third-party themes may reference their own registered font IDs, such as `km_example:market`, without a theme product ID or entitlement receipt. `requires: {}` omits pack fields and inherits node defaults. For a separate pack, add its actual lowercase SHA-1 (40 digits) and sent UUID as `requires.pack-sha1` and `pack-id`. **Empty strings fail theme validation.** Missing valid identity or an unsuccessfully applied pack falls back. Updated content requires a new actual sent UUID; a registered UUID cannot be assigned a different digest.
 
 Readiness uses public ProtocolLib observations of actual UUID, SHA-1 and URL, correlated with IA's public send event; it does not call internal obfuscated classes or treat a send event alone as readiness. Temporarily enable `gui.itemsadder.diagnostics: true` to inspect `[KITEMARKET_PACK]`, then disable it after registering identity. Failure, discard or removal revokes only that pack, leaving unrelated loaded IA state intact. Disconnects, node changes, removal of every pack or IA reload require confirmation again. Native status messages carry no send generation, so delayed responses to a repeated UUID with identical content cannot be distinguished by the protocol; changed content must use a fresh actual UUID.
 
 ## Resources and provider implementations
 
 - **ItemsAdder**: Maintain your own namespace, manually rebuild and send the pack, and register its actual SHA-1 and Minecraft pack UUID. Sending a pack does not mean it has loaded. Market items remain actual ItemStacks; font images decorate standard inventories.
-- **Java extensions**: Register your own provider through the public SDK and maintain its actual engine, resources and thread compatibility. Legacy Germ/DragonCore enums preserve extension positions; no first-party vendor bridge is supplied.
+- **Java extensions**: Register your own provider through the public SDK and maintain its actual engine, resources and thread compatibility. Compatibility enum values do not imply that the base plugin bundles the corresponding vendor adapters.
 
 Providers render and capture input; the shared server controller handles transactions. Callbacks must use server-registered action/input identifiers, never client-supplied amounts, identities, or stale pages. Closing pages, expiry, and repeated confirmations retain the shared session safeguards.
 
@@ -104,7 +104,7 @@ The IA adapter fills the protected inventory returned by `TexturedInventoryWrapp
 
 The release's `KiteMarket-Examples-1.0.0.zip` combines query and IA examples, including runnable JARs, themes, MIT resources, bilingual instructions and source/build files. Install the IA example JAR, place `theme.yml` in `plugins/KiteMarket/themes/example-ia-java.yml`, and copy `itemsadder/` into `plugins/ItemsAdder/contents/km_example/`. Rebuild/send the pack using the installed IA instructions, register its identity and select `/km ui itemsadder example-ia-java`. Before the runtime release, read the public source without treating successful compilation as a running market. Updates, stale closes, repeated clicks and chat input retain the shared safeguards.
 
-The configuration and Java examples use separate MIT licenses and can be modified for commercial interfaces without an official DLC; **the license does not include historical official-theme artwork**. Canceling the product does not make its artwork open source. Their real publishing pages have been opened on the pinned environment, which does not certify other packs or every page. Legacy Germ/DragonCore declarations are format references rather than first-party vendor integrations. Source, compilation and registration do not replace actual client acceptance.
+Source and resources identified as MIT in the configuration and Java examples may be modified for commercial interfaces without an additional KiteMC theme license. Other themes retain their own licenses. The examples' real publishing pages have been opened on the [representative environment](./compatibility); this record does not certify other packs or every page. Source, compilation and registration do not replace actual client verification.
 
 ### Custom IA functional icons
 
@@ -126,11 +126,12 @@ pages:
 
 ## Pages, actions and lifecycle
 
-`UiPage.key()` identifies the logical page; `UiPage.template()` selects theme configuration. Vanilla `menus` uses page IDs, while IA `pages` uses template IDs. The complete 34 pages and their main actions follow; “Same” means the template equals the page ID:
+`UiPage.key()` identifies the logical page; `UiPage.template()` selects theme configuration. Vanilla `menus` uses page IDs, while IA `pages` uses template IDs. The complete 35 pages and their main actions follow; “Same” means the template equals the page ID:
 
 | Page ID | Template ID | Main actions |
 |---|---|---|
-| `home` | Same | Trading entrances, create, wallet, claims, history |
+| `home` | Same | Compact home: three trading categories, player head, wallet, claims and my orders; legacy home retains its entrances |
+| `profile` | Same | Interface preferences, personal review queue, history, permission-dependent administration and back |
 | `browse` | `browse` / `orders` | Search, filters, pagination, details; personal orders use `orders` |
 | `browse-filters` | Same | Type, currency, material, sort and search |
 | `order` | `detail` | Purchase, supply, bid and cancellation confirmation |
@@ -139,16 +140,16 @@ pages:
 | `confirm` | `confirm` / `wizard-confirm` | Final confirmation and return |
 | `preview` | Same | Inventory matching against the draft rule |
 | `supply-preview` | `supply` | Protect slots, quantity, maximum, refresh and confirm |
-| `number` | Same | Increments, presets, maximum and custom input |
+| `number` | Same | Increments, presets, actual available maximum and custom input |
 | `materials` | Same | Multi-select, filter and main-hand import |
 | `durability` | Same | Range, presets, import and clear |
 | `text-condition` | Same | Exact/contains, chat input, import and clear |
-| `enchantments` | Same | Selection, import and extra-enchantment option |
+| `enchantments` | Same | Chinese/English name or ID search, clear search, selection, import and extra-enchantment option |
 | `enchantment-range` | Same | Minimum/maximum and removal |
 | `insufficient` | Same | Required funds and deposit entrance |
 | `wallet` / `wallet-currency` | `wallet` | Balances and transfer confirmation |
 | `assets` | `claims` | View and claim assets |
-| `history` / `receipt` | `history` | Pagination and read-only receipts |
+| `history` / `receipt` | `history` | Pagination, read-only receipts and on-demand operation ID viewing/copying |
 | `admin` / `admin-player` | Same | Review queue and player audit entrances |
 | `admin-wallet` / `admin-assets` | Same | Read-only player balances and all asset states |
 | `admin-orders` / `admin-player-history` | Same | Read-only player orders and history |
@@ -159,6 +160,10 @@ pages:
 | `result` | Same | Status, receipt, wallet, claims and continue browsing |
 
 Wizard templates follow the step: `wizard-type`, `wizard-item`, `wizard-terms` (buy order), `wizard-sale-terms`, `wizard-auction-terms`, then `wizard-confirm`.
+
+Default compact home source slots are `0` player head, `4` help, `8` claims, `20/22/24` trading categories, `45` wallet and `53` my orders. `profile` uses `20` interface preferences, `22` review queue, `24` history, `31` administration and `49` back; the administration entrance depends on permissions. The review list reuses `history`. Select home content with `gui.home-layout: auto|compact|legacy`; an existing `menus.home` preserves the legacy home under `auto`. See [vanilla GUI customization](./guide#customize-the-vanilla-gui) for migration. Read current snapshots and actions instead of assuming all home layouts share one slot set.
+
+Quantity maxima use actual wallet funds, available inventory items and currency limits; auctions use only the main-hand stack. Transfers use real balances and any known backend receive capacity. Changed quotes require another choice, and final submission rechecks limits; a theme must not raise them independently. Receipts provide a separate “View / copy operation ID” action that sends the complete ID and copy control in chat. Summaries stay concise; `inspect` and the read-only API retain IDs.
 
 The current `page.actions()` slot-to-opaque-token map is the action list. Entries without a token are informational. Never fabricate action strings or reuse a previous page's tokens. Every open/update replaces identity, tokens and callbacks. Input returns through `UiCallbacks.input(raw)` and closure through `closed()`. Returning `false` from `prompt()` retains the host's validated chat input and drafts.
 

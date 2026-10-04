@@ -11,17 +11,20 @@ import {
 } from './downloadApi';
 import { useTranslation } from './useTranslation';
 import Pagination from './Pagination.vue';
+import KiteMarketReleaseFiles from './KiteMarketReleaseFiles.vue';
 
 const props = withDefaults(defineProps<{
   owner?: string;
   repo?: string;
   showProxy?: boolean;
   showLanguagePacks?: boolean;
+  assetProfile?: 'single' | 'kitemarket';
 }>(), {
   owner: 'KiteMC',
   repo: 'VerifyMC',
   showProxy: false,
   showLanguagePacks: false,
+  assetProfile: 'single',
 });
 
 const { t, language } = useTranslation();
@@ -56,6 +59,7 @@ const historicalReleases = computed(() => allReleases.value.filter(release =>
 
 // Get main downloadable asset (.jar or .zip)
 function getMainAsset(release: ApiBuild): ReleaseAsset | undefined {
+  if (props.assetProfile === 'kitemarket') return undefined;
   // Try .jar first (for plugins)
   const jar = release.assets.find(a =>
     a.name.endsWith('.jar') && !a.name.toLowerCase().includes('proxy')
@@ -219,9 +223,6 @@ async function loadReleases() {
 
     latestRelease.value = latest;
     allReleases.value = all;
-    if (!latest && all.length === 0) {
-      throw new Error('No releases returned');
-    }
   } catch (e) {
     error.value = t.value.error;
     console.error('Failed to load releases:', e);
@@ -254,7 +255,13 @@ onMounted(() => {
         </svg>
       </div>
       <p>{{ error }}</p>
-      <button class="retry-btn" @click="loadReleases">Retry</button>
+      <button class="retry-btn" @click="loadReleases">{{ language === 'zh' ? '重试' : 'Retry' }}</button>
+      <a :href="`https://github.com/${owner}/${repo}/releases`" target="_blank" rel="noopener">{{ t.viewOnGitHub }}</a>
+    </div>
+
+    <div v-else-if="!latestRelease && allReleases.length === 0" class="empty-state">
+      <p>{{ language === 'zh' ? '暂未发布版本。请关注公开仓库中的发行安排。' : 'No release has been published yet. Follow the public repository for release updates.' }}</p>
+      <a :href="`https://github.com/${owner}/${repo}`" target="_blank" rel="noopener">{{ t.viewOnGitHub }}</a>
     </div>
 
     <!-- Content -->
@@ -339,6 +346,8 @@ onMounted(() => {
             </a>
           </div>
 
+          <KiteMarketReleaseFiles v-if="assetProfile === 'kitemarket'" :release="latestRelease" :source="downloadSource" />
+
           <div v-if="showLanguagePacks" class="language-pack-actions">
             <span class="language-pack-label">{{ t.languagePacks }}</span>
             <a v-if="getLanguagePack(latestRelease, 'zh_CN')" :href="resolveDownloadUrl(getLanguagePack(latestRelease, 'zh_CN')!.browser_download_url)" class="download-btn language">
@@ -418,6 +427,7 @@ onMounted(() => {
                 <a :href="previewRelease.url" target="_blank" rel="noopener" class="action-btn github" :title="t.viewOnGitHub"><span aria-hidden="true">GitHub</span></a>
               </div>
             </div>
+            <KiteMarketReleaseFiles v-if="assetProfile === 'kitemarket'" :release="previewRelease" :source="downloadSource" />
             <div v-if="showLanguagePacks && (getLanguagePack(previewRelease, 'zh_CN') || getLanguagePack(previewRelease, 'en_US'))" class="history-language-packs">
               <a v-if="getLanguagePack(previewRelease, 'zh_CN')" :href="resolveDownloadUrl(getLanguagePack(previewRelease, 'zh_CN')!.browser_download_url)">{{ t.chinesePack }}</a>
               <a v-if="getLanguagePack(previewRelease, 'en_US')" :href="resolveDownloadUrl(getLanguagePack(previewRelease, 'en_US')!.browser_download_url)">{{ t.englishPack }}</a>
@@ -507,6 +517,8 @@ onMounted(() => {
                 </a>
               </div>
             </div>
+
+            <KiteMarketReleaseFiles v-if="assetProfile === 'kitemarket'" :release="release" :source="downloadSource" />
 
             <div v-if="showLanguagePacks && (getLanguagePack(release, 'zh_CN') || getLanguagePack(release, 'en_US'))" class="history-language-packs">
               <a v-if="getLanguagePack(release, 'zh_CN')" :href="resolveDownloadUrl(getLanguagePack(release, 'zh_CN')!.browser_download_url)">{{ t.chinesePack }}</a>

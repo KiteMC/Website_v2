@@ -41,7 +41,7 @@ export default defineConfig({
     ["link", { rel: "apple-touch-icon", href: "/images/logo/kitemc.svg" }],
 
     // Basic SEO Meta
-    ["meta", { name: "keywords", content: "KiteMC, VerifyMC, ArcPass, Minecraft, Server, Plugin, Documentation" }],
+    ["meta", { name: "keywords", content: "KiteMC, KiteMarket, VerifyMC, ArcPass, Minecraft, Server, Plugin, Documentation" }],
     ["meta", { name: "author", content: "KiteMC Team" }],
     ["meta", { name: "robots", content: "index, follow" }],
     ["meta", { name: "theme-color", content: "#5672cd" }],
@@ -123,6 +123,7 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: "首页", link: "/" },
+          { text: "KiteMarket", link: "/docs/kitemarket/", activeMatch: "/docs/kitemarket/" },
           { text: "ArcPass", link: "/docs/arcpass/", activeMatch: "/docs/arcpass/" },
           { text: "VerifyMC", link: "/docs/verifymc/", activeMatch: "/docs/verifymc/" },
         ],
@@ -134,6 +135,7 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: "Home", link: "/en/" },
+          { text: "KiteMarket", link: "/en/docs/kitemarket/", activeMatch: "/en/docs/kitemarket/" },
           { text: "ArcPass", link: "/en/docs/arcpass/", activeMatch: "/en/docs/arcpass/" },
           { text: "VerifyMC", link: "/en/docs/verifymc/", activeMatch: "/en/docs/verifymc/" },
         ],
@@ -146,6 +148,7 @@ export default defineConfig({
 
     nav: [
       { text: "首页", link: "/" },
+      { text: "KiteMarket", link: "/docs/kitemarket/", activeMatch: "/docs/kitemarket/" },
       { text: "ArcPass", link: "/docs/arcpass/", activeMatch: "/docs/arcpass/" },
       { text: "VerifyMC", link: "/docs/verifymc/", activeMatch: "/docs/verifymc/" },
     ],

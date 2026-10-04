@@ -1,16 +1,16 @@
 ---
 title: KiteMC - Minecraft Server Tools & Plugins
-description: Official documentation for KiteMC team projects including VerifyMC whitelist plugin and ArcPass battle pass system.
+description: KiteMC documentation for KiteMarket, ArcPass, and archived projects.
 head:
   - - meta
     - name: keywords
-      content: KiteMC, Minecraft, server, plugin, VerifyMC, ArcPass, documentation
+      content: KiteMC, KiteMarket, Minecraft, server, plugin, VerifyMC, ArcPass, documentation
   - - meta
     - property: og:title
       content: KiteMC - Minecraft Server Tools & Plugins
   - - meta
     - property: og:description
-      content: Official documentation for KiteMC team projects including VerifyMC and ArcPass.
+      content: Official documentation for KiteMarket, ArcPass, and archived KiteMC projects.
 layout: home
 
 hero:
@@ -30,6 +30,13 @@ hero:
 
 <ProductGrid :cols="2">
   <ProductCard
+    title="KiteMarket"
+    description="Advanced buy orders, fixed-price sales, public auctions and shared wallets. Complete vanilla GUI, extensible IA themes; USD 19.99 one-time purchase"
+    image="/images/kitemarket/kitemarket-icon-128.png"
+    href="./docs/kitemarket/"
+    link-text="Product & release status"
+  />
+  <ProductCard
     title="ArcPass"
     description="Powerful battle pass system for Minecraft servers with multi-tier rewards and seasons"
     image="/images/logo/arcpass.svg"
@@ -38,7 +45,7 @@ hero:
   />
   <ProductCard
     title="VerifyMC"
-    description="Real-name email verification plugin with web-based management dashboard"
+    description="Discontinued email verification plugin. Historical documentation remains available for existing users"
     image="/images/logo/verifymc.svg"
     href="./docs/verifymc/"
     link-text="Start Reading"

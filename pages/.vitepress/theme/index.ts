@@ -20,6 +20,7 @@ import ProductCard from "./components/ProductCard.vue";
 import ProductGrid from "./components/ProductGrid.vue";
 import FriendLinks from "./components/FriendLinks.vue";
 import InlineLink from "./components/InlineLink.vue";
+import ScreenshotPlaceholder from "./components/ScreenshotPlaceholder.vue";
 
 // Page transition component - handles blur fade effect on route change
 const PageTransition = defineComponent({
@@ -82,6 +83,7 @@ export default {
     app.component("ProductGrid", ProductGrid);
     app.component("FriendLinks", FriendLinks);
     app.component("InlineLink", InlineLink);
+    app.component("ScreenshotPlaceholder", ScreenshotPlaceholder);
 
   },
 } satisfies Theme;

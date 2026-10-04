@@ -1,5 +1,44 @@
 export default {
 
+    '/docs/kitemarket/': [
+        {
+            text: "KiteMarket",
+            items: [
+                { text: "产品介绍", link: "/docs/kitemarket/" },
+                { text: "下载与发行安排", link: "/docs/kitemarket/download" },
+                { text: "安装与配置", link: "/docs/kitemarket/guide" },
+                { text: "交易与物品条件", link: "/docs/kitemarket/trading" },
+                { text: "共享钱包与充提", link: "/docs/kitemarket/wallet" },
+                { text: "命令与权限", link: "/docs/kitemarket/commands" },
+                { text: "故障处理与迁移", link: "/docs/kitemarket/operations" },
+                { text: "网络授权", link: "/docs/kitemarket/license" },
+                { text: "ItemsAdder 接入", link: "/docs/kitemarket/dlc" },
+                { text: "界面与第三方开发", link: "/docs/kitemarket/ui-development" },
+                { text: "市场 API 入门", link: "/docs/kitemarket/api" },
+                { text: "版本与认证状态", link: "/docs/kitemarket/compatibility" },
+            ]
+        }
+    ],
+    '/en/docs/kitemarket/': [
+        {
+            text: "KiteMarket",
+            items: [
+                { text: "Introduction", link: "/en/docs/kitemarket/" },
+                { text: "Downloads & Release Status", link: "/en/docs/kitemarket/download" },
+                { text: "Installation & Configuration", link: "/en/docs/kitemarket/guide" },
+                { text: "Trading & Item Conditions", link: "/en/docs/kitemarket/trading" },
+                { text: "Shared Wallet & Transfers", link: "/en/docs/kitemarket/wallet" },
+                { text: "Commands & Permissions", link: "/en/docs/kitemarket/commands" },
+                { text: "Recovery & Migration", link: "/en/docs/kitemarket/operations" },
+                { text: "Network License", link: "/en/docs/kitemarket/license" },
+                { text: "ItemsAdder Integration", link: "/en/docs/kitemarket/dlc" },
+                { text: "Interfaces & Third-Party Development", link: "/en/docs/kitemarket/ui-development" },
+                { text: "Market API Quick Start", link: "/en/docs/kitemarket/api" },
+                { text: "Versions & Certification", link: "/en/docs/kitemarket/compatibility" },
+            ]
+        }
+    ],
+
     '/en/docs/arcpass/': [
         {
             text: "Getting Started",

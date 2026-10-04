@@ -49,3 +49,7 @@ dist
 # Logs
 logs
 *.log
+
+# Local Codex work and project memory are not public website assets.
+codex-work/
+CODEX_PROJECT_MEMORY.md

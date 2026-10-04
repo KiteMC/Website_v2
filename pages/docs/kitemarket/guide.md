@@ -1,0 +1,205 @@
+# 安装与配置
+
+本指南对应 `1.0.0` 的配置。运行包目前待发布，发行安排见[下载页](./download)；正式下载开放后，按以下步骤安装，无需取得闭源源码或自行构建插件。
+
+## 1. 准备环境
+
+准备[目标服务器与 Java](./compatibility)、MySQL 8 或 MariaDB 10.11，以及实际可用的网络许可证配置。每个市场网络使用同一数据库、Minecraft 版本、币种定义和物品配置；节点 ID 不能重复。
+
+将与服务器版本匹配的一个 KiteMarket 分发 JAR 放入 `plugins/`，不要同时安装多个分发包。首次启动生成 `plugins/KiteMarket/config.yml` 后停止服务器，编辑配置。
+
+## 2. 配置网络与数据库
+
+以下为 `config.yml` 中需要按实际部署填写的字段，密码等值仅为占位示例：
+
+```yaml
+language: zh_CN
+
+network:
+  name: survival
+  node-id: survival-1
+  item-profile: default
+
+database:
+  url: "jdbc:mysql://127.0.0.1:3306/kitemarket"
+  username: "kitemarket"
+  password: "REPLACE_ME"
+
+market:
+  order-limit: 10
+  maximum-quantity: 1000000
+  maximum-duration-seconds: 604800
+  tax-bps: 0
+```
+
+创建独立数据库并授予插件账户所需权限。数据库不通、网络定义不一致或插件尚未初始化时，不应允许交易。运行中变更网络、币种或数据库需要停服规划，不能当作普通热重载。
+
+`language` 可选 `zh_CN`、`en_US` 或 `auto`；语言文件在 `plugins/KiteMarket/lang/`。`tax-bps` 使用基点，100 表示 1%；费用从收款方收入扣除，不收上架费。`market.taxes.<buy/sell/auction>.<币种ID>` 可覆盖该类型的 `default`，未设置则使用 `market.tax-bps`；可配置范围为 0–9999 基点。费用按订单创建时的设置结算，修改配置不改写旧单。
+
+## 3. 配置币种
+
+例如，一个整数 PlayerPoints 币种：
+
+```yaml
+currencies:
+  points:
+    provider: playerpoints
+    scale: 0
+    native-id: ""
+    gateway: survival-1
+    maximum: 2147483647
+    certified-versions: []
+    certified-folia: false
+```
+
+`maximum` 使用最小货币单位，不能超过实际后端安全范围。`certified-versions` 默认留空，充提保持关闭；在隔离环境测试过具体版本后，才登记实际版本号。该列表不是官方认证报告。
+
+可选 provider 为 `vault`、`playerpoints`、`coinsengine`、`excellenteconomy`。Vault 需要 `vault-provider` 与实际 Economy 服务名称一致；后两者需要正确的 `native-id`。不要复制别人的版本号，也不要为同一个实际币种创建两个重复入口。[钱包说明](./wallet)包含网关和失败处理。
+
+## 4. 配置网络授权
+
+```yaml
+license:
+  key: "REPLACE_WITH_LICENSE_KEY"
+```
+
+正式默认配置已提供下列产品与信任信息，服主**不需要自行查找或填写产品 ID、公钥**：
+
+| 设置 | 默认值 |
+|---|---|
+| `license.endpoint` | `https://license.kitemc.com` |
+| `license.product-id` | `57ef7c59-7c76-4192-abeb-4c4d7ac0a00f` |
+| `license.public-key` | 随配置提供的 KiteMC 生产 RSA 公钥，沿用现有信任体系 |
+
+保留默认值并填写自己的密钥；不要填写产品名或私钥。程序在服务根地址后追加 `/api/v2/license/activate` 或 `/api/v2/license/heartbeat`，远程端点要求 HTTPS。首次启动需要成功联网验证。此商品目前尚未开放销售。
+
+## 5. 重启与部署检查
+
+重新启动，检查插件、数据库、网络会话和许可证状态。先用隔离测试玩家完成一笔充值、一口价、收购供货、竞拍与提现，再验证领取和双节点并发。必须逐个测试实际开启的 provider；仅有 JAR 成功加载不代表充提可用。
+
+网络、数据库、币种、授权和市场数量/时长限制变更后使用完整重启。显示配置与新单费率可使用 `/km reload` 校验更新；无效配置会被拒绝并保留当前设置。不使用服务端 `/reload` 或插件热卸载。管理命令见[命令与权限](./commands)，异常处理见[运维指南](./operations)。
+
+## 6. 界面配置
+
+默认原版采用暖色54槽界面：顶部工具区、中间36格列表、底部翻页与返回；无需资源包。新增设置：
+
+```yaml
+gui:
+  renderer: auto
+  auto-order: [itemsadder, vanilla]
+  default-themes: {}
+  allow-player-switch: true
+  sounds:
+    enabled: true
+  vanilla:
+    layout: auto
+  itemsadder:
+    enabled: true
+    diagnostics: false
+    pack-sha1: ""
+    pack-id: ""
+```
+
+当前呈现选项为 `auto/vanilla/itemsadder`，原版布局允许 `auto/warm/legacy`。`auto-order` 决定自动尝试顺序，默认 ItemsAdder→原版；`default-themes` 指定后端默认主题。布尔字段使用 YAML 的 `true/false`，不能写成字符串。原版布局 `auto` 在旧首页入口位置偏离默认或页面配置 `slots`／`buttons.slot` 时保留兼容布局；只修改标题、图标、名称、Lore、背景或切换控件不触发兼容布局。显式 `warm` 与自定义位置冲突会被拒绝。音效可通过 `gui.sounds.enabled: false` 关闭。
+
+玩家用 `/km ui` 打开设置，或选择 `/km ui <auto|vanilla|itemsadder> [theme-id]`。这是选择后端和已安装主题，不是样式编辑器；服主的样式个性化只通过 `config.yml` 完成，不提供游戏内样式编辑功能。偏好保存在同网络共享数据库中，没有记录为 `AUTO`；`allow-player-switch: false` 禁用选择并采用服务器偏好。默认不指定 IA 主题；安装自己的主题后，可将其 ID 填入 `gui.default-themes.itemsadder`。实际资源包的 SHA-1 和 UUID 登记后，玩家加载指定包成功才可启用；完整步骤见[ItemsAdder 接入](./dlc)。官方 Market Stall DLC 已取消，不再作为安装步骤或默认主题。
+
+IA 运行插件与 ProtocolLib 必须另行合法安装；本轮固定组合及摘要见[兼容说明](./compatibility)。按实际 IA 指南安装主题，等待 `/iareload` 完成，再执行 `/iazip`。可临时设置 `gui.itemsadder.diagnostics: true` 并 `/km reload`，从服务端 `[KITEMARKET_PACK]` 读取实际下发的 UUID、SHA-1及 URL，登记到上述字段后再次 `/km reload`；诊断完成后关闭。发送或接受不等于加载成功，资源包内容更新必须使用新的实际下发 UUID和对应摘要，不能只在 KiteMarket 中填写一个随机 UUID。
+
+第三方界面可自由开发和销售，无需官方 DLC 权益：将独立主题放入 `plugins/KiteMarket/themes/*.yml`，使用自有资源和已注册 provider。格式与示例见[界面开发](./ui-development)。旧 `germ`／`dragoncore` 偏好、配置和 SDK 扩展位置仍可读取；已取消两者第一方接入，没有自行注册的实际 provider 时返回 `UI_BACKEND_RETIRED` 并回退，保留原偏好。资源包或主题不可用不触发市场清退。
+
+### 原版 GUI 个性化
+
+在 `plugins/KiteMarket/config.yml` 的 `menus` 中可个性化全部34个页面，包括 `ui`、`themes` 和 `result`。无需资源包或 IA。编辑后执行 `/km reload`，再重新打开页面；重载先校验候选，无效配置保留上一份有效配置。显示设置只改变外观与位置，不改变原有动作、权限、交易规则或资产处理，也不能新增交易按钮。
+
+将下面示例合并到已有 `menus` 中，不要重复写顶层键。未填写的字段保留默认值：
+
+```yaml
+menus:
+  home:
+    title:
+      zh_CN: '&6交易集市'
+      en_US: '&6Marketplace'
+    background: BROWN_STAINED_GLASS_PANE
+    buttons:
+      '32':
+        material: NAME_TAG
+        name:
+          zh_CN: '&6我的挂单'
+          en_US: '&6My orders'
+        lore:
+          zh_CN:
+            - '{default}'
+            - '&8点击查看自己的订单。'
+          en_US:
+            - '{default}'
+            - '&8View your own orders.'
+```
+
+| 字段 | 含义 |
+|---|---|
+| `menus.<页面>.title` | 标题，字符串或 `zh_CN`／`en_US` 文本映射 |
+| `background` | 当前版本的原版 `Material`；仅装饰新版布局空闲的顶栏、底栏，`AIR` 关闭装饰 |
+| `buttons.<原始槽位>.material` | 功能按钮的原版物品图标 |
+| `buttons.<原始槽位>.name` | 功能按钮名称，字符串或双语文本映射 |
+| `buttons.<原始槽位>.lore` | 附加市场说明，字符串列表或双语列表映射 |
+| `buttons.<原始槽位>.slot` | 该控件的目标槽位 |
+| `slots`／`icons` | 兼容旧位置／图标写法，键仍为原始槽位 |
+| `switch.slot`／`switch.material` | 自动界面切换控件的最终物理槽位／图标 |
+| `switch.name`／`switch.lore` | 自动切换控件的名称／说明，文本格式同按钮 |
+
+菜单槽位为 `0..53`，不包括下方玩家背包。`buttons`、`slots`、`icons` 按**原始槽位**配置，不按新版布局移位后的视觉位置：列表原始 `0..35` 对应新版物理 `9..44`，所以第一件商品的附加说明配置 `buttons.'0'`。首页 `32` 为“我的挂单”，`34` 为“交易历史”。位置变更必须完整交换，不能只移动一边；例如：
+
+```yaml
+gui:
+  vanilla:
+    layout: auto
+menus:
+  home:
+    buttons:
+      '32':
+        slot: 34
+      '34':
+        slot: 32
+```
+
+`buttons.slot` 与 `slots` 共用位置机制，不要重复配置同一来源；旧写法可改为 `slots: {'32': 34, '34': 32}`。位置改动要求 `gui.vanilla.layout: auto` 使用兼容布局，原始槽位直接对应物理槽位；不要同时强制 `warm`。`gui.home-slots` 的旧首页位置配置仍可读取。自动 `switch.slot` 默认为物理 `8`，只在适用页面／布局显示；被商品或控件占用时省略，不覆盖已有内容，仍可 `/km ui` 切换。
+
+标题和名称可写单一字符串或双语映射，Lore 可写单一列表或双语列表映射。`&`／`§` 支持原版颜色和格式，生成名称默认金色、Lore 默认灰色，未明确设置斜体时不使用斜体。标题／名称中的 `{default}` 保留原文；Lore **独占一行**的 `'{default}'` 展开默认市场说明。省略 `lore` 保留原说明，`lore: []` 只清除附加说明。`${字段名}` 读取本页已有只读字段，如 `${wizard.step}`；缺失字段显示 `—`，不执行脚本。金额原值为最小单位，优先保留 `{default}` 中的格式化金额与资产去向。
+
+功能按钮可改材料和名称；商品、样品、供货背包物品及领取资产仍保留真实材料、名称、附魔和原 Lore，`material`／`name` 不能把它们伪装成另一种物品。只能调整其位置及附加市场说明，不改变背包、托管快照或交易标的。
+
+全部配置页 ID：
+
+```text
+home, browse, browse-filters, order, details, editor, confirm, preview,
+supply-preview, number, materials, durability, text-condition, enchantments,
+enchantment-range, insufficient, wallet, wallet-currency, assets, history,
+receipt, admin, admin-player, admin-wallet, admin-assets, admin-orders,
+admin-player-history, resolve-source, doctor, inspect, evidence, ui, themes, result
+```
+
+使用页面 ID，不使用窗口标题、语言键或 IA 模板别名；例如 `claims`／`wizard-confirm` 应分别使用 `assets`／`confirm`。每条文本最多512字符，Lore 最多64行；材料必须在当前服务端存在。未知配置字段、无效槽位或不完整交换会使候选无效，`command`、`action`、脚本与表达式不属于样式配置。重载失败按反馈和日志中的字段路径修正；未显示修改时重新开页并检查原始槽位、布局及第三方主题是否使用自己的模板。上述设置不安装或下载 IA 资源。
+
+## 7. bStats 基础统计
+
+KiteMarket 默认启用标准 bStats 基础统计，插件 ID 为 **34434**。legacy、modern、current 三个分发使用同一 ID；它不是网络许可证 ID。
+
+KiteMarket 不添加自定义玩家、交易、许可证或数据库统计项，不上传交易记录、玩家身份、许可证密钥、网络 token、数据库连接或凭据作为自定义统计。
+
+若只关闭 KiteMarket 的统计，在 `plugins/KiteMarket/config.yml` 设置：
+
+```yaml
+metrics:
+  enabled: false
+```
+
+默认值为 `true`。也可以在 `plugins/bStats/config.yml` 将全局 `enabled` 设置为 `false`，关闭该服务器遵循此配置的 bStats 统计。任一开关关闭即可停用相应统计，修改后完整重启。统计开关不改变交易功能或许可证规则。
+
+## 8. 运行包、配置与 SDK
+
+从[下载页](./download)选择与服务器匹配的**一份** Legacy、Modern 或 Current JAR。首发文件名为 `KiteMarket-legacy-1.0.0.jar`、`KiteMarket-modern-1.0.0.jar`、`KiteMarket-current-1.0.0.jar`；API、sources、Javadoc JAR 均不是服务器运行插件。目前运行包待发布，不提供候选包作为生产下载。
+
+下载的中英文配置包按 `zh_CN`／`en_US` 区分，保留正式默认产品 ID、授权端点和可信公钥，只替换自己的许可证、数据库和经济配置。更新已有配置前先备份并逐项合并，不用整份示例覆盖自己的数据库、币种或网络信息。
+
+按 `SHA256SUMS.txt` 核对文件并保存使用版本。不能使用隔离测试签发公钥或凭据作为正式配置。公开 SDK 与可运行示例在同一公开仓库提供，见[市场 API](./api)和[界面开发](./ui-development)；[兼容说明](./compatibility)区分目标范围与已验证结果。

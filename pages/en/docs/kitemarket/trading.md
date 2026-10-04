@@ -2,6 +2,8 @@
 
 All three modes use market funds and escrowed assets. Other nodes may change an order while a confirmation is open. The server rechecks its revision, price, and remaining quantity. Refresh an expired view instead of relying on an old screenshot.
 
+Choose “Create / edit draft” on `/km` home to open the wizard directly and continue the current draft. Each market and “My orders” list retains the same entrance. Returning, refreshing or switching interfaces retains unpublished conditions. Published orders must be cancelled and recreated to change them.
+
 Listing, purchase, and bid confirmations retain the real sale/auction item's name, enchantments, and lore. Exact-sample buy orders also show their saved sample. Use the confirmation text for quantity, total, reserved funds, and tax; display items never become the assets removed or settled.
 
 ### Listing quantities and maximum values

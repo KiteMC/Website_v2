@@ -103,7 +103,7 @@ gui:
 
 Current renderer choices are `auto/vanilla/itemsadder`. `auto-order` selects the attempt order, defaulting to ItemsAdder, then vanilla; `default-themes` names backend defaults. Boolean fields require YAML `true/false`, not strings. Use `gui.sounds.enabled: false` to disable sounds.
 
-`gui.vanilla.layout: auto|warm|legacy` controls general slot mapping. `auto` selects the compatibility layout when legacy home positions differ from defaults or a page defines `slots`/`buttons.slot`. Changing only titles, icons, names, Lore, backgrounds or switch controls does not change this mapping. Explicit `warm` conflicts with custom placement and is rejected.
+`gui.vanilla.layout: auto|warm|legacy` controls general slot mapping. `auto` selects the compatibility layout when legacy home positions differ from defaults or a page defines `slots`/`buttons.slot`. Changing only titles, icons, names, Lore or backgrounds does not change this mapping. Explicit `warm` conflicts with custom placement and is rejected.
 
 `gui.home-layout` selects the home page content separately:
 
@@ -123,12 +123,15 @@ The compact home's default source and physical slots are the same:
 | `4` | Greeting and help, informational only |
 | `8` | Claims and actual unclaimed-asset reminder |
 | `20` / `22` / `24` | Fixed-price market / buy-order fulfillment market / auction market |
+| `31` | Create / edit draft, opening the publishing wizard directly |
 | `45` | Wallet |
 | `53` | My orders and a publishing entrance hint |
 
 Orders, claims and review reminders use actual queries; failed queries show unavailable. “My market” uses the separate `profile` page. Returning home or switching interfaces retains the current publishing draft.
 
-Players open `/km ui` or choose `/km ui <auto|vanilla|itemsadder> [theme-id]`. This selects a backend and installed theme; it is not a style editor. Server owners customize appearance through `config.yml` only, without an in-game style editor. Preferences are shared through the same network's database; no saved row means `AUTO`. `allow-player-switch: false` disables choices and uses the server preference. No IA theme is selected by default; after installing your own theme, put its ID in `gui.default-themes.itemsadder`. Register the actual pack's SHA-1 and UUID; a player must successfully load that specific pack. See [ItemsAdder integration](./dlc) for the steps.
+“Create / edit draft” at home slot `31` opens the wizard directly and continues the current draft. Each market and “My orders” list retains that entrance at the top center: source slot `52` maps to physical slot `4` in the new layout, with paging shown in Lore. To change a published order, cancel it and publish a new one; its published price and conditions cannot be edited in place.
+
+Players select an interface through the player-head profile entry, open `/km ui`, or choose `/km ui <auto|vanilla|itemsadder> [theme-id]`. This selects a backend and installed theme; it is not a style editor. Server owners customize appearance through `config.yml` only, without an in-game style editor. Preferences are shared through the same network's database; no saved row means `AUTO`. `allow-player-switch: false` disables choices and uses the server preference. No IA theme is selected by default; after installing your own theme, put its ID in `gui.default-themes.itemsadder`. Register the actual pack's SHA-1 and UUID; a player must successfully load that specific pack. See [ItemsAdder integration](./dlc) for the steps.
 
 Install a legitimate IA runtime and ProtocolLib separately; see the [pinned environment and checksums](./compatibility). Follow the actual IA guide to install a theme, wait for `/iareload` to finish, then run `/iazip`. Temporarily enable `gui.itemsadder.diagnostics: true` with `/km reload` to read the actual sent UUID, SHA-1 and URL from `[KITEMARKET_PACK]`. Register that identity in the fields above, run `/km reload` again, and disable diagnostics afterward. Sending or accepting is not successful loading. Updated pack content requires a fresh actual sent UUID and matching digest; entering a random UUID only in KiteMarket cannot establish readiness.
 
@@ -173,8 +176,7 @@ menus:
 | `buttons.<source-slot>.lore` | Additional market help as a text list or bilingual list map |
 | `buttons.<source-slot>.slot` | That control's target slot |
 | `slots`/`icons` | Existing placement/icon syntax; keys remain source slots |
-| `switch.slot`/`switch.material` | Final physical slot/icon for the automatic interface switch |
-| `switch.name`/`switch.lore` | Automatic switch name/help using the same text formats as buttons |
+| `switch.*` | Read for legacy compatibility; no automatic top-right interface switch is added |
 
 Menu slots are `0..53`, excluding the player's inventory. `buttons`, `slots` and `icons` use **source slots**, not the final visible position after the new layout remaps them. List sources `0..35` become physical `9..44`, so additional help for the first product uses `buttons.'0'`. Legacy home source `32` is “My orders” and `34` is “History”; the compact home uses the slots above. Placement changes must swap both sides rather than moving only one. This example explicitly retains the legacy home:
 
@@ -192,7 +194,7 @@ menus:
         slot: 32
 ```
 
-`buttons.slot` and `slots` share one placement mechanism; do not configure a source twice. Existing syntax may instead use `slots: {'32': 34, '34': 32}`. Custom placement requires `gui.vanilla.layout: auto` to select the compatibility layout, where source and physical slots match; do not simultaneously force `warm`. Legacy `gui.home-slots` remains readable; migrate to the corresponding new home slots when choosing `compact`. Automatic `switch.slot` defaults to physical `8` on applicable pages/layouts. When a product or control occupies it, the switch is omitted without replacing that entry. Use `/km ui` or the player head to reach interface preferences.
+`buttons.slot` and `slots` share one placement mechanism; do not configure a source twice. Existing syntax may instead use `slots: {'32': 34, '34': 32}`. Custom placement requires `gui.vanilla.layout: auto` to select the compatibility layout, where source and physical slots match; do not simultaneously force `warm`. Legacy `gui.home-slots` remains readable; migrate to the corresponding new home slots when choosing `compact`. Existing `menus.<page>.switch` settings remain readable without injecting a button. Use the profile or `/km ui` to reach interface preferences.
 
 Titles and names accept a shared string or bilingual text map; Lore accepts a shared list or bilingual list map. `&`/`§` support vanilla colors and formatting. Generated names default to gold and Lore to gray, with italics disabled unless explicitly requested. `{default}` preserves original title/name text; a Lore line containing **only** `'{default}'` expands the default market help. Omitting `lore` preserves help; `lore: []` clears only additional help. `${field-name}` reads an existing read-only page field, such as `${wizard.step}`; missing fields display `—` without executing scripts. Raw money fields use minor units, so prefer `{default}` to retain formatted amounts and asset destinations.
 

@@ -4,7 +4,7 @@ The main command is `/kitemarket`, with `/km` and `/market` aliases. `/km` alone
 
 `<...>` means required and `[...]` optional; do not type the brackets. Currency arguments are IDs under `currencies`. Order and operation IDs are complete UUIDs.
 
-The default home separates fixed-price sales, buy-order fulfillment and auctions into three entrances. Its corners provide the player head, claims, wallet and my orders. The head opens “My market” for personal review operations, history and interface preferences; my orders provides a publishing entrance. Existing customized home layouts remain supported; see [installation](./guide#customize-the-vanilla-gui).
+The default home separates fixed-price sales, buy-order fulfillment and auctions into three entrances. Its corners provide the player head, claims, wallet and my orders. “Create / edit draft” opens the wizard directly and continues the current draft; each market and “My orders” list retains the same entrance. Published orders must be cancelled and recreated to change them. The head opens “My market” for personal review operations, history and interface preferences. Existing customized home layouts remain supported; see [installation](./guide#customize-the-vanilla-gui).
 
 ## Player commands
 

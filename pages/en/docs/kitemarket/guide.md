@@ -19,6 +19,9 @@ network:
   name: survival
   node-id: survival-1
   item-profile: default
+  # New markets omit the upgrade source; the installed build defines the protocol.
+  # Upgrading protocol 1/2/3 to 4 requires EXIT_ONLY settlement, a full stop, backup and expired leases.
+  # upgrade-from-protocol: '3' # Actual source protocol, temporarily set on the first node only.
 
 database:
   url: "jdbc:mysql://127.0.0.1:3306/kitemarket"
@@ -27,12 +30,15 @@ database:
 
 market:
   order-limit: 10
+  minimum-purchase-quantity: 1
   maximum-quantity: 1000000
   maximum-duration-seconds: 604800
   tax-bps: 0
 ```
 
 Create a dedicated database with the required permissions. An unavailable database, mismatched network definition, or incomplete initialization must prevent trading. Changing the network, currencies, or database requires a planned stop rather than routine hot reload.
+
+`market.minimum-purchase-quantity` is the default minimum for sale drafts, initially 1. Sellers can set it from 1 to the listed quantity on the terms page. Sales and buy orders use per-item prices; auctions use whole-lot starting totals. A remainder below the purchase minimum must be bought together. Before attaching a protocol 4 build to an existing network, follow the exit, backup and full-stop gates in the [upgrade guide](./operations). New markets omit the upgrade source.
 
 `language` accepts `zh_CN`, `en_US`, or `auto`; language files are in `plugins/KiteMarket/lang/`. `tax-bps` uses basis points, so 100 is 1%. Fees are deducted from the recipient's income, with no listing fee. `market.taxes.<buy/sell/auction>.<currency-id>` overrides that type's `default`, then falls back to `market.tax-bps`. Values range from 0 to 9999 basis points. Orders retain the fee settings captured at creation.
 
@@ -53,6 +59,18 @@ currencies:
 ```
 
 `maximum` is in minor units and must fit the backend's safe range. Keep `certified-versions` empty until you have tested a specific version in isolation; an empty list disables transfers. This allowlist is not an official certification report.
+
+Display names are separate from internal currency IDs. Language files provide `currency-names.coins`, `currency-names.points` and labels for custom IDs under `currency-names.<currency-id>`; edit each language file and run `/km reload`. You may instead explicitly configure:
+
+```yaml
+currencies:
+  points:
+    display-name:
+      zh_CN: '点券'
+      en_US: 'Points'
+```
+
+Merge this into the existing `points` configuration without replacing its economy settings. `display-name` accepts a shared string or bilingual map and takes precedence over language-file names. An omitted locale uses its language-file label, then the internal ID if no label is defined. Names do not change wallets, precision, native currencies or network identity. Changes under `currencies` still require a full restart; prefer language files for label-only edits. Listings, confirmations and wallets use the display name without appending the internal ID.
 
 Providers are `vault`, `playerpoints`, `coinsengine`, and `excellenteconomy`. Vault requires `vault-provider` to match the actual Economy service name; the latter two need their native currency ID. Do not copy unverified version numbers or expose the same external currency twice. See [wallets](./wallet) for gateway and recovery behavior.
 
@@ -130,6 +148,8 @@ The compact home's default source and physical slots are the same:
 Orders, claims and review reminders use actual queries; failed queries show unavailable. “My market” uses the separate `profile` page. Returning home or switching interfaces retains the current publishing draft.
 
 “Create / edit draft” at home slot `31` opens the wizard directly and continues the current draft. Each market and “My orders” list retains that entrance at the top center: source slot `52` maps to physical slot `4` in the new layout, with paging shown in Lore. To change a published order, cancel it and publish a new one; its published price and conditions cannot be edited in place.
+
+Default listing help separates item information from purchase, supply or bidding guidance, retaining the original name, enchantments and Lore. Quantity is one value; details show total and traded quantities separately. Auction quantities represent the entire lot. Icon count badges cover `1..99`; use the exact Lore quantity above that range, without changing the real item amount. Listing and expiry dates use `yyyy年MM月dd日 HH:mm:ss` in Chinese and `yyyy-MM-dd HH:mm:ss` in English, in the server's time zone. The countdown updates automatically: whole hours when at least one hour remains, whole minutes when at least one minute remains, then seconds. A deadline message does not prove settlement has completed.
 
 Players select an interface through the player-head profile entry, open `/km ui`, or choose `/km ui <auto|vanilla|itemsadder> [theme-id]`. This selects a backend and installed theme; it is not a style editor. Server owners customize appearance through `config.yml` only, without an in-game style editor. Preferences are shared through the same network's database; no saved row means `AUTO`. `allow-player-switch: false` disables choices and uses the server preference. No IA theme is selected by default; after installing your own theme, put its ID in `gui.default-themes.itemsadder`. Register the actual pack's SHA-1 and UUID; a player must successfully load that specific pack. See [ItemsAdder integration](./dlc) for the steps.
 

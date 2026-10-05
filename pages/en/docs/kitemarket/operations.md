@@ -7,7 +7,7 @@ For money or item incidents, first record the operation ID, player UUID, node, t
 | Symptom | Action |
 |---|---|
 | Expired view or changed price/quantity | Reopen the order; do not bypass revision checks |
-| `INVENTORY_FULL` | Make room before claiming; do not issue duplicate items in the world |
+| `INVENTORY_FULL` | Items remain in claims. Make inventory space and claim again; do not issue duplicate items in the world |
 | `GATEWAY_NODE` | Switch to the currency's configured transfer node |
 | `UNCERTIFIED_PROVIDER_VERSION` | Verify and test the actual plugin build before adding it to the allowlist |
 | `PROVIDER_API_INCOMPATIBLE` | Disable transfers and verify the provider/build; do not substitute another adapter |
@@ -42,7 +42,7 @@ Use `/km admin <player-UUID-or-online-name>` to cross-check the same player's wa
 ## Backup and migration
 
 Stop market writes on every old node before migration and account for pending operations. Back up the complete database and `plugins/KiteMarket/` configuration. Preserve network identity, currencies, wallets, orders, escrowed items, and operation records together.
-GUI preferences use separate InnoDB tables `km_ui_preferences` and `km_ui_theme_selections`, both keyed by network and player UUID, with the mode or theme ID and database update time. No preference row means `AUTO`; no theme row uses the selected backend's server default. Startup creates both through the migration entry without changing the financial schema version, protocol 3 or snapshot format 2. Fixed backup and restore lists must include both tables. Older theme IDs remain readable; a missing theme causes fallback without rewriting the saved preference.
+GUI preferences use separate InnoDB tables `km_ui_preferences` and `km_ui_theme_selections`, both keyed by network and player UUID, with the mode or theme ID and database update time. No preference row means `AUTO`; no theme row uses the selected backend's server default. Startup creates both through the migration entry without changing the financial schema version or snapshot format 2. Fixed backup and restore lists must include both tables. Older theme IDs remain readable; a missing theme causes fallback without rewriting the saved preference.
 
 Validate the restored environment in isolation, then add nodes gradually. Match the Minecraft version, market protocol, item profile, and currency definitions; keep node IDs unique. Ensure old nodes cannot keep writing before opening the new network.
 
@@ -55,20 +55,20 @@ Third-party themes load from `plugins/KiteMarket/themes/`; retain their declarat
 
 Do not restore only order tables, roll back a single node's configuration independently, or connect cloned test servers to production data. Currency-scale or provider changes need a dedicated reconciliation migration. Cross-Minecraft-version conversion is outside v1.
 
-## Upgrading protocol 1 or 2 to protocol 3
+## Upgrading an existing market to protocol 4
 
-`1.0.0` uses market protocol `3`. Historical builds containing the admission fix use protocol `2`; earlier builds use protocol `1`. The build determines the protocol. Do not mix nodes or switch it through a reload. Database schema version remains `1`, and licensing still uses HTTP v2. These versions and the item snapshot format are checked separately. A new market does not need the migration field.
+Protocol 4 builds store a sale order's minimum purchase quantity. Sales still use per-item unit prices and partial purchases; auctions use whole-lot totals. The build determines the protocol. Do not mix nodes or switch it through a reload. Database schema version is `1`, item snapshots use format `2`, and licensing uses HTTP v2; these versions are checked separately. A new market does not need the migration field. See [compatibility](./compatibility) for actual tests; upgrade rules do not certify every combination.
 
-For an existing protocol 1 or 2 market:
+Existing protocol 1, 2 and 3 markets all use the following strict steps. Open orders and escrowed trades must be cleared first:
 
 1. Inspect wallets, claims, open orders, and `PREPARED` / `UNKNOWN` operations with the old build. Reconcile uncertain effects before issuing items or refunds.
 2. Enter `EXIT_ONLY` through the verified license exit process. Wait until unfinished orders, auctions, frozen funds, and escrow are cleared. Available wallet balances and claimable items may remain.
 3. Stop every node normally. Back up all `km_*` data, each node's `plugins/KiteMarket/`, and the old JAR, verify restoration, and wait for every node lease to expire.
-4. Explicitly set `network.upgrade-from-protocol: '2'` on the first node; use `'1'` if the actual old protocol is 1. Replace all nodes with protocol 3 builds. Keep the Minecraft version, currencies, `network.name`, and `network.item-profile` identical. The source protocol must be accurate; the field cannot also change the currency or item environment.
-5. Start one node first. The upgrade requires an exact old identity match, `EXIT_ONLY`, no live node lease, open order, frozen funds, unresolved operation, or item in `ESCROW` / `DELIVERING`. Identity changes, invalidation of every old node epoch and session, and the `PROTOCOL_UPGRADE` audit commit in one database transaction. An old process with an expired lease cannot heartbeat again or acquire a session. The network UUID, license binding, wallets, original item snapshots, and history are preserved.
+4. Explicitly set the actual source `network.upgrade-from-protocol: '3'` on the first node; use `'1'` or `'2'` when appropriate. Replace all nodes with protocol 4 builds. Keep the Minecraft version, currencies, `network.name`, and `network.item-profile` identical. The source protocol must be accurate; the field cannot also change the currency or item environment.
+5. Start one node first. The upgrade requires an exact old identity match, `EXIT_ONLY`, no live node lease, open order, frozen funds, `PREPARED` / `UNKNOWN` operation, or item in `ESCROW` / `DELIVERING`. Identity changes, invalidation of every old node epoch and session, and the `PROTOCOL_UPGRADE` audit commit in one database transaction. An old process with an expired lease cannot heartbeat again or acquire a session. The network UUID, license binding, available wallets, claim snapshots and history are preserved.
 6. Verify the UUID, balances, claims, and license, remove the temporary upgrade field, then start the remaining new nodes. Restored authorization can reopen the market; cleared orders do not revive.
 
-When a check fails, preserve and investigate the records. Do not edit identity hashes or node leases to bypass it. Old builds are rejected by an upgraded network. Protocol 3 has no automatic downgrade. Rollback requires stopping the whole network, accounting for asset changes since the upgrade, and restoring a complete database snapshot with matching configuration/JARs. Do not attach an old JAR to a database that has processed new trades.
+When a check fails, preserve and investigate the records. Do not edit identity hashes or node leases to bypass it. Old builds are rejected by an upgraded network. Protocol 4 has no automatic downgrade. Rollback requires stopping the whole network, accounting for asset changes since the upgrade, and restoring a complete database snapshot with matching configuration/JARs. Do not attach an old JAR to a database that has processed new trades.
 
 ### Original snapshots and attribute comparison
 

@@ -74,11 +74,15 @@ Exact samples still must pass item admission and serialization round-trip checks
 
 ## Fixed-price sales
 
-The seller escrows real items with the same properties as the main-hand sample and chooses a unit price and duration. One listing cannot mix differing item properties, and buyers can purchase part of its quantity. Buyers review price, quantity, currency, and total before confirming. Items enter the buyer's claims, and the seller receives income after the order's tax. Unsold items can be withdrawn to the seller's claims. A full inventory does not cause items to be dropped on the ground.
+The seller escrows real items with the same properties as the main-hand sample and chooses a **per-item unit price** and duration. One listing cannot mix differing item properties, and buyers can choose a partial quantity. For example, 16 items at a unit price of 8 cost 128 in total. Buyers review the unit price, quantity, currency and purchase total before confirming. Items enter the buyer's claims, and the seller receives income after the order's tax. Unsold items can be withdrawn to the seller's claims. A full inventory does not cause items to be dropped on the ground.
 
-The listing confirmation shows estimated gross proceeds, tax, and net income for selling the entire quantity in one purchase. Partial purchases calculate tax separately, so accumulated net income can differ through rounding to the currency's smallest unit. Use transaction records for the actual amounts.
+Set a **minimum purchase quantity** on the sale terms page. It defaults to 1 and ranges from 1 to the listed quantity. A purchase must reach the minimum; when fewer items remain, the entire remainder must be purchased together. For example, a minimum of 3 with only 2 remaining permits a purchase of 2, but not 1. The published minimum is fixed; cancel and recreate to change it.
 
-Market and detail icons retain the actual sample's name, enchantments, and original lore, with order details appended. Use the order description and confirmation for quantities and amounts. Display icons are never regenerated into settlement items.
+The listing confirmation estimates gross proceeds, tax and net income for selling all items in one purchase. Partial purchases calculate tax separately, so accumulated net income can differ through minor-unit rounding; use individual transaction records for the actual amounts. Buy orders use unit prices for partial fulfillment, and auction bids remain whole-lot totals.
+
+Market and detail icons retain the actual sample's name, enchantments and original lore, followed by separate item-information and purchase, fulfillment or bidding guidance sections. Remaining quantity is one value; details list total and traded quantities separately rather than using remaining/total fractions. Display count badges use 1–99; above 99, the exact quantity is in Lore. Visual counts do not change real stacking limits.
+
+Item information includes listing time, expiry and remaining time. Chinese dates use `yyyy年MM月dd日 HH:mm:ss`, English dates use `yyyy-MM-dd HH:mm:ss`, and both use the server time zone. Remaining time shows whole hours when at least one hour remains, whole minutes when at least one minute remains, and seconds below that. Display countdowns do not change database deadlines or settlement rules. Use the order description and confirmation for quantities and amounts; display icons are never regenerated into settlement items.
 
 ## Public auctions
 
@@ -96,11 +100,11 @@ At expiry, the winner receives the items in claims and the seller receives incom
 
 ## Escrow and claims
 
-If listing creation fails after item escrow, inspect claims and the operation record before submitting the items again. Leave inventory space before claiming. If money or item delivery becomes `UNKNOWN`, stop retrying, record the operation ID, and ask an administrator to [reconcile it](./operations).
+If listing creation fails after item escrow, inspect claims and the operation record before submitting the items again. Claims split items according to their actual stack limits, independently of GUI count badges. Insufficient inventory space leaves items in claims and asks the player to make room before trying again; nothing is dropped or deleted. If money or item delivery becomes `UNKNOWN`, stop retrying, record the operation ID, and ask an administrator to [reconcile it](./operations).
 
 ## Search and transaction receipts
 
-Filter by type, currency, or material, then sort by ending time, newest first, or price. Search covers order IDs, material IDs, real names, lore, and active advanced-condition text. `%` and `_` are literal characters; serialized bytes and fingerprints are excluded. Database filtering happens before pagination, and pages retain your filters. Price sorting compares fixed-price and buy-order unit prices or auction starting totals; filter to the same type and currency first. No exchange rates or cross-currency valuation are applied.
+Filter by type, currency, or material, then sort by ending time, newest first, or price. Search covers order IDs, material IDs, real names, lore, and active advanced-condition text. `%` and `_` are literal characters; serialized bytes and fingerprints are excluded. Database filtering happens before pagination, and pages retain your filters. Price sorting uses sale and buy-order unit prices and the current highest auction bid, or the starting price when there are no bids. Filter to the same type and currency first; no exchange rates or cross-currency valuation are applied.
 
 Click a history entry for a read-only receipt showing the individual trade's quantity, currency, gross amount, fixed tax, net-income recipient, and confirmed refunds or returned items. Seller proceeds come from the linked transaction, never cumulative order quantities. Your proceeds receipt does not expose the buyer's original operation evidence.
 

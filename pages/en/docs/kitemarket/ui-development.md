@@ -96,6 +96,8 @@ The public `KiteMarket-UI-API` module targets Java 11 under its own MIT License.
 
 `UiProvider.update(...)` defaults to `open(...)`. A native interface may update in place only if it replaces the page identity, every action token and all callbacks, including close handling. After a genuine vendor event changes client/resource readiness, update the provider's own state and call `api.changed(owningPlugin)` for re-evaluation. Only enabled owners with a live registration may notify; the method itself is not proof that resources are ready.
 
+Optional `UiProvider.refresh(player, page, theme)` refreshes display data within the same page, such as a countdown, and defaults to `false`. The token, page version, action map and existing callbacks stay unchanged. Update display clones in the current open view only; never reopen an inventory or invoke an action. Return `true` after applying it, or `false` when unsupported or closed. Existing providers retain static snapshots until normal navigation or a player refresh; unsupported refreshes do not periodically reopen menus. Verify current page identity so a late result cannot overwrite a replacement page.
+
 An IA adapter can call the read-only `api.itemsAdderUnavailable(player, page, theme)` in the player's scheduling context to reuse the host's observed font registry, actual sent UUID/SHA-1 and matching successful load. Only `null` means the page resource is ready; other values describe a fallback reason. This check neither sends packs, changes preferences, evaluates official DLC rights nor grants trading authority. Its default returns `IA_READINESS_UNSUPPORTED` for existing service implementations and does not treat unknown state as readiness. Calling it requires a KiteMarket version shipping this method; do not bundle a replacement SDK into a provider.
 
 Public `examples/ui/` contains the minimal white-frame configuration theme, and `examples/ui-java/` contains a real Java IA adapter. The latter targets Java 21 with a compile-only public vendor API and the real `TexturedInventoryWrapper`. It registers `example.itemsadder` to render actual market pages and registered actions; it never invents balances or transaction outcomes. The public SDK remains Java 11. Do not install this example on Java 11 Legacy or unverified Folia nodes.
@@ -165,6 +167,8 @@ Default compact home source slots are `0` player head, `4` help, `8` claims, `20
 
 Quantity maxima use actual wallet funds, available inventory items and currency limits; auctions use only the main-hand stack. Transfers use real balances and any known backend receive capacity. Changed quotes require another choice, and final submission rechecks limits; a theme must not raise them independently. Receipts provide a separate “View / copy operation ID” action that sends the complete ID and copy control in chat. Summaries stay concise; `inspect` and the read-only API retain IDs.
 
+Sales support partial purchases at a per-item unit price. Their per-order minimum defaults to 1 and can be set from 1 to the listed quantity; a remainder below the minimum must be purchased together. Buy orders use unit prices for partial fulfillment, and auction starting prices apply to the whole lot. Render host amounts, input ranges and item descriptions. Remaining, total and traded quantities are separate, and real item properties remain intact. Display timestamps and countdowns do not replace database deadline checks. Claims use actual item stack limits, leaving assets in claims when inventory space is insufficient.
+
 The current `page.actions()` slot-to-opaque-token map is the action list. Entries without a token are informational. Never fabricate action strings or reuse a previous page's tokens. Every open/update replaces identity, tokens and callbacks. Input returns through `UiCallbacks.input(raw)` and closure through `closed()`. Returning `false` from `prompt()` retains the host's validated chat input and drafts.
 
 | Method | Lifecycle contract |
@@ -172,6 +176,7 @@ The current `page.actions()` slot-to-opaque-token map is the action list. Entrie
 | `register(owner, provider)` | Enabled owning plugin; returns an idempotent unregister handle |
 | `unavailable(...)` | Readiness only: `null` is ready, otherwise a reason code |
 | `open(...)` / `update(...)` | Render cloned snapshots in the player context and replace all bindings |
+| `refresh(...)` | Optional display update with the same identity and bindings; never reopen; default `false` |
 | `isOpen(...)` / `close(...)` | Identify and close only your current view |
 | `prompt(...)` | Native input, or `false` for host chat input |
 | `changed(owner)` | Recheck after genuine resource changes; no trading authority |

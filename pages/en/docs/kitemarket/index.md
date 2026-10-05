@@ -29,7 +29,7 @@ head:
 
 <FeatureGrid :cols="3">
   <FeatureBox icon="cart" title="Advanced buy orders" description="Reserve the full budget and accept materials, enchantments, durability, name/lore or an exact sample. Multiple players can partially fulfill an order." />
-  <FeatureBox icon="cube" title="Fixed-price sales" description="Escrow actual items before listing. Buyers can purchase part of the quantity at the published unit price and claim the items afterward." />
+  <FeatureBox icon="cube" title="Fixed-price sales" description="Escrow actual items before listing. Buyers choose a quantity at the unit price, with a seller-defined purchase minimum, and claim items afterward." />
   <FeatureBox icon="trophy" title="Public auctions" description="Bid manually and reserve the highest valid offer. Outbid funds are released immediately, and late bids extend the deadline." />
   <FeatureBox icon="cog" title="Configurable vanilla GUI" description="No resource pack needed. Customize all 35 pages' titles, functional icons, lore, positions and backgrounds in files." />
   <FeatureBox icon="globe" title="A shared market network" description="Share wallets, orders and claim assets between nodes on the same Minecraft version, with no node-count limit." />

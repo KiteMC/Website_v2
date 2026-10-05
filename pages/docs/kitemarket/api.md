@@ -66,6 +66,10 @@ api.orders(null, null, "", 0, 36).whenComplete((orders, failure) -> {
 
 所有金额使用 `long` 最小货币单位。`CurrencyView.getPrecision() == 2` 时，`128` 表示 `1.28`；用 `currency.display(amount).toPlainString()` 格式化。时间为 Unix 毫秒，税率使用基点。
 
+一口价 `SELL` 和收购 `BUY` 的 `getUnitPrice()` 是每件单价；拍卖 `AUCTION` 为整标起价。一口价允许部分购买，金额为单价×本次购买数量，计算时检查整数溢出，例如使用 `Math.multiplyExact`。
+
+`OrderView.getMinimumPurchaseQuantity()` 为发布时固定的最低购买量，默认1，SELL可设为1至发布数量，其他类型为1。购买量须大于零、不超过剩余量，且至少为 `min(getMinimumPurchaseQuantity(), getRemaining())`；尾单不足最低量时必须一次买走全部剩余。原构造器保持可用并默认1，新重载在末尾增加 `long minimumPurchaseQuantity`。快照不替代最终校验，核心提交仍检查数量、资金和订单版本；历史与成交通知记录本次实际金额。
+
 独立 DTO 在 `com.kitemc.market.api.model` 下：`CurrencyView`、`OrderView`、`WalletView`、`ClaimAssetView`、`HistoryEntry`、`TradeSummary`、`ItemSummary` 及枚举。字段和嵌套列表、集合、映射不可变。订单的可选样品摘要只含材质、名称、Lore、附魔与耐久，不能据此生成或领取资产。
 
 接口不返回原始审计 JSON、序列化物品字节、精确样品指纹、许可证凭据、执行令牌或恢复证据。缺失历史金额保持 `null`，不猜成零；`RECORDED` 不表示外部副作用已经成功，`PENDING_REVIEW` 表示需要核对。物品匹配和交易提交由主插件处理，不属于公开查询接口。

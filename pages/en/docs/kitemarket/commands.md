@@ -26,14 +26,18 @@ The default home separates fixed-price sales, buy-order fulfillment and auctions
 | `/km inspect <operation-id>` | Inspect a personal operation and structured evidence; global auditors and managers can inspect other players' operations |
 | `/km deposit <currency> <amount>` | Move external funds into the market on the configured gateway |
 | `/km withdraw <currency> <amount>` | Move market funds back to the external backend on its gateway |
-| `/km buy <order-id> <quantity>` | Buy from a fixed-price listing |
+| `/km buy <order-id> [quantity]` | Buy a quantity at the unit price, subject to the order's purchase minimum |
 | `/km supply <order-id> <quantity>` | Fulfill a buy order |
 | `/km bid <order-id> <amount>` | Bid a total amount for the entire auction lot |
-| `/km sell <currency> <unit-price> <quantity> [seconds]` | Escrow main-hand items for a fixed-price listing |
+| `/km sell <currency> <unit-price> <quantity> [seconds] [minimum-quantity]` | Escrow matching items and create a fixed-price listing |
 | `/km request <currency> <unit-price> <quantity> [seconds]` | Create a buy order using the current draft rule |
 | `/km auction <currency> <starting-total> <quantity> [seconds] [increment]` | Auction the main-hand items as one lot |
 
 Durations are seconds, with a minimum of 60 and the configured `market.maximum-duration-seconds` as the maximum. Unspecified arguments retain values from the GUI draft; inspect the confirmation before publishing. Use `/km create` to set and preview buy-order conditions first. Cancellation is also available from an order's detail screen. Sellers cannot cancel an auction with an accepted bid.
+
+A sale uses a per-item unit price; the purchase total is that price multiplied by the chosen quantity. Set a minimum on the sale terms page, defaulting to 1 and ranging from 1 to the listed quantity. If the remainder is below the minimum, all remaining items must be bought together. Specify a quantity when buying or use the order's quantity page, then review the amount before confirming. Buy orders also use unit prices; auction starting prices and bids apply to the whole lot.
+
+You may also set the minimum after the duration in the sale command. For example, `/km sell points 8 16 86400 3` lists 16 items at a unit price of 8 for 86400 seconds, with a minimum purchase of 3. This final sale parameter differs from an auction's minimum increment.
 
 ## Condition input
 

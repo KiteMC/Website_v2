@@ -19,6 +19,9 @@ network:
   name: survival
   node-id: survival-1
   item-profile: default
+  # 新市场不填写升级来源；协议由安装包确定。
+  # 已有协议1/2/3升级到4前须完成EXIT_ONLY清退，停全网、备份并等待租约失效。
+  # upgrade-from-protocol: '3' # 仅首节点临时填写实际来源协议。
 
 database:
   url: "jdbc:mysql://127.0.0.1:3306/kitemarket"
@@ -27,12 +30,15 @@ database:
 
 market:
   order-limit: 10
+  minimum-purchase-quantity: 1
   maximum-quantity: 1000000
   maximum-duration-seconds: 604800
   tax-bps: 0
 ```
 
 创建独立数据库并授予插件账户所需权限。数据库不通、网络定义不一致或插件尚未初始化时，不应允许交易。运行中变更网络、币种或数据库需要停服规划，不能当作普通热重载。
+
+`market.minimum-purchase-quantity` 为出售草稿的默认最低购买量，默认1；卖家在发布条款页可设为1至发布数量。出售和收购输入每件单价，拍卖输入整标起拍总价。余量不足最低购买量时须一次买完全部余量。已有网络使用协议4构件前，遵守[升级说明](./operations)的清退、备份及停网门禁；新市场无需填写升级来源。
 
 `language` 可选 `zh_CN`、`en_US` 或 `auto`；语言文件在 `plugins/KiteMarket/lang/`。`tax-bps` 使用基点，100 表示 1%；费用从收款方收入扣除，不收上架费。`market.taxes.<buy/sell/auction>.<币种ID>` 可覆盖该类型的 `default`，未设置则使用 `market.tax-bps`；可配置范围为 0–9999 基点。费用按订单创建时的设置结算，修改配置不改写旧单。
 
@@ -53,6 +59,18 @@ currencies:
 ```
 
 `maximum` 使用最小货币单位，不能超过实际后端安全范围。`certified-versions` 默认留空，充提保持关闭；在隔离环境测试过具体版本后，才登记实际版本号。该列表不是官方认证报告。
+
+币种显示名称与内部 ID 分开。语言文件中的 `currency-names.coins`、`currency-names.points` 默认显示为“金币”“点券”；自定义币种也可在各语言文件的 `currency-names.<币种ID>` 配置名称，执行 `/km reload` 后生效。也可显式配置：
+
+```yaml
+currencies:
+  points:
+    display-name:
+      zh_CN: '点券'
+      en_US: 'Points'
+```
+
+把此块合并到已有 `points` 配置，不替换它的经济字段。`display-name` 可写共同字符串或中英映射，优先于语言文件；未配置的语言使用该语言文件名称，仍未配置时使用内部 ID。名称不改变钱包、精度、后端币种或网络身份；`currencies` 下的修改仍需完整重启。只改显示名称时，优先编辑语言文件。商品、确认和钱包使用显示名称，不额外附加内部 ID。
 
 可选 provider 为 `vault`、`playerpoints`、`coinsengine`、`excellenteconomy`。Vault 需要 `vault-provider` 与实际 Economy 服务名称一致；后两者需要正确的 `native-id`。不要复制别人的版本号，也不要为同一个实际币种创建两个重复入口。[钱包说明](./wallet)包含网关和失败处理。
 
@@ -130,6 +148,8 @@ gui:
 挂单、待领和待核对提醒使用真实查询；查询失败显示暂不可用。“我的集市”使用独立 `profile` 页面，返回首页和界面切换保留当前发布草稿。
 
 首页 `31` 号槽位的“发布 / 编辑草稿”按钮直接打开向导，继续编辑当前草稿。各类市场及“我的挂单”列表顶部中央也保留该入口，默认原始槽位为 `52`，新版布局物理槽位为 `4`，页码显示在 Lore 中。发布后的订单需要更改时，先撤单再重新发布，不能直接修改已发布的价格和条件。
+
+默认商品说明分为商品信息和购买／供货／竞拍提示，保留原名称、附魔及 Lore。数量显示单独数值，详情将总量与已成交分开；拍卖显示整个标的数量。图标角标用于 `1..99` 的展示，超过该范围以 Lore 的精确数量为准，不改变真实物品数量。上架和到期显示日期，中文为 `yyyy年MM月dd日 HH:mm:ss`，英文为 `yyyy-MM-dd HH:mm:ss`，使用服务器时区。剩余时间自动更新：至少一小时显示整小时，至少一分钟显示整分钟，不足一分钟显示秒；到期提示不等于结算已经完成。
 
 玩家从头像进入个人页选择界面，也可用 `/km ui` 打开设置，或选择 `/km ui <auto|vanilla|itemsadder> [theme-id]`。这是选择后端和已安装主题，不是样式编辑器；服主的样式个性化只通过 `config.yml` 完成，不提供游戏内样式编辑功能。偏好保存在同网络共享数据库中，没有记录为 `AUTO`；`allow-player-switch: false` 禁用选择并采用服务器偏好。默认不指定 IA 主题；安装自己的主题后，可将其 ID 填入 `gui.default-themes.itemsadder`。实际资源包的 SHA-1 和 UUID 登记后，玩家加载指定包成功才可启用；完整步骤见[ItemsAdder 接入](./dlc)。
 

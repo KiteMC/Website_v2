@@ -29,7 +29,7 @@ head:
 
 <FeatureGrid :cols="3">
   <FeatureBox icon="cart" title="高级收购" description="先冻结预算，按材料、附魔、耐久、名称与 Lore 或精确样品收货；支持多人部分供货。" />
-  <FeatureBox icon="cube" title="一口价出售" description="先托管真实物品，按公开单价部分购买；成交后到领取箱取货。" />
+  <FeatureBox icon="cube" title="一口价出售" description="先托管真实物品，按每件单价部分购买；卖家可设置最低购买量，成交后到领取箱取货。" />
   <FeatureBox icon="trophy" title="公开竞拍" description="手动出价，冻结最高有效报价；被超价立即释放，末秒出价延时结算。" />
   <FeatureBox icon="cog" title="个性化原版 GUI" description="无需资源包，在文件中配置全部35页的标题、功能物品、Lore、位置和背景。" />
   <FeatureBox icon="globe" title="同版本共享市场" description="共享钱包、订单与领取资产；一个许可证对应一个独立市场网络，网络内不限节点。" />

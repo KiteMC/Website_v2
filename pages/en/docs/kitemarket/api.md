@@ -66,6 +66,10 @@ Pagination requires `offset >= 0` and `1 <= limit <= 100`, with at most 256 sear
 
 Amounts use `long` integer minor units. At `CurrencyView.getPrecision() == 2`, `128` means `1.28`; format with `currency.display(amount).toPlainString()`. Timestamps are Unix milliseconds and tax rates are basis points.
 
+For fixed-price `SELL` and procurement `BUY` orders, `getUnitPrice()` is the price per item; for `AUCTION`, it is the starting amount for the entire lot. Fixed-price sales allow partial purchases. Multiply the unit price by the quantity purchased with overflow checking, for example using `Math.multiplyExact`.
+
+`OrderView.getMinimumPurchaseQuantity()` is fixed when published and defaults to 1. SELL orders accept a minimum from 1 to the published quantity; other types use 1. A purchase must be positive, no greater than the remainder, and at least `min(getMinimumPurchaseQuantity(), getRemaining())`. A remainder below the minimum must be bought in full. The original constructor remains available with a default of 1; the new overload appends `long minimumPurchaseQuantity`. Snapshots do not replace final quantity, funds and revision checks by the core. History and notifications report the actual amount of each transaction.
+
 Standalone DTOs live under `com.kitemc.market.api.model`: `CurrencyView`, `OrderView`, `WalletView`, `ClaimAssetView`, `HistoryEntry`, `TradeSummary`, `ItemSummary` and enums. Fields and nested lists, sets and maps are immutable. Optional order samples expose only material, name, lore, enchantments and durability; they cannot recreate or claim assets.
 
 Results exclude raw audit JSON, serialized item bytes, exact-sample fingerprints, license credentials, execution tokens and recovery evidence. Missing historical amounts remain `null` rather than becoming zero. `RECORDED` does not prove an external side effect succeeded; `PENDING_REVIEW` needs investigation. Item matching and transaction submission are handled by the host plugin, outside the public query API.

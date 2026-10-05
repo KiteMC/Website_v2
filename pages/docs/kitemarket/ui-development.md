@@ -15,28 +15,20 @@ KiteMarket 提供**完整原版 GUI＋ItemsAdder v4 兼容**。第三方开发�
 3. Java 示例还需将示例 JAR 放入 `plugins/`，正常重启；配置主题只需 `/km reload`。
 4. 玩家成功应用指定包后使用 `/km ui itemsadder example-ia`；Java 例主题为 `example-ia-java`。确认按钮操作真实市场，开发时使用隔离角色和订单。
 
-Java 项目引用 `KiteMarket-UI-API-1.0.0.jar` 为 `compileOnly`，不得打包或重定位 SDK。完整可运行源码位于公开仓库 `examples/ui-java`，不需要私有市场核心：
+### Java 示例：GitHub Packages
+
+Java 项目使用 `com.kitemc:kitemarket-ui-api:1.0.0` 为 `compileOnly` 依赖，不得打包或重定位 SDK。完整可运行源码位于公开仓库 `examples/ui-java`，不需要私有市场核心。
+
+先合并[市场 API 的 Packages 仓库和认证配置](./api#github-packages)，再添加以下依赖。公开包也需要 `read:packages` classic PAT，使用用户级 `gpr.user`／`gpr.key` 或 `GITHUB_ACTOR`／`GITHUB_TOKEN`，不要把 Token 写入项目。引用前确认公开仓库的 Packages 列表有该版本；本说明不代表包已上传。
 
 ```kotlin
 dependencies {
-    compileOnly(files("libs/KiteMarket-UI-API-1.0.0.jar"))
+    compileOnly("com.kitemc:kitemarket-ui-api:1.0.0")
     compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
     compileOnly("beer.devs:itemsadder-api:4.0.18-beta-10")
 }
 tasks.withType<JavaCompile>().configureEach {
     options.release.set(21) // IA 例的适配代码；公开 SDK 本身仍为 Java 11。
-}
-```
-
-### 使用 GitHub Packages
-
-界面 SDK 的坐标为 `com.kitemc:kitemarket-ui-api:1.0.0`。对应版本上传后，可在同一个 GitHub Packages 仓库引用；仓库地址、用户级凭据和 `read:packages` classic PAT 认证步骤见[市场 API 的 Packages 配置](./api#github-packages)。公开包也需认证，不要把 Token 写入项目。引用前确认公开仓库的 Packages 列表有该版本，本说明不代表包已上线。
-
-Gradle 在上述仓库配置下，将文件依赖替换为：
-
-```kotlin
-dependencies {
-    compileOnly("com.kitemc:kitemarket-ui-api:1.0.0")
 }
 ```
 
@@ -51,7 +43,9 @@ Maven 使用相同的 `github-kitemarket` 仓库与 `settings.xml` 凭据，并�
 </dependency>
 ```
 
-继续保留 Paper／Bukkit 和 IA API 的编译依赖及各自仓库；Packages 不包含厂商运行插件。两个 SDK 仍为 Java 11，真实 IA 示例适配代码仍为 Java 21。也可从 [GitHub Releases](https://github.com/KiteMC/KiteMarket/releases)直接取得 SDK JAR，使用原有 `compileOnly(files(...))`，无需 Packages Token。两种方式都不能打包、shade 或重定位 SDK。
+继续保留 Paper／Bukkit 和 IA API 的编译依赖及各自仓库；Packages 不包含厂商运行插件。两个 SDK 仍为 Java 11，真实 IA 示例适配代码仍为 Java 21。
+
+离线开发或无法使用 Packages 认证时，也可从 [GitHub Releases](https://github.com/KiteMC/KiteMarket/releases)直接下载 `KiteMarket-UI-API-1.0.0.jar` 作为备用编译依赖，下载无需 Packages Token。任何引用方式都不能打包、shade 或重定位 SDK。
 
 ## 玩家选择与服务器默认值
 

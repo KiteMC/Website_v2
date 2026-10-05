@@ -9,21 +9,7 @@ description: Independent Java 11/MIT read-only market SDK with immutable DTOs, a
 
 ## Reference the SDK
 
-Use GitHub Releases files or published Maven coordinates on GitHub Packages. Both provide the same public SDK without the proprietary trading core.
-
-### GitHub Releases
-
-Obtain the matching `KiteMarket-API-1.0.0.jar` and put it in your project's `libs/`. The public [KiteMC/KiteMarket](https://github.com/KiteMC/KiteMarket) repository provides interface sources, Javadoc and runnable examples. Direct Release-file downloads do not require a Packages Token.
-
-```kotlin
-dependencies {
-    compileOnly(files("libs/KiteMarket-API-1.0.0.jar"))
-    compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
-}
-tasks.withType<JavaCompile>().configureEach {
-    options.release.set(11)
-}
-```
+Project examples reference SDK Maven coordinates on GitHub Packages. Direct GitHub Releases downloads remain a fallback. Both provide the same public interfaces without the proprietary trading core.
 
 ### GitHub Packages
 
@@ -45,6 +31,7 @@ Gradle Kotlin DSL:
 
 ```kotlin
 repositories {
+    maven("https://repo.papermc.io/repository/maven-public/")
     maven {
         name = "GitHubKiteMarket"
         url = uri("https://maven.pkg.github.com/kitemc/KiteMarket")
@@ -62,6 +49,10 @@ repositories {
 }
 dependencies {
     compileOnly("com.kitemc:kitemarket-api:1.0.0")
+    compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
+}
+tasks.withType<JavaCompile>().configureEach {
+    options.release.set(11)
 }
 ```
 
@@ -100,7 +91,11 @@ Add a matching server in the user-level `~/.m2/settings.xml`, reading credential
 </settings>
 ```
 
-For `401`/`403`, check the token type, scopes, expiry and username. For `404`, also check the coordinates and whether the version is published. If you cannot use Packages authentication, download the JAR from [GitHub Releases](https://github.com/KiteMC/KiteMarket/releases) and retain `compileOnly(files(...))`. GitHub's [Gradle](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry) and [Maven](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry) documentation defines registry authentication.
+For `401`/`403`, check the token type, scopes, expiry and username. For `404`, also check the coordinates and whether the version is published. GitHub's [Gradle](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry) and [Maven](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry) documentation defines registry authentication.
+
+### Release-download fallback
+
+For offline development or when Packages authentication is unavailable, download the matching `KiteMarket-API-1.0.0.jar` directly from [GitHub Releases](https://github.com/KiteMC/KiteMarket/releases) and manage it as a compile-only dependency. Release-file downloads do not require a Packages Token. The public repository provides interface sources, Javadoc and runnable examples. This fallback does not change the runtime requirements below.
 
 Add `depend: [KiteMarket]` to `plugin.yml`. If your plugin also works without the market, use `softdepend`, but load classes referencing the API only after confirming the host exists.
 

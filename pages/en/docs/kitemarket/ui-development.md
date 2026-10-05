@@ -15,28 +15,20 @@ For vanilla appearance changes, use [file configuration](./guide#customize-the-v
 3. Java providers also require their JAR in `plugins/` and a normal restart. Configuration-only themes use `/km reload`.
 4. After the player successfully applies the pack, use `/km ui itemsadder example-ia`; the Java example theme is `example-ia-java`. Confirmation buttons act on the real market, so develop with isolated characters and orders.
 
-Reference `KiteMarket-UI-API-1.0.0.jar` with `compileOnly`, never bundling or relocating the SDK. Runnable source is in the public `examples/ui-java` project, without proprietary core dependencies:
+### Java example: GitHub Packages
+
+Reference `com.kitemc:kitemarket-ui-api:1.0.0` with `compileOnly`, never bundling or relocating the SDK. Runnable source is in the public `examples/ui-java` project, without proprietary core dependencies.
+
+First merge the [market API's Packages registry and authentication configuration](./api#github-packages), then add these dependencies. Public packages also need a classic PAT with `read:packages`, provided through user-level `gpr.user`/`gpr.key` or `GITHUB_ACTOR`/`GITHUB_TOKEN`. Never store tokens in the project. Confirm that the repository's Packages list contains the version before using it; this guide does not claim the package is already uploaded.
 
 ```kotlin
 dependencies {
-    compileOnly(files("libs/KiteMarket-UI-API-1.0.0.jar"))
+    compileOnly("com.kitemc:kitemarket-ui-api:1.0.0")
     compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
     compileOnly("beer.devs:itemsadder-api:4.0.18-beta-10")
 }
 tasks.withType<JavaCompile>().configureEach {
     options.release.set(21) // IA adapter code; the public SDK stays on Java 11.
-}
-```
-
-### Using GitHub Packages
-
-The UI SDK coordinates are `com.kitemc:kitemarket-ui-api:1.0.0`. Once that version is uploaded, reference it from the same GitHub Packages registry. See the [market API Packages configuration](./api#github-packages) for the registry, user-level credentials and classic PAT with `read:packages`. Public packages still require authentication; never put tokens in the project. Confirm the version in the repository's Packages list first: this guide does not claim the package is already available.
-
-With that Gradle registry configuration, replace the file dependency with:
-
-```kotlin
-dependencies {
-    compileOnly("com.kitemc:kitemarket-ui-api:1.0.0")
 }
 ```
 
@@ -51,7 +43,9 @@ For Maven, use the same `github-kitemarket` registry and `settings.xml` credenti
 </dependency>
 ```
 
-Retain the Paper/Bukkit and IA API compile dependencies and their own registries. Packages do not contain vendor runtime plugins. Both SDKs remain Java 11; the real IA adapter example remains Java 21. You can also download the SDK JAR directly from [GitHub Releases](https://github.com/KiteMC/KiteMarket/releases) and use `compileOnly(files(...))` without a Packages Token. Neither approach allows bundling, shading or relocating the SDK.
+Retain the Paper/Bukkit and IA API compile dependencies and their own registries. Packages do not contain vendor runtime plugins. Both SDKs remain Java 11; the real IA adapter example remains Java 21.
+
+For offline development or when Packages authentication is unavailable, download `KiteMarket-UI-API-1.0.0.jar` directly from [GitHub Releases](https://github.com/KiteMC/KiteMarket/releases) as a fallback compile dependency without a Packages Token. No reference method allows bundling, shading or relocating the SDK.
 
 ## Player selection and server defaults
 

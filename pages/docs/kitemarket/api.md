@@ -9,21 +9,7 @@ description: Java 11、MIT 的独立只读市场 SDK：查询、不可变 DTO、
 
 ## 引用 SDK
 
-可以使用 GitHub Releases 文件，也可以通过 GitHub Packages 引用已发布的 Maven 坐标。两者提供同一套公开 SDK，不包含闭源交易核心。
-
-### GitHub Releases
-
-从对应版本获取 `KiteMarket-API-1.0.0.jar`，放入自己项目的 `libs/`。公开仓库 [KiteMC/KiteMarket](https://github.com/KiteMC/KiteMarket)提供接口源码、Javadoc 与可运行示例；直接下载 Release 文件不需要 Packages Token。
-
-```kotlin
-dependencies {
-    compileOnly(files("libs/KiteMarket-API-1.0.0.jar"))
-    compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
-}
-tasks.withType<JavaCompile>().configureEach {
-    options.release.set(11)
-}
-```
+项目示例使用 GitHub Packages 的 Maven 坐标引用 SDK。GitHub Releases 的直接文件下载作为备用途径；两者提供同一套公开接口，不包含闭源交易核心。
 
 ### GitHub Packages
 
@@ -45,6 +31,7 @@ Gradle Kotlin DSL：
 
 ```kotlin
 repositories {
+    maven("https://repo.papermc.io/repository/maven-public/")
     maven {
         name = "GitHubKiteMarket"
         url = uri("https://maven.pkg.github.com/kitemc/KiteMarket")
@@ -62,6 +49,10 @@ repositories {
 }
 dependencies {
     compileOnly("com.kitemc:kitemarket-api:1.0.0")
+    compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
+}
+tasks.withType<JavaCompile>().configureEach {
+    options.release.set(11)
 }
 ```
 
@@ -100,7 +91,11 @@ Maven 项目的 `pom.xml` 增加以下仓库和依赖：
 </settings>
 ```
 
-`401`／`403` 先检查 Token 类型、权限、有效期与用户名；`404` 还需检查坐标和该版本是否已发布。无法使用 Packages 认证时，可继续从 [GitHub Releases](https://github.com/KiteMC/KiteMarket/releases)下载 JAR 并用 `compileOnly(files(...))`。认证规则以 GitHub 的 [Gradle](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry)与 [Maven](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry)文档为准。
+`401`／`403` 先检查 Token 类型、权限、有效期与用户名；`404` 还需检查坐标和该版本是否已发布。认证规则以 GitHub 的 [Gradle](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry)与 [Maven](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry)文档为准。
+
+### Release 下载备用
+
+离线开发或无法使用 Packages 认证时，可从 [GitHub Releases](https://github.com/KiteMC/KiteMarket/releases)直接下载对应版本的 `KiteMarket-API-1.0.0.jar`，自行管理仅供编译的依赖。Release 文件下载不需要 Packages Token；公开仓库提供接口源码、Javadoc 与可运行示例。这里只是备用文件获取方式，不改变下述运行时约束。
 
 `plugin.yml` 添加 `depend: [KiteMarket]`。若你的插件没有市场也能运行，可使用 `softdepend`，但仅在确认主插件存在后加载引用 API 的适配类，避免缺失类错误。
 

@@ -36,10 +36,6 @@ head:
   <FeatureBox icon="code" title="开放开发接口" description="Java 11／MIT 查询与界面 SDK，支持 ItemsAdder 自有主题和独立开发插件。" />
 </FeatureGrid>
 
-::: tip 对比概况
-如果你要的是世界内的玩家箱子商店，可以先看 QuickShop-Hikari；如果你要开源的集中式市场，可以对照 SweetPlayerMarket；如果你更关心固定价市场和现成管理生态，可以查看 zAuctionHouse。KiteMarket 的重点是把高级收购条件、交货前预览、共享钱包和待核对流程放在同一套交易链路中。完整的公开资料对照见[市场插件对比](./comparison)。
-:::
-
 ## 看清交易，再放心确认
 
 买、卖、交货和竞拍使用统一流程。确认前查看数量、总额、税额与净收入，供货时能看到实际交出和保留的物品。成交收入进入钱包，商品进入领取箱；背包满时仍保留资产，不掉落或删除。
@@ -82,7 +78,6 @@ MySQL 8 或 MariaDB 10.11 是市场权威账本；每种货币使用固定精度
   <LinkCard icon="document-text" title="命令与权限" description="玩家入口、服主管理与只读审计权限。" href="./commands" />
   <LinkCard icon="terminal" title="市场 API" description="异步查询、不可变数据与成交后通知。" href="./api" />
   <LinkCard icon="code" title="界面 SDK" description="配置主题、IA 图标和 Java 呈现器示例。" href="./ui-development" />
-  <LinkCard icon="clipboard-list" title="市场插件对比" description="按交易模型、条件、资产处理和扩展方式比较常见方案。" href="./comparison" />
   <LinkCard icon="shield" title="故障与升级" description="核对不确定操作，备份资产并安全升级。" href="./operations" />
 </LinkGrid>
 

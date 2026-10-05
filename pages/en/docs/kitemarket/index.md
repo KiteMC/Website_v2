@@ -36,10 +36,6 @@ head:
   <FeatureBox icon="code" title="Public developer interfaces" description="Java 11 / MIT query and UI SDKs for your own ItemsAdder themes and independent integrations." />
 </FeatureGrid>
 
-::: tip Comparison overview
-If you need player-owned chest shops in the world, start with QuickShop-Hikari. If you want an open-source centralized market, compare SweetPlayerMarket. If fixed-price listings and an established management ecosystem matter most, review zAuctionHouse. KiteMarket focuses on connecting advanced buy-order conditions, pre-delivery review, shared wallets and reviewable exceptions in one trading flow. See the [market plugin comparison](./comparison) for the full source-based view.
-:::
-
 ## Understand the trade before confirming
 
 Buying, selling, fulfillment and bidding use shared flows. Review quantity, total, tax and net income before confirming. Fulfillment previews show the actual items that will leave your inventory and those that will stay. Income goes to wallets and goods go to claims; a full inventory does not drop or discard assets.
@@ -82,7 +78,6 @@ Standard bStats basic metrics (ID **34434**) are enabled by default and can be d
   <LinkCard icon="document-text" title="Commands & Permissions" description="Player commands, administration and read-only audit permissions." href="./commands" />
   <LinkCard icon="terminal" title="Market API" description="Asynchronous queries, immutable data and committed-trade notifications." href="./api" />
   <LinkCard icon="code" title="UI SDK" description="Configuration themes, IA icons and Java renderer examples." href="./ui-development" />
-  <LinkCard icon="clipboard-list" title="Market Plugin Comparison" description="Compare common products by trading model, conditions, asset handling and extension." href="./comparison" />
   <LinkCard icon="shield" title="Recovery & Upgrades" description="Review uncertain operations, back up assets and upgrade safely." href="./operations" />
 </LinkGrid>
 

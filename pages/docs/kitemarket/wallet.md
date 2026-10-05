@@ -11,7 +11,7 @@
 
 每个币种固定 ID、精度、原生币种和充提网关。已经使用的币种不能通过改名、改精度或改 provider 无缝变成另一种货币；这些变更需要完整迁移和对账。不同货币不自动兑换。
 
-玩家界面使用币种显示名称，例如“金币”“点券”，不附加内部 ID。可在中英语言文件的 `currency-names.<币种ID>` 个性化名称，或使用 `currencies.<币种ID>.display-name` 字符串／双语映射；显示名称不改变余额归属或经济身份。具体优先级和重载方式见[配置指南](./guide#3-配置币种)。
+玩家界面使用币种显示名称，例如“金币”“点券”，不附加内部 ID。可在中英语言文件的 `currency-names.<币种ID>` 个性化名称，或使用 `currencies.<币种ID>.display-name` 字符串／双语映射；显示名称不改变余额归属或经济身份。具体优先级和重载方式见[配置指南](./guide#_3-配置币种)。
 
 <ScreenshotPlaceholder src="/images/kitemarket/screenshot-wallet.png" caption="市场钱包" description="真实游戏截图待补充：展示各币种可用余额、冻结资金和充值／提现入口。" />
 

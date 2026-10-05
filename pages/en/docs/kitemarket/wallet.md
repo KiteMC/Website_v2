@@ -11,7 +11,7 @@ Market funds and economy-plugin funds are separate balances. A deposit debits th
 
 Each currency has a stable ID, scale, native mapping, and transfer gateway. Changing an active currency's scale or provider requires migration and reconciliation; it is not a normal rename. There is no automatic currency exchange.
 
-Player interfaces use display names such as “Coins” or “Points” without appending internal IDs. Customize each locale's `currency-names.<currency-id>` or an explicit shared/bilingual `currencies.<currency-id>.display-name`. Labels do not change balances or economy identity; see the [configuration guide](./guide#3-currencies) for precedence and reload behavior.
+Player interfaces use display names such as “Coins” or “Points” without appending internal IDs. Customize each locale's `currency-names.<currency-id>` or an explicit shared/bilingual `currencies.<currency-id>.display-name`. Labels do not change balances or economy identity; see the [configuration guide](./guide#_3-currencies) for precedence and reload behavior.
 
 <ScreenshotPlaceholder src="/images/kitemarket/screenshot-wallet.png" caption="Market wallet" description="Real gameplay screenshot coming later: available and reserved currency balances, deposit and withdrawal entrances." />
 

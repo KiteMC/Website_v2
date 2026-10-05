@@ -31,7 +31,7 @@ hero:
 <ProductGrid :cols="2">
   <ProductCard
     title="KiteMarket"
-    description="高级收购、一口价、公开竞拍与共享钱包。完整原版界面，可自由扩展 IA 主题；¥128 买断"
+    description="高级收购、一口价、公开竞拍与共享钱包。完整原版界面，可自由扩展 IA 主题；¥68 买断"
     image="/images/kitemarket/kitemarket-icon-128.png"
     href="./docs/kitemarket/"
     link-text="查看产品与发行安排"

@@ -1,6 +1,6 @@
 ---
 title: KiteMarket - Minecraft Trading Market
-description: Advanced buy orders, fixed-price sales, auctions and shared wallets. Complete vanilla GUI, ItemsAdder compatibility and public SDKs. USD 19.99 for one market network with unlimited nodes.
+description: Advanced buy orders, fixed-price sales, auctions and shared wallets. Complete vanilla GUI, ItemsAdder compatibility and public SDKs. USD 9.99 for one market network with unlimited nodes.
 layout: home
 hero:
   name: KiteMarket
@@ -24,7 +24,7 @@ head:
 ---
 
 ::: info Downloads and purchasing
-**1.0.0 runtime downloads and sales are not open yet.** The one-time price is **CNY 128 / USD 19.99**. SDK and example sources are public; see the [download page](./download) for available releases.
+**1.0.0 runtime downloads and sales are not open yet.** The one-time price is **CNY 68 / USD 9.99**. SDK and example sources are public; see the [download page](./download) for available releases.
 :::
 
 <FeatureGrid :cols="3">
@@ -35,6 +35,10 @@ head:
   <FeatureBox icon="globe" title="A shared market network" description="Share wallets, orders and claim assets between nodes on the same Minecraft version, with no node-count limit." />
   <FeatureBox icon="code" title="Public developer interfaces" description="Java 11 / MIT query and UI SDKs for your own ItemsAdder themes and independent integrations." />
 </FeatureGrid>
+
+::: tip Comparison overview
+If you need player-owned chest shops in the world, start with QuickShop-Hikari. If you want an open-source centralized market, compare SweetPlayerMarket. If fixed-price listings and an established management ecosystem matter most, review zAuctionHouse. KiteMarket focuses on connecting advanced buy-order conditions, pre-delivery review, shared wallets and reviewable exceptions in one trading flow. See the [market plugin comparison](./comparison) for the full source-based view.
+:::
 
 ## Understand the trade before confirming
 
@@ -54,7 +58,7 @@ Server owners can configure titles, functional item icons, lore, positions and b
 
 ItemsAdder v4 compatibility is a base capability. Install your own or a third-party theme to use its resource-pack interface. Missing resources explain the reason and fall back to vanilla; switching preserves drafts. Developers may create configuration themes or Java renderers for private use, free distribution or independent sale without an additional KiteMC theme license. IA theme resources are not bundled. See [ItemsAdder integration](./dlc) and [interface development](./ui-development).
 
-## CNY 128 / USD 19.99 for the complete product
+## CNY 68 / USD 9.99 for the complete product
 
 One license binds to one independent market network with **no node-count limit**. Separate purchases create separate licenses rather than merging networks. Purchase through the KiteMC License Center once sales open.
 
@@ -78,6 +82,7 @@ Standard bStats basic metrics (ID **34434**) are enabled by default and can be d
   <LinkCard icon="document-text" title="Commands & Permissions" description="Player commands, administration and read-only audit permissions." href="./commands" />
   <LinkCard icon="terminal" title="Market API" description="Asynchronous queries, immutable data and committed-trade notifications." href="./api" />
   <LinkCard icon="code" title="UI SDK" description="Configuration themes, IA icons and Java renderer examples." href="./ui-development" />
+  <LinkCard icon="clipboard-list" title="Market Plugin Comparison" description="Compare common products by trading model, conditions, asset handling and extension." href="./comparison" />
   <LinkCard icon="shield" title="Recovery & Upgrades" description="Review uncertain operations, back up assets and upgrade safely." href="./operations" />
 </LinkGrid>
 

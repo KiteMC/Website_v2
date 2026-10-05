@@ -1,6 +1,6 @@
 ---
 title: KiteMarket - Minecraft 交易集市
-description: 高级收购、一口价、公开竞拍与共享钱包，完整原版 GUI、ItemsAdder 兼容及开放开发接口。¥128 买断，一个市场网络不限节点。
+description: 高级收购、一口价、公开竞拍与共享钱包，完整原版 GUI、ItemsAdder 兼容及开放开发接口。¥68 买断，一个市场网络不限节点。
 layout: home
 hero:
   name: KiteMarket
@@ -24,7 +24,7 @@ head:
 ---
 
 ::: info 下载与购买
-**1.0.0 运行包及购买暂未开放。** 价格为 **¥128 / USD 19.99 买断**；开发接口与示例源码已公开，实际发行状态见[下载页](./download)。
+**1.0.0 运行包及购买暂未开放。** 价格为 **¥68 / USD 9.99 买断**；开发接口与示例源码已公开，实际发行状态见[下载页](./download)。
 :::
 
 <FeatureGrid :cols="3">
@@ -35,6 +35,10 @@ head:
   <FeatureBox icon="globe" title="同版本共享市场" description="共享钱包、订单与领取资产；一个许可证对应一个独立市场网络，网络内不限节点。" />
   <FeatureBox icon="code" title="开放开发接口" description="Java 11／MIT 查询与界面 SDK，支持 ItemsAdder 自有主题和独立开发插件。" />
 </FeatureGrid>
+
+::: tip 对比概况
+如果你要的是世界内的玩家箱子商店，可以先看 QuickShop-Hikari；如果你要开源的集中式市场，可以对照 SweetPlayerMarket；如果你更关心固定价市场和现成管理生态，可以查看 zAuctionHouse。KiteMarket 的重点是把高级收购条件、交货前预览、共享钱包和待核对流程放在同一套交易链路中。完整的公开资料对照见[市场插件对比](./comparison)。
+:::
 
 ## 看清交易，再放心确认
 
@@ -54,7 +58,7 @@ head:
 
 ItemsAdder v4 兼容属于基础能力。安装自有或第三方主题后，即可使用资源包界面；资源未就绪时说明原因并回退原版，切换保留发布草稿。开发者可通过配置或 Java SDK 自用、免费分发或独立销售主题，不需要额外的 KiteMC 主题授权。插件不内置 IA 主题资源。见[ItemsAdder 接入](./dlc)与[界面开发](./ui-development)。
 
-## ¥128 / USD 19.99，买断完整功能
+## ¥68 / USD 9.99，买断完整功能
 
 一个许可证绑定一个独立市场网络，**网络内不限节点**。独立购买产生独立许可证，不自动合并网络。开放销售后通过 KiteMC 许可证中心购买。
 
@@ -78,6 +82,7 @@ MySQL 8 或 MariaDB 10.11 是市场权威账本；每种货币使用固定精度
   <LinkCard icon="document-text" title="命令与权限" description="玩家入口、服主管理与只读审计权限。" href="./commands" />
   <LinkCard icon="terminal" title="市场 API" description="异步查询、不可变数据与成交后通知。" href="./api" />
   <LinkCard icon="code" title="界面 SDK" description="配置主题、IA 图标和 Java 呈现器示例。" href="./ui-development" />
+  <LinkCard icon="clipboard-list" title="市场插件对比" description="按交易模型、条件、资产处理和扩展方式比较常见方案。" href="./comparison" />
   <LinkCard icon="shield" title="故障与升级" description="核对不确定操作，备份资产并安全升级。" href="./operations" />
 </LinkGrid>
 

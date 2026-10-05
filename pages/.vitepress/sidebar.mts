@@ -15,6 +15,7 @@ export default {
                 { text: "交易与物品条件", link: "/docs/kitemarket/trading" },
                 { text: "共享钱包与充提", link: "/docs/kitemarket/wallet" },
                 { text: "命令与权限", link: "/docs/kitemarket/commands" },
+                { text: "市场插件对比", link: "/docs/kitemarket/comparison" },
             ]
         },
         {
@@ -55,6 +56,7 @@ export default {
                 { text: "Trading & Item Conditions", link: "/en/docs/kitemarket/trading" },
                 { text: "Shared Wallet & Transfers", link: "/en/docs/kitemarket/wallet" },
                 { text: "Commands & Permissions", link: "/en/docs/kitemarket/commands" },
+                { text: "Market Plugin Comparison", link: "/en/docs/kitemarket/comparison" },
             ]
         },
         {

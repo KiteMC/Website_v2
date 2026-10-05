@@ -31,7 +31,7 @@ hero:
 <ProductGrid :cols="2">
   <ProductCard
     title="KiteMarket"
-    description="Advanced buy orders, fixed-price sales, public auctions and shared wallets. Complete vanilla GUI, extensible IA themes; USD 19.99 one-time purchase"
+    description="Advanced buy orders, fixed-price sales, public auctions and shared wallets. Complete vanilla GUI, extensible IA themes; USD 9.99 one-time purchase"
     image="/images/kitemarket/kitemarket-icon-128.png"
     href="./docs/kitemarket/"
     link-text="Product & release status"

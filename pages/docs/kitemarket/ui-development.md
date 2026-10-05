@@ -28,6 +28,31 @@ tasks.withType<JavaCompile>().configureEach {
 }
 ```
 
+### 使用 GitHub Packages
+
+界面 SDK 的坐标为 `com.kitemc:kitemarket-ui-api:1.0.0`。对应版本上传后，可在同一个 GitHub Packages 仓库引用；仓库地址、用户级凭据和 `read:packages` classic PAT 认证步骤见[市场 API 的 Packages 配置](./api#github-packages)。公开包也需认证，不要把 Token 写入项目。引用前确认公开仓库的 Packages 列表有该版本，本说明不代表包已上线。
+
+Gradle 在上述仓库配置下，将文件依赖替换为：
+
+```kotlin
+dependencies {
+    compileOnly("com.kitemc:kitemarket-ui-api:1.0.0")
+}
+```
+
+Maven 使用相同的 `github-kitemarket` 仓库与 `settings.xml` 凭据，并添加：
+
+```xml
+<dependency>
+  <groupId>com.kitemc</groupId>
+  <artifactId>kitemarket-ui-api</artifactId>
+  <version>1.0.0</version>
+  <scope>provided</scope>
+</dependency>
+```
+
+继续保留 Paper／Bukkit 和 IA API 的编译依赖及各自仓库；Packages 不包含厂商运行插件。两个 SDK 仍为 Java 11，真实 IA 示例适配代码仍为 Java 21。也可从 [GitHub Releases](https://github.com/KiteMC/KiteMarket/releases)直接取得 SDK JAR，使用原有 `compileOnly(files(...))`，无需 Packages Token。两种方式都不能打包、shade 或重定位 SDK。
+
 ## 玩家选择与服务器默认值
 
 玩家使用 `/km ui` 查看请求偏好、实际界面、主题和回退原因。指定后端及可选主题使用：

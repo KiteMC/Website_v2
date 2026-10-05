@@ -28,6 +28,31 @@ tasks.withType<JavaCompile>().configureEach {
 }
 ```
 
+### Using GitHub Packages
+
+The UI SDK coordinates are `com.kitemc:kitemarket-ui-api:1.0.0`. Once that version is uploaded, reference it from the same GitHub Packages registry. See the [market API Packages configuration](./api#github-packages) for the registry, user-level credentials and classic PAT with `read:packages`. Public packages still require authentication; never put tokens in the project. Confirm the version in the repository's Packages list first: this guide does not claim the package is already available.
+
+With that Gradle registry configuration, replace the file dependency with:
+
+```kotlin
+dependencies {
+    compileOnly("com.kitemc:kitemarket-ui-api:1.0.0")
+}
+```
+
+For Maven, use the same `github-kitemarket` registry and `settings.xml` credentials, then add:
+
+```xml
+<dependency>
+  <groupId>com.kitemc</groupId>
+  <artifactId>kitemarket-ui-api</artifactId>
+  <version>1.0.0</version>
+  <scope>provided</scope>
+</dependency>
+```
+
+Retain the Paper/Bukkit and IA API compile dependencies and their own registries. Packages do not contain vendor runtime plugins. Both SDKs remain Java 11; the real IA adapter example remains Java 21. You can also download the SDK JAR directly from [GitHub Releases](https://github.com/KiteMC/KiteMarket/releases) and use `compileOnly(files(...))` without a Packages Token. Neither approach allows bundling, shading or relocating the SDK.
+
 ## Player selection and server defaults
 
 `/km ui` displays the requested preference, actual interface, theme, and fallback reason. Select a backend and optional theme with:

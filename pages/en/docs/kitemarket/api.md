@@ -9,7 +9,11 @@ description: Independent Java 11/MIT read-only market SDK with immutable DTOs, a
 
 ## Reference the SDK
 
-Obtain the matching `KiteMarket-API-1.0.0.jar` and put it in your project's `libs/`. The public [KiteMC/KiteMarket](https://github.com/KiteMC/KiteMarket) repository provides interface sources, Javadoc and runnable examples without requiring a GitHub Packages Token.
+Use GitHub Releases files or published Maven coordinates on GitHub Packages. Both provide the same public SDK without the proprietary trading core.
+
+### GitHub Releases
+
+Obtain the matching `KiteMarket-API-1.0.0.jar` and put it in your project's `libs/`. The public [KiteMC/KiteMarket](https://github.com/KiteMC/KiteMarket) repository provides interface sources, Javadoc and runnable examples. Direct Release-file downloads do not require a Packages Token.
 
 ```kotlin
 dependencies {
@@ -20,6 +24,83 @@ tasks.withType<JavaCompile>().configureEach {
     options.release.set(11)
 }
 ```
+
+### GitHub Packages
+
+| SDK | Maven coordinates |
+|---|---|
+| Read-only market API | `com.kitemc:kitemarket-api:1.0.0` |
+| UI SDK | `com.kitemc:kitemarket-ui-api:1.0.0` |
+
+The registry is `https://maven.pkg.github.com/kitemc/KiteMarket`. The release workflow uploads both SDKs, sources, Javadoc and POM files after the corresponding stable release. Check the [public repository](https://github.com/KiteMC/KiteMarket)'s Packages list for the version before using it. The configuration below does not mean the version has already been uploaded. Runtime plugins, examples and language/configuration bundles remain on GitHub Releases.
+
+GitHub's Maven/Gradle registry requires authentication even for public packages. Locally, use a **personal access token (classic)** with `read:packages` and your GitHub username. Read-only downloads do not need `write:packages`. Store credentials in the user-level `~/.gradle/gradle.properties`, never in project files or Git:
+
+```properties
+gpr.user=YOUR_GITHUB_USERNAME
+gpr.key=YOUR_CLASSIC_PAT_WITH_READ_PACKAGES
+```
+
+Gradle Kotlin DSL:
+
+```kotlin
+repositories {
+    maven {
+        name = "GitHubKiteMarket"
+        url = uri("https://maven.pkg.github.com/kitemc/KiteMarket")
+        credentials {
+            username = providers.gradleProperty("gpr.user")
+                .orElse(providers.environmentVariable("GITHUB_ACTOR")).orNull
+            password = providers.gradleProperty("gpr.key")
+                .orElse(providers.environmentVariable("GITHUB_TOKEN")).orNull
+        }
+        content {
+            includeModule("com.kitemc", "kitemarket-api")
+            includeModule("com.kitemc", "kitemarket-ui-api")
+        }
+    }
+}
+dependencies {
+    compileOnly("com.kitemc:kitemarket-api:1.0.0")
+}
+```
+
+Alternatively, provide the same download credentials through `GITHUB_ACTOR`/`GITHUB_TOKEN` environment variables. Retain the project's existing Paper/Bukkit compile dependency and registry.
+
+In a Maven project's `pom.xml`, add the registry and dependency:
+
+```xml
+<repositories>
+  <repository>
+    <id>github-kitemarket</id>
+    <url>https://maven.pkg.github.com/kitemc/KiteMarket</url>
+  </repository>
+</repositories>
+<dependencies>
+  <dependency>
+    <groupId>com.kitemc</groupId>
+    <artifactId>kitemarket-api</artifactId>
+    <version>1.0.0</version>
+    <scope>provided</scope>
+  </dependency>
+</dependencies>
+```
+
+Add a matching server in the user-level `~/.m2/settings.xml`, reading credentials from environment variables. If the file exists, merge only the `server` entry:
+
+```xml
+<settings>
+  <servers>
+    <server>
+      <id>github-kitemarket</id>
+      <username>${env.GITHUB_ACTOR}</username>
+      <password>${env.GITHUB_TOKEN}</password>
+    </server>
+  </servers>
+</settings>
+```
+
+For `401`/`403`, check the token type, scopes, expiry and username. For `404`, also check the coordinates and whether the version is published. If you cannot use Packages authentication, download the JAR from [GitHub Releases](https://github.com/KiteMC/KiteMarket/releases) and retain `compileOnly(files(...))`. GitHub's [Gradle](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry) and [Maven](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry) documentation defines registry authentication.
 
 Add `depend: [KiteMarket]` to `plugin.yml`. If your plugin also works without the market, use `softdepend`, but load classes referencing the API only after confirming the host exists.
 

@@ -9,7 +9,11 @@ description: Java 11、MIT 的独立只读市场 SDK：查询、不可变 DTO、
 
 ## 引用 SDK
 
-从对应版本获取 `KiteMarket-API-1.0.0.jar`，放入自己项目的 `libs/`。公开仓库 [KiteMC/KiteMarket](https://github.com/KiteMC/KiteMarket)提供接口源码、Javadoc 与可运行示例；不要求 GitHub Packages Token。
+可以使用 GitHub Releases 文件，也可以通过 GitHub Packages 引用已发布的 Maven 坐标。两者提供同一套公开 SDK，不包含闭源交易核心。
+
+### GitHub Releases
+
+从对应版本获取 `KiteMarket-API-1.0.0.jar`，放入自己项目的 `libs/`。公开仓库 [KiteMC/KiteMarket](https://github.com/KiteMC/KiteMarket)提供接口源码、Javadoc 与可运行示例；直接下载 Release 文件不需要 Packages Token。
 
 ```kotlin
 dependencies {
@@ -20,6 +24,83 @@ tasks.withType<JavaCompile>().configureEach {
     options.release.set(11)
 }
 ```
+
+### GitHub Packages
+
+| SDK | Maven 坐标 |
+|---|---|
+| 只读市场 API | `com.kitemc:kitemarket-api:1.0.0` |
+| 界面 SDK | `com.kitemc:kitemarket-ui-api:1.0.0` |
+
+仓库地址为 `https://maven.pkg.github.com/kitemc/KiteMarket`。对应正式版本发布后，由发行流程上传两个 SDK、sources、Javadoc 和 POM；引用前先确认[公开仓库](https://github.com/KiteMC/KiteMarket)的 Packages 列表已包含所需版本。下面是引用配置，不表示版本已经上传；运行插件、示例和语言／配置包继续从 GitHub Releases 获取。
+
+GitHub 的 Maven／Gradle 仓库即使包是公开的，也要求下载认证。本地使用具有 `read:packages` 的 **personal access token (classic)**，用户名为你的 GitHub 用户名；只读下载不需要 `write:packages`。将用户名与 Token 放到用户级 `~/.gradle/gradle.properties`，不要写入项目或提交到 Git：
+
+```properties
+gpr.user=YOUR_GITHUB_USERNAME
+gpr.key=YOUR_CLASSIC_PAT_WITH_READ_PACKAGES
+```
+
+Gradle Kotlin DSL：
+
+```kotlin
+repositories {
+    maven {
+        name = "GitHubKiteMarket"
+        url = uri("https://maven.pkg.github.com/kitemc/KiteMarket")
+        credentials {
+            username = providers.gradleProperty("gpr.user")
+                .orElse(providers.environmentVariable("GITHUB_ACTOR")).orNull
+            password = providers.gradleProperty("gpr.key")
+                .orElse(providers.environmentVariable("GITHUB_TOKEN")).orNull
+        }
+        content {
+            includeModule("com.kitemc", "kitemarket-api")
+            includeModule("com.kitemc", "kitemarket-ui-api")
+        }
+    }
+}
+dependencies {
+    compileOnly("com.kitemc:kitemarket-api:1.0.0")
+}
+```
+
+也可使用 `GITHUB_ACTOR`／`GITHUB_TOKEN` 环境变量提供同一组下载凭据。仍需保留项目原有的 Paper／Bukkit 编译依赖及其仓库。
+
+Maven 项目的 `pom.xml` 增加以下仓库和依赖：
+
+```xml
+<repositories>
+  <repository>
+    <id>github-kitemarket</id>
+    <url>https://maven.pkg.github.com/kitemc/KiteMarket</url>
+  </repository>
+</repositories>
+<dependencies>
+  <dependency>
+    <groupId>com.kitemc</groupId>
+    <artifactId>kitemarket-api</artifactId>
+    <version>1.0.0</version>
+    <scope>provided</scope>
+  </dependency>
+</dependencies>
+```
+
+在用户级 `~/.m2/settings.xml` 配置同名服务器，凭据从环境变量读取；如果文件已存在，只合并 `server` 条目：
+
+```xml
+<settings>
+  <servers>
+    <server>
+      <id>github-kitemarket</id>
+      <username>${env.GITHUB_ACTOR}</username>
+      <password>${env.GITHUB_TOKEN}</password>
+    </server>
+  </servers>
+</settings>
+```
+
+`401`／`403` 先检查 Token 类型、权限、有效期与用户名；`404` 还需检查坐标和该版本是否已发布。无法使用 Packages 认证时，可继续从 [GitHub Releases](https://github.com/KiteMC/KiteMarket/releases)下载 JAR 并用 `compileOnly(files(...))`。认证规则以 GitHub 的 [Gradle](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-gradle-registry)与 [Maven](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry)文档为准。
 
 `plugin.yml` 添加 `depend: [KiteMarket]`。若你的插件没有市场也能运行，可使用 `softdepend`，但仅在确认主插件存在后加载引用 API 的适配类，避免缺失类错误。
 

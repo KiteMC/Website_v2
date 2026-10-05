@@ -1,6 +1,6 @@
 # Installation and configuration
 
-This guide covers the `1.0.0` configuration. Runtime downloads are pending; see [release status](./download). Once a production download is available, follow these steps without obtaining proprietary source or building the plugin yourself.
+This guide covers the `1.0.0` configuration. Choose a matching runtime on the [download page](./download), then follow these steps without obtaining proprietary source or building the plugin yourself.
 
 ## 1. Prepare the environment
 
@@ -89,7 +89,7 @@ Production defaults provide the product and trust information below. Server owne
 | `license.product-id` | `57ef7c59-7c76-4192-abeb-4c4d7ac0a00f` |
 | `license.public-key` | Bundled KiteMC production RSA public key, retaining the existing trust system |
 
-Retain these values and supply your own key; never substitute a product name or private key. The client appends `/api/v2/license/activate` or `/api/v2/license/heartbeat` to the service root. Remote endpoints require HTTPS and first activation requires online verification. Sales for this product are not open yet.
+Retain these values and supply your own key; never substitute a product name or private key. The client appends `/api/v2/license/activate` or `/api/v2/license/heartbeat` to the service root. Remote endpoints require HTTPS and first activation requires online verification. Purchase a license on the [product page](https://license.kitemc.com/en/products/kitemarket), then find the key under [your licenses](https://license.kitemc.com/en/dashboard/licenses).
 
 ## 5. Restart and check the deployment
 
@@ -249,7 +249,7 @@ The default is `true`. Alternatively, set the global `enabled` value to `false` 
 
 ## 8. Runtime, configuration and SDKs
 
-Choose **one** matching Legacy, Modern or Current JAR on the [download page](./download). Initial filenames are `KiteMarket-legacy-1.0.0.jar`, `KiteMarket-modern-1.0.0.jar` and `KiteMarket-current-1.0.0.jar`. API, sources and Javadoc JARs are not server plugins. Runtime release downloads are still pending; candidates are not offered as production builds.
+Choose **one** matching Legacy, Modern or Current JAR on the [download page](./download). The `1.0.0` filenames are `KiteMarket-legacy-1.0.0.jar`, `KiteMarket-modern-1.0.0.jar` and `KiteMarket-current-1.0.0.jar`. API, sources and Javadoc JARs are not server plugins.
 
 Chinese and English configuration packages are labeled `zh_CN` and `en_US`. Retain their production product ID, license endpoint and trusted public key, filling in your license, database and economy configuration. Back up and merge changes into an existing configuration rather than overwriting its network, database or currency identity.
 

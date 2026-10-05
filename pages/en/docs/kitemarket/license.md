@@ -2,11 +2,16 @@
 
 One KiteMarket license binds to one market network with no limit on that network's server nodes. It is not a separate license per subserver, and unrelated markets may not reuse a binding.
 
-::: info Release preparation
-The complete product is **CNY 68 / USD 9.99 as a one-time purchase**, including base-plugin updates and issue support while maintained. Perpetual maintenance is not promised. Third-party economy plugins, ItemsAdder and resources are not included. Runtime downloads and sales are not open yet; see [release status](./download).
+::: info One-time license
+The complete product is **CNY 68 / USD 9.99 as a one-time purchase**, including base-plugin updates and issue support while maintained. Perpetual maintenance is not promised. Third-party economy plugins, ItemsAdder and resources are not included. See [downloads](./download) for runtime and configuration files.
 :::
 
-Once sales open, purchase through the [KiteMC License Center](https://license.kitemc.com/en/products/kitemarket). Your key appears under [your licenses](https://license.kitemc.com/en/dashboard/licenses). **Each independent purchase creates an independent license** instead of merging existing markets.
+Purchase through the [KiteMC License Center](https://license.kitemc.com/en/products/kitemarket), then find your key under [your licenses](https://license.kitemc.com/en/dashboard/licenses). **Each independent purchase creates an independent license** instead of merging existing markets.
+
+<ButtonGroup>
+  <ActionButton href="https://license.kitemc.com/en/products/kitemarket" text="Buy a License" theme="brand" icon="cart" :external="true" />
+  <ActionButton href="https://license.kitemc.com/en/dashboard/licenses" text="Manage Licenses" theme="alt" icon="shield" :external="true" />
+</ButtonGroup>
 
 A network uses the persistent UUID in its shared database, with no per-subserver-port fee. Copying configuration into another independent database does not make it the same licensed network. Production configuration supplies the correct product ID, endpoint and production signing public key; fill in your own license key. The public key is not a license key.
 

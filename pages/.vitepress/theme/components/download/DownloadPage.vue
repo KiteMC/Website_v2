@@ -260,7 +260,8 @@ onMounted(() => {
     </div>
 
     <div v-else-if="!latestRelease && allReleases.length === 0" class="empty-state">
-      <p>{{ language === 'zh' ? '暂未发布版本。请关注公开仓库中的发行安排。' : 'No release has been published yet. Follow the public repository for release updates.' }}</p>
+      <p v-if="assetProfile === 'kitemarket'">{{ language === 'zh' ? '暂无可下载版本。' : 'No downloadable versions available.' }}</p>
+      <p v-else>{{ language === 'zh' ? '暂未发布版本。请关注公开仓库中的发行安排。' : 'No release has been published yet. Follow the public repository for release updates.' }}</p>
       <a :href="`https://github.com/${owner}/${repo}`" target="_blank" rel="noopener">{{ t.viewOnGitHub }}</a>
     </div>
 

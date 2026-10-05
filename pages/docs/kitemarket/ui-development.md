@@ -3,7 +3,7 @@
 KiteMarket 提供**完整原版 GUI＋ItemsAdder v4 兼容**。第三方开发者可以自由制作、修改、自用、分发或独立销售自己的配置／Java 界面，**无需额外的 KiteMC 主题授权**。公开 SDK 与示例采用独立 MIT 许可，基础插件不内置 IA 主题资源。
 
 ::: info 版本与获取
-本页对应 `1.0.0` 的公开 UI SDK，插件运行包目前待发布。接口源码和示例通过[公开仓库](https://github.com/KiteMC/KiteMarket)提供，文件名与发行安排见[下载页](./download)。固定 Paper1.21.11／Java21／ItemsAdder4.0.16组合已有自有配置主题与 Java 市场示例的真实打开记录，具体范围见[兼容说明](./compatibility)，不推及其他版本或 Folia。
+本页对应 `1.0.0` 的公开 UI SDK。接口源码和示例通过[公开仓库](https://github.com/KiteMC/KiteMarket)提供，运行包、SDK 和示例文件名见[下载页](./download)。固定 Paper1.21.11／Java21／ItemsAdder4.0.16组合已有自有配置主题与 Java 市场示例的真实打开记录，具体范围见[兼容说明](./compatibility)，不推及其他版本或 Folia。
 :::
 
 ## 快速开始
@@ -104,7 +104,7 @@ IA 适配者在玩家调度上下文调用只读 `api.itemsAdderUnavailable(play
 
 IA 适配器先填充 `TexturedInventoryWrapper.getInternal()` 返回的受保护库存，登记新 holder、动作和回调，再调用公开 `showInventory(player)` 呈现字体标题。只用 Bukkit 打开内部库存会显示 IA 占位标题。保留这一步骤顺序及整窗保护，旧页关闭事件才能与新页分开处理。
 
-发行时 `KiteMarket-Examples-1.0.0.zip` 汇总查询例与 IA 例，包含可运行 JAR、主题、MIT 自有资源、双语说明及源码／构建文件。将 IA 示例 JAR 放入 `plugins/`、`theme.yml` 放到 `plugins/KiteMarket/themes/example-ia-java.yml`、`itemsadder/` 内容放到 `plugins/ItemsAdder/contents/km_example/`；按实际 IA 指南重建和下发，登记真实包身份后通过 `/km ui itemsadder example-ia-java` 选择主题。运行包未发布时可先阅读公开示例源码，不把编译成功当作真实市场已经运行。更新、旧关闭、重复点击和聊天输入继续遵循共用保护。
+`KiteMarket-Examples-1.0.0.zip` 示例包汇总查询例与 IA 例，包含可运行 JAR、主题、MIT 自有资源、双语说明及源码／构建文件。将 IA 示例 JAR 放入 `plugins/`、`theme.yml` 放到 `plugins/KiteMarket/themes/example-ia-java.yml`、`itemsadder/` 内容放到 `plugins/ItemsAdder/contents/km_example/`；按实际 IA 指南重建和下发，登记真实包身份后通过 `/km ui itemsadder example-ia-java` 选择主题。更新、旧关闭、重复点击和聊天输入继续遵循共用保护。
 
 配置主题及 Java 示例中标记为 MIT 的源码与资源可以修改并用于商业界面，无需额外的 KiteMC 主题授权。其他主题遵循各自许可。白框配置与 Java 示例的真实发布页已在[代表组合](./compatibility)打开，这项记录不认证其他资源包或全部页面；源码、编译和注册成功也不替代实际客户端验证。
 

@@ -3,7 +3,7 @@
 KiteMarket provides **the complete vanilla GUI plus ItemsAdder v4 compatibility**. Third-party developers may freely create, modify, use, distribute or independently sell their own configuration or Java interfaces **without an additional KiteMC theme license**. Public SDKs and examples have independent MIT licenses; IA theme resources are not bundled.
 
 ::: info Version and downloads
-This page covers the `1.0.0` public UI SDK. Runtime downloads are pending. Interface source and examples are available through the [public repository](https://github.com/KiteMC/KiteMarket); see [downloads](./download) for filenames and release status. The pinned Paper 1.21.11 / Java 21 / ItemsAdder 4.0.16 combination has real openings of community configuration and Java examples; the [recorded scope](./compatibility) does not certify other versions or Folia.
+This page covers the `1.0.0` public UI SDK. Interface source and examples are available through the [public repository](https://github.com/KiteMC/KiteMarket); see [downloads](./download) for runtime, SDK and example filenames. The pinned Paper 1.21.11 / Java 21 / ItemsAdder 4.0.16 combination has real openings of community configuration and Java examples; the [recorded scope](./compatibility) does not certify other versions or Folia.
 :::
 
 ## Quick start
@@ -104,7 +104,7 @@ Public `examples/ui/` contains the minimal white-frame configuration theme, and 
 
 The IA adapter fills the protected inventory returned by `TexturedInventoryWrapper.getInternal()`, registers the replacement holder, actions and callbacks, then calls the public `showInventory(player)` to display the font title. Opening only the internal inventory through Bukkit leaves IA's placeholder title. Retain this order and whole-view protection so a previous close is handled separately from the new page.
 
-The release's `KiteMarket-Examples-1.0.0.zip` combines query and IA examples, including runnable JARs, themes, MIT resources, bilingual instructions and source/build files. Install the IA example JAR, place `theme.yml` in `plugins/KiteMarket/themes/example-ia-java.yml`, and copy `itemsadder/` into `plugins/ItemsAdder/contents/km_example/`. Rebuild/send the pack using the installed IA instructions, register its identity and select `/km ui itemsadder example-ia-java`. Before the runtime release, read the public source without treating successful compilation as a running market. Updates, stale closes, repeated clicks and chat input retain the shared safeguards.
+The `KiteMarket-Examples-1.0.0.zip` example bundle combines query and IA examples, including runnable JARs, themes, MIT resources, bilingual instructions and source/build files. Install the IA example JAR, place `theme.yml` in `plugins/KiteMarket/themes/example-ia-java.yml`, and copy `itemsadder/` into `plugins/ItemsAdder/contents/km_example/`. Rebuild/send the pack using the installed IA instructions, register its identity and select `/km ui itemsadder example-ia-java`. Updates, stale closes, repeated clicks and chat input retain the shared safeguards.
 
 Source and resources identified as MIT in the configuration and Java examples may be modified for commercial interfaces without an additional KiteMC theme license. Other themes retain their own licenses. The examples' real publishing pages have been opened on the [representative environment](./compatibility); this record does not certify other packs or every page. Source, compilation and registration do not replace actual client verification.
 

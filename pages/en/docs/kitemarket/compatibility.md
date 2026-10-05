@@ -1,6 +1,6 @@
 # Versions and certification
 
-This page separates `1.0.0` target coverage from existing real verification records. Runtime downloads are pending; see [downloads](./download). Combinations without a complete report remain **not fully verified**. Each record applies only to its listed artifacts and scenarios, not other JARs, game versions or economy backends.
+This page separates `1.0.0` target coverage from existing real verification records. See [downloads](./download) to choose a runtime. Combinations without a complete report remain **not fully verified**. Each record applies only to its listed artifacts and scenarios, not other JARs, game versions or economy backends.
 
 | Component | Target or constraint | Status |
 |---|---|---|
@@ -46,7 +46,7 @@ ProtocolLib's movable `dev-build` tag cannot identify a future same-named downlo
 
 Record the server distribution and build, Java, KiteMarket build, database version, economy plugins, and currency settings. Validate all three trading modes, concurrency, transfers, claims, restart recovery, and license exit behavior. A successful compile or startup is insufficient.
 
-The download page identifies exact filenames in actual public Releases rather than selecting the first JAR. After runtime publication, verify the artifact's SHA-256. API, sources and Javadoc files are not server plugins.
+The download page identifies exact filenames in actual public Releases rather than selecting the first JAR. After downloading, verify the artifact's SHA-256. API, sources and Javadoc files are not server plugins.
 
 ## Distribution ranges and historical evidence
 

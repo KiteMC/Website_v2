@@ -15,17 +15,13 @@ hero:
       text: Download
       link: ./download
     - theme: alt
-      text: License & Pricing
-      link: ./license
+      text: Buy a License
+      link: https://license.kitemc.com/en/products/kitemarket
 head:
   - - meta
     - property: og:image
       content: https://kitemc.com/images/kitemarket/kitemarket-icon-512.png
 ---
-
-::: info Downloads and purchasing
-**1.0.0 runtime downloads and sales are not open yet.** The one-time price is **CNY 68 / USD 9.99**. SDK and example sources are public; see the [download page](./download) for available releases.
-:::
 
 <FeatureGrid :cols="3">
   <FeatureBox icon="cart" title="Advanced buy orders" description="Reserve the full budget and accept materials, enchantments, durability, name/lore or an exact sample. Multiple players can partially fulfill an order." />
@@ -56,7 +52,7 @@ ItemsAdder v4 compatibility is a base capability. Install your own or a third-pa
 
 ## CNY 68 / USD 9.99 for the complete product
 
-One license binds to one independent market network with **no node-count limit**. Separate purchases create separate licenses rather than merging networks. Purchase through the KiteMC License Center once sales open.
+One license binds to one independent market network with **no node-count limit**. Separate purchases create separate licenses rather than merging networks. Purchase through the [KiteMC License Center](https://license.kitemc.com/en/products/kitemarket), and use the [download page](./download) for runtimes, SDKs, examples and configuration.
 
 The one-time purchase includes base-plugin updates and issue support while maintained. **Perpetual maintenance service is not promised.** Third-party economy plugins, ItemsAdder and resource packs are sold separately by their providers. Query SDKs and examples have independent MIT licenses; the core implementation remains closed source. See [network licensing](./license).
 
@@ -83,6 +79,6 @@ Standard bStats basic metrics (ID **34434**) are enabled by default and can be d
 
 <ButtonGroup>
   <ActionButton href="./download" text="Downloads & Versions" theme="brand" icon="download" />
-  <ActionButton href="./license" text="License & Pricing" theme="alt" icon="cart" />
+  <ActionButton href="https://license.kitemc.com/en/products/kitemarket" text="Buy a License" theme="alt" icon="cart" :external="true" />
   <ActionButton href="https://github.com/KiteMC/KiteMarket" text="GitHub Repository" theme="alt" icon="external" :external="true" />
 </ButtonGroup>

@@ -5,7 +5,7 @@ description: Java 11、MIT 的独立只读市场 SDK：查询、不可变 DTO、
 
 # 市场 API 入门
 
-`KiteMarket-API` 是独立的 Java 11／MIT SDK，不依赖闭源 `market-core`。它用于只读查询和成交后通知，不提供交易写入口。`1.0.0` 运行包目前待发布；公开接口与示例的获取方式见[下载页](./download)。
+`KiteMarket-API` 是独立的 Java 11／MIT SDK，不依赖闭源 `market-core`。它用于只读查询和成交后通知，不提供交易写入口。运行包、公开接口与示例的获取方式见[下载页](./download)。
 
 ## 引用 SDK
 

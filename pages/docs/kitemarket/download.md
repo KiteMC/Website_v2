@@ -13,12 +13,9 @@ import ProductDownloadLayout from '@theme/components/download/ProductDownloadLay
 <ButtonGroup>
   <ActionButton href="./guide" text="安装指南" theme="brand" icon="arrow" />
   <ActionButton href="./api" text="市场 API" theme="alt" icon="arrow" />
+  <ActionButton href="https://license.kitemc.com/products/kitemarket" text="购买许可证" theme="alt" icon="cart" :external="true" />
   <ActionButton href="https://github.com/KiteMC/KiteMarket/releases" text="GitHub Releases" theme="alt" icon="external" :external="true" />
 </ButtonGroup>
-
-::: info 当前状态
-**1.0.0 运行包暂未发布，购买暂未开放。** 公开仓库已提供开发接口、示例源码、文档和 Issues，核心源码保持私有。
-:::
 
 全部发行文件由 [KiteMC/KiteMarket](https://github.com/KiteMC/KiteMarket) 的 GitHub Releases 提供，使用 GitHub 直接下载，不要求 GitHub Packages Token。下方仅展示已经公开的版本；没有 Release 时不会显示占位下载。
 
@@ -54,7 +51,7 @@ import ProductDownloadLayout from '@theme/components/download/ProductDownloadLay
 
 ## 配置与校验
 
-GitHub Release 同时提供 `KiteMarket-config-zh_CN-1.0.0.zip`、`KiteMarket-config-en_US-1.0.0.zip` 和 `SHA256SUMS.txt`。配置包含正式产品信息与可信公钥；仅填写自己的许可证、数据库和实际经济后端。
+配置与校验文件使用 `KiteMarket-config-zh_CN-1.0.0.zip`、`KiteMarket-config-en_US-1.0.0.zip` 和 `SHA256SUMS.txt`，与对应版本一起列在 GitHub Release 中。配置包含正式产品信息与可信公钥；仅填写自己的许可证、数据库和实际经济后端。
 
 下载后按校验文件核对 SHA-256，例如：
 

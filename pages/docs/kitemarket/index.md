@@ -15,17 +15,13 @@ hero:
       text: 下载
       link: ./download
     - theme: alt
-      text: 授权与价格
-      link: ./license
+      text: 购买许可证
+      link: https://license.kitemc.com/products/kitemarket
 head:
   - - meta
     - property: og:image
       content: https://kitemc.com/images/kitemarket/kitemarket-icon-512.png
 ---
-
-::: info 下载与购买
-**1.0.0 运行包及购买暂未开放。** 价格为 **¥68 / USD 9.99 买断**；开发接口与示例源码已公开，实际发行状态见[下载页](./download)。
-:::
 
 <FeatureGrid :cols="3">
   <FeatureBox icon="cart" title="高级收购" description="先冻结预算，按材料、附魔、耐久、名称与 Lore 或精确样品收货；支持多人部分供货。" />
@@ -56,7 +52,7 @@ ItemsAdder v4 兼容属于基础能力。安装自有或第三方主题后，即
 
 ## ¥68 / USD 9.99，买断完整功能
 
-一个许可证绑定一个独立市场网络，**网络内不限节点**。独立购买产生独立许可证，不自动合并网络。开放销售后通过 KiteMC 许可证中心购买。
+一个许可证绑定一个独立市场网络，**网络内不限节点**。独立购买产生独立许可证，不自动合并网络。通过 [KiteMC 许可证中心](https://license.kitemc.com/products/kitemarket)购买，运行包、SDK、示例和配置统一从[下载页](./download)获取。
 
 买断包含基础插件更新；维护期间提供问题支持，**不承诺永久维护服务**。第三方经济插件、ItemsAdder 和资源包不包含在价格中。查询 SDK 与示例采用独立 MIT 许可，核心实现保持闭源。授权说明见[网络授权](./license)。
 
@@ -83,6 +79,6 @@ MySQL 8 或 MariaDB 10.11 是市场权威账本；每种货币使用固定精度
 
 <ButtonGroup>
   <ActionButton href="./download" text="下载与版本" theme="brand" icon="download" />
-  <ActionButton href="./license" text="授权与价格" theme="alt" icon="cart" />
+  <ActionButton href="https://license.kitemc.com/products/kitemarket" text="购买许可证" theme="alt" icon="cart" :external="true" />
   <ActionButton href="https://github.com/KiteMC/KiteMarket" text="GitHub 仓库" theme="alt" icon="external" :external="true" />
 </ButtonGroup>

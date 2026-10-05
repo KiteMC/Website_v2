@@ -5,7 +5,7 @@ description: Independent Java 11/MIT read-only market SDK with immutable DTOs, a
 
 # Market API quick start
 
-`KiteMarket-API` is an independent Java 11/MIT SDK without a dependency on the proprietary `market-core`. It exposes read-only queries and post-commit notifications, not transaction writes. The `1.0.0` runtime release is still pending; see [downloads](./download) for public interfaces and examples.
+`KiteMarket-API` is an independent Java 11/MIT SDK without a dependency on the proprietary `market-core`. It exposes read-only queries and post-commit notifications, not transaction writes. See [downloads](./download) for runtimes, public interfaces and examples.
 
 ## Reference the SDK
 

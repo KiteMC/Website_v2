@@ -13,12 +13,9 @@ import ProductDownloadLayout from '@theme/components/download/ProductDownloadLay
 <ButtonGroup>
   <ActionButton href="./guide" text="Installation Guide" theme="brand" icon="arrow" />
   <ActionButton href="./api" text="Market API" theme="alt" icon="arrow" />
+  <ActionButton href="https://license.kitemc.com/en/products/kitemarket" text="Buy a License" theme="alt" icon="cart" :external="true" />
   <ActionButton href="https://github.com/KiteMC/KiteMarket/releases" text="GitHub Releases" theme="alt" icon="external" :external="true" />
 </ButtonGroup>
-
-::: info Current status
-**1.0.0 runtime downloads and sales are not open yet.** The public repository provides interfaces, example sources, documentation and Issues; core source stays private.
-:::
 
 All release files come from [KiteMC/KiteMarket](https://github.com/KiteMC/KiteMarket) on GitHub Releases, using direct GitHub downloads without a GitHub Packages Token. Only public releases appear below; no placeholder download is offered when none exist.
 
@@ -54,7 +51,7 @@ Both SDKs target Java 11 with MIT licenses. Use `compileOnly`: **do not bundle o
 
 ## Configuration and integrity
 
-GitHub Releases also provide `KiteMarket-config-zh_CN-1.0.0.zip`, `KiteMarket-config-en_US-1.0.0.zip` and `SHA256SUMS.txt`. Configuration carries the product information and trusted public key. Fill in your own license, database and actual economy configuration.
+Configuration and verification files use the names `KiteMarket-config-zh_CN-1.0.0.zip`, `KiteMarket-config-en_US-1.0.0.zip` and `SHA256SUMS.txt`, listed with their corresponding version on GitHub Releases. Configuration carries the product information and trusted public key. Fill in your own license, database and actual economy configuration.
 
 Compare downloads against the SHA-256 file, for example:
 

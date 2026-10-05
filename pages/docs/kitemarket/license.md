@@ -2,11 +2,16 @@
 
 KiteMarket 使用网络授权：一份许可证绑定一个市场网络，不限制这个网络的服务器节点数量。它不是每个子服各买一份，也不允许不同市场冒用同一绑定。
 
-::: info 发行准备
-价格为 **¥68 / USD 9.99 买断完整功能**，包含基础插件更新和维护期间的问题支持，不承诺永久维护。第三方经济插件、ItemsAdder 和资源不包含在价格中。运行包和购买目前尚未开放，实际进度见[下载页](./download)。
+::: info 买断授权
+价格为 **¥68 / USD 9.99 买断完整功能**，包含基础插件更新和维护期间的问题支持，不承诺永久维护。第三方经济插件、ItemsAdder 和资源不包含在价格中。运行包与配置文件见[下载页](./download)。
 :::
 
-正式销售开放后通过[本站许可证中心](https://license.kitemc.com/products/kitemarket)购买。购买后在[许可证管理](https://license.kitemc.com/dashboard/licenses)查看密钥；**每次独立购买产生独立许可证**，不自动合并已有市场。
+通过[许可证中心](https://license.kitemc.com/products/kitemarket)购买后，在[许可证管理](https://license.kitemc.com/dashboard/licenses)查看密钥；**每次独立购买产生独立许可证**，不自动合并已有市场。
+
+<ButtonGroup>
+  <ActionButton href="https://license.kitemc.com/products/kitemarket" text="购买许可证" theme="brand" icon="cart" :external="true" />
+  <ActionButton href="https://license.kitemc.com/dashboard/licenses" text="管理许可证" theme="alt" icon="shield" :external="true" />
+</ButtonGroup>
 
 一个网络使用共享数据库中持久化的网络 UUID，不按子服端口收费。复制配置去创建另一套独立数据库不能使它自动成为同一授权网络。正式配置包含正确的产品 ID、端点和生产签名公钥，服主填写自己的许可证即可；公钥不是许可证密钥。
 

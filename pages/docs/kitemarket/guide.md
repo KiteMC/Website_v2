@@ -1,6 +1,6 @@
 # 安装与配置
 
-本指南对应 `1.0.0` 的配置。运行包目前待发布，发行安排见[下载页](./download)；正式下载开放后，按以下步骤安装，无需取得闭源源码或自行构建插件。
+本指南对应 `1.0.0` 的配置。从[下载页](./download)选择与服务器匹配的运行包，按以下步骤安装，无需取得闭源源码或自行构建插件。
 
 ## 1. 准备环境
 
@@ -89,7 +89,7 @@ license:
 | `license.product-id` | `57ef7c59-7c76-4192-abeb-4c4d7ac0a00f` |
 | `license.public-key` | 随配置提供的 KiteMC 生产 RSA 公钥，沿用现有信任体系 |
 
-保留默认值并填写自己的密钥；不要填写产品名或私钥。程序在服务根地址后追加 `/api/v2/license/activate` 或 `/api/v2/license/heartbeat`，远程端点要求 HTTPS。首次启动需要成功联网验证。此商品目前尚未开放销售。
+保留默认值并填写自己的密钥；不要填写产品名或私钥。程序在服务根地址后追加 `/api/v2/license/activate` 或 `/api/v2/license/heartbeat`，远程端点要求 HTTPS。首次启动需要成功联网验证。许可证可通过[商品页](https://license.kitemc.com/products/kitemarket)购买，并在[许可证管理](https://license.kitemc.com/dashboard/licenses)查看。
 
 ## 5. 重启与部署检查
 
@@ -249,7 +249,7 @@ metrics:
 
 ## 8. 运行包、配置与 SDK
 
-从[下载页](./download)选择与服务器匹配的**一份** Legacy、Modern 或 Current JAR。首发文件名为 `KiteMarket-legacy-1.0.0.jar`、`KiteMarket-modern-1.0.0.jar`、`KiteMarket-current-1.0.0.jar`；API、sources、Javadoc JAR 均不是服务器运行插件。目前运行包待发布，不提供候选包作为生产下载。
+从[下载页](./download)选择与服务器匹配的**一份** Legacy、Modern 或 Current JAR。`1.0.0` 文件名为 `KiteMarket-legacy-1.0.0.jar`、`KiteMarket-modern-1.0.0.jar`、`KiteMarket-current-1.0.0.jar`；API、sources、Javadoc JAR 均不是服务器运行插件。
 
 下载的中英文配置包按 `zh_CN`／`en_US` 区分，保留正式默认产品 ID、授权端点和可信公钥，只替换自己的许可证、数据库和经济配置。更新已有配置前先备份并逐项合并，不用整份示例覆盖自己的数据库、币种或网络信息。
 
